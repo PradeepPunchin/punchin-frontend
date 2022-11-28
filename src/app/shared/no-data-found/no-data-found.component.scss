@@ -1,0 +1,35 @@
+.error-msg-wrapper {
+    background-color: #131313;
+    padding: 20px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 12px;
+    width: 80%;
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: auto;
+        span {
+            color: red;
+            font-size: 80px;
+        }
+    }
+    h1 {
+        font-size: 22px;
+        line-height: 32px;
+        margin: 0;
+        font-weight: 600;
+        color: #ffffff;
+        text-align: center;
+    }
+    p {
+        font-size: 16px;
+        line-height: 26px;
+        margin: 0;
+        color: #ffffff;
+        text-align: center;
+    }
+}
