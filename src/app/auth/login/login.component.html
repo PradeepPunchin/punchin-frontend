@@ -51,7 +51,12 @@
                     </div>
                     <button type="submit" class="btn  btn-block login-btn login-fields"
                         [disabled]="loginForm.invalid || loginFormSubmitting">
-                        Login
+                        <ng-container *ngIf="loginFormSubmitting;else loginFormSubmittingDone">
+                            <i class="fa fa-spinner fa-spin"></i>Login....
+                        </ng-container>
+                        <ng-template #loginFormSubmittingDone>
+                            Login
+                        </ng-template>
                     </button>
                 </form>
             </div>

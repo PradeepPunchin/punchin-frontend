@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
+import { ROLES } from 'src/app/models/enums/index';
+import { SessionService } from 'src/app/services/session/session.service';
+
 
 @Component({
   selector: 'app-login',
@@ -19,6 +22,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private apiService: ApiService,
     private formBuilder: FormBuilder,
+    private sessionServive: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -32,8 +36,10 @@ export class LoginComponent implements OnInit {
     this.loginFormSubmitted = true
     if (this.loginForm.valid) {
       this.loginFormSubmitting = true;
+      this.router.navigate(['/pages']);
     }
     console.log(this.loginForm.value);
-    this.loginForm.reset();
+    // this.loginForm.reset();
+
   }
 }
