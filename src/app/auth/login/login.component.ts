@@ -10,7 +10,8 @@ import { NotifierService } from 'src/app/services/notifier/notifier.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginFormSubmitted = false;
+  loginFormSubmitted: boolean = false;
+  loginFormSubmitting: boolean = false
   loginForm!: FormGroup
 
 
@@ -18,19 +19,34 @@ export class LoginComponent implements OnInit {
     private notifierService: NotifierService,
     private router: Router,
     private apiService: ApiService,
-    private _FormBuilder: FormBuilder
-  ) { }
+    private _FormBuilder: FormBuilder,
+    private _NotifierService: NotifierService,
+
+  ) {
+    this.loginForm = this._FormBuilder.group({
+      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+[a-zA-Z0-9._]+@[a-zA-Z]+\.[a-zA-Z.]{2,5}$/)]],
+      password: ['', [Validators.required]]
+    })
+  }
 
   ngOnInit(): void {
 
-    this.loginForm = this._FormBuilder.group({
-      password: ["", [Validators.required]],
-      email: ['', [Validators.required]],
-    });
+
 
   }
 
-  loginFormSubmit() {
+  login() {
+    this.loginFormSubmitted = true
+    if (this.loginForm.valid) {
+      this.loginFormSubmitting = true;
+
+      let data = this.loginForm.getRawValue()
+      console.log(data);
+      this.loginForm.reset();
+    }
+
+
+
 
   }
 }

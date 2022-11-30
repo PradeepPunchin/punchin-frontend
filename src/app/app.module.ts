@@ -9,7 +9,6 @@ import { DefaultLayoutComponent } from './default-layout/default-layout.componen
 import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -25,8 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    ReactiveFormsModule,
-    FormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
