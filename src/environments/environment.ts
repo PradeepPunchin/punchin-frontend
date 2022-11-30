@@ -4,7 +4,7 @@
 
 export const environment = {
   api: {
-    baseApiRoot: `https://920f-122-161-83-240.in.ngrok.io/`,
+    baseApiRoot: ``,
   },
   production: false
 };

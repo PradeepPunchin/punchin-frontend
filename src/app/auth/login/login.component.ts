@@ -14,39 +14,26 @@ export class LoginComponent implements OnInit {
   loginFormSubmitting: boolean = false
   loginForm!: FormGroup
 
-
   constructor(
     private notifierService: NotifierService,
     private router: Router,
     private apiService: ApiService,
-    private _FormBuilder: FormBuilder,
-    private _NotifierService: NotifierService,
-
-  ) {
-    this.loginForm = this._FormBuilder.group({
-      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+[a-zA-Z0-9._]+@[a-zA-Z]+\.[a-zA-Z.]{2,5}$/)]],
-      password: ['', [Validators.required]]
-    })
-  }
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
-
-
-
+    this.loginForm = this.formBuilder.group({
+      userId: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    })
   }
 
   login() {
     this.loginFormSubmitted = true
     if (this.loginForm.valid) {
       this.loginFormSubmitting = true;
-
-      let data = this.loginForm.getRawValue()
-      console.log(data);
-      this.loginForm.reset();
     }
-
-
-
-
+    console.log(this.loginForm.value);
+    this.loginForm.reset();
   }
 }

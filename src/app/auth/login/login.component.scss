@@ -1,4 +1,5 @@
-@import "../../../variables";
+@import "../../../assets/css/variables";
+
 .main-container {
     height: 100vh;
 
@@ -36,15 +37,11 @@
                 line-height: 16px;
                 color: $labelColor;
             }
-            .username-icon {
-                width: 2.22vw;
-                height: 2.22vw;
+            .username-icon .lock-icon {
+                width: 2vw;
+                height: 2vw;
             }
 
-            .username-icon svg {
-                width: 2.22vw;
-                height: 2.22vw;
-            }
             small {
                 font-size: $fontSize12;
                 position: absolute;
@@ -98,7 +95,7 @@
     .inner-logo {
         position: absolute;
         top: 30%;
-        left: 47%;
+        left: 48%;
         overflow-x: hidden;
         width: 200px;
         height: 200px;
@@ -109,10 +106,6 @@
             width: 100%;
             height: 100%;
         }
-        // background: url("../../../assets/img/businessman-working-with-laptop-office.svg");
-        // background-repeat: no-repeat;
-        // background-size: cover;
-        // height: 100vh;
     }
 }
 
@@ -125,6 +118,7 @@
 @media screen and (max-width: 3000px) and (min-width: 1440px) {
     .main-container {
         .login-wrapper {
+            margin-top: 10vw;
             padding: 7.73vw 6.96vw 0 6.96vw;
             .logo_img {
                 margin-bottom: 2.32vw;
@@ -150,6 +144,10 @@
                     font-size: 0.92vw;
                     padding-top: 1.15vw !important;
                 }
+                .username-icon .lock-icon {
+                    width: 2.5vw;
+                    height: 2.5vw;
+                }
             }
 
             .login-input.new-inputs {
@@ -164,13 +162,12 @@
                 margin-top: 1.54vw;
             }
         }
-        .inner-logo[_ngcontent-rai-c55] {
+        .inner-logo {
             position: absolute;
-            top: 50%;
             left: 48.5%;
             overflow-x: hidden;
-            height: 15.47;
-            width: 15.47;
+            height: 15.47vw;
+            width: 15.47vw;
         }
     }
 }

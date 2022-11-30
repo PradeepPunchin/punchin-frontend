@@ -11,57 +11,27 @@
                     <div class="login-fields">
                         <div class="input-fieldBox">
                             <span class="username-icon">
-                                <svg width="32" height="33" viewBox="0 0 32 33" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <mask id="mask0_420_4084" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4"
-                                        y="4" width="24" height="25">
-                                        <rect x="4" y="4.5" width="24" height="24" fill="#D9D9D9" />
-                                    </mask>
-                                    <g mask="url(#mask0_420_4084)">
-                                        <path
-                                            d="M8.3 24C7.8 24 7.375 23.825 7.025 23.475C6.675 23.125 6.5 22.7 6.5 22.2V10.8C6.5 10.3 6.675 9.875 7.025 9.525C7.375 9.175 7.8 9 8.3 9H23.7C24.2 9 24.625 9.175 24.975 9.525C25.325 9.875 25.5 10.3 25.5 10.8V22.2C25.5 22.7 25.325 23.125 24.975 23.475C24.625 23.825 24.2 24 23.7 24H8.3ZM16 17.05L24 11.95L23.85 10.5L16 15.5L8.15 10.5L8 11.95L16 17.05Z"
-                                            fill="#3489C9" />
-                                    </g>
-                                </svg>
+                                <img src="assets/img/msg-Icon.svg" class="lock-icon">
                             </span>
                             <div class="w-100">
                                 <label for="" class="new-inputs-label mb-1">User Id</label>
-                                <input type="email" class="form-control login-input new-inputs" formControlName="email"
+                                <input type="text" class="form-control login-input new-inputs" formControlName="userId"
                                     placeholder="Enter your user id"
-                                    [ngClass]="{'error-border':loginForm.controls.email.invalid &&(loginFormSubmitted ||loginForm.controls.email.touched)}">
+                                    [ngClass]="{'error-border':loginForm.controls.userId.invalid &&(loginFormSubmitted ||loginForm.controls.userId.touched)}">
 
                                 <!-- validation -->
                                 <small class="text-danger"
-                                    *ngIf="loginForm.controls.email.invalid &&(loginFormSubmitted ||loginForm.controls.email.touched)">
-                                    <span *ngIf="loginForm.controls.email?.errors?.required">E-Mail is required</span>
-                                    <span
-                                        *ngIf="loginForm.controls.email.errors?.pattern && !loginForm.controls.email.errors?.required">Enter
-                                        Valid
-                                        Email</span>
+                                    *ngIf="loginForm.controls.userId.invalid &&(loginFormSubmitted ||loginForm.controls.userId.touched)">
+                                    <span *ngIf="loginForm.controls.userId?.errors?.required">UserId is required</span>
                                 </small>
-
                             </div>
-
-
-
                         </div>
                     </div>
 
                     <div class="login-fields">
                         <div class="input-fieldBox position-relative">
                             <span class="username-icon">
-                                <svg width="32" height="33" viewBox="0 0 32 33" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <mask id="mask0_420_3655" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4"
-                                        y="4" width="24" height="25">
-                                        <rect x="4" y="4.5" width="24" height="24" fill="#D9D9D9" />
-                                    </mask>
-                                    <g mask="url(#mask0_420_3655)">
-                                        <path
-                                            d="M11 18.925C11.6667 18.925 12.2377 18.6873 12.713 18.212C13.1877 17.7373 13.425 17.1667 13.425 16.5C13.425 15.8333 13.1877 15.2623 12.713 14.787C12.2377 14.3123 11.6667 14.075 11 14.075C10.3333 14.075 9.76233 14.3123 9.287 14.787C8.81233 15.2623 8.575 15.8333 8.575 16.5C8.575 17.1667 8.81233 17.7373 9.287 18.212C9.76233 18.6873 10.3333 18.925 11 18.925ZM11 21.875C9.5 21.875 8.22933 21.354 7.188 20.312C6.146 19.2707 5.625 18 5.625 16.5C5.625 15 6.146 13.7293 7.188 12.688C8.22933 11.646 9.5 11.125 11 11.125C12.2333 11.125 13.3127 11.4793 14.238 12.188C15.1627 12.896 15.7833 13.75 16.1 14.75H24.8L26.55 16.475L23.225 19.8L21.4 18.125L19.475 19.85L17.7 18.25H16.1C15.7667 19.3 15.1333 20.1667 14.2 20.85C13.2667 21.5333 12.2 21.875 11 21.875Z"
-                                            fill="#3489C9" />
-                                    </g>
-                                </svg>
+                                <img src="assets/img/lock-icon.svg" class="lock-icon">
                             </span>
                             <div class="w-100">
                                 <label for="" class="new-inputs-label mb-1">Password</label>
@@ -69,20 +39,18 @@
                                     formControlName="password" placeholder="Enter your password"
                                     autocomplete="new-password"
                                     [ngClass]="{'error-border':!!loginForm.controls.password?.invalid && (loginFormSubmitted || !!loginForm.controls?.password?.touched)}">
+
                                 <!-- validation -->
                                 <small class="text-danger"
                                     *ngIf="!!loginForm.controls.password?.invalid && (loginFormSubmitted || !!loginForm.controls?.password?.touched)">
                                     <span *ngIf="!!loginForm.controls.password?.errors?.required">Password is
                                         required.</span>
-
                                 </small>
-
                             </div>
-
                         </div>
                     </div>
-                    <!-- [disabled]="loginForm.invalid || loginFormSubmitting" -->
-                    <button type="submit" class="btn  btn-block login-btn login-fields">
+                    <button type="submit" class="btn  btn-block login-btn login-fields"
+                        [disabled]="loginForm.invalid || loginFormSubmitting">
                         Login
                     </button>
                 </form>
