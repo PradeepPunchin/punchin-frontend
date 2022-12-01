@@ -19,6 +19,13 @@
         }
         .login-fields {
             margin-bottom: 16px;
+
+            .eye-icon {
+                color: $icon-color;
+                position: absolute;
+                right: 6%;
+                bottom: 14px;
+            }
         }
         .input-fieldBox {
             width: 100%;
@@ -66,19 +73,6 @@
             border: none;
             box-shadow: none;
         }
-        // .eye.new-eye {
-        //     position: absolute;
-        //     right: 0.833vw;
-        //     top: 50%;
-        //     transform: translateY(-50%);
-        //     color: #9d9d9d;
-        //     font-size: 1.11vw;
-        // }
-
-        // .fa-eye-slash {
-        //     font-size: 60px;
-        // }
-
         .login-btn {
             background-color: $buttonColor;
             color: $white;
@@ -128,6 +122,10 @@
             }
             .login-fields {
                 margin-bottom: 1.23vw;
+                .eye-icon {
+                    bottom: 1.08vw;
+                    font-size: 1.15vw;
+                }
             }
             .input-fieldBox {
                 height: 4.64vw;

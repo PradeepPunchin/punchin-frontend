@@ -38,7 +38,12 @@
                                 <input type="password" class="form-control login-input new-inputs"
                                     formControlName="password" placeholder="Enter your password"
                                     autocomplete="new-password"
-                                    [ngClass]="{'error-border':!!loginForm.controls.password?.invalid && (loginFormSubmitted || !!loginForm.controls?.password?.touched)}">
+                                    [ngClass]="{'error-border':!!loginForm.controls.password?.invalid && (loginFormSubmitted || !!loginForm.controls?.password?.touched)}"
+                                    #password1 [(ngModel)]="a_password">
+                                <span class="eye-icon" (click)="onClick1(password1)">
+                                    <i *ngIf="show1" class="fa fa-eye"></i>
+                                    <i *ngIf="!show1" class="fa fa-eye-slash"></i>
+                                </span>
 
                                 <!-- validation -->
                                 <small class="text-danger"

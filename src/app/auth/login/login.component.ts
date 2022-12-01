@@ -16,6 +16,9 @@ export class LoginComponent implements OnInit {
   loginFormSubmitted: boolean = false;
   loginFormSubmitting: boolean = false
   loginForm!: FormGroup
+  password1: any
+  show1 = false;
+  a_password: string = '';
 
   constructor(
     private notifierService: NotifierService,
@@ -41,5 +44,16 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     // this.loginForm.reset();
 
+  }
+
+  onClick1(input_field_password: any) {
+
+    if (input_field_password.type == "password") {
+      input_field_password.type = "text";
+      this.show1 = !this.show1;
+    } else {
+      input_field_password.type = "password";
+      this.show1 = !this.show1;
+    }
   }
 }
