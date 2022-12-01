@@ -20,6 +20,18 @@
     color: $buttonColor;
     font-weight: 500;
   }
+
+  .nav-link.active span {
+    position: relative;
+  }
+  .nav-link.active span:after {
+    position: absolute;
+    left: 0;
+    bottom: -125%;
+    content: "";
+    width: 46px;
+    border-bottom: 2px solid $buttonColor;
+  }
   .nav-link svg {
     margin-right: 10px;
   }
@@ -28,5 +40,30 @@
   }
   .nav-link.active svg path {
     stroke: $buttonColor;
+  }
+
+  .account-box {
+    .notification-icon {
+      margin-right: 20px;
+    }
+    .profile-pic {
+      margin-right: 8px;
+    }
+    .account-text {
+      h6 {
+        font-weight: 400;
+        font-size: $fontSize14;
+        color: $accountTextColor;
+        margin-bottom: 4px;
+      }
+      p {
+        font-size: $fontSize10;
+        color: $lightTextColor;
+        margin-bottom: 0;
+      }
+    }
+    .chevron-down {
+      margin-left: 10px;
+    }
   }
 }
