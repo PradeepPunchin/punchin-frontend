@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { SessionService } from '../session/session.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private sessionServive: SessionService
+  constructor(
   ) { }
 
   isAuthenticated() {
@@ -18,8 +17,4 @@ export class AuthService {
     }
     return isConnected;
   }
-
-  // loggedIn() {
-  //   return !!this.sessionServive.getSession('token');
-  // }
 }

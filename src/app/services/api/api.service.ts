@@ -14,12 +14,12 @@ export class ApiService {
   ) { }
 
   login(body: any) {
-    console.log(body);
-    let headers = new HttpHeaders();
-    headers = headers.append('Access-Control-Allow-Origin', '*');
     return this.http.post(
       `${this.baseApiUrl}auth/login`, body)
   }
 
-
+  logout() {
+    return this.http.get(
+      `${this.baseApiUrl}auth/logout`)
+  }
 }

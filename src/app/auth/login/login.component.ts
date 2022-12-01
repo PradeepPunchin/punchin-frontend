@@ -52,18 +52,15 @@ export class LoginComponent implements OnInit {
           this.loginForm.reset();
           this.sessionServive.setSessions({ token: res.data.authToken });
           this.sessionServive.setSessions({ role: res.data.user.role });
+          this.sessionServive.setSessions({ userId: res.data.user.userId });
           this.router.navigate(['/pages']);
           this.notifierService.showSuccess("login Successful")
-
         }
-      },
-        (error: any) => {
-          this.notifierService.showError(error.error.message);
-          this.loginFormSubmitting = false;
-
-        })
+      }, (error: any) => {
+        this.notifierService.showError(error.error.message);
+        this.loginFormSubmitting = false;
+      })
     }
-
   }
 
   onClick1(input_field_password: any) {
