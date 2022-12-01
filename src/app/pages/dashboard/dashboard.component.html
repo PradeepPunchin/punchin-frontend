@@ -47,8 +47,37 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="role =='ADMIN' || role =='VERIFIER' ">
-    <h1>
-        varifier is working
-    </h1>
+<ng-container *ngIf="role =='ADMIN' || role =='VERIFIER'">
+    <div class="container-fluid claim-dashboard-box">
+        <h6>Service/Claim Dashboard</h6>
+        <div class="row">
+            <div class="col-4">
+                <div class="claims-allocated-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Total Cases</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="claims-action-pending-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Pending Cases</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="claims-in-progress-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Approved Cases</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </ng-container>
