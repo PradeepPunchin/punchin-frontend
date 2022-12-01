@@ -4,7 +4,7 @@
 
 export const environment = {
   api: {
-    baseApiRoot: ``,
+    baseApiRoot: `https://true-islands-stay-103-50-82-77.loca.lt/`,
   },
   production: false
 };

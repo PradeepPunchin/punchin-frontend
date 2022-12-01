@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api/api.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
 import { ROLES } from 'src/app/models/enums/index';
 import { SessionService } from 'src/app/services/session/session.service';
+import { ThisReceiver } from '@angular/compiler';
 
 
 @Component({
@@ -36,18 +37,36 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    let userId = this.loginForm.controls['userId'].value;
+    let password = this.loginForm.controls['password'].value;
     this.loginFormSubmitted = true
     if (this.loginForm.valid) {
       this.loginFormSubmitting = true;
-      this.router.navigate(['/pages']);
+      let body = {
+        "userId": userId,
+        "password": password
+      }
+      this.apiService.login(body).subscribe((res: any) => {
+        if (res && res.isSuccess) {
+          this.loginFormSubmitting = false;
+          this.loginForm.reset();
+          this.sessionServive.setSessions({ token: res.data.authToken });
+          this.sessionServive.setSessions({ role: res.data.user.role });
+          this.router.navigate(['/pages']);
+          this.notifierService.showSuccess("login Successful")
+
+        }
+      },
+        (error: any) => {
+          this.notifierService.showError(error.error.message);
+          this.loginFormSubmitting = false;
+
+        })
     }
-    console.log(this.loginForm.value);
-    // this.loginForm.reset();
 
   }
 
   onClick1(input_field_password: any) {
-
     if (input_field_password.type == "password") {
       input_field_password.type = "text";
       this.show1 = !this.show1;

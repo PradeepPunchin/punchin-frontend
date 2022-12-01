@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -13,5 +13,13 @@ export class ApiService {
     private http: HttpClient
   ) { }
 
-  
+  login(body: any) {
+    console.log(body);
+    let headers = new HttpHeaders();
+    headers = headers.append('Access-Control-Allow-Origin', '*');
+    return this.http.post(
+      `${this.baseApiUrl}auth/login`, body)
+  }
+
+
 }

@@ -9,6 +9,7 @@ import { DefaultLayoutComponent } from './default-layout/default-layout.componen
 import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './services/interceptors';
 
 
 
@@ -27,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     ToastrModule.forRoot(),
 
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
