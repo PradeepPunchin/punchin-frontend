@@ -8,12 +8,16 @@ import { AppComponent } from './app.component';
 import { DefaultLayoutComponent } from './default-layout/default-layout.component';
 import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './services/interceptors';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    DefaultLayoutComponent
+    DefaultLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,9 +25,10 @@ import { HttpClientModule } from '@angular/common/http'
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,12 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(
+  ) { }
 
   isAuthenticated() {
     let isConnected: boolean = false;
     const walletData: any = sessionStorage.getItem('metamask');
-    if(walletData) {
+    if (walletData) {
       const parseWalletData = JSON.parse(walletData);
       isConnected = parseWalletData.isConnected;
     }
