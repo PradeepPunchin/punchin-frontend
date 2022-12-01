@@ -108,6 +108,11 @@
         display: none;
     }
 }
+@media screen and (max-width: 767px) {
+    .image-wrapper {
+        display: none;
+    }
+}
 
 @media screen and (max-width: 3000px) and (min-width: 1440px) {
     .main-container {
