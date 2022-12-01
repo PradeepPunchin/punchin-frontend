@@ -18,13 +18,13 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): any {
-      if(this.authService.isAuthenticated()) {
-        return true;
-      } else {
-        this.notifierService.showError('Unauthorized Access')
-        this.router.navigate(['/']);
-        return false;
-      }
+      // if(this.authService.isAuthenticated()) {
+      //   return true;
+      // } else {
+      //   this.notifierService.showError('Unauthorized Access')
+      //   this.router.navigate(['/']);
+      //   return false;
+      // }
   }
   
 }
