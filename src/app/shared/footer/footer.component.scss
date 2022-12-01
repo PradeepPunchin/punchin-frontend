@@ -1,0 +1,15 @@
+@import "../../../assets/css/variables";
+
+.footer-box {
+  background-color: $textColor;
+  color: $white;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    font-weight: 500;
+    font-size: $fontSize14;
+    margin-bottom: 0;
+  }
+}

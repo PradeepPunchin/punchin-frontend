@@ -1,0 +1,86 @@
+@import "../../../assets/css/variables";
+
+.claim-dashboard-box {
+  padding: 28px 20px 20px;
+  background-color: $white;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
+  margin-top: 8px;
+  .claims-allocated-box,
+  .claims-action-pending-box,
+  .claims-in-progress-box {
+    background-color: $seaGreenColor;
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
+    border-radius: 7px;
+    height: 95px;
+    padding: 26px 0 0 28px;
+    display: flex;
+    align-items: flex-start;
+    img {
+      margin-right: 14px;
+    }
+    h5 {
+      font-weight: 700;
+      margin-bottom: 0;
+      color: $white;
+    }
+    h6 {
+      color: $white;
+      margin-bottom: 0;
+    }
+  }
+  .claims-action-pending-box {
+    background-color: $purpleColor;
+  }
+  .claims-in-progress-box {
+    background-color: $blueColor;
+  }
+}
+
+.bulk-upload-box {
+  padding: 0 20px 15px;
+  background-color: $white;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
+  margin: 14px 0 18px;
+  .upload-box-head {
+    padding: 16px 0 12px;
+    h6 {
+      margin-bottom: 0;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $textColor;
+    }
+    .btn-outline-primary {
+      border-color: $icon-color;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $icon-color;
+    }
+    .btn-outline-primary:hover {
+      background-color: $white;
+    }
+  }
+  .upload-box {
+    background-color: $white;
+    border: 1px dashed $borderColor;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 228px;
+    text-decoration: none;
+    h6 {
+      margin-bottom: 0;
+      font-size: $fontSize14;
+      color: $buttonColor;
+      margin-top: 12px;
+      span {
+        font-weight: 400;
+        color: $uploadText;
+      }
+    }
+  }
+}
