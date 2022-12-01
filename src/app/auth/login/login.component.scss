@@ -1,0 +1,176 @@
+@import "../../../assets/css/variables";
+
+.main-container {
+    height: 100vh;
+
+    .login-wrapper {
+        padding: 100px 90px 0 90px;
+        .logo_img {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .login-subheading {
+            font-family: "Nunito" !important;
+            font-weight: 400;
+            font-size: $fontSize16;
+            line-height: 115%;
+            color: $textColor;
+        }
+        .login-fields {
+            margin-bottom: 16px;
+
+            .eye-icon {
+                color: $icon-color;
+                position: absolute;
+                right: 6%;
+                bottom: 14px;
+            }
+        }
+        .input-fieldBox {
+            width: 100%;
+            height: 60px;
+            border: 1px solid $borderColor;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            .new-inputs-label {
+                font-family: "Nunito" !important;
+                font-weight: 400;
+                font-size: $fontSize14;
+                line-height: 16px;
+                color: $labelColor;
+            }
+            .username-icon .lock-icon {
+                width: 2vw;
+                height: 2vw;
+            }
+
+            small {
+                font-size: $fontSize12;
+                position: absolute;
+                padding-top: 12px !important;
+                font-family: "Nunito" !important;
+            }
+        }
+
+        .login-input.new-inputs {
+            background: transparent;
+            border: none;
+            font-family: "Nunito" !important;
+            font-weight: 400;
+            font-size: $fontSize12;
+            line-height: 115%;
+            color: $inputColor;
+            padding: 0;
+            height: initial;
+            width: 100%;
+        }
+        .login-input.new-inputs:focus {
+            border: none;
+            box-shadow: none;
+        }
+        .login-btn {
+            background-color: $buttonColor;
+            color: $white;
+            font-size: $fontSize16;
+            line-height: 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: "Nunito";
+            height: 60px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    }
+    .inner-logo {
+        position: absolute;
+        top: 30%;
+        left: 48%;
+        overflow-x: hidden;
+        width: 200px;
+        height: 200px;
+    }
+
+    .image-wrapper {
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .inner-logo {
+        display: none;
+    }
+}
+@media screen and (max-width: 767px) {
+    .image-wrapper {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 3000px) and (min-width: 1440px) {
+    .main-container {
+        .login-wrapper {
+            margin-top: 10vw;
+            padding: 7.73vw 6.96vw 0 6.96vw;
+            .logo_img {
+                margin-bottom: 2.32vw;
+            }
+            .login-subheading {
+                font-size: 1.23vw;
+            }
+            .login-fields {
+                margin-bottom: 1.23vw;
+                .eye-icon {
+                    bottom: 1.08vw;
+                    font-size: 1.15vw;
+                }
+            }
+            .input-fieldBox {
+                height: 4.64vw;
+                border: 0.07vw solid $borderColor;
+                border-radius: 0.619vw;
+                padding: 0.92vw;
+                gap: 0.619vw;
+                margin-bottom: 2.32vw;
+                .new-inputs-label {
+                    font-size: 1.08vw;
+                    line-height: 1.23vw;
+                }
+                small {
+                    font-size: 0.92vw;
+                    padding-top: 1.15vw !important;
+                }
+                .username-icon .lock-icon {
+                    width: 2.5vw;
+                    height: 2.5vw;
+                }
+            }
+
+            .login-input.new-inputs {
+                font-size: 0.92vw;
+                padding: 0;
+            }
+            .login-btn {
+                font-size: 1.23vw;
+                line-height: 1.7vw;
+                border-radius: 0.619vw;
+                height: 4.64vw;
+                margin-top: 1.54vw;
+            }
+        }
+        .inner-logo {
+            position: absolute;
+            left: 48.5%;
+            overflow-x: hidden;
+            height: 15.47vw;
+            width: 15.47vw;
+        }
+    }
+}

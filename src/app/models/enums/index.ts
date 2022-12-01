@@ -5,5 +5,6 @@ export enum STORAGE_TOKEN_ENUM {
 }
 
 export enum ROLES {
-    
+    admin = "ROLE_ADMIN"
+
 }

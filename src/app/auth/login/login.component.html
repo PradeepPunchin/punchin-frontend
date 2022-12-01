@@ -1,1 +1,78 @@
-<h1>Login Component</h1>
+<div class="container-fluid position-relative">
+    <div class="row main-container">
+        <div class="col-lg-6 col-12 p-0">
+            <div class="login-wrapper ">
+                <div class="logo_img">
+                    <img class="img-fluid" src="../../../assets/img/punchin 1.svg">
+                </div>
+                <p class="login-subheading">Please login to continue
+                </p>
+                <form class="w-100 mt-4" [formGroup]="loginForm" (submit)="login()">
+                    <div class="login-fields">
+                        <div class="input-fieldBox">
+                            <span class="username-icon">
+                                <img src="assets/img/msg-Icon.svg" class="lock-icon">
+                            </span>
+                            <div class="w-100">
+                                <label for="" class="new-inputs-label mb-1">User Id</label>
+                                <input type="text" class="form-control login-input new-inputs" formControlName="userId"
+                                    placeholder="Enter your user id"
+                                    [ngClass]="{'error-border':loginForm.controls.userId.invalid &&(loginFormSubmitted ||loginForm.controls.userId.touched)}">
+
+                                <!-- validation -->
+                                <small class="text-danger"
+                                    *ngIf="loginForm.controls.userId.invalid &&(loginFormSubmitted ||loginForm.controls.userId.touched)">
+                                    <span *ngIf="loginForm.controls.userId?.errors?.required">UserId is required</span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="login-fields">
+                        <div class="input-fieldBox position-relative">
+                            <span class="username-icon">
+                                <img src="assets/img/lock-icon.svg" class="lock-icon">
+                            </span>
+                            <div class="w-100">
+                                <label for="" class="new-inputs-label mb-1">Password</label>
+                                <input type="password" class="form-control login-input new-inputs"
+                                    formControlName="password" placeholder="Enter your password"
+                                    autocomplete="new-password"
+                                    [ngClass]="{'error-border':!!loginForm.controls.password?.invalid && (loginFormSubmitted || !!loginForm.controls?.password?.touched)}"
+                                    #password1 [(ngModel)]="a_password">
+                                <span class="eye-icon" (click)="onClick1(password1)">
+                                    <i *ngIf="show1" class="fa fa-eye"></i>
+                                    <i *ngIf="!show1" class="fa fa-eye-slash"></i>
+                                </span>
+
+                                <!-- validation -->
+                                <small class="text-danger"
+                                    *ngIf="!!loginForm.controls.password?.invalid && (loginFormSubmitted || !!loginForm.controls?.password?.touched)">
+                                    <span *ngIf="!!loginForm.controls.password?.errors?.required">Password is
+                                        required.</span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn  btn-block login-btn login-fields"
+                        [disabled]="loginForm.invalid || loginFormSubmitting">
+                        <ng-container *ngIf="loginFormSubmitting;else loginFormSubmittingDone">
+                            <i class="fa fa-spinner fa-spin"></i>Login....
+                        </ng-container>
+                        <ng-template #loginFormSubmittingDone>
+                            Login
+                        </ng-template>
+                    </button>
+                </form>
+            </div>
+            <div class="inner-logo">
+                <img class="img-fluid" src="../../../assets/img/Group 12971.svg">
+            </div>
+        </div>
+        <div class="col-lg-6 p-0">
+            <div class="image-wrapper">
+                <img class="img-fluid" src="../../../assets/img/businessman-working-with-laptop-office.svg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
