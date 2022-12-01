@@ -6,6 +6,35 @@
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
   border-radius: 6px;
   margin-top: 8px;
+  .claims-allocated-box,
+  .claims-action-pending-box,
+  .claims-in-progress-box {
+    background-color: $seaGreenColor;
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
+    border-radius: 7px;
+    height: 95px;
+    padding: 26px 0 0 28px;
+    display: flex;
+    align-items: flex-start;
+    img {
+      margin-right: 14px;
+    }
+    h5 {
+      font-weight: 700;
+      margin-bottom: 0;
+      color: $white;
+    }
+    h6 {
+      color: $white;
+      margin-bottom: 0;
+    }
+  }
+  .claims-action-pending-box {
+    background-color: $purpleColor;
+  }
+  .claims-in-progress-box {
+    background-color: $blueColor;
+  }
 }
 
 .bulk-upload-box {
