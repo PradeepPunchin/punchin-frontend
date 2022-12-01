@@ -15,24 +15,20 @@ export class AuthInterceptor implements HttpInterceptor {
 
     }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (req.url !== 'https://ipinfo.io/json') {
-            const _SessionService = this._Injector.get(SessionService);
-            const token = _SessionService.getSession('token');
-            if (token != null) {
-                const reqCloned = req.clone({
-                    setHeaders: {
-                        Authorization: `X-Xsrf-Token ${token || ''}`,
-                        AcceptLanguage: 'en'
-                    }
-                });
-                return next.handle(reqCloned);
-            } else {
-                return next.handle(req);
-            }
+        const _SessionService = this._Injector.get(SessionService);
+        const token = _SessionService.getSession('token');
+        if (token != null) {
+            const reqCloned = req.clone({
+                setHeaders: {
+                    Authorization: `X-Xsrf-Token ${token || ''}`,
+                    AcceptLanguage: 'en'
+                }
+            });
+            return next.handle(reqCloned);
         } else {
             return next.handle(req);
-
         }
-
     }
+
 }
+
