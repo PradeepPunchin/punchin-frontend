@@ -10,7 +10,7 @@ import { SessionService } from 'src/app/services/session/session.service';
   styleUrls: ['./top-nav.component.scss']
 })
 export class TopNavComponent implements OnInit {
-  user: any
+  role: any
 
   constructor(
     private sessionServive: SessionService,
@@ -21,8 +21,7 @@ export class TopNavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = this.sessionServive.getSession("role")
-
+    this.role = this.sessionServive.getSession("role")
   }
 
   logout() {
