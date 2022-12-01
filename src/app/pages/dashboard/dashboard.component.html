@@ -1,0 +1,83 @@
+<ng-container *ngIf="role =='BANKER'">
+    <div class="container-fluid claim-dashboard-box">
+        <h6>Service/Claim Dashboard</h6>
+        <div class="row">
+            <div class="col-4">
+                <div class="claims-allocated-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Total Cases</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="claims-action-pending-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>WIP Cases</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="claims-in-progress-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Settled Cases</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bulk-upload-box">
+        <div class="d-flex align-items-center justify-content-between upload-box-head">
+            <h6>Bulk Upload</h6>
+            <button type="button" class="btn btn-outline-primary"><img src="../../../assets/icons/download.svg"
+                    class="me-2">Download
+                Standardized Format</button>
+        </div>
+        <a class="upload-box">
+            <div class="text-center">
+                <img src="../../../assets/icons/upload-icon.svg">
+                <h6>Click to upload <span>or drag and drop</span></h6>
+            </div>
+        </a>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="role =='ADMIN' || role =='VERIFIER'">
+    <div class="container-fluid claim-dashboard-box">
+        <h6>Service/Claim Dashboard</h6>
+        <div class="row">
+            <div class="col-4">
+                <div class="claims-allocated-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Total Cases</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="claims-action-pending-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Pending Cases</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="claims-in-progress-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Approved Cases</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
