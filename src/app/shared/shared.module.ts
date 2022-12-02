@@ -9,7 +9,8 @@ import { TopNavComponent } from './top-nav/top-nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { DocumentVerificationRequestModalComponent } from './modals/document-verification-request-modal/document-verification-request-modal.component';
-import { DocumentPreviewComponent } from './document-preview/document-preview.component';
+import { DocumentRejectModalComponent } from './modals/document-reject-modal/document-reject-modal.component';
+import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DocumentPreviewComponent } from './document-preview/document-preview.co
     FooterComponent,
     FileUploadComponent,
     DocumentVerificationRequestModalComponent,
-    DocumentPreviewComponent
+    PdfViewerComponent,
+    DocumentRejectModalComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,7 @@ import { DocumentPreviewComponent } from './document-preview/document-preview.co
     TopNavComponent,
     FileUploadComponent,
     DocumentVerificationRequestModalComponent,
-    DocumentPreviewComponent
+    PdfViewerComponent
   ]
 })
 export class SharedModule { }
