@@ -21,3 +21,9 @@ export enum PLATFORM {
     android = "ANDROID",
     ios = "IOS"
 }
+
+export enum BANKERSTATUSENUM {
+    inprogress = "IN_PROGRESS",
+    all = "ALL",
+    settled = "SETTLED"
+}
