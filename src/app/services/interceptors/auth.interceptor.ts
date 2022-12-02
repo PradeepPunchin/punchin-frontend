@@ -1,6 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
+import { STORAGETOKENENUM } from 'src/app/models/enums';
 import { SessionService } from '../../services/session/session.service';
 
 
@@ -16,11 +17,11 @@ export class AuthInterceptor implements HttpInterceptor {
     }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const _SessionService = this._Injector.get(SessionService);
-        const token = _SessionService.getSession('token');
+        const token = _SessionService.getSession(STORAGETOKENENUM.token);
         if (token != null) {
             const reqCloned = req.clone({
                 setHeaders: {
-                    Authorization: `X-Xsrf-Token ${token || ''}`,
+                    "X-Xsrf-Token": `${token || ''}`,
                     AcceptLanguage: 'en'
                 }
             });
@@ -29,6 +30,5 @@ export class AuthInterceptor implements HttpInterceptor {
             return next.handle(req);
         }
     }
-
 }
 
