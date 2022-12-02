@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { STORAGETOKENENUM } from 'src/app/models/enums';
 import { SessionService } from 'src/app/services/session/session.service';
 
 
@@ -15,7 +16,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.role = this.sessionServive.getSession("role")
+    this.role = this.sessionServive.getSession(STORAGETOKENENUM.role)
   }
 }
 
