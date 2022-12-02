@@ -66,6 +66,9 @@ export class LoginComponent implements OnInit {
             this.loginForm.reset();
             this.notifierService.showSuccess(res?.message || "Success");
           }
+        } else {
+          this.notifierService.showError(res?.message || "Something went wrong");
+          this.loginFormSubmitting = false;  
         }
       }, (error: any) => {
         this.notifierService.showError(error.error.message);
