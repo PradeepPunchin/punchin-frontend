@@ -6,7 +6,9 @@
                 <div class="claims-allocated-box">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>0</h5>
+                        <h5>
+                            {{bankerDashboardData[bankerStatusEnum.all] || 0}}
+                        </h5>
                         <h6>Total Cases</h6>
                     </div>
                 </div>
@@ -15,7 +17,9 @@
                 <div class="claims-action-pending-box">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>0</h5>
+                        <h5>
+                            {{bankerDashboardData[bankerStatusEnum.inprogress] || 0}}
+                        </h5>
                         <h6>WIP Cases</h6>
                     </div>
                 </div>
@@ -24,7 +28,9 @@
                 <div class="claims-in-progress-box">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>0</h5>
+                        <h5>
+                            {{bankerDashboardData[bankerStatusEnum.settled] || 0}}
+                        </h5>
                         <h6>Settled Cases</h6>
                     </div>
                 </div>

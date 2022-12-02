@@ -22,4 +22,9 @@ export class ApiService {
     return this.http.get(
       `${this.baseApiUrl}auth/logout`)
   }
+
+  // banker api
+  getBankerDashboardData() {
+    return this.http.get(`${this.baseApiUrl}banker/getDashboardData`);
+  }
 }
