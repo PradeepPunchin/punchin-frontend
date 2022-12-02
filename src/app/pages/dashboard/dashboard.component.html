@@ -83,6 +83,7 @@
 
     <div class="cases-claims-box">
         <h6>Cases/Claims</h6>
+
         <div class="table-container">
             <table class="table">
                 <thead>
@@ -91,6 +92,20 @@
                         <th scope="col">Case/Claim Id</th>
                         <th scope="col">Claim Registration Date</th>
                         <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee Name</th>
                         <th scope="col">Nominee Name</th>
                         <th scope="col">Contact Number</th>
                         <th scope="col">Address</th>
@@ -110,5 +125,17 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="pagination-box d-flex justify-content-between">
+            <div class="pages-per-rows d-flex align-items-center">
+                <p class="per-row-title">Page Per Rows</p>
+                <h6 class="per-row-text">30</h6>
+                <img src="../../../assets/icons/chevron-down.svg">
+            </div>
+
+            <div class="pagination-content">
+                <pagination [totalItems]="30"></pagination>
+            </div>
         </div>
     </div>

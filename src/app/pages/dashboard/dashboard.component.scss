@@ -132,6 +132,34 @@
     td:last-child {
       position: sticky;
       right: 0px;
+      background-color: aquamarine;
+    }
+  }
+  .pagination-box {
+    padding: 0 23px 0 20px;
+    .pages-per-rows {
+      .per-row-title {
+        font-size: $fontSize14;
+        color: $navbarTextColor;
+        margin-right: 8px;
+        margin-bottom: 0;
+      }
+      .per-row-text {
+        font-weight: 800;
+        font-size: $fontSize14;
+        color: $buttonColor;
+        padding: 0;
+        margin-right: 5px;
+      }
+    }
+
+    .pagination-content {
+      ul.pagination {
+        margin-bottom: 0;
+        li.page-item .page-link {
+          margin: 0 7px !important;
+        }
+      }
     }
   }
 }

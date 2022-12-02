@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClaimDocumentationUploadComponent } from './claim-documentation-upload/claim-documentation-upload.component';
 import { DocumentVerificationRequestComponent } from './document-verification-request/document-verification-request.component';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 @NgModule({
@@ -18,6 +18,7 @@ import { DocumentVerificationRequestComponent } from './document-verification-re
     CommonModule,
     PagesRoutingModule,
     ReactiveFormsModule,
+    PaginationModule.forRoot()
   ]
 })
 export class PagesModule { }
