@@ -27,7 +27,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private apiService: ApiService,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    if(localStorage.getItem(STORAGETOKENENUM.token)) {
+      this.router.navigate(['/pages'])
+    }
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
