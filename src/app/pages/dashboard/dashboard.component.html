@@ -1,79 +1,115 @@
-<div class="container-fluid claim-dashboard-box">
-    <h6>Service/Claim Dashboard</h6>
-    <div class="row">
-        <div class="col-4">
-            <div class="claims-allocated-box">
-                <img src="../../../assets/icons/claim.svg">
-                <div>
-                    <h5>0</h5>
-                    <h6>Total Cases</h6>
+<ng-container *ngIf="role =='BANKER'">
+    <div class="container-fluid claim-dashboard-box">
+        <h6>Service/Claim Dashboard</h6>
+        <div class="row">
+            <div class="col-4">
+                <div class="claims-allocated-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Total Cases</h6>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-4">
-            <div class="claims-action-pending-box">
-                <img src="../../../assets/icons/claim.svg">
-                <div>
-                    <h5>0</h5>
-                    <h6>WIP Cases</h6>
+            <div class="col-4">
+                <div class="claims-action-pending-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>WIP Cases</h6>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-4">
-            <div class="claims-in-progress-box">
-                <img src="../../../assets/icons/claim.svg">
-                <div>
-                    <h5>0</h5>
-                    <h6>Settled Cases</h6>
+            <div class="col-4">
+                <div class="claims-in-progress-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Settled Cases</h6>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="container-fluid bulk-upload-box">
+        <div class="d-flex align-items-center justify-content-between upload-box-head">
+            <h6>Bulk Upload</h6>
+            <button type="button" class="btn btn-outline-primary"><img src="../../../assets/icons/download.svg"
+                    class="me-2">Download
+                Standardized Format</button>
+        </div>
+        <a class="upload-box">
+            <div class="text-center">
+                <img src="../../../assets/icons/upload-icon.svg">
+                <h6>Click to upload <span>or drag and drop</span></h6>
+            </div>
+        </a>
+    </div>
+</ng-container>
 
-<div class="container-fluid bulk-upload-box">
-    <div class="d-flex align-items-center justify-content-between upload-box-head">
-        <h6>Bulk Upload</h6>
-        <button type="button" class="btn btn-outline-primary"><img src="../../../assets/icons/download.svg"
-                class="me-2">Download
-            Standardized Format</button>
-    </div>
-    <a href="#" class="upload-box">
-        <div class="text-center">
-            <img src="../../../assets/icons/upload-icon.svg">
-            <h6>Click to upload <span>or drag and drop</span></h6>
+<ng-container *ngIf="role =='ADMIN' || role =='VERIFIER'">
+    <div class="container-fluid claim-dashboard-box">
+        <h6>Service/Claim Dashboard</h6>
+        <div class="row">
+            <div class="col-4">
+                <div class="claims-allocated-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Total Cases</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="claims-action-pending-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Pending Cases</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="claims-in-progress-box">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>0</h5>
+                        <h6>Approved Cases</h6>
+                    </div>
+                </div>
+            </div>
         </div>
-    </a>
-</div>
-
-<div class="cases-claims-box">
-    <h6>Cases/Claims</h6>
-    <div class="table-container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">S.No</th>
-                    <th scope="col">Case/Claim Id</th>
-                    <th scope="col">Claim Registration Date</th>
-                    <th scope="col">Borrower Name</th>
-                    <th scope="col">Nominee Name</th>
-                    <th scope="col">Contact Number</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>27193</td>
-                    <td>2/1/2020</td>
-                    <td>Ram Prakash</td>
-                    <td>Sanjay Prakash</td>
-                    <td>9462302854</td>
-                    <td>H-23, Gali Number 45, Lal bagh
-                        Chowk, Prayagraj, UP</td>
-                </tr>
-            </tbody>
-        </table>
+        </a>
     </div>
-</div>
+
+    <div class="cases-claims-box">
+        <h6>Cases/Claims</h6>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Case/Claim Id</th>
+                        <th scope="col">Claim Registration Date</th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Contact Number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>27193</td>
+                        <td>2/1/2020</td>
+                        <td>Ram Prakash</td>
+                        <td>Sanjay Prakash</td>
+                        <td>9462302854</td>
+                        <td>H-23, Gali Number 45, Lal bagh
+                            Chowk, Prayagraj, UP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

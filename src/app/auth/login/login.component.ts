@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
-import { ROLES } from 'src/app/models/enums/index';
+import { STORAGETOKENENUM, USERSTATUS } from 'src/app/models/enums/index';
 import { SessionService } from 'src/app/services/session/session.service';
-
+import { ApiResponse } from 'src/app/models/common';
+import { ILoginResponse } from 'src/app/models/response/auth.response';
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,13 @@ export class LoginComponent implements OnInit {
   password1: any
   show1 = false;
   a_password: string = '';
+  isPasswordVisible: boolean = false;
 
   constructor(
     private notifierService: NotifierService,
     private router: Router,
     private apiService: ApiService,
-    private formBuilder: FormBuilder,
-    private sessionServive: SessionService
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -39,20 +40,45 @@ export class LoginComponent implements OnInit {
     this.loginFormSubmitted = true
     if (this.loginForm.valid) {
       this.loginFormSubmitting = true;
-      this.router.navigate(['/pages']);
+      this.apiService.login({
+        userId: this.loginForm.value.userId,
+        password: this.loginForm.value.password
+      }).subscribe((res: ApiResponse<ILoginResponse> | any) => {
+        if (res?.isSuccess) {
+          this.loginFormSubmitting = false;
+          if(res?.data) {
+            if(res?.data?.user?.accountLocked) {
+              this.notifierService.showError('Account Locked');
+              return;
+            }
+            if(res?.data?.user?.status === USERSTATUS.inactive) {
+              this.notifierService.showError('Account not active');
+              return;
+            }
+            localStorage.setItem(STORAGETOKENENUM.token, res?.data?.authToken);
+            localStorage.setItem(STORAGETOKENENUM.userId, res?.data?.user?.userId);
+            localStorage.setItem(STORAGETOKENENUM.role, res?.data?.user?.role)
+            this.router.navigate(['/pages']);
+            this.loginForm.reset();
+            this.notifierService.showSuccess(res?.message || "Success");
+          }
+        }
+      }, (error: any) => {
+        this.notifierService.showError(error.error.message);
+        this.loginFormSubmitting = false;
+      })
+    } else {
+      this.notifierService.showError('Invalid Data');
     }
-    console.log(this.loginForm.value);
-    // this.loginForm.reset();
-
   }
 
-  onClick1(input_field_password: any) {
-
-    if (input_field_password.type == "password") {
-      input_field_password.type = "text";
+  togglePassword(inputFieldPassword: any) {
+    
+    if (inputFieldPassword.type == "password") {
+      inputFieldPassword.type = "text";
       this.show1 = !this.show1;
     } else {
-      input_field_password.type = "password";
+      inputFieldPassword.type = "password";
       this.show1 = !this.show1;
     }
   }

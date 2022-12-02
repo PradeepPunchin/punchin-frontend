@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ILoginRequest } from 'src/app/models/request/auth.request';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,5 +14,12 @@ export class ApiService {
     private http: HttpClient
   ) { }
 
-  
+  login(body: ILoginRequest) {
+    return this.http.post(`${this.baseApiUrl}auth/login`, body)
+  }
+
+  logout() {
+    return this.http.get(
+      `${this.baseApiUrl}auth/logout`)
+  }
 }

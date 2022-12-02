@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from 'src/app/services/session/session.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  role: any
 
-  constructor() { }
+
+  constructor(private sessionServive: SessionService
+  ) { }
 
   ngOnInit(): void {
+    this.role = this.sessionServive.getSession("role")
   }
-
 }
+
+
