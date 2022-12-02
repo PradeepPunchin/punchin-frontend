@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClaimDocumentationUploadComponent } from './claim-documentation-upload/claim-documentation-upload.component';
 import { DocumentVerificationRequestComponent } from './document-verification-request/document-verification-request.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     CommonModule,
     PagesRoutingModule,
     ReactiveFormsModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    SharedModule
   ]
 })
 export class PagesModule { }
