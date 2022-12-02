@@ -1,8 +1,10 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { catchError, Observable, throwError } from 'rxjs';
 import { STORAGETOKENENUM } from 'src/app/models/enums';
 import { SessionService } from '../../services/session/session.service';
+import { NotifierService } from '../notifier/notifier.service';
 
 
 @Injectable()
@@ -11,7 +13,10 @@ export class AuthInterceptor implements HttpInterceptor {
     Authorization: any;
     token: any;
     constructor(
-        private _Injector: Injector
+        private _Injector: Injector,
+        private NotifierService: NotifierService,
+        private Router: Router,
+        private SessionService: SessionService
     ) {
 
     }
@@ -25,7 +30,16 @@ export class AuthInterceptor implements HttpInterceptor {
                     AcceptLanguage: 'en'
                 }
             });
-            return next.handle(reqCloned);
+            return next.handle(reqCloned).pipe(
+                catchError((err: HttpErrorResponse) => {
+                    if(err && err.status === 401) {
+                      this.NotifierService.showError('Token Expired. Please login again')
+                      this.SessionService.removeSessions();
+                      this.Router.navigate(['/']);
+                    }
+                    return throwError(err);
+                  })
+            );
         } else {
             return next.handle(req);
         }
