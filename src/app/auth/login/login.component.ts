@@ -27,7 +27,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private apiService: ApiService,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    if(localStorage.getItem(STORAGETOKENENUM.token)) {
+      this.router.navigate(['/pages'])
+    }
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -62,6 +66,9 @@ export class LoginComponent implements OnInit {
             this.loginForm.reset();
             this.notifierService.showSuccess(res?.message || "Success");
           }
+        } else {
+          this.notifierService.showError(res?.message || "Something went wrong");
+          this.loginFormSubmitting = false;  
         }
       }, (error: any) => {
         this.notifierService.showError(error.error.message);
