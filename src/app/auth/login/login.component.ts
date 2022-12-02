@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
-import { ROLES } from 'src/app/models/enums/index';
+import { STORAGETOKENENUM, USERSTATUS } from 'src/app/models/enums/index';
 import { SessionService } from 'src/app/services/session/session.service';
-import { ThisReceiver } from '@angular/compiler';
-
+import { ApiResponse } from 'src/app/models/common';
+import { ILoginResponse } from 'src/app/models/response/auth.response';
 
 @Component({
   selector: 'app-login',
@@ -20,13 +20,13 @@ export class LoginComponent implements OnInit {
   password1: any
   show1 = false;
   a_password: string = '';
+  isPasswordVisible: boolean = false;
 
   constructor(
     private notifierService: NotifierService,
     private router: Router,
     private apiService: ApiService,
-    private formBuilder: FormBuilder,
-    private sessionServive: SessionService
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -37,38 +37,48 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    let userId = this.loginForm.controls['userId'].value;
-    let password = this.loginForm.controls['password'].value;
     this.loginFormSubmitted = true
     if (this.loginForm.valid) {
       this.loginFormSubmitting = true;
-      let body = {
-        "userId": userId,
-        "password": password
-      }
-      this.apiService.login(body).subscribe((res: any) => {
-        if (res && res.isSuccess) {
+      this.apiService.login({
+        userId: this.loginForm.value.userId,
+        password: this.loginForm.value.password
+      }).subscribe((res: ApiResponse<ILoginResponse> | any) => {
+        if (res?.isSuccess) {
           this.loginFormSubmitting = false;
-          this.loginForm.reset();
-          this.sessionServive.setSessions({ token: res.data.authToken });
-          this.sessionServive.setSessions({ role: res.data.user.role });
-          this.sessionServive.setSessions({ userId: res.data.user.userId });
-          this.router.navigate(['/pages']);
-          this.notifierService.showSuccess("login Successful")
+          if(res?.data) {
+            if(res?.data?.user?.accountLocked) {
+              this.notifierService.showError('Account Locked');
+              return;
+            }
+            if(res?.data?.user?.status === USERSTATUS.inactive) {
+              this.notifierService.showError('Account not active');
+              return;
+            }
+            localStorage.setItem(STORAGETOKENENUM.token, res?.data?.authToken);
+            localStorage.setItem(STORAGETOKENENUM.userId, res?.data?.user?.userId);
+            localStorage.setItem(STORAGETOKENENUM.role, res?.data?.user?.role)
+            this.router.navigate(['/pages']);
+            this.loginForm.reset();
+            this.notifierService.showSuccess(res?.message || "Success");
+          }
         }
       }, (error: any) => {
         this.notifierService.showError(error.error.message);
         this.loginFormSubmitting = false;
       })
+    } else {
+      this.notifierService.showError('Invalid Data');
     }
   }
 
-  onClick1(input_field_password: any) {
-    if (input_field_password.type == "password") {
-      input_field_password.type = "text";
+  togglePassword(inputFieldPassword: any) {
+    
+    if (inputFieldPassword.type == "password") {
+      inputFieldPassword.type = "text";
       this.show1 = !this.show1;
     } else {
-      input_field_password.type = "password";
+      inputFieldPassword.type = "password";
       this.show1 = !this.show1;
     }
   }
