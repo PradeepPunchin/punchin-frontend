@@ -28,6 +28,7 @@ import { httpInterceptorProviders } from './services/interceptors';
     ToastrModule.forRoot(),
 
   ],
+  // httpInterceptorProviders
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })

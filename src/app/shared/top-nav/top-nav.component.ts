@@ -25,8 +25,8 @@ export class TopNavComponent implements OnInit {
   }
 
   logout() {
+    this.sessionServive.removeSessions()
     this.apiService.logout().subscribe((res: any) => {
-      this.sessionServive.removeSessions()
       this.router.navigate(['/']);
       this.notifierService.showSuccess("logout Successful")
     })
