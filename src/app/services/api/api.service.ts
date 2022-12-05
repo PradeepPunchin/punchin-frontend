@@ -27,4 +27,8 @@ export class ApiService {
   getBankerDashboardData() {
     return this.http.get(`${this.baseApiUrl}banker/getDashboardData`);
   }
+  // upload document
+  uploadUserDocument(data: any) {
+    return this.http.post(`${this.baseApiUrl}banker/claim/upload`, data)
+  }
 }
