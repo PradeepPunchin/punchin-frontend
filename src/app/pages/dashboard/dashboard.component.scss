@@ -107,10 +107,12 @@
       font-weight: 600;
       font-size: $fontSize12;
       color: $white;
+      height: 52px;
     }
     td {
       font-size: $fontSize12;
       color: $navbarTextColor;
+      height: 64px;
     }
     th:last-child,
     td:last-child {
@@ -158,6 +160,7 @@
           background-color: $buttonColor;
           border-color: $buttonColor;
           color: $white;
+          z-index: 0;
         }
         li.page-item .page-link:hover {
           background-color: $buttonColor;
