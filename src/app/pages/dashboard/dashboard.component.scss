@@ -91,12 +91,35 @@
   border-radius: 6px;
   margin-top: 14px;
   padding-right: 25px;
-  h6 {
-    font-weight: 600;
-    font-size: $fontSize14;
-    color: $textColor;
-    padding: 20px 20px 24px;
-    margin-bottom: 0;
+  .claim-dashboard-btns {
+    h6 {
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $textColor;
+      padding: 20px 20px 24px;
+      margin-bottom: 0;
+    }
+    .btn-primary {
+      background-color: $buttonColor;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $white;
+      padding: 6px 15px;
+      margin-left: 10px;
+      border-color: $buttonColor;
+    }
+    .btn-outline-primary {
+      border-color: $icon-color;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $icon-color;
+      padding: 6px 15px;
+    }
+    .btn-outline-primary:hover {
+      background: $white;
+    }
   }
   .table-container {
     .table {
