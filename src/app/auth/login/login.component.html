@@ -38,7 +38,7 @@
                                 <input type="password" class="form-control login-input new-inputs"
                                     formControlName="password" placeholder="Enter your password"
                                     autocomplete="new-password"
-                                    [ngClass]="{'error-border':!!loginForm.controls.password?.invalid && (loginFormSubmitted || !!loginForm.controls?.password?.touched)}"
+                                    [ngClass]="{'error-border':!!loginForm.controls.password.invalid && (loginFormSubmitted || !!loginForm.controls.password.touched)}"
                                     #password [(ngModel)]="a_password">
                                 <span class="eye-icon" (click)="togglePassword(password)">
                                     <i *ngIf="show1" class="fa fa-eye"></i>
@@ -65,9 +65,9 @@
                     </button>
                 </form>
             </div>
-            <div class="inner-logo">
+            <!-- <div class="inner-logo">
                 <img class="img-fluid" src="../../../assets/img/Group 12971.svg">
-            </div>
+            </div> -->
         </div>
         <div class="col-lg-6 p-0">
             <div class="image-wrapper">

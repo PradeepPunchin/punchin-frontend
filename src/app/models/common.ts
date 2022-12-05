@@ -8,6 +8,7 @@ export interface ApiResponse<T> {
 }
 
 export interface INavItem {
+    id: number
     name: string,
     link: string,
     icon: string
