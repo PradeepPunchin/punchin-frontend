@@ -10,17 +10,17 @@ import { NotifierService } from 'src/app/services/notifier/notifier.service';
 })
 export class FileUploadComponent implements OnInit {
   selectedFile = null;
-  profileDocument: any = [];  
+  profileDocument: any = [];
   fileUpload: boolean = false;
   file: any;
 
 
-  @Output() AwsFileList : EventEmitter<any> = new EventEmitter(); 
+  @Output() AwsFileList: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    private apiService : ApiService,
+    private apiService: ApiService,
     private notifierService: NotifierService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
@@ -40,11 +40,11 @@ export class FileUploadComponent implements OnInit {
    */
   async fileBrowseHandler(event: any) {
     this.prepareFilesList(event.target.files);
-    this.file= event.target.files[0];
+    this.file = event.target.files[0];
     const files: any[] = event.target.files;
-    this.fileUpload=false;
-    if(files && files.length > 0) {
-      for(let i=0; i<files.length; i++){
+    this.fileUpload = false;
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
         // const fileUploadRes = await this.mainService.uploadUserDocument(files[i]);
         // this.fileUpload=true;
         // this.notifierService.showSuccess('File Uploaded');
@@ -111,7 +111,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   uploadFileToAWS() {
-    
+
   }
 
 }
