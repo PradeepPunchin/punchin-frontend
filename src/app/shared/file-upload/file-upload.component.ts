@@ -45,20 +45,12 @@ export class FileUploadComponent implements OnInit {
     this.fileUpload = false;
     if (files && files.length > 0) {
       for (let i = 0; i < files.length; i++) {
-        const fileUploadRes = await this.apiService.uploadUserDocument(files[i]).subscribe((res: any) => {
-          console.log(res, "res");
-
-
-          this.fileUpload = true;
-          this.notifierService.showSuccess('File Uploaded');
-          this.profileDocument.push(fileUploadRes);
-          console.log(files[i], "file")
-        });
-
+        // const fileUploadRes = await this.mainService.uploadUserDocument(files[i]);
+        // this.fileUpload=true;
+        // this.notifierService.showSuccess('File Uploaded');
+        // this.profileDocument.push(fileUploadRes);
       }
       this.AwsFileList.emit(this.profileDocument);
-      console.log(this.profileDocument);
-
     }
   }
 

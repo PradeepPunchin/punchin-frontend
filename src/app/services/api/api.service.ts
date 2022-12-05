@@ -27,8 +27,26 @@ export class ApiService {
   getBankerDashboardData() {
     return this.http.get(`${this.baseApiUrl}banker/getDashboardData`);
   }
+
   // upload document
   uploadUserDocument(data: any) {
-    return this.http.post(`${this.baseApiUrl}banker/claim/upload`, data)
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'multipart/form-data');
+    return this.http.post(`${this.baseApiUrl}banker/claim/upload`, { multipartFile: data }, { headers: headers })
   }
+
+  getClaimList(pageNo: number, pageSize: number) {
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=DRAFT&limit=${pageSize}&page=${pageNo}`);
+  }
+  getClaimSubmiitedList(pageNo: number, pageSize: number) {
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SUBMITED&limit=${pageSize}&page=${pageNo}`);
+  }
+  discardClaims() {
+    return this.http.delete(`${this.baseApiUrl}banker/claim/discard`)
+  }
+
+  submitClaims() {
+    return this.http.put(`${this.baseApiUrl}banker/claim/submit`, "")
+  }
+
 }
