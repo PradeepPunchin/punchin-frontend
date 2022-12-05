@@ -1,13 +1,15 @@
+@import "../../assets/css/variables";
+
 .default-layout-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
   .default-content-wrapper {
     padding: 0 20px;
-    background-color: #f5f5f5;
+    background-color: $dashboardBackground;
   }
   .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
   }

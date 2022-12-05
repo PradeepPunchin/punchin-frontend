@@ -37,6 +37,8 @@
             </div>
         </div>
     </div>
+
+    <app-file-upload></app-file-upload>
     <div class="container-fluid bulk-upload-box">
         <div class="d-flex align-items-center justify-content-between upload-box-head">
             <h6>Bulk Upload</h6>
@@ -83,6 +85,101 @@
                         <h6>Approved Cases</h6>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cases-claims-box">
+        <h6>Cases/Claims</h6>
+
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Case/Claim Id</th>
+                        <th scope="col">Claim Registration Date</th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Contact Number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>27193</td>
+                        <td>2/1/2020</td>
+                        <td>Ram Prakash</td>
+                        <td>Sanjay Prakash</td>
+                        <td>9462302854</td>
+                        <td>H-23, Gali Number 45, Lal bagh
+                            Chowk, Prayagraj, UP</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>27193</td>
+                        <td>2/1/2020</td>
+                        <td>Ram Prakash</td>
+                        <td>Sanjay Prakash</td>
+                        <td>9462302854</td>
+                        <td>H-23, Gali Number 45, Lal bagh
+                            Chowk, Prayagraj, UP</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>27193</td>
+                        <td>2/1/2020</td>
+                        <td>Ram Prakash</td>
+                        <td>Sanjay Prakash</td>
+                        <td>9462302854</td>
+                        <td>H-23, Gali Number 45, Lal bagh
+                            Chowk, Prayagraj, UP</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>27193</td>
+                        <td>2/1/2020</td>
+                        <td>Ram Prakash</td>
+                        <td>Sanjay Prakash</td>
+                        <td>9462302854</td>
+                        <td>H-23, Gali Number 45, Lal bagh
+                            Chowk, Prayagraj, UP</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>27193</td>
+                        <td>2/1/2020</td>
+                        <td>Ram Prakash</td>
+                        <td>Sanjay Prakash</td>
+                        <td>9462302854</td>
+                        <td>H-23, Gali Number 45, Lal bagh
+                            Chowk, Prayagraj, UP</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>27193</td>
+                        <td>2/1/2020</td>
+                        <td>Ram Prakash</td>
+                        <td>Sanjay Prakash</td>
+                        <td>9462302854</td>
+                        <td>H-23, Gali Number 45, Lal bagh
+                            Chowk, Prayagraj, UP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination-box d-flex justify-content-between align-items-center">
+            <div class="pages-per-rows d-flex align-items-center">
+                <p class="per-row-title">Page Per Rows</p>
+                <h6 class="per-row-text">30</h6>
+                <img src="../../../assets/icons/chevron-down.svg">
+            </div>
+
+            <div class="pagination-content">
+                <pagination [totalItems]="50" previousText="&lsaquo;" nextText="&rsaquo;"></pagination>
             </div>
         </div>
     </div>
