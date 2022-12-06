@@ -42,6 +42,8 @@
                     <th scope="col">Contact Number </th>
                     <th scope="col">Email id </th>
                     <th scope="col">Nominee Address </th>
+                    <th scope="col">Action</th>
+
                 </tr>
             </thead>
             <tbody class="align-middle" *ngFor="let item of submittedclaimListContent;let i = index">
@@ -70,6 +72,7 @@
                     <td>{{item.nomineeContactNumber}}</td>
                     <td>{{item.nomineeEmailId}}</td>
                     <td>{{item.nomineeAddress}}</td>
+                    <td><img src="assets/icons/action.svg"></td>
                 </tr>
             </tbody>
         </table>
