@@ -4,6 +4,7 @@ import { BANKERSTATUSENUM, ROLES, STORAGETOKENENUM } from 'src/app/models/enums'
 import { ApiService } from 'src/app/services/api/api.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
 import { SessionService } from 'src/app/services/session/session.service';
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -17,11 +18,13 @@ export class DashboardComponent implements OnInit {
     [key:string]: BANKERSTATUSENUM
   } = {};
   bankerStatusEnum = BANKERSTATUSENUM
+  bsModalRef?: BsModalRef;
 
   constructor(
     private sessionServive: SessionService,
     private apiService: ApiService,
-    private notifierService: NotifierService
+    private notifierService: NotifierService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +44,21 @@ export class DashboardComponent implements OnInit {
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
     })
+  }
+
+  openModal(){
+    // const initialState: ModalOptions = {
+    //   initialState: {
+    //     list: [
+    //       'Open a modal with component',
+    //       'Pass your data',
+    //       'Do something else',
+    //       '...'
+    //     ],
+    //     title: 'Modal with component'
+    //   }
+    // };
+    // this.bsModalRef = this.modalService.show(initialState);
   }
 }
 

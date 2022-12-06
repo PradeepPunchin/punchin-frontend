@@ -1,4 +1,4 @@
-<!-- <ng-container *ngIf="role =='BANKER'">
+<ng-container *ngIf="role =='BANKER'">
     <div class="container-fluid claim-dashboard-box">
         <h6>Service/Claim Dashboard</h6>
         <div class="row">
@@ -114,7 +114,7 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle">
-                    <tr>
+                    <tr *ngFor="let item of [1, 2, 3, 4, 5, 6]">
                         <td>1</td>
                         <td>27193</td>
                         <td>2/1/2020</td>
@@ -123,56 +123,7 @@
                         <td>9462302854</td>
                         <td>H-23, Gali Number 45, Lal bagh
                             Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
+                        <td (click)="openModal()"><img src="../../../assets/icons/eye.svg"></td>
                     </tr>
                 </tbody>
             </table>
@@ -190,7 +141,7 @@
             </div>
         </div>
     </div>
-</ng-container> -->
+</ng-container>
 
 <!-- <div class="container-fluid documentation-upload-box">
     <h6 class="documentation-upload-heading">Documentation Upload</h6>
