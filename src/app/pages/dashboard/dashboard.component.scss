@@ -16,6 +16,7 @@
     padding: 26px 0 0 28px;
     display: flex;
     align-items: flex-start;
+    cursor: pointer;
     img {
       margin-right: 14px;
     }
@@ -35,6 +36,14 @@
   .claims-in-progress-box {
     background-color: $blueColor;
   }
+}
+
+.cord-box {
+  padding: 0 20px 15px;
+  background-color: $white;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
+  margin: 14px 0 18px;
 }
 
 // .bulk-upload-box {

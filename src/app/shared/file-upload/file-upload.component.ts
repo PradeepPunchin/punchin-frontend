@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
 
@@ -13,13 +14,16 @@ export class FileUploadComponent implements OnInit {
   profileDocument: any = [];
   fileUpload: boolean = false;
   file: any;
+  pageNo: number = 0;
+  pageSize: number = 10;
 
 
   @Output() AwsFileList: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private apiService: ApiService,
-    private notifierService: NotifierService
+    private notifierService: NotifierService,
+    private dashboard: DashboardComponent
   ) { }
 
   ngOnInit(): void {
@@ -45,10 +49,12 @@ export class FileUploadComponent implements OnInit {
     this.fileUpload = false;
     if (files && files.length > 0) {
       for (let i = 0; i < files.length; i++) {
-        // const fileUploadRes = await this.mainService.uploadUserDocument(files[i]);
-        // this.fileUpload=true;
-        // this.notifierService.showSuccess('File Uploaded');
-        // this.profileDocument.push(fileUploadRes);
+        const formData: FormData = new FormData();
+        formData.append('multipartFile', this.files[i], this.files[i].name);
+        const fileUploadRes = await this.apiService.uploadUserDocument(formData).subscribe()
+        this.fileUpload = true;
+        this.notifierService.showSuccess('File Uploaded');
+        this.profileDocument.push(fileUploadRes);
       }
       this.AwsFileList.emit(this.profileDocument);
     }

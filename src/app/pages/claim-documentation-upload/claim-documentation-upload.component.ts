@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ApiService } from 'src/app/services/api/api.service';
+import { EventService } from 'src/app/services/event/event.service';
+import { UtilityService } from 'src/app/services/utility/utility.service';
 
 @Component({
   selector: 'app-claim-documentation-upload',
@@ -14,11 +16,16 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   submittedClaimList: any;
   submittedclaimListContent: any = []
 
-  constructor(private apiService: ApiService,
+
+  constructor(
+    private apiService: ApiService,
+    private eventService: EventService,
   ) { }
 
   ngOnInit(): void {
     this.getClaimSubmiitedList(this.pageNo, this.pageSize);
+
+
   }
 
   getClaimSubmiitedList(pageNo: number, pageSize: number) {
@@ -26,7 +33,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       if (res?.isSuccess) {
         this.submittedClaimList = res?.data
         this.submittedclaimListContent = res?.data.content
-        this.totalrecords = res?.data.numberOfElements
+        this.totalrecords = res?.data.totalElements
       }
     })
   }

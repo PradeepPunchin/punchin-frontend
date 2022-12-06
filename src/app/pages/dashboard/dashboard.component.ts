@@ -4,8 +4,10 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ApiResponse } from 'src/app/models/common';
 import { BANKERSTATUSENUM, ROLES, STORAGETOKENENUM } from 'src/app/models/enums';
 import { ApiService } from 'src/app/services/api/api.service';
+import { EventService } from 'src/app/services/event/event.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
 import { SessionService } from 'src/app/services/session/session.service';
+import { UtilityService } from 'src/app/services/utility/utility.service';
 
 
 @Component({
@@ -24,13 +26,21 @@ export class DashboardComponent implements OnInit {
   totalrecords!: number;
   pageNo: number = 0;
   pageSize: number = 10;
+  onStep: number = 0;
+  cordListData: any = []
+  cardList: any
+  cordListWipData: any = []
+  cordListsetlledData: any = []
+
 
 
   constructor(
     private sessionServive: SessionService,
     private apiService: ApiService,
     private notifierService: NotifierService,
-    private router: Router
+    private router: Router,
+    private eventService: EventService,
+    private utilitiesService: UtilityService
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +48,37 @@ export class DashboardComponent implements OnInit {
     if (this.role === ROLES.banker) {
       this.getBankerDashboardData();
       this.getClaimList(this.pageNo, this.pageSize);
+      this.showCardALLDetails();
     }
+  }
+
+
+  showCardALLDetails() {
+    this.apiService.getCardList(this.pageNo, this.pageSize).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.cardList = res?.data
+        this.cordListData = res?.data.content
+        this.totalrecords = res?.data.totalElements
+      }
+    })
+  }
+  showCardWipDetails() {
+    this.apiService.getCardWipList(this.pageNo, this.pageSize).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.cardList = res?.data
+        this.cordListWipData = res?.data.content
+        this.totalrecords = res?.data.totalElements
+      }
+    })
+  }
+  showCardSettledDetails() {
+    this.apiService.getCardSettledList(this.pageNo, this.pageSize).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.cardList = res?.data
+        this.cordListsetlledData = res?.data.content
+        this.totalrecords = res?.data.totalElements
+      }
+    })
   }
 
   getBankerDashboardData() {
@@ -58,7 +98,7 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.claimList = res?.data
         this.claimListContent = res?.data.content
-        this.totalrecords = res?.data.numberOfElements
+        this.totalrecords = res?.data.totalElements
       }
     })
   }
@@ -91,6 +131,10 @@ export class DashboardComponent implements OnInit {
       this.pageNo = event.page - 1;
       this.getClaimList(this.pageNo, this.pageSize);
     }
+    // if (this.cardList && this.cardList.length !== this.totalrecords) {
+    //   this.pageNo = event.page - 1;
+    //   this.getClaimList(this.pageNo, this.pageSize);
+    // }
   }
 }
 

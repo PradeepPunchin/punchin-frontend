@@ -30,17 +30,25 @@ export class ApiService {
 
   // upload document
   uploadUserDocument(data: any) {
-    let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'multipart/form-data');
-    return this.http.post(`${this.baseApiUrl}banker/claim/upload`, { multipartFile: data }, { headers: headers })
+    return this.http.post(`${this.baseApiUrl}banker/claim/upload`, data)
   }
 
   getClaimList(pageNo: number, pageSize: number) {
     return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=DRAFT&limit=${pageSize}&page=${pageNo}`);
   }
   getClaimSubmiitedList(pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SUBMITED&limit=${pageSize}&page=${pageNo}`);
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SUBMITTED&limit=${pageSize}&page=${pageNo}`);
   }
+  getCardList(pageNo: number, pageSize: number) {
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=ALL&limit=${pageSize}&page=${pageNo}`);
+  }
+  getCardWipList(pageNo: number, pageSize: number) {
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=WIP&limit=${pageSize}&page=${pageNo}`);
+  }
+  getCardSettledList(pageNo: number, pageSize: number) {
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SETTLED&limit=${pageSize}&page=${pageNo}`);
+  }
+
   discardClaims() {
     return this.http.delete(`${this.baseApiUrl}banker/claim/discard`)
   }
