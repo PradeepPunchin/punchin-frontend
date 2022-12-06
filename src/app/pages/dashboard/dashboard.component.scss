@@ -203,3 +203,144 @@
     }
   }
 }
+
+.documentation-upload-box {
+  background-color: $white;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
+  margin: 14px 0 30px;
+  padding: 22px 48px 48px;
+  .documentation-upload-heading {
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $black;
+    margin-bottom: 14px;
+  }
+  .heading-color-box {
+    h6 {
+      background-color: $textColorBox;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $black;
+      margin-bottom: 0;
+      padding: 12px 20px;
+      margin-bottom: 16px;
+      margin-top: 20px;
+    }
+  }
+  .documentation-upload-forms {
+    .form-label {
+      font-size: $fontSize13;
+      color: $black;
+    }
+    .form-control {
+      background-color: $inputBackground;
+      border-color: $inputBorderColor;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $black;
+      height: 45px;
+    }
+    .form-control::placeholder {
+      color: $black;
+    }
+  }
+
+  .submit-save-btn {
+    margin-top: 30px;
+    .btn-primary {
+      background-color: $buttonColor;
+      border-color: $buttonColor;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $white;
+      margin-left: 16px;
+      padding: 6px 14px;
+    }
+  }
+  .btn-outline-primary {
+    border-color: $navbarTextColor;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $navbarTextColor;
+    padding: 6px 14px;
+  }
+  .btn-outline-primary:hover {
+    background-color: $white;
+  }
+}
+
+.document-verification-box {
+  border: 0.5px solid $borderBoxColor;
+  margin-bottom: 10px;
+  .document-verification-heading {
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $black;
+    padding: 12px 20px;
+    border-bottom: 0.5px solid $borderBoxColor;
+  }
+  .document-verification-row {
+    padding: 12px 20px 24px;
+    .document-verification-title {
+      font-size: $fontSize12;
+      color: $navbarTextColor;
+      margin-bottom: 6px;
+    }
+    .document-verification-text {
+      font-weight: 600;
+      font-size: 13px;
+      color: $textColor;
+    }
+  }
+}
+
+.document-verification-table {
+  thead {
+    border-color: $tableBorderColor;
+    tr {
+      border-width: 0.5px;
+      th {
+        background-color: $buttonColor;
+        height: 40px;
+        color: $white;
+        font-weight: 600;
+        font-size: 12px;
+        padding: 12px 16px;
+        border: none;
+      }
+    }
+  }
+  tbody {
+    border: 0.5px solid $tableBorderColor;
+    tr {
+      border-width: 0.5px;
+      td {
+        height: 36px;
+        padding: 10px 16px;
+        font-weight: 500;
+        font-size: $fontSize12;
+        color: $black;
+        border-width: 0.5px;
+        .doc-status-grey-text,
+        .doc-status-blue-text {
+          font-weight: 600;
+          font-size: $fontSize10;
+          color: $tableTextColor;
+          margin-bottom: 0;
+          border-radius: 50px;
+          padding: 4px 12px;
+          background-color: $greyButtonColor;
+          display: inline;
+        }
+        .doc-status-blue-text {
+          color: $tableBlueTextColor;
+          background-color: $blueButtonColor;
+        }
+      }
+    }
+  }
+}

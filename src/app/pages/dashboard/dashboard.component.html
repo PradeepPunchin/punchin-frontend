@@ -1,4 +1,4 @@
-<ng-container *ngIf="role =='BANKER'">
+<!-- <ng-container *ngIf="role =='BANKER'">
     <div class="container-fluid claim-dashboard-box">
         <h6>Service/Claim Dashboard</h6>
         <div class="row">
@@ -190,4 +190,241 @@
             </div>
         </div>
     </div>
-</ng-container>
+</ng-container> -->
+
+<!-- <div class="container-fluid documentation-upload-box">
+    <h6 class="documentation-upload-heading">Documentation Upload</h6>
+
+    <div class="borrower-details">
+        <div class="heading-color-box">
+            <h6>Borrower Details</h6>
+        </div>
+        <form class="row g-3 documentation-upload-forms">
+            <div class="col-4">
+                <label for="case-claim-id" class="form-label">Case/Claim Id</label>
+                <input type="text" class="form-control" id="case-claim-id" placeholder="27193">
+            </div>
+            <div class="col-4">
+                <label for="borrower-name" class="form-label">Borrower name</label>
+                <input type="text" class="form-control" id="borrower-name" placeholder="Ram Prakash">
+            </div>
+            <div class="col-4">
+                <label for="borrower-address" class="form-label">Borrower Address</label>
+                <input type="text" class="form-control" id="borrower-address"
+                    placeholder="H-23, Gali Number 45, Lal bagh Chowk, Prayagraj, UP ">
+            </div>
+        </form>
+    </div>
+
+    <div class="loan-details">
+        <div class="heading-color-box">
+            <h6>Loan Details</h6>
+        </div>
+        <form class="row g-3 documentation-upload-forms">
+            <div class="col-4">
+                <label for="loan-type" class="form-label">Loan Type</label>
+                <input type="text" class="form-control" id="loan-type" placeholder="Housing Loan">
+            </div>
+            <div class="col-4">
+                <label for="loan-account-number" class="form-label">Loan Account Number</label>
+                <input type="text" class="form-control" id="loan-account-number" placeholder="34675000002146">
+            </div>
+        </form>
+    </div>
+
+    <div class="insurance-details">
+        <div class="heading-color-box">
+            <h6>Insurance Details</h6>
+        </div>
+        <form class="row g-3 documentation-upload-forms">
+            <div class="col-4">
+                <label for="insurer-name" class="form-label">Insurer Name</label>
+                <input type="text" class="form-control" id="insurer-name" placeholder="HDFC Life">
+            </div>
+            <div class="col-4">
+                <label for="borrower-policy-number" class="form-label">Borrower policy number</label>
+                <input type="text" class="form-control" id="borrower-policy-number" placeholder="201304672">
+            </div>
+            <div class="col-4">
+                <label for="master-policy-number" class="form-label">Master Policy Number</label>
+                <input type="text" class="form-control" id="master-policy-number" placeholder="45296/18">
+            </div>
+        </form>
+    </div>
+
+    <div class="claim-seggregation-details">
+        <div class="heading-color-box">
+            <h6>Claim Seggregation Details</h6>
+        </div>
+        <form class="row g-3 documentation-upload-forms">
+            <div class="col-4">
+                <label for="borrower-sum-assured" class="form-label">Borrower Sum Assured</label>
+                <input type="text" class="form-control" id="borrower-sum-assured" placeholder="15,00,000">
+            </div>
+            <div class="col-4">
+                <label for="original-loan-amt" class="form-label">Original Loan amt</label>
+                <input type="text" class="form-control" id="original-loan-amt" placeholder="12,00,000">
+            </div>
+            <div class="col-4">
+                <label for="loan-amount-paid-by-borrower" class="form-label">Loan amount paid by borrower</label>
+                <input type="text" class="form-control" id="loan-amount-paid-by-borrower" placeholder="6,00,000">
+            </div>
+            <div class="col-4">
+                <label for="outstanding-loan-amt-payable" class="form-label">Outstanding Loan Amt payable to MPH</label>
+                <input type="text" class="form-control" id="outstanding-loan-amt-payable" placeholder="6,00,000">
+            </div>
+            <div class="col-4">
+                <label for="balance-claim-amt" class="form-label">Balance Claim Amt (payable to the nominee)</label>
+                <input type="text" class="form-control" id="balance-claim-amt" placeholder="3,00,000">
+            </div>
+        </form>
+    </div>
+
+    <div class="document-upload">
+        <div class="heading-color-box">
+            <h6>Document Upload</h6>
+        </div>
+
+        <form class="row g-3 documentation-upload-forms">
+            <div class="col-4">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>SMQ</option>
+                    <option value="1">DOGH</option>
+                    <option value="2">POS Letter</option>
+                    <option value="3">MEF</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Proposal form</option>
+                    <option value="1">FUF</option>
+                    <option value="2">Covid Q</option>
+                    <option value="3">Sanction letter</option>
+                    <option value="3">CAS</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="text-center submit-save-btn">
+        <button type="button" class="btn btn-outline-primary">Save as Draft</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+    </div>
+</div> -->
+
+<div class="document-verification-box">
+    <h6 class="document-verification-heading">Borrower Details</h6>
+    <div class="row document-verification-row">
+        <div class="col-3">
+            <p class="document-verification-title">Borrower Name</p>
+            <p class="document-verification-text">Ram Prakash</p>
+        </div>
+        <div class="col-3">
+            <p class="document-verification-title">Borrower Address</p>
+            <p class="document-verification-text">H-23, Gali Number 45, Lal bagh
+                Chowk, Prayagraj, UP </p>
+        </div>
+        <div class="col-3">
+            <p class="document-verification-title">Loan Account No.</p>
+            <p class="document-verification-text">34675000002146</p>
+        </div>
+        <div class="col-3">
+            <p class="document-verification-title">Insurer Name</p>
+            <p class="document-verification-text">Bagic</p>
+        </div>
+    </div>
+</div>
+
+<div class="document-verification-box">
+    <h6 class="document-verification-heading">Nominee Details</h6>
+    <div class="row document-verification-row">
+        <div class="col-3">
+            <p class="document-verification-title">Nominee Name</p>
+            <p class="document-verification-text">Sanjay Prakash</p>
+        </div>
+        <div class="col-3">
+            <p class="document-verification-title">Borrower Address</p>
+            <p class="document-verification-text">H-23, Gali Number 45, Lal bagh
+                Chowk, Prayagraj, UP </p>
+        </div>
+        <div class="col-3">
+            <p class="document-verification-title">Relation</p>
+            <p class="document-verification-text">Son</p>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive document-verification-table">
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr class="align-middle">
+                <th scope="col">Document Name</th>
+                <th scope="col" class="text-center">Uploaded Doc</th>
+                <th scope="col" class="text-center">Doc Status</th>
+                <th scope="col" class="text-center">View Doc</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Signed claim form</td>
+                <td class="text-center">Otto</td>
+                <td class="text-center">
+                    <p class="doc-status-grey-text">Under Verification</p>
+                </td>
+                <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+            </tr>
+            <tr>
+                <td>Death Certificate</td>
+                <td class="text-center">Otto</td>
+                <td class="text-center">
+                    <p class="doc-status-grey-text">Not Uploaded</p>
+                </td>
+                <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+            </tr>
+            <tr>
+                <td>Borrower ID Proof</td>
+                <td class="text-center">Otto</td>
+                <td class="text-center">
+                    <p class="doc-status-grey-text">Under Verification</p>
+                </td>
+                <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+            </tr>
+            <tr>
+                <td>Borrower Add Proof</td>
+                <td class="text-center">Otto</td>
+                <td class="text-center">
+                    <p class="doc-status-blue-text">Approved</p>
+                </td>
+                <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+            </tr>
+            <tr>
+                <td>Nominee Id Proof</td>
+                <td class="text-center">Otto</td>
+                <td class="text-center">
+                    <p class="doc-status-blue-text">Approved</p>
+                </td>
+                <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+            </tr>
+            <tr>
+                <td>Nominee Add Proof</td>
+                <td class="text-center">Otto</td>
+                <td class="text-center">
+                    <p class="doc-status-blue-text">Approved</p>
+                </td>
+                <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+            </tr>
+            <tr>
+                <td>Bank Account proof</td>
+                <td class="text-center">Otto</td>
+                <td class="text-center">
+                    <p class="doc-status-blue-text">Approved</p>
+                </td>
+                <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+
+</div>
