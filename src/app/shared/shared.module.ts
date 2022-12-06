@@ -14,7 +14,11 @@ import { DirectivesModule } from '../directives/directives.module';
     NoDataFoundComponent,
     TopNavComponent,
     FooterComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    DocumentVerificationRequestModalComponent,
+    PdfViewerComponent,
+    DocumentRejectModalComponent
+    
   ],
   imports: [
     CommonModule,
