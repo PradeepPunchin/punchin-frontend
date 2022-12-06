@@ -21,6 +21,7 @@ import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
     DocumentVerificationRequestModalComponent,
     PdfViewerComponent,
     DocumentRejectModalComponent
+    
   ],
   imports: [
     CommonModule,
