@@ -29,8 +29,6 @@ export class DashboardComponent implements OnInit {
   onStep: number = 0;
   cordListData: any = []
   cardList: any
-  cordListWipData: any = []
-  cordListsetlledData: any = []
   isShow: boolean = true
 
 
