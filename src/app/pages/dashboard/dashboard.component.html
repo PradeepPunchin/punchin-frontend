@@ -369,30 +369,30 @@
     <div class="container-fluid claim-dashboard-box">
         <h6>Service/Claim Dashboard</h6>
         <div class="row">
-            <div class="col-4">
-                <div class="claims-allocated-box">
+            <div class="col-4" [ngClass]="{active: onStep === 0}" (click)="onStep = 0 ">
+                <div class="claims-allocated-box" (click)="verifierCardDetails('UNDER_VERIFICATION')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>{{verifierDashboardData[verifierStatusEnum.allocated] || 0}}</h5>
-                        <h6>Claims - Allocated</h6>
+                        <h5>{{verifierDashboardData[verifierStatusEnum.underVerification] || 0}}</h5>
+                        <h6>Under Verification Cases</h6>
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="claims-action-pending-box">
+            <div class="col-4" [ngClass]="{active: onStep === 1}" (click)="onStep = 1">
+                <div class="claims-action-pending-box" (click)="verifierCardDetails('SETTLED')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>{{verifierDashboardData[verifierStatusEnum.actionPending] || 0}}</h5>
-                        <h6>Claims - Action Pending</h6>
+                        <h5>{{verifierDashboardData[verifierStatusEnum.settled] || 0}}</h5>
+                        <h6>Settled Cases</h6>
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="claims-in-progress-box">
+            <div class="col-4" [ngClass]="{active: onStep === 2}" (click)="onStep = 2">
+                <div class="claims-in-progress-box" (click)="verifierCardDetails('IN_PROGRESS')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.inprogress] || 0}}</h5>
-                        <h6>Claims - In-Progress</h6>
+                        <h6>Progress Cases</h6>
                     </div>
                 </div>
             </div>
@@ -409,82 +409,151 @@
                 <option value="3">Sent to Insurer</option>
             </select>
         </div>
-        <div class="table-container table-responsive">
-            <table class="table">
+        <div class="table-container table-responsive" *ngIf="onStep === 0">
+            <table class="table table-sm">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Case/Claim Id</th>
-                        <th scope="col">Claim Registration Date</th>
+                        <th scope="col">Case/Claim Id </th>
+                        <th scope="col">Claim Registration Date </th>
                         <th scope="col">Borrower Name</th>
-                        <th scope="col">Nominee Name</th>
-                        <th scope="col">Contact Number</th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Contact number</th>
                         <th scope="col">Address</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Signed claim form </th>
+                        <th scope="col">Death Certificate </th>
+                        <th scope="col">Borrower ID Proof</th>
+                        <th scope="col">Borrower Add proof </th>
+                        <th scope="col">Nominee Id Proof </th>
+                        <th scope="col">Nominee Add proof </th>
+                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">FIR / Postmortem report</th>
+                        <th scope="col">Affidavit (Name mismatch etc)</th>
+                        <th scope="col">Discrepancy / AR / FR resolution</th>
+                        <th scope="col" class="text-center">Action</th>
                     </tr>
                 </thead>
-                <tbody class="align-middle">
+                <!-- <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
                     <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
+                        <td>{{i+1}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{}}</td>
+                        <td>{{}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td class="text-center"><img src="assets/icons/eye.svg"></td>
                     </tr>
+                </tbody> -->
+            </table>
+        </div>
+        <div class="table-container table-responsive" *ngIf="onStep === 1">
+            <table class="table table-sm">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Case/Claim Id </th>
+                        <th scope="col">Claim Registration Date </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Contact number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Signed claim form </th>
+                        <th scope="col">Death Certificate </th>
+                        <th scope="col">Borrower ID Proof</th>
+                        <th scope="col">Borrower Add proof </th>
+                        <th scope="col">Nominee Id Proof </th>
+                        <th scope="col">Nominee Add proof </th>
+                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">FIR / Postmortem report</th>
+                        <th scope="col">Affidavit (Name mismatch etc)</th>
+                        <th scope="col">Discrepancy / AR / FR resolution</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <!-- <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
                     <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
+                        <td>{{i+1}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{}}</td>
+                        <td>{{}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td class="text-center"><img src="assets/icons/eye.svg"></td>
                     </tr>
+                </tbody> -->
+            </table>
+        </div>
+        <div class="table-container table-responsive" *ngIf="onStep === 2">
+            <table class="table table-sm">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Case/Claim Id </th>
+                        <th scope="col">Claim Registration Date </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Contact number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Signed claim form </th>
+                        <th scope="col">Death Certificate </th>
+                        <th scope="col">Borrower ID Proof</th>
+                        <th scope="col">Borrower Add proof </th>
+                        <th scope="col">Nominee Id Proof </th>
+                        <th scope="col">Nominee Add proof </th>
+                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">FIR / Postmortem report</th>
+                        <th scope="col">Affidavit (Name mismatch etc)</th>
+                        <th scope="col">Discrepancy / AR / FR resolution</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <!-- <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
                     <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
+                        <td>{{i+1}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{}}</td>
+                        <td>{{}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td class="text-center"><img src="assets/icons/eye.svg"></td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                </tbody>
+                </tbody> -->
             </table>
         </div>
 
@@ -494,9 +563,10 @@
                 <h6 class="per-row-text">30</h6>
                 <img src="../../../assets/icons/chevron-down.svg">
             </div>
-
             <div class="pagination-content">
-                <pagination [totalItems]="50" previousText="&lsaquo;" nextText="&rsaquo;"></pagination>
+                <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
+                    (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
+                    max-size="5"></pagination>
             </div>
         </div>
     </div>

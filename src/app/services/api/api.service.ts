@@ -55,13 +55,19 @@ export class ApiService {
 
   //varifier api
   getVerifierDashboardData() {
-    return this.http.get(`${this.baseApiUrl}verifier/getDashboardDataCount`);
+    return this.http.get(`${this.baseApiUrl}verifier/getDashboardData`);
   }
 
   getVerifierDocumentRequestData(pageNo: number, pageSize: number) {
     return this.http.get(`${this.baseApiUrl}getVerifierDataDocumentClaimsData?page=${pageNo}&limit=${pageSize}`)
-
   }
+  getVerifierClaimsData(data: any, pageNo: number, pageSize: number) {
+    console.log(data, "api data pass");
+    return this.http.get(`${this.baseApiUrl}verifier/claim?claimDataFilter=${data}&page=${pageNo}&limit=${pageSize}`)
+  }
+
+
+
 
 
 

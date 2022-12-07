@@ -29,7 +29,8 @@ export enum BANKERSTATUSENUM {
 }
 
 export enum VERIFIERSTATUSENUM {
+    underVerification = "UNDER_VERIFICATION",
+    settled = "SETTLED",
     inprogress = "IN_PROGRESS",
-    allocated = "ALL",
-    actionPending = "ACTION_PENDING"
+
 }

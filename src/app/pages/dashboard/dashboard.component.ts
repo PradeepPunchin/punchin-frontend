@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
 
 
 
+
   constructor(
     private sessionServive: SessionService,
     private apiService: ApiService,
@@ -137,6 +138,15 @@ export class DashboardComponent implements OnInit {
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
     })
+  }
+  //  verifier card api
+  verifierCardDetails(data: any) {
+    this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
+
+    })
+
+
+
   }
 
   //pagination
