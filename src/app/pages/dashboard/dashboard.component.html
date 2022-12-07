@@ -418,79 +418,30 @@
         </div>
 
         <div class="table-container table-responsive">
-            <table class="table">
+            <table class="table table-sm">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Case/Claim Id</th>
-                        <th scope="col">Claim Registration Date</th>
+                        <th scope="col" class="text-center">Case/Claim Id</th>
+                        <th scope="col" class="text-center">Claim Registration Date</th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Nominee Name</th>
                         <th scope="col">Contact Number</th>
                         <th scope="col">Address</th>
-                        <th scope="col">Action</th>
+                        <th scope="col" class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle">
-                    <tr>
+                    <tr *ngFor="let item of [1, 2, 3, 4, 5, 6]">
                         <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
+                        <td class="text-center">27193</td>
+                        <td class="text-center">2/1/2020</td>
                         <td>Ram Prakash</td>
                         <td>Sanjay Prakash</td>
                         <td>9462302854</td>
                         <td>H-23, Gali Number 45, Lal bagh
                             Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>27193</td>
-                        <td>2/1/2020</td>
-                        <td>Ram Prakash</td>
-                        <td>Sanjay Prakash</td>
-                        <td>9462302854</td>
-                        <td>H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP</td>
+                        <td class="text-center" (click)="openModal()"><img src="../../../assets/icons/eye.svg"></td>
                     </tr>
                 </tbody>
             </table>

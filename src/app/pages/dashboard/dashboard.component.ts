@@ -8,6 +8,8 @@ import { EventService } from 'src/app/services/event/event.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { UtilityService } from 'src/app/services/utility/utility.service';
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals/document-verification-request-modal/document-verification-request-modal.component';
 
 
 @Component({
@@ -32,6 +34,7 @@ export class DashboardComponent implements OnInit {
   isShow: boolean = true
 
 
+  bsModalRef?: BsModalRef;
 
   constructor(
     private sessionServive: SessionService,
@@ -39,7 +42,8 @@ export class DashboardComponent implements OnInit {
     private notifierService: NotifierService,
     private router: Router,
     private eventService: EventService,
-    private utilitiesService: UtilityService
+    private utilitiesService: UtilityService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -134,6 +138,16 @@ export class DashboardComponent implements OnInit {
       this.pageNo = event.page - 1;
       this.showCardDetails("SETTLED");
     }
+  }
+
+  openModal() {
+    const initialState: ModalOptions = {
+      initialState: {
+        documentVerificationRequestId: 1,
+      },
+      class: 'modal-custom-width'
+    };
+    this.bsModalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
   }
 }
 
