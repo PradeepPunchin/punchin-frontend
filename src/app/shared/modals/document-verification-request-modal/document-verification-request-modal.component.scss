@@ -42,10 +42,13 @@
   }
 
   .document-verification-table {
+    height: 250px;
     .table {
       margin-bottom: 0;
       thead {
         border-color: $tableBorderColor;
+        position: sticky;
+        top: 0;
         tr {
           border-width: 0.5px;
           th {
