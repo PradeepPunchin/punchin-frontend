@@ -87,8 +87,8 @@
 
         <div class="pagination-content">
             <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
-                (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                max-size="5"></pagination>
+                (pageChanged)="pageChanged($event)" [itemsPerPage]="10" firstText="&laquo;" lastText="&raquo;">
+            </pagination>
         </div>
     </div>
 </div>

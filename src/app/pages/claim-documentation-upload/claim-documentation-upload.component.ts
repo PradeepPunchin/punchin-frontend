@@ -15,6 +15,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   pageSize: number = 10;
   submittedClaimList: any;
   submittedclaimListContent: any = []
+  maxSize: number = 5;
 
 
   constructor(
@@ -24,8 +25,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   ngOnInit(): void {
     this.getClaimSubmiitedList(this.pageNo, this.pageSize);
-
-
   }
 
   getClaimSubmiitedList(pageNo: number, pageSize: number) {
@@ -34,10 +33,11 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.submittedClaimList = res?.data
         this.submittedclaimListContent = res?.data.content
         this.totalrecords = res?.data.totalElements
+        console.log(this.totalrecords, " this.totalrecords");
+
       }
     })
   }
-
   //pagination
   pageChanged(event: PageChangedEvent) {
     if (this.submittedClaimList && this.submittedClaimList.length !== this.totalrecords) {
@@ -45,9 +45,4 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       this.getClaimSubmiitedList(this.pageNo, this.pageSize);
     }
   }
-
-
-
-
-
 }

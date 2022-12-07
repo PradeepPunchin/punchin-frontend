@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   cardList: any
   cordListWipData: any = []
   cordListsetlledData: any = []
+  isShow: boolean = true
 
 
 
@@ -47,36 +48,27 @@ export class DashboardComponent implements OnInit {
     this.role = this.sessionServive.getSession(STORAGETOKENENUM.role)
     if (this.role === ROLES.banker) {
       this.getBankerDashboardData();
-      this.getClaimList(this.pageNo, this.pageSize);
-      this.showCardALLDetails();
+      this.showCardDetails('ALL')
     }
   }
 
+  onGetUploadedFile(event: any) {
+    this.getClaimList();
+    if (event.length > 0) {
+      this.isShow = false
+    }
+  }
 
-  showCardALLDetails() {
-    this.apiService.getCardList(this.pageNo, this.pageSize).subscribe((res: any) => {
+  showCardDetails(data: any) {
+    this.apiService.getCardList(data, this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
         this.cordListData = res?.data.content
         this.totalrecords = res?.data.totalElements
-      }
-    })
-  }
-  showCardWipDetails() {
-    this.apiService.getCardWipList(this.pageNo, this.pageSize).subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.cardList = res?.data
-        this.cordListWipData = res?.data.content
-        this.totalrecords = res?.data.totalElements
-      }
-    })
-  }
-  showCardSettledDetails() {
-    this.apiService.getCardSettledList(this.pageNo, this.pageSize).subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.cardList = res?.data
-        this.cordListsetlledData = res?.data.content
-        this.totalrecords = res?.data.totalElements
+        if (this.cordListData.length > 0) {
+          this.isShow = false
+        }
+
       }
     })
   }
@@ -93,12 +85,13 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getClaimList(pageNo: number, pageSize: number) {
-    this.apiService.getClaimList(pageNo, pageSize).subscribe((res: any) => {
+  getClaimList() {
+    this.apiService.getClaimList(this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.claimList = res?.data
         this.claimListContent = res?.data.content
         this.totalrecords = res?.data.totalElements
+        console.log(this.claimListContent.length, "length");
       }
     })
   }
@@ -107,7 +100,7 @@ export class DashboardComponent implements OnInit {
     this.apiService.discardClaims().subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
-        this.getClaimList(this.pageNo, this.pageSize)
+        this.getClaimList();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
@@ -129,12 +122,20 @@ export class DashboardComponent implements OnInit {
   pageChanged(event: PageChangedEvent) {
     if (this.claimList && this.claimList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
-      this.getClaimList(this.pageNo, this.pageSize);
+      this.getClaimList();
     }
-    // if (this.cardList && this.cardList.length !== this.totalrecords) {
-    //   this.pageNo = event.page - 1;
-    //   this.getClaimList(this.pageNo, this.pageSize);
-    // }
+    if (this.cardList && this.cardList.length !== this.totalrecords) {
+      this.pageNo = event.page - 1;
+      this.showCardDetails("ALL");
+    }
+    else if (this.cardList && this.cardList.length !== this.totalrecords) {
+      this.pageNo = event.page - 1;
+      this.showCardDetails("WIP");
+    }
+    else if (this.cardList && this.cardList.length !== this.totalrecords) {
+      this.pageNo = event.page - 1;
+      this.showCardDetails("SETTLED");
+    }
   }
 }
 

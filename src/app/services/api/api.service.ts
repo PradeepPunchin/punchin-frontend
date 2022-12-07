@@ -39,14 +39,8 @@ export class ApiService {
   getClaimSubmiitedList(pageNo: number, pageSize: number) {
     return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SUBMITTED&limit=${pageSize}&page=${pageNo}`);
   }
-  getCardList(pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=ALL&limit=${pageSize}&page=${pageNo}`);
-  }
-  getCardWipList(pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=WIP&limit=${pageSize}&page=${pageNo}`);
-  }
-  getCardSettledList(pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SETTLED&limit=${pageSize}&page=${pageNo}`);
+  getCardList(data: any, pageNo: number, pageSize: number) {
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${data}&limit=${pageSize}&page=${pageNo}`);
   }
 
   discardClaims() {

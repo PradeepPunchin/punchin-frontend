@@ -3,7 +3,7 @@
         <h6>Service/Claim Dashboard</h6>
         <div class="row">
             <div class="col-4" [ngClass]="{ active: onStep === 0 }" (click)="onStep = 0">
-                <div class="claims-allocated-box" (click)="showCardALLDetails()">
+                <div class="claims-allocated-box" (click)="showCardDetails('ALL')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-4" [ngClass]="{ active: onStep === 1 }" (click)="onStep = 1">
-                <div class="claims-action-pending-box" (click)="showCardWipDetails()">
+                <div class="claims-action-pending-box" (click)="showCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="col-4" [ngClass]="{ active: onStep === 2 }" (click)="onStep = 2">
-                <div class="claims-in-progress-box" (click)="showCardSettledDetails()">
+                <div class="claims-in-progress-box" (click)="showCardDetails('SETTLED')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -37,17 +37,14 @@
             </div>
         </div>
     </div>
-    <div *ngIf="cordListData.length === 0 ">
-        <app-file-upload></app-file-upload>
+    <div *ngIf="cordListData.length === 0 && isShow === true ">
+        <app-file-upload (AwsFileList)="onGetUploadedFile($event)"></app-file-upload>
     </div>
 
     <div class="container-fluid cord-box">
         <div class="cases-claims-box">
-            <!-- <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-                <h6>Service/Claim Dashboard</h6>
-            </div> -->
             <div class="table-container table-responsive" *ngIf="onStep === 0">
-                <table class="table">
+                <table class="table" *ngIf="cordListData.length > 0">
                     <thead>
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
@@ -117,7 +114,7 @@
             </div>
 
             <div class="table-container table-responsive" *ngIf="onStep === 1">
-                <table class="table">
+                <table class="table" *ngIf="cordListData.length > 0">
                     <thead>
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
@@ -187,7 +184,7 @@
             </div>
 
             <div class="table-container table-responsive" *ngIf="onStep === 2  ">
-                <table class="table">
+                <table class="table" *ngIf="cordListData.length > 0">
                     <thead>
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
@@ -256,7 +253,8 @@
                 </table>
             </div>
 
-            <div class="pagination-box d-flex justify-content-between align-items-center">
+            <div class="pagination-box d-flex justify-content-between align-items-center"
+                *ngIf="cordListData.length > 0">
                 <div class="pages-per-rows d-flex align-items-center">
                     <p class="per-row-title">Page Per Rows</p>
                     <h6 class="per-row-text">30</h6>
