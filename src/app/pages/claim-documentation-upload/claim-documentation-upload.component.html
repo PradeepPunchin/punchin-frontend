@@ -92,3 +92,12 @@
         </div>
     </div>
 </div>
+
+<ng-container *ngIf="!submittedClaimList || (submittedClaimList && submittedClaimList.length === 0)">
+    <div class="error-wrapper">
+        <h1>Oops</h1>
+        <p>
+            No Data Found
+        </p>
+    </div>
+</ng-container>

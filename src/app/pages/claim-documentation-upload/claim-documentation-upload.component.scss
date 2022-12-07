@@ -132,3 +132,19 @@
     }
   }
 }
+.error-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-left: 10px;
+  margin: 2% auto;
+  h1 {
+    font-size: 34px;
+    font-weight: 500;
+  }
+  p {
+    font-size: 26px;
+    font-weight: 400;
+  }
+}
