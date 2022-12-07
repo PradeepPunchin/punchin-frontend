@@ -33,9 +33,10 @@ export class DashboardComponent implements OnInit {
   onStep: number = 0;
   cordListData: any = []
   cardList: any
-  cordListWipData: any = []
-  cordListsetlledData: any = []
   isShow: boolean = true
+  verifierCardList: any
+  verifiercordListData: any = []
+  innerStep: number = 0
 
 
 
@@ -58,6 +59,7 @@ export class DashboardComponent implements OnInit {
 
     if (this.role === ROLES.verifier || this.role === ROLES.admin) {
       this.getVerifierDashboardData();
+      this.verifierCardDetails("UNDER_VERIFICATION")
     }
   }
 
@@ -131,7 +133,6 @@ export class DashboardComponent implements OnInit {
     this.apiService.getVerifierDashboardData().subscribe((res: ApiResponse<any> | any) => {
       if (res?.isSuccess) {
         this.verifierDashboardData = res?.data;
-        console.log(this.verifierDashboardData, "this.verifierDashboardData");
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
       }
@@ -142,11 +143,12 @@ export class DashboardComponent implements OnInit {
   //  verifier card api
   verifierCardDetails(data: any) {
     this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
-
+      if (res?.isSuccess) {
+        this.verifierCardList = res?.data
+        this.verifiercordListData = res?.data.content
+        this.totalrecords = res?.data.totalElements
+      }
     })
-
-
-
   }
 
   //pagination
@@ -165,9 +167,20 @@ export class DashboardComponent implements OnInit {
       this.pageNo = event.page - 1;
       this.showCardDetails("SETTLED");
     }
+    if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords) {
+      this.pageNo = event.page - 1;
+      this.verifierCardList("UNDER_VERIFICATION");
+    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords) {
+      this.pageNo = event.page - 1;
+      this.verifierCardList("SETTLED");
+    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords) {
+      this.pageNo = event.page - 1;
+      this.verifierCardDetails("WIP")
+    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords) {
+      this.pageNo = event.page - 1;
+      this.verifierCardDetails("DISCREPENCY")
+    }
   }
-
-
 }
 
 

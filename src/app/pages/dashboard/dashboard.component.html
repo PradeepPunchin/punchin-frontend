@@ -155,7 +155,7 @@
 
                     </tr>
                 </thead>
-                <tbody class="align-middle" *ngFor="let item of cordListWipData;let i = index">
+                <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                     <tr>
                         <td>{{i+1}}</td>
                         <td>Leader</td>
@@ -225,7 +225,7 @@
 
                     </tr>
                 </thead>
-                <tbody class="align-middle" *ngFor="let item of cordListsetlledData;let i = index">
+                <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                     <tr>
                         <td>{{i+1}}</td>
                         <td>Leader</td>
@@ -388,7 +388,7 @@
                 </div>
             </div>
             <div class="col-4" [ngClass]="{active: onStep === 2}" (click)="onStep = 2">
-                <div class="claims-in-progress-box" (click)="verifierCardDetails('IN_PROGRESS')">
+                <div class="claims-in-progress-box" (click)="verifierCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.inprogress] || 0}}</h5>
@@ -401,7 +401,13 @@
 
     <div class="cases-claims-box">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6>Cases/Claims</h6>
+            <h6 *ngIf="onStep === 0 || onStep === 1">Cases/Claims</h6>
+            <div *ngIf="onStep === 2">
+                <button type="button" class="btn btn-primary m-2" [ngClass]="{active: innerStep === 0}"
+                    (click)="innerStep = 0" (click)="verifierCardDetails('WIP')">In-Progress</button>
+                <button type="button" class="btn btn-light" [ngClass]="{active: innerStep === 1}"
+                    (click)="innerStep = 1" (click)="verifierCardDetails('DISCREPENCY')">Discrepancy</button>
+            </div>
             <select class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option selected>Filter by Status</option>
                 <option value="1">All</option>
@@ -507,7 +513,7 @@
                 </tbody> -->
             </table>
         </div>
-        <div class="table-container table-responsive" *ngIf="onStep === 2">
+        <div class="table-container table-responsive" *ngIf="onStep === 2 && innerStep === 0">
             <table class="table table-sm">
                 <thead>
                     <tr class="align-middle">
@@ -556,7 +562,55 @@
                 </tbody> -->
             </table>
         </div>
-
+        <div class="table-container table-responsive" *ngIf="onStep === 2 && innerStep === 1">
+            <table class="table table-sm">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Case/Claim Id </th>
+                        <th scope="col">Claim Registration Date </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Contact number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Signed claim form </th>
+                        <th scope="col">Death Certificate </th>
+                        <th scope="col">Borrower ID Proof</th>
+                        <th scope="col">Borrower Add proof </th>
+                        <th scope="col">Nominee Id Proof </th>
+                        <th scope="col">Nominee Add proof </th>
+                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">FIR / Postmortem report</th>
+                        <th scope="col">Affidavit (Name mismatch etc)</th>
+                        <th scope="col">Discrepancy / AR / FR resolution</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <!-- <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{}}</td>
+                        <td>{{}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td>{{item.}}</td>
+                        <td class="text-center"><img src="assets/icons/eye.svg"></td>
+                    </tr>
+                </tbody> -->
+            </table>
+        </div>
         <div class="pagination-box d-flex justify-content-between align-items-center">
             <div class="pages-per-rows d-flex align-items-center">
                 <p class="per-row-title">Page Per Rows</p>
@@ -571,3 +625,12 @@
         </div>
     </div>
 </ng-container>
+
+<!-- <ng-container *ngIf="!verifierCardList || (verifierCardList && verifierCardList.length === 0)">
+    <div class="error-wrapper">
+        <h1>Oops</h1>
+        <p>
+            No Data Found
+        </p>
+    </div>
+</ng-container> -->
