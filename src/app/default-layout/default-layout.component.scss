@@ -4,9 +4,9 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background-color: $dashboardBackground;
   .default-content-wrapper {
     padding: 0 20px;
-    background-color: $dashboardBackground;
   }
   .footer {
     position: fixed;

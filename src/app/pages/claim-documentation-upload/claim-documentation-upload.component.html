@@ -10,11 +10,11 @@
     </div>
 
     <div class="table-container table-responsive">
-        <table class="table">
+        <table class="table table-sm">
             <thead>
                 <tr class="align-middle">
                     <th scope="col">S.No</th>
-                    <!-- <th scope="col">Lender Name </th> -->
+                    <th scope="col">Lender Name </th>
                     <th scope="col">Borrower Name</th>
                     <th scope="col">Borrower contact number</th>
                     <th scope="col">Loan Account Number</th>
@@ -42,7 +42,7 @@
                     <th scope="col">Contact Number </th>
                     <th scope="col">Email id </th>
                     <th scope="col">Nominee Address </th>
-                    <th scope="col">Action</th>
+                    <th scope="col" class="text-center">Action</th>
 
                 </tr>
             </thead>
@@ -72,7 +72,7 @@
                     <td>{{item.nomineeContactNumber}}</td>
                     <td>{{item.nomineeEmailId}}</td>
                     <td>{{item.nomineeAddress}}</td>
-                    <td><img src="assets/icons/action.svg"></td>
+                    <td class="text-center"><img src="assets/icons/action.svg"></td>
                 </tr>
             </tbody>
         </table>
