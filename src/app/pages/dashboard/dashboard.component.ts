@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ApiResponse } from 'src/app/models/common';
-import { BANKERSTATUSENUM, ROLES, STORAGETOKENENUM } from 'src/app/models/enums';
+import { BANKERSTATUSENUM, ROLES, STORAGETOKENENUM, VERIFIERSTATUSENUM } from 'src/app/models/enums';
 import { ApiService } from 'src/app/services/api/api.service';
 import { EventService } from 'src/app/services/event/event.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
@@ -21,6 +21,10 @@ export class DashboardComponent implements OnInit {
     [key: string]: BANKERSTATUSENUM
   } = {};
   bankerStatusEnum = BANKERSTATUSENUM
+  verifierDashboardData: {
+    [key: string]: VERIFIERSTATUSENUM
+  } = {};
+  verifierStatusEnum = VERIFIERSTATUSENUM
   claimList: any
   claimListContent: any = []
   totalrecords!: number;
@@ -50,6 +54,10 @@ export class DashboardComponent implements OnInit {
       this.getBankerDashboardData();
       this.showCardDetails('ALL')
     }
+
+    if (this.role === ROLES.verifier || this.role === ROLES.admin) {
+      this.getVerifierDashboardData();
+    }
   }
 
   onGetUploadedFile(event: any) {
@@ -68,7 +76,6 @@ export class DashboardComponent implements OnInit {
         if (this.cordListData.length > 0) {
           this.isShow = false
         }
-
       }
     })
   }
@@ -118,6 +125,20 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  //verifier dashboard
+  getVerifierDashboardData() {
+    this.apiService.getVerifierDashboardData().subscribe((res: ApiResponse<any> | any) => {
+      if (res?.isSuccess) {
+        this.verifierDashboardData = res?.data;
+        console.log(this.verifierDashboardData, "this.verifierDashboardData");
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
+  }
+
   //pagination
   pageChanged(event: PageChangedEvent) {
     if (this.claimList && this.claimList.length !== this.totalrecords) {
@@ -127,16 +148,16 @@ export class DashboardComponent implements OnInit {
     if (this.cardList && this.cardList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
       this.showCardDetails("ALL");
-    }
-    else if (this.cardList && this.cardList.length !== this.totalrecords) {
+    } else if (this.cardList && this.cardList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
       this.showCardDetails("WIP");
-    }
-    else if (this.cardList && this.cardList.length !== this.totalrecords) {
+    } else if (this.cardList && this.cardList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
       this.showCardDetails("SETTLED");
     }
   }
+
+
 }
 
 

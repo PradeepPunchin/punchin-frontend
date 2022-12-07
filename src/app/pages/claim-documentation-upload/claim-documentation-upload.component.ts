@@ -24,17 +24,15 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getClaimSubmiitedList(this.pageNo, this.pageSize);
+    this.getClaimSubmiitedList();
   }
 
-  getClaimSubmiitedList(pageNo: number, pageSize: number) {
-    this.apiService.getClaimSubmiitedList(pageNo, pageSize).subscribe((res: any) => {
+  getClaimSubmiitedList() {
+    this.apiService.getClaimSubmiitedList(this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.submittedClaimList = res?.data
         this.submittedclaimListContent = res?.data.content
         this.totalrecords = res?.data.totalElements
-        console.log(this.totalrecords, " this.totalrecords");
-
       }
     })
   }
@@ -42,7 +40,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   pageChanged(event: PageChangedEvent) {
     if (this.submittedClaimList && this.submittedClaimList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
-      this.getClaimSubmiitedList(this.pageNo, this.pageSize);
+      this.getClaimSubmiitedList();
     }
   }
 }

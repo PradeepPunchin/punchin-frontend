@@ -36,9 +36,11 @@ export class ApiService {
   getClaimList(pageNo: number, pageSize: number) {
     return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=DRAFT&limit=${pageSize}&page=${pageNo}`);
   }
+
   getClaimSubmiitedList(pageNo: number, pageSize: number) {
     return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SUBMITTED&limit=${pageSize}&page=${pageNo}`);
   }
+
   getCardList(data: any, pageNo: number, pageSize: number) {
     return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${data}&limit=${pageSize}&page=${pageNo}`);
   }
@@ -50,5 +52,17 @@ export class ApiService {
   submitClaims() {
     return this.http.put(`${this.baseApiUrl}banker/claim/submit`, "")
   }
+
+  //varifier api
+  getVerifierDashboardData() {
+    return this.http.get(`${this.baseApiUrl}verifier/getDashboardDataCount`);
+  }
+
+  getVerifierDocumentRequestData(pageNo: number, pageSize: number) {
+    return this.http.get(`${this.baseApiUrl}getVerifierDataDocumentClaimsData?page=${pageNo}&limit=${pageSize}`)
+
+  }
+
+
 
 }

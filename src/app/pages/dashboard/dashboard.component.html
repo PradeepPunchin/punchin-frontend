@@ -364,7 +364,7 @@
 </ng-container>
 
 
-
+<!-- Verifier Dashboard -->
 <ng-container *ngIf="role =='ADMIN' || role =='VERIFIER'">
     <div class="container-fluid claim-dashboard-box">
         <h6>Service/Claim Dashboard</h6>
@@ -373,8 +373,8 @@
                 <div class="claims-allocated-box">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>0</h5>
-                        <h6>Total Cases</h6>
+                        <h5>{{verifierDashboardData[verifierStatusEnum.allocated] || 0}}</h5>
+                        <h6>Claims - Allocated</h6>
                     </div>
                 </div>
             </div>
@@ -382,8 +382,8 @@
                 <div class="claims-action-pending-box">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>0</h5>
-                        <h6>Pending Cases</h6>
+                        <h5>{{verifierDashboardData[verifierStatusEnum.actionPending] || 0}}</h5>
+                        <h6>Claims - Action Pending</h6>
                     </div>
                 </div>
             </div>
@@ -391,8 +391,8 @@
                 <div class="claims-in-progress-box">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>0</h5>
-                        <h6>Approved Cases</h6>
+                        <h5>{{verifierDashboardData[verifierStatusEnum.inprogress] || 0}}</h5>
+                        <h6>Claims - In-Progress</h6>
                     </div>
                 </div>
             </div>
@@ -402,13 +402,13 @@
     <div class="cases-claims-box">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6>Cases/Claims</h6>
-
-            <div>
-                <button type="button" class="btn btn-outline-primary">Discard</button>
-                <button type="button" class="btn btn-primary">Submit</button>
-            </div>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>Filter by Status</option>
+                <option value="1">All</option>
+                <option value="2">Pending</option>
+                <option value="3">Sent to Insurer</option>
+            </select>
         </div>
-
         <div class="table-container table-responsive">
             <table class="table">
                 <thead>
