@@ -133,6 +133,7 @@
   .table-container {
     .table {
       margin-bottom: 19px;
+      width: 4000px;
     }
     th {
       background-color: $tableHeaderColor;
@@ -146,10 +147,18 @@
       color: $navbarTextColor;
       height: 64px;
     }
+    th:first-child,
+    td:first-child {
+      padding-left: 16px;
+    }
     th:last-child,
     td:last-child {
       position: sticky;
       right: 0px;
+      width: 107px;
+    }
+    td:last-child {
+      background-color: $white;
     }
   }
   .pagination-box {
@@ -167,6 +176,7 @@
         color: $buttonColor;
         padding: 0;
         margin-right: 5px;
+        margin-bottom: 0;
       }
     }
 
