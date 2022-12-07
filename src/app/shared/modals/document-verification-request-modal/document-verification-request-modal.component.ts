@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-document-verification-request-modal',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentVerificationRequestModalComponent implements OnInit {
 
-  constructor() { }
+  documentVerificationRequestId: any
+  constructor(public bsModalRef: BsModalRef) { }
 
   ngOnInit(): void {
   }

@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api/api.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals/document-verification-request-modal/document-verification-request-modal.component';
 
 
 @Component({
@@ -47,18 +48,13 @@ export class DashboardComponent implements OnInit {
   }
 
   openModal(){
-    // const initialState: ModalOptions = {
-    //   initialState: {
-    //     list: [
-    //       'Open a modal with component',
-    //       'Pass your data',
-    //       'Do something else',
-    //       '...'
-    //     ],
-    //     title: 'Modal with component'
-    //   }
-    // };
-    // this.bsModalRef = this.modalService.show(initialState);
+    const initialState: ModalOptions = {
+      initialState: {
+        documentVerificationRequestId:1,
+      },
+      class: 'modal-custom-width'
+    };
+    this.bsModalRef = this.modalService.show( DocumentVerificationRequestModalComponent, initialState);
   }
 }
 
