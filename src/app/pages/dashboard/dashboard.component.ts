@@ -120,6 +120,15 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  downloadMISFile(data: any) {
+    this.apiService.downloadMISFile(data).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        console.log(res, "res");
+
+      }
+    })
+  }
+
   //pagination
   pageChanged(event: PageChangedEvent) {
     if (this.claimList && this.claimList.length !== this.totalrecords) {
@@ -139,6 +148,8 @@ export class DashboardComponent implements OnInit {
       this.showCardDetails("SETTLED");
     }
   }
+
+
 
   openModal() {
     const initialState: ModalOptions = {
