@@ -1,5 +1,5 @@
 <ng-container *ngIf="role =='BANKER'">
-    <div class="container-fluid claim-dashboard-box" *ngIf="claimListContent.length === 0 && isShow === true">
+    <div class="container-fluid claim-dashboard-box">
         <h6>Service/Claim Dashboard</h6>
         <div class="row">
             <div class="col-4" [ngClass]="{ active: onStep === 0 }" (click)="onStep = 0">
