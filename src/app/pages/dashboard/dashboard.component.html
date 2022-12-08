@@ -399,7 +399,7 @@
         </div>
     </div>
 
-    <div class="cases-claims-box">
+    <div class="cases-claims-box" *ngIf="verifiercordListData.length > 0">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6 *ngIf="onStep === 0 || onStep === 1">Cases/Claims</h6>
             <div *ngIf="onStep === 2">
@@ -439,29 +439,29 @@
                         <th scope="col" class="text-center">Action</th>
                     </tr>
                 </thead>
-                <!-- <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
+                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{}}</td>
-                        <td>{{}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.claimInwardDate}}</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
                         <td class="text-center"><img src="assets/icons/eye.svg"></td>
                     </tr>
-                </tbody> -->
+                </tbody>
             </table>
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 1">
@@ -488,29 +488,29 @@
                         <th scope="col" class="text-center">Action</th>
                     </tr>
                 </thead>
-                <!-- <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
+                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{}}</td>
-                        <td>{{}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.claimInwardDate}}</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
                         <td class="text-center"><img src="assets/icons/eye.svg"></td>
                     </tr>
-                </tbody> -->
+                </tbody>
             </table>
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 2 && innerStep === 0">
@@ -537,29 +537,29 @@
                         <th scope="col" class="text-center">Action</th>
                     </tr>
                 </thead>
-                <!-- <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
+                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{}}</td>
-                        <td>{{}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.claimInwardDate}}</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
                         <td class="text-center"><img src="assets/icons/eye.svg"></td>
                     </tr>
-                </tbody> -->
+                </tbody>
             </table>
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 2 && innerStep === 1">
@@ -586,29 +586,29 @@
                         <th scope="col" class="text-center">Action</th>
                     </tr>
                 </thead>
-                <!-- <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
+                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
                         <td>{{i+1}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{}}</td>
-                        <td>{{}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
-                        <td>{{item.}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.claimInwardDate}}</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
                         <td class="text-center"><img src="assets/icons/eye.svg"></td>
                     </tr>
-                </tbody> -->
+                </tbody>
             </table>
         </div>
         <div class="pagination-box d-flex justify-content-between align-items-center">
@@ -626,11 +626,11 @@
     </div>
 </ng-container>
 
-<!-- <ng-container *ngIf="!verifierCardList || (verifierCardList && verifierCardList.length === 0)">
+<ng-container *ngIf="!verifiercordListData || (verifiercordListData && verifiercordListData.length === 0)">
     <div class="error-wrapper">
         <h1>Oops</h1>
         <p>
             No Data Found
         </p>
     </div>
-</ng-container> -->
+</ng-container>
