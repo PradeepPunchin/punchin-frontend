@@ -49,4 +49,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       this.getClaimSubmiitedList();
     }
   }
+  pagePerData(event: any) {
+    this.pageSize = event.target.value
+    this.getClaimSubmiitedList();
+  }
 }

@@ -193,9 +193,12 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  openModal() {
-    console.log("hello");
+  pagePerData(event: any) {
+    this.pageSize = event.target.value
+    this.showCardDetails('ALL')
+  }
 
+  openModal() {
     const initialState: ModalOptions = {
       initialState: {
         documentVerificationRequestId: 1,
