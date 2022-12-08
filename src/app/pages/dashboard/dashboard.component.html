@@ -1,5 +1,5 @@
 <ng-container *ngIf="role =='BANKER'">
-    <div class="container-fluid claim-dashboard-box">
+    <div class="container-fluid claim-dashboard-box" *ngIf="claimListContent.length === 0 && isShow === true">
         <h6>Service/Claim Dashboard</h6>
         <div class="row">
             <div class="col-4" [ngClass]="{ active: onStep === 0 }" (click)="onStep = 0">
@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="cordListData.length === 0 && isShow === true ">
+    <div *ngIf="claimListContent.length === 0 && isShow === true">
         <app-file-upload (AwsFileList)="onGetUploadedFile($event)"></app-file-upload>
     </div>
 
@@ -274,7 +274,6 @@
                         <option [value]="totalrecords">{{totalrecords}}</option>
                     </select>
                 </h6>
-                <!-- <img src="../../../assets/icons/chevron-down.svg"> -->
             </div>
 
             <div class="pagination-content">
@@ -298,7 +297,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <!-- <th scope="col">Lender Name </th> -->
+                        <th scope="col">Lender Name </th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Borrower contact number</th>
                         <th scope="col">Loan Account Number</th>
@@ -361,7 +360,7 @@
         <div class="pagination-box d-flex justify-content-between align-items-center">
             <div class="pages-per-rows d-flex align-items-center">
                 <p class="per-row-title">Page Per Rows</p>
-                <h6 class="per-row-text">30</h6>
+                <h6 class="per-row-text">10</h6>
                 <img src="../../../assets/icons/chevron-down.svg">
             </div>
 
@@ -373,14 +372,14 @@
         </div>
     </div>
 
-    <ng-container *ngIf="!cordListData || (cordListData && cordListData.length === 0)">
+    <!-- <ng-container *ngIf="!cordListData || (cordListData && cordListData.length === 0)">
         <div class="error-wrapper">
             <h1>Oops</h1>
             <p>
                 No Data Found
             </p>
         </div>
-    </ng-container>
+    </ng-container> -->
 </ng-container>
 
 

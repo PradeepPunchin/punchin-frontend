@@ -73,7 +73,8 @@
                         <td>{{item.nomineeContactNumber}}</td>
                         <td>{{item.nomineeEmailId}}</td>
                         <td>{{item.nomineeAddress}}</td>
-                        <td class="text-center" (click)="editClaimList()"><img src="assets/icons/action.svg"></td>
+                        <td class="text-center" (click)="editClaimList(item.id)"><img src="assets/icons/action.svg">
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -100,7 +101,8 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="!submittedClaimList || (submittedClaimList && submittedClaimList.length === 0)">
+<ng-container
+    *ngIf="!submittedclaimListContent || (submittedclaimListContent && submittedclaimListContent.length === 0)">
     <div class="error-wrapper">
         <h1>Oops</h1>
         <p>
@@ -112,115 +114,131 @@
 
 <!-- Documentation Upload -->
 <div class="container-fluid documentation-upload-box" *ngIf="editCliamList">
+    <h6 class="documentation-upload-heading" (click)="back()" style="cursor:pointer">
+        <i class="fa fa-arrow-left"></i>Back
+    </h6>
+
     <h6 class="documentation-upload-heading">Documentation Upload</h6>
-
-    <div class="borrower-details">
-        <div class="heading-color-box">
-            <h6>Borrower Details</h6>
+    <form [formGroup]="uplaodClaimForm">
+        <div class="borrower-details">
+            <div class="heading-color-box">
+                <h6>Borrower Details</h6>
+            </div>
+            <div class="row g-3 documentation-upload-forms">
+                <div class="col-4">
+                    <label for="case-claim-id" class="form-label">Case/Claim Id</label>
+                    <input type="text" class="form-control" id="case-claim-id" formControlName="caseId" readonly>
+                </div>
+                <div class="col-4">
+                    <label for="borrower-name" class="form-label">Borrower name</label>
+                    <input type="text" class="form-control" id="borrower-name" formControlName="brrower_name" readonly>
+                </div>
+                <div class="col-4">
+                    <label for="borrower-address" class="form-label">Borrower Address</label>
+                    <input type="text" class="form-control" id="borrower-address" readonly
+                        formControlName="borrower_address">
+                </div>
+            </div>
         </div>
-        <form class="row g-3 documentation-upload-forms">
-            <div class="col-4">
-                <label for="case-claim-id" class="form-label">Case/Claim Id</label>
-                <input type="text" class="form-control" id="case-claim-id" placeholder="27193">
-            </div>
-            <div class="col-4">
-                <label for="borrower-name" class="form-label">Borrower name</label>
-                <input type="text" class="form-control" id="borrower-name" placeholder="Ram Prakash">
-            </div>
-            <div class="col-4">
-                <label for="borrower-address" class="form-label">Borrower Address</label>
-                <input type="text" class="form-control" id="borrower-address"
-                    placeholder="H-23, Gali Number 45, Lal bagh Chowk, Prayagraj, UP ">
-            </div>
-        </form>
-    </div>
 
-    <div class="loan-details">
-        <div class="heading-color-box">
-            <h6>Loan Details</h6>
+        <div class="loan-details">
+            <div class="heading-color-box">
+                <h6>Loan Details</h6>
+            </div>
+            <div class="row g-3 documentation-upload-forms">
+                <div class="col-4">
+                    <label for="loan-type" class="form-label">Loan Type</label>
+                    <input type="text" class="form-control" id="loan-type" formControlName="load_type" readonly>
+                </div>
+                <div class="col-4">
+                    <label for="loan-account-number" class="form-label">Loan Account Number</label>
+                    <input type="text" class="form-control" id="loan-account-number" formControlName="loan_acc_number"
+                        readonly>
+                </div>
+            </div>
         </div>
-        <form class="row g-3 documentation-upload-forms">
-            <div class="col-4">
-                <label for="loan-type" class="form-label">Loan Type</label>
-                <input type="text" class="form-control" id="loan-type" placeholder="Housing Loan">
-            </div>
-            <div class="col-4">
-                <label for="loan-account-number" class="form-label">Loan Account Number</label>
-                <input type="text" class="form-control" id="loan-account-number" placeholder="34675000002146">
-            </div>
-        </form>
-    </div>
 
-    <div class="insurance-details">
-        <div class="heading-color-box">
-            <h6>Insurance Details</h6>
+        <div class="insurance-details">
+            <div class="heading-color-box">
+                <h6>Insurance Details</h6>
+            </div>
+            <div class="row g-3 documentation-upload-forms">
+                <div class="col-4">
+                    <label for="insurer-name" class="form-label">Insurer Name</label>
+                    <input type="text" class="form-control" id="insurer-name" formControlName="insurer_name" readonly>
+                </div>
+                <div class="col-4">
+                    <label for="borrower-policy-number" class="form-label">Borrower policy number</label>
+                    <input type="text" class="form-control" id="borrower-policy-number"
+                        formControlName="borrower_policy_number" readonly>
+                </div>
+                <div class="col-4">
+                    <label for="master-policy-number" class="form-label">Master Policy Number</label>
+                    <input type="text" class="form-control" id="master-policy-number"
+                        formControlName="master_policy_number" readonly>
+                </div>
+            </div>
         </div>
-        <form class="row g-3 documentation-upload-forms">
-            <div class="col-4">
-                <label for="insurer-name" class="form-label">Insurer Name</label>
-                <input type="text" class="form-control" id="insurer-name" placeholder="HDFC Life">
-            </div>
-            <div class="col-4">
-                <label for="borrower-policy-number" class="form-label">Borrower policy number</label>
-                <input type="text" class="form-control" id="borrower-policy-number" placeholder="201304672">
-            </div>
-            <div class="col-4">
-                <label for="master-policy-number" class="form-label">Master Policy Number</label>
-                <input type="text" class="form-control" id="master-policy-number" placeholder="45296/18">
-            </div>
-        </form>
-    </div>
 
-    <div class="claim-seggregation-details">
-        <div class="heading-color-box">
-            <h6>Claim Seggregation Details</h6>
+        <div class="claim-seggregation-details">
+            <div class="heading-color-box">
+                <h6>Claim Seggregation Details</h6>
+            </div>
+            <div class="row g-3 documentation-upload-forms">
+                <div class="col-4">
+                    <label for="borrower-sum-assured" class="form-label">Borrower Sum Assured</label>
+                    <input type="text" class="form-control" id="borrower-sum-assured"
+                        formControlName="borrower_sum_assured" readonly>
+                </div>
+                <div class="col-4">
+                    <label for="original-loan-amt" class="form-label">Original Loan amt</label>
+                    <input type="text" class="form-control" id="original-loan-amt" formControlName="original_loan_amt"
+                        readonly>
+                </div>
+                <div class="col-4">
+                    <label for="loan-amount-paid-by-borrower" class="form-label">Loan amount paid by borrower</label>
+                    <input type="text" class="form-control" id="loan-amount-paid-by-borrower"
+                        formControlName="Loan_paid_by_borrower" readonly>
+                </div>
+                <div class="col-4">
+                    <label for="outstanding-loan-amt-payable" class="form-label">Outstanding Loan Amt payable to
+                        MPH</label>
+                    <input type="text" class="form-control" id="outstanding-loan-amt-payable"
+                        formControlName="outstanding_loan_amt" readonly>
+                </div>
+                <div class="col-4">
+                    <label for="balance-claim-amt" class="form-label">Balance Claim Amt (payable to the nominee)</label>
+                    <input type="text" class="form-control" id="balance-claim-amt" readonly
+                        formControlName="balance_claim_amt">
+                </div>
+            </div>
         </div>
-        <form class="row g-3 documentation-upload-forms">
-            <div class="col-4">
-                <label for="borrower-sum-assured" class="form-label">Borrower Sum Assured</label>
-                <input type="text" class="form-control" id="borrower-sum-assured" placeholder="15,00,000">
-            </div>
-            <div class="col-4">
-                <label for="original-loan-amt" class="form-label">Original Loan amt</label>
-                <input type="text" class="form-control" id="original-loan-amt" placeholder="12,00,000">
-            </div>
-            <div class="col-4">
-                <label for="loan-amount-paid-by-borrower" class="form-label">Loan amount paid by borrower</label>
-                <input type="text" class="form-control" id="loan-amount-paid-by-borrower" placeholder="6,00,000">
-            </div>
-            <div class="col-4">
-                <label for="outstanding-loan-amt-payable" class="form-label">Outstanding Loan Amt payable to MPH</label>
-                <input type="text" class="form-control" id="outstanding-loan-amt-payable" placeholder="6,00,000">
-            </div>
-            <div class="col-4">
-                <label for="balance-claim-amt" class="form-label">Balance Claim Amt (payable to the nominee)</label>
-                <input type="text" class="form-control" id="balance-claim-amt" placeholder="3,00,000">
-            </div>
-        </form>
-    </div>
+    </form>
 
     <div class="document-upload">
         <div class="heading-color-box">
             <h6>Document Upload</h6>
         </div>
-
         <form class="row g-3 documentation-upload-forms">
             <div class="col-4">
                 <select class="form-select" aria-label="Default select example">
-                    <option selected>SMQ</option>
-                    <option value="1">DOGH</option>
-                    <option value="2">POS Letter</option>
-                    <option value="3">MEF</option>
+                    <option selected disabled>Document Type</option>
+                    <option value="CAS">CAS</option>
+                    <option value="COVID_Q">COVID_Q</option>
+                    <option value="FUF">DOGH</option>
+                    <option value="POS_LETTER">POS LETTER</option>
+                    <option value="PROPOSAL_FORM">PROPOSAL FORM</option>
+                    <option value="PROPOSAL_FORM">SANCTION LETTER</option>
+                    <option value="SANCTION_LETTER">SMQ</option>
                 </select>
             </div>
+            <div class="col-4" (fileDropped)="onFileDropped($event)">
+                <input type="file" id="formFile" (change)="fileBrowseHandler($event)"
+                    accept=".Doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
+            </div>
             <div class="col-4">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Proposal form</option>
-                    <option value="1">FUF</option>
-                    <option value="2">Covid Q</option>
-                    <option value="3">Sanction letter</option>
-                    <option value="3">CAS</option>
-                </select>
+                <button type="button" class="btn btn-primary">Uplaod</button>
+
             </div>
         </form>
     </div>

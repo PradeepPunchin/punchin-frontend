@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   claimList: any
   claimListContent: any = []
   totalrecords!: number;
-  pageNo: number = 0;
+  pageNo: number = 1;
   pageSize: number = 10;
   onStep: number = 0;
   cordListData: any = []
@@ -66,9 +66,14 @@ export class DashboardComponent implements OnInit {
   }
 
   onGetUploadedFile(event: any) {
-    this.getClaimList();
+    setTimeout(() => {
+      this.getClaimList();
+    }, 1000);
     if (event.length > 0) {
       this.isShow = false
+    }
+    else {
+      this.isShow = true
     }
   }
 
@@ -103,7 +108,6 @@ export class DashboardComponent implements OnInit {
         this.claimList = res?.data
         this.claimListContent = res?.data.content
         this.totalrecords = res?.data.totalElements
-        console.log(this.claimListContent.length, "length");
       }
     })
   }
@@ -113,6 +117,7 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
         this.getClaimList();
+        this.isShow = true
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong")

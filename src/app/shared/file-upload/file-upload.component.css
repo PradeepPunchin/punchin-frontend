@@ -110,7 +110,11 @@ h3 {
 }
 
 .files-list {
-    margin-top: 1.5rem;
+    /* margin-top: 1.5rem; */
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    top: 50%;
 }
 .single-file {
     display: flex;

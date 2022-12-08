@@ -16,6 +16,8 @@ export class FileUploadComponent implements OnInit {
   file: any;
   pageNo: number = 0;
   pageSize: number = 10;
+  isShowLoader: boolean = false
+  isShowFile: boolean = true
 
 
   @Output() AwsFileList: EventEmitter<any> = new EventEmitter();
@@ -43,18 +45,26 @@ export class FileUploadComponent implements OnInit {
    * handle file from browsing
    */
   async fileBrowseHandler(event: any) {
+    this.isShowLoader = true
     this.prepareFilesList(event.target.files);
     this.file = event.target.files[0];
     const files: any[] = event.target.files;
     this.fileUpload = false;
+    this.isShowFile = false
     if (files && files.length > 0) {
       for (let i = 0; i < files.length; i++) {
         const formData: FormData = new FormData();
         formData.append('multipartFile', this.files[i], this.files[i].name);
-        const fileUploadRes = await this.apiService.uploadUserDocument(formData).subscribe()
-        this.fileUpload = true;
-        this.notifierService.showSuccess('File Uploaded');
-        this.profileDocument.push(fileUploadRes);
+        const fileUploadRes = await this.apiService.uploadUserDocument(formData).subscribe((res: any) => {
+          if (res?.isSuccess) {
+            this.fileUpload = true;
+            this.notifierService.showSuccess(res.data.message);
+            this.profileDocument.push(fileUploadRes);
+            this.isShowLoader = false
+          }
+        }, (error: any) => {
+          this.notifierService.showError(error?.error?.message || "Something went wrong");
+        })
       }
       this.AwsFileList.emit(this.profileDocument);
     }

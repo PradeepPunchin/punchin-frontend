@@ -53,8 +53,18 @@ export class ApiService {
     return this.http.put(`${this.baseApiUrl}banker/claim/submit`, "")
   }
   downloadMISFile(data: any) {
-    return this.http.get(`${this, this.baseApiUrl}banker/downloadMISFile?claimStatus=${data}`)
+    return this.http.get(`${this.baseApiUrl}banker/downloadMISFile?claimStatus=${data}`)
   }
+  getClaimListByClaimid(id: any) {
+    return this.http.get(`${this.baseApiUrl}banker/claim/${id}`)
+  }
+  uploadDocument(claimId: number, data: any, docType: any) {
+    return this.http.put(`${this.baseApiUrl}banker/claim/${claimId}/uploadDocument/${docType}`, "")
+
+  }
+
+
+
 
   //varifier api
   getVerifierDashboardData() {
