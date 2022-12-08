@@ -16,7 +16,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   submittedClaimList: any;
   submittedclaimListContent: any = []
   maxSize: number = 5;
-
+  viewClaimList: boolean = true;
+  editCliamList: boolean = false;
 
   constructor(
     private apiService: ApiService,
@@ -35,6 +36,11 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.totalrecords = res?.data.totalElements
       }
     })
+  }
+
+  editClaimList() {
+    this.viewClaimList = false;
+    this.editCliamList = true;
   }
   //pagination
   pageChanged(event: PageChangedEvent) {

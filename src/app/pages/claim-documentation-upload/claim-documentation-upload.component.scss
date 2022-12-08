@@ -132,3 +132,89 @@
     }
   }
 }
+.error-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-left: 10px;
+  margin: 2% auto;
+  h1 {
+    font-size: 34px;
+    font-weight: 500;
+  }
+  p {
+    font-size: 26px;
+    font-weight: 400;
+  }
+}
+
+// Documentation Upload
+.documentation-upload-box {
+  background-color: $white;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
+  margin: 14px 0 30px;
+  padding: 22px 48px 48px;
+  .documentation-upload-heading {
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $black;
+    margin-bottom: 14px;
+  }
+  .heading-color-box {
+    h6 {
+      background-color: $textColorBox;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $black;
+      margin-bottom: 0;
+      padding: 12px 20px;
+      margin-bottom: 16px;
+      margin-top: 20px;
+    }
+  }
+  .documentation-upload-forms {
+    .form-label {
+      font-size: $fontSize13;
+      color: $black;
+    }
+    .form-control {
+      background-color: $inputBackground;
+      border-color: $inputBorderColor;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $black;
+      height: 45px;
+    }
+    .form-control::placeholder {
+      color: $black;
+    }
+  }
+
+  .submit-save-btn {
+    margin-top: 30px;
+    .btn-primary {
+      background-color: $buttonColor;
+      border-color: $buttonColor;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $white;
+      margin-left: 16px;
+      padding: 6px 14px;
+    }
+  }
+  .btn-outline-primary {
+    border-color: $navbarTextColor;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $navbarTextColor;
+    padding: 6px 14px;
+  }
+  .btn-outline-primary:hover {
+    background-color: $white;
+  }
+}

@@ -1,94 +1,227 @@
-<div class="cases-claims-box" *ngIf="submittedclaimListContent.length>0">
-    <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-        <h6>Case/Claim ({{totalrecords}})</h6>
-        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected>Filter by Status</option>
-            <option value="1">All</option>
-            <option value="2">Pending</option>
-            <option value="3">Submitted Document</option>
-        </select>
-    </div>
-
-    <div class="table-container table-responsive">
-        <table class="table table-sm">
-            <thead>
-                <tr class="align-middle">
-                    <th scope="col">S.No</th>
-                    <th scope="col">Lender Name </th>
-                    <th scope="col">Borrower Name</th>
-                    <th scope="col">Borrower contact number</th>
-                    <th scope="col">Loan Account Number</th>
-                    <th scope="col">Borrower address</th>
-                    <th scope="col">Loan Type/Category </th>
-                    <!-- <th scope="col">Loan o/s amt </th> -->
-                    <th scope="col">Branch code </th>
-                    <th scope="col">Branch Name </th>
-                    <th scope="col">Branch Address</th>
-                    <th scope="col">Branch Pincode </th>
-                    <th scope="col">Loan Account Mgr
-                        Name (current)</th>
-                    <th scope="col">Acnt Mgr Phone
-                        Number (current)</th>
-                    <th scope="col">Insurer Name </th>
-                    <th scope="col">Borrower Pol. Number</th>
-                    <th scope="col">Master Pol number </th>
-                    <th scope="col">Policy Start Date </th>
-                    <th scope="col">Policy Coverage
-                        Duration (Years)</th>
-                    <th scope="col">Policy Sum Assured </th>
-                    <th scope="col">Nominee Name </th>
-                    <th scope="col">Nominee
-                        Relationship </th>
-                    <th scope="col">Contact Number </th>
-                    <th scope="col">Email id </th>
-                    <th scope="col">Nominee Address </th>
-                    <th scope="col" class="text-center">Action</th>
-
-                </tr>
-            </thead>
-            <tbody class="align-middle" *ngFor="let item of submittedclaimListContent;let i = index">
-                <tr>
-                    <td>{{i+1}}</td>
-                    <td>Leader</td>
-                    <td>{{item.borrowerName}}</td>
-                    <td>{{item.borrowerContactNumber}}</td>
-                    <td>{{item.loanAccountNumber}}</td>
-                    <td>{{item.borrowerAddress}}</td>
-                    <td>{{item.loanType}}</td>
-                    <td>{{item.branchCode}}</td>
-                    <td>{{item.branchName}}</td>
-                    <td>{{item.branchAddress}}</td>
-                    <td>{{item.branchPinCode}}</td>
-                    <td>{{item.loanAccountManagerName}}</td>
-                    <td>{{item.accountManagerContactNumber}}</td>
-                    <td>{{item.insurerName}}</td>
-                    <td>{{item.policyNumber}}</td>
-                    <td>{{item.masterPolNumber}}</td>
-                    <td>{{item.policyStartDate}}</td>
-                    <td>{{item.policyCoverageDuration}} Years</td>
-                    <td>{{item.policySumAssured}}</td>
-                    <td>{{item.nomineeName}}</td>
-                    <td>{{item.nomineeRelationShip}}</td>
-                    <td>{{item.nomineeContactNumber}}</td>
-                    <td>{{item.nomineeEmailId}}</td>
-                    <td>{{item.nomineeAddress}}</td>
-                    <td class="text-center"><img src="assets/icons/action.svg"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="pagination-box d-flex justify-content-between align-items-center">
-        <div class="pages-per-rows d-flex align-items-center">
-            <p class="per-row-title">Page Per Rows</p>
-            <h6 class="per-row-text">30</h6>
-            <img src="../../../assets/icons/chevron-down.svg">
+<ng-container *ngIf="viewClaimList">
+    <div class="cases-claims-box" *ngIf="submittedclaimListContent.length>0">
+        <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
+            <h6>Case/Claim ({{totalrecords}})</h6>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>Filter by Status</option>
+                <option value="1">All</option>
+                <option value="2">Pending</option>
+                <option value="3">Submitted Document</option>
+            </select>
         </div>
 
-        <div class="pagination-content">
-            <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
-                (pageChanged)="pageChanged($event)" [itemsPerPage]="10" firstText="&laquo;" lastText="&raquo;">
-            </pagination>
+        <div class="table-container table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Lender Name </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Borrower contact number</th>
+                        <th scope="col">Loan Account Number</th>
+                        <th scope="col">Borrower address</th>
+                        <th scope="col">Loan Type/Category </th>
+                        <!-- <th scope="col">Loan o/s amt </th> -->
+                        <th scope="col">Branch code </th>
+                        <th scope="col">Branch Name </th>
+                        <th scope="col">Branch Address</th>
+                        <th scope="col">Branch Pincode </th>
+                        <th scope="col">Loan Account Mgr
+                            Name (current)</th>
+                        <th scope="col">Acnt Mgr Phone
+                            Number (current)</th>
+                        <th scope="col">Insurer Name </th>
+                        <th scope="col">Borrower Pol. Number</th>
+                        <th scope="col">Master Pol number </th>
+                        <th scope="col">Policy Start Date </th>
+                        <th scope="col">Policy Coverage
+                            Duration (Years)</th>
+                        <th scope="col">Policy Sum Assured </th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Nominee
+                            Relationship </th>
+                        <th scope="col">Contact Number </th>
+                        <th scope="col">Email id </th>
+                        <th scope="col">Nominee Address </th>
+                        <th scope="col" class="text-center">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody class="align-middle" *ngFor="let item of submittedclaimListContent;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>Leader</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.loanAccountNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td>{{item.loanType}}</td>
+                        <td>{{item.branchCode}}</td>
+                        <td>{{item.branchName}}</td>
+                        <td>{{item.branchAddress}}</td>
+                        <td>{{item.branchPinCode}}</td>
+                        <td>{{item.loanAccountManagerName}}</td>
+                        <td>{{item.accountManagerContactNumber}}</td>
+                        <td>{{item.insurerName}}</td>
+                        <td>{{item.policyNumber}}</td>
+                        <td>{{item.masterPolNumber}}</td>
+                        <td>{{item.policyStartDate}}</td>
+                        <td>{{item.policyCoverageDuration}} Years</td>
+                        <td>{{item.policySumAssured}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.nomineeRelationShip}}</td>
+                        <td>{{item.nomineeContactNumber}}</td>
+                        <td>{{item.nomineeEmailId}}</td>
+                        <td>{{item.nomineeAddress}}</td>
+                        <td class="text-center" (click)="editClaimList()"><img src="assets/icons/action.svg"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
+        <div class="pagination-box d-flex justify-content-between align-items-center">
+            <div class="pages-per-rows d-flex align-items-center">
+                <p class="per-row-title">Page Per Rows</p>
+                <h6 class="per-row-text">30</h6>
+                <img src="../../../assets/icons/chevron-down.svg">
+            </div>
+
+            <div class="pagination-content">
+                <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
+                    (pageChanged)="pageChanged($event)" [itemsPerPage]="10" firstText="&laquo;" lastText="&raquo;">
+                </pagination>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="!submittedClaimList || (submittedClaimList && submittedClaimList.length === 0)">
+    <div class="error-wrapper">
+        <h1>Oops</h1>
+        <p>
+            No Data Found
+        </p>
+    </div>
+</ng-container>
+
+
+<!-- Documentation Upload -->
+<div class="container-fluid documentation-upload-box" *ngIf="editCliamList">
+    <h6 class="documentation-upload-heading">Documentation Upload</h6>
+
+    <div class="borrower-details">
+        <div class="heading-color-box">
+            <h6>Borrower Details</h6>
+        </div>
+        <form class="row g-3 documentation-upload-forms">
+            <div class="col-4">
+                <label for="case-claim-id" class="form-label">Case/Claim Id</label>
+                <input type="text" class="form-control" id="case-claim-id" placeholder="27193">
+            </div>
+            <div class="col-4">
+                <label for="borrower-name" class="form-label">Borrower name</label>
+                <input type="text" class="form-control" id="borrower-name" placeholder="Ram Prakash">
+            </div>
+            <div class="col-4">
+                <label for="borrower-address" class="form-label">Borrower Address</label>
+                <input type="text" class="form-control" id="borrower-address"
+                    placeholder="H-23, Gali Number 45, Lal bagh Chowk, Prayagraj, UP ">
+            </div>
+        </form>
+    </div>
+
+    <div class="loan-details">
+        <div class="heading-color-box">
+            <h6>Loan Details</h6>
+        </div>
+        <form class="row g-3 documentation-upload-forms">
+            <div class="col-4">
+                <label for="loan-type" class="form-label">Loan Type</label>
+                <input type="text" class="form-control" id="loan-type" placeholder="Housing Loan">
+            </div>
+            <div class="col-4">
+                <label for="loan-account-number" class="form-label">Loan Account Number</label>
+                <input type="text" class="form-control" id="loan-account-number" placeholder="34675000002146">
+            </div>
+        </form>
+    </div>
+
+    <div class="insurance-details">
+        <div class="heading-color-box">
+            <h6>Insurance Details</h6>
+        </div>
+        <form class="row g-3 documentation-upload-forms">
+            <div class="col-4">
+                <label for="insurer-name" class="form-label">Insurer Name</label>
+                <input type="text" class="form-control" id="insurer-name" placeholder="HDFC Life">
+            </div>
+            <div class="col-4">
+                <label for="borrower-policy-number" class="form-label">Borrower policy number</label>
+                <input type="text" class="form-control" id="borrower-policy-number" placeholder="201304672">
+            </div>
+            <div class="col-4">
+                <label for="master-policy-number" class="form-label">Master Policy Number</label>
+                <input type="text" class="form-control" id="master-policy-number" placeholder="45296/18">
+            </div>
+        </form>
+    </div>
+
+    <div class="claim-seggregation-details">
+        <div class="heading-color-box">
+            <h6>Claim Seggregation Details</h6>
+        </div>
+        <form class="row g-3 documentation-upload-forms">
+            <div class="col-4">
+                <label for="borrower-sum-assured" class="form-label">Borrower Sum Assured</label>
+                <input type="text" class="form-control" id="borrower-sum-assured" placeholder="15,00,000">
+            </div>
+            <div class="col-4">
+                <label for="original-loan-amt" class="form-label">Original Loan amt</label>
+                <input type="text" class="form-control" id="original-loan-amt" placeholder="12,00,000">
+            </div>
+            <div class="col-4">
+                <label for="loan-amount-paid-by-borrower" class="form-label">Loan amount paid by borrower</label>
+                <input type="text" class="form-control" id="loan-amount-paid-by-borrower" placeholder="6,00,000">
+            </div>
+            <div class="col-4">
+                <label for="outstanding-loan-amt-payable" class="form-label">Outstanding Loan Amt payable to MPH</label>
+                <input type="text" class="form-control" id="outstanding-loan-amt-payable" placeholder="6,00,000">
+            </div>
+            <div class="col-4">
+                <label for="balance-claim-amt" class="form-label">Balance Claim Amt (payable to the nominee)</label>
+                <input type="text" class="form-control" id="balance-claim-amt" placeholder="3,00,000">
+            </div>
+        </form>
+    </div>
+
+    <div class="document-upload">
+        <div class="heading-color-box">
+            <h6>Document Upload</h6>
+        </div>
+
+        <form class="row g-3 documentation-upload-forms">
+            <div class="col-4">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>SMQ</option>
+                    <option value="1">DOGH</option>
+                    <option value="2">POS Letter</option>
+                    <option value="3">MEF</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Proposal form</option>
+                    <option value="1">FUF</option>
+                    <option value="2">Covid Q</option>
+                    <option value="3">Sanction letter</option>
+                    <option value="3">CAS</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="text-center submit-save-btn">
+        <button type="button" class="btn btn-outline-primary">Save as Draft</button>
+        <button type="button" class="btn btn-primary">Submit</button>
     </div>
 </div>

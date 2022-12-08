@@ -8,6 +8,8 @@ import { EventService } from 'src/app/services/event/event.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { UtilityService } from 'src/app/services/utility/utility.service';
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals/document-verification-request-modal/document-verification-request-modal.component';
 
 
 @Component({
@@ -37,8 +39,7 @@ export class DashboardComponent implements OnInit {
   verifierCardList: any
   verifiercordListData: any = []
   innerStep: number = 0
-
-
+  bsModalRef?: BsModalRef;
 
 
   constructor(
@@ -47,7 +48,8 @@ export class DashboardComponent implements OnInit {
     private notifierService: NotifierService,
     private router: Router,
     private eventService: EventService,
-    private utilitiesService: UtilityService
+    private utilitiesService: UtilityService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -127,6 +129,14 @@ export class DashboardComponent implements OnInit {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
     })
   }
+  downloadMISFile(data: any) {
+    this.apiService.downloadMISFile(data).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        console.log(res, "res");
+
+      }
+    })
+  }
 
   //verifier dashboard
   getVerifierDashboardData() {
@@ -150,6 +160,7 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
+
 
   //pagination
   pageChanged(event: PageChangedEvent) {
@@ -181,6 +192,19 @@ export class DashboardComponent implements OnInit {
       this.verifierCardDetails("DISCREPENCY")
     }
   }
+
+  openModal() {
+    console.log("hello");
+
+    const initialState: ModalOptions = {
+      initialState: {
+        documentVerificationRequestId: 1,
+      },
+      class: 'modal-custom-width'
+    };
+    this.bsModalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
+  }
+
 }
 
 

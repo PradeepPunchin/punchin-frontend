@@ -1,2 +1,137 @@
-<p>document-verification-request-modal works!</p>
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Document Verification</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-7">
+            <div class="document-verification-box">
+                <h6 class="document-verification-heading">Borrower Details</h6>
+                <div class="row document-verification-row">
+                    <div class="col-3">
+                        <p class="document-verification-title">Borrower Name</p>
+                        <p class="document-verification-text">Ram Prakash</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="document-verification-title">Borrower Address</p>
+                        <p class="document-verification-text">H-23, Gali Number 45, Lal bagh
+                            Chowk, Prayagraj, UP </p>
+                    </div>
+                    <div class="col-3">
+                        <p class="document-verification-title">Loan Account No.</p>
+                        <p class="document-verification-text">34675000002146</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="document-verification-title">Insurer Name</p>
+                        <p class="document-verification-text">Bagic</p>
+                    </div>
+                </div>
+            </div>
 
+            <div class="document-verification-box">
+                <h6 class="document-verification-heading">Nominee Details</h6>
+                <div class="row document-verification-row">
+                    <div class="col-3">
+                        <p class="document-verification-title">Nominee Name</p>
+                        <p class="document-verification-text">Sanjay Prakash</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="document-verification-title">Borrower Address</p>
+                        <p class="document-verification-text">H-23, Gali Number 45, Lal bagh
+                            Chowk, Prayagraj, UP </p>
+                    </div>
+                    <div class="col-3">
+                        <p class="document-verification-title">Relation</p>
+                        <p class="document-verification-text">Son</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive document-verification-table">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr class="align-middle">
+                            <th scope="col">Document Name</th>
+                            <th scope="col" class="text-center">Uploaded Doc</th>
+                            <th scope="col" class="text-center">Doc Status</th>
+                            <th scope="col" class="text-center">View Doc</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Signed claim form</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-red-text">Rejected</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Death Certificate</td>
+                            <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-grey-text">Not Uploaded</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Borrower ID Proof</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-grey-text">Under Verification</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Borrower Add Proof</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-blue-text">Approved</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Nominee Id Proof</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-blue-text">Approved</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Nominee Add Proof</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-blue-text">Approved</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Bank Account proof</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-blue-text">Approved</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="document-preview-container d-flex flex-column">
+                <div class="d-flex justify-content-between mb-4">
+                    <h6 class="document-preview-heading mb-0">Document Preview</h6>
+                    <img src="../../../../assets/icons/preview.svg">
+                </div>
+                <app-pdf-viewer></app-pdf-viewer>
+                <div class="document-preview-btns text-center mt-auto">
+                    <button type="button" class="btn btn-outline-primary">Reject</button>
+                    <button type="button" class="btn btn-primary">Approve</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
