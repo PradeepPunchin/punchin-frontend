@@ -1,7 +1,6 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
-import { ApiService } from 'src/app/services/api/api.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
 import { environment } from 'src/environments/environment';
 
@@ -23,12 +22,12 @@ export class FileUploadComponent implements OnInit {
 
   @Output() AwsFileList: EventEmitter<any> = new EventEmitter();
   percentage: number = 0;
+  modalRef?: BsModalRef;
 
   constructor(
-    private apiService: ApiService,
     private httpClient: HttpClient,
     private notifierService: NotifierService,
-    private dashboard: DashboardComponent
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -47,8 +46,9 @@ export class FileUploadComponent implements OnInit {
   /**
    * handle file from browsing
    */
-  async fileBrowseHandler(event: any) {
-    this.isShowLoader = true
+  fileBrowseHandler(event: any, template: any) {
+    // this.isShowLoader = true
+    this.modalRef = this.modalService.show(template);
     this.prepareFilesList(event.target.files);
     this.file = event.target.files[0];
     const files: any[] = event.target.files;
@@ -67,12 +67,14 @@ export class FileUploadComponent implements OnInit {
           } else if(events.type === HttpEventType.Response) {
             console.log('events', events);
             this.fileUpload = true;
-            this.notifierService.showSuccess(events.body.data.message);
+            this.notifierService.showSuccess(events.body.message);
             this.isShowLoader = false
-            this.AwsFileList.emit([]);
+            this.modalRef?.hide();
+            this.AwsFileList.emit([...events.body.data]);
           }
         }, (error: any) => {
           this.percentage = 0;
+          this.modalRef?.hide();
           this.notifierService.showError(error?.error?.message || "Something went wrong");
         })
       }

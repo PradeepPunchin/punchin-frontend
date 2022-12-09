@@ -793,6 +793,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-file-upload></app-file-upload>
+    <app-file-upload (AwsFileList)="onGetUploadedFile($event)"></app-file-upload>
   </div>
 </ng-template>

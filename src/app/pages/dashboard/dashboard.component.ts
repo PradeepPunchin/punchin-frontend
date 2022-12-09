@@ -65,15 +65,13 @@ export class DashboardComponent implements OnInit {
   }
 
   onGetUploadedFile(event: any) {
+    if(this.bsModalRef) {
+      this.bsModalRef.hide();
+    }
+    this.isShow = event.length > 0 ? false : true;
     setTimeout(() => {
       this.getClaimList();
     }, 1000);
-    if (event.length > 0) {
-      this.isShow = false
-    }
-    else {
-      this.isShow = true
-    }
   }
 
   showCardDetails(data: any) {
