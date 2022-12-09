@@ -16,11 +16,12 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   documentVerificationDetails!: VerifierDocumentDetail;
   documentDetailsDTOList: IDocumentDetailDTO[] = []
   docUrl: string = '';
+  docType: string = "";
+  isShoeDoc: boolean = false
 
   constructor(public bsModalRef: BsModalRef,
     private sessionService: SessionService,
     private apiService: ApiService) { }
-
   ngOnInit(): void {
     this.getDocumentDetails()
   }
@@ -37,15 +38,16 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.apiService.getDocumentDetails(this.documentVerificationRequestId).subscribe((res: ApiResponse<VerifierDocumentDetail> | any) => {
       if (res?.isSuccess) {
         this.documentVerificationDetails = res?.data
-        this.documentDetailsDTOList = res?.data.documentDetailsDTOList
+        this.documentDetailsDTOList = res?.data.claimDocumentsDTOS
         console.log(this.documentDetailsDTOList, "documentVerificationDetails");
       }
     })
   }
 
   viewDoc(documentDTO: IDocumentDetailDTO) {
-    this.docUrl = documentDTO.documentUrlListDTOList[0].documentUrl;
-    console.log(this.docUrl, "docUrl");
+    this.docUrl = documentDTO.documentUrlDTOS[0].docUrl;
+    this.docType = documentDTO.documentUrlDTOS[0].docFormat;
+    this.isShoeDoc = true
   }
 
 }

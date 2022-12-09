@@ -12,13 +12,15 @@ export interface VerifierDocumentDetail {
 
 export interface IDocumentDetailDTO {
     documentId: number,
-    documentName: string,
+    docType: string,
     documentStatus: null
-    documentUploaded: boolean,
-    documentUrlListDTOList: IDocumetnUrlListDTO[]
+    isApproved: boolean,
+    isVerified: boolean,
+    documentUrlDTOS: IDocumetnUrlListDTO[]
+
 }
 
 export interface IDocumetnUrlListDTO {
-    documentUrl: string
-    documentUrlId: number
+    docUrl: string
+    docFormat: string
 }

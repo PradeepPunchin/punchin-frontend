@@ -78,7 +78,7 @@ export class ApiService {
   }
 
   getDocumentDetails(id: number) {
-    return this.http.get(`${this.baseApiUrl}verifier/getDocumentDetails?claimDataId=${id}`);
+    return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/documents`);
   }
 
   getacceptAndRejectDocuments(data: any, id: number,) {

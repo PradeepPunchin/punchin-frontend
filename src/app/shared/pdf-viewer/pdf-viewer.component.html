@@ -1,8 +1,11 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12" *ngIf="docType == 'pdf'">
             <pdf-viewer [src]="docUrl" [render-text]="true" [original-size]="false" style="width: 400px; height: 500px">
             </pdf-viewer>
+        </div>
+        <div class="col-12" *ngIf="docType == 'jpg'">
+            <img [src]="docUrl" style="width: 100%">
         </div>
     </div>
 </div>

@@ -61,14 +61,17 @@
                         <ng-container *ngFor="let item of documentDetailsDTOList">
                             <tr>
                                 <td>
-                                    {{item.documentName}}
+                                    {{item.docType}}
                                 </td>
                                 <td class="text-center">
                                     <img src="../../../../assets/icons/right-tick-blue.svg">
                                 </td>
                                 <td class="text-center">
-                                    <p class="doc-status-red-text">
-                                        Rejected
+                                    <p class="doc-status-red-text" *ngIf="item.isVerified == false">
+                                        Pending
+                                    </p>
+                                    <p class="doc-status-red-text" *ngIf="item.isVerified == true">
+                                        Approved
                                     </p>
                                 </td>
                                 <td class="text-center" (click)="viewDoc(item)"><img
@@ -79,13 +82,13 @@
                 </table>
             </div>
         </div>
-        <div class="col-5">
+        <div class="col-5" *ngIf="isShoeDoc === true">
             <div class="document-preview-container d-flex flex-column">
                 <div class="d-flex justify-content-between mb-4">
                     <h6 class="document-preview-heading mb-0">Document Preview</h6>
-                    <img src="../../../../assets/icons/preview.svg">
+                    <!-- <img src="../../../../assets/icons/preview.svg"> -->
                 </div>
-                <app-pdf-viewer [docUrl]="docUrl"></app-pdf-viewer>
+                <app-pdf-viewer [docUrl]="docUrl" [docType]="docType"></app-pdf-viewer>
                 <div class="document-preview-btns text-center mt-auto">
                     <button type="button" class="btn btn-outline-primary"
                         (click)="approveAndReject('REJECT')">Reject</button>

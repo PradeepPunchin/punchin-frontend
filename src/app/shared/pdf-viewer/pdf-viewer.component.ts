@@ -8,6 +8,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class PdfViewerComponent implements OnInit, OnChanges {
 
   @Input() docUrl: string = ""
+  @Input() docType: string = ""
 
   pdfSrc: string = "this.docUrl";
   data: any
@@ -18,10 +19,9 @@ export class PdfViewerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log(this.docUrl, "url");
+    console.log(this.docUrl, "url11");
+    console.log(this.docType, "docType");
+
   }
 
 }
-// https://punchin-dev.s3.amazonaws.com/1670511632533-Rapd.jpg
-// https://punchin-dev.s3.amazonaws.com/1670511632647-BaUD.pdf
-// https://punchin-dev.s3.amazonaws.com/1670511632692-yabH.xlsx

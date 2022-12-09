@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
     if (this.bsModalRef) {
       this.bsModalRef.hide();
     }
+
     this.isShow = event.length > 0 ? false : true;
     setTimeout(() => {
       this.getClaimList();

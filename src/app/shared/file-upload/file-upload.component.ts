@@ -50,14 +50,14 @@ export class FileUploadComponent implements OnInit {
   fileBrowseHandler(event: any, template: any, uploadMethod: string) {
     // this.isShowLoader = true
     this.modalRef = this.modalService.show(template);
-    if(uploadMethod === 'drag') {
+    if (uploadMethod === 'drag') {
       this.prepareFilesList(event);
       this.file = event;
     } else {
-      this.prepareFilesList(event.target.files);  
+      this.prepareFilesList(event.target.files);
       this.file = event.target.files[0];
     }
-    
+
     const files: any[] = uploadMethod === 'drag' ? [event] : event.target.files;
     this.fileUpload = false;
     this.isShowFile = false
@@ -69,9 +69,9 @@ export class FileUploadComponent implements OnInit {
           reportProgress: true,
           observe: 'events'
         }).subscribe((events: any) => {
-          if(events && events.type === HttpEventType.UploadProgress) {
-            this.percentage = Math.round(events.loaded / events.total * 100) 
-          } else if(events.type === HttpEventType.Response) {
+          if (events && events.type === HttpEventType.UploadProgress) {
+            this.percentage = Math.round(events.loaded / events.total * 100)
+          } else if (events.type === HttpEventType.Response) {
             console.log('events', events);
             this.fileUpload = true;
             this.notifierService.showSuccess(events.body.message);

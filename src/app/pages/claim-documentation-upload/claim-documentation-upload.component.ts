@@ -13,7 +13,7 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
 })
 export class ClaimDocumentationUploadComponent implements OnInit {
   totalrecords!: number;
-  pageNo: number = 0;
+  pageNo: number = 1;
   pageSize: number = 10;
   submittedClaimList: any;
   submittedclaimListContent: any = []
