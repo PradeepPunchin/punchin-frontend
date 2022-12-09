@@ -1,5 +1,5 @@
 <div class="container-fluid bulk-upload-box" appDnd (fileDropped)="onFileDropped($event)" *ngIf="isShowFile == true">
-	<input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event)" accept=".xlsx"
+	<input type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event)" accept=".xlsx"
 		class="d-none" />
 	<!-- <svg xmlns="http://www.w3.org/2000/svg" width="63" height="64" viewBox="0 0 63 64">
 		<g fill="#3B454F" fill-rule="nonzero">
@@ -64,7 +64,7 @@
 					{{ formatBytes(file?.size) }}
 				</p>
 				<div class="progress-cont">
-					<div class="progress" [style.width]="file.progress + '%'">
+					<div class="progress" [style.width]="percentage + '%'">
 					</div>
 				</div>
 			</div>

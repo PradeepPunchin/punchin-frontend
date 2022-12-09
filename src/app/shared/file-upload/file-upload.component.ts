@@ -1,7 +1,9 @@
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -11,7 +13,6 @@ import { NotifierService } from 'src/app/services/notifier/notifier.service';
 })
 export class FileUploadComponent implements OnInit {
   selectedFile = null;
-  profileDocument: any = [];
   fileUpload: boolean = false;
   file: any;
   pageNo: number = 0;
@@ -21,9 +22,11 @@ export class FileUploadComponent implements OnInit {
 
 
   @Output() AwsFileList: EventEmitter<any> = new EventEmitter();
+  percentage: number = 0;
 
   constructor(
     private apiService: ApiService,
+    private httpClient: HttpClient,
     private notifierService: NotifierService,
     private dashboard: DashboardComponent
   ) { }
@@ -55,15 +58,21 @@ export class FileUploadComponent implements OnInit {
       for (let i = 0; i < files.length; i++) {
         const formData: FormData = new FormData();
         formData.append('multipartFile', this.files[i], this.files[i].name);
-        const fileUploadRes = await this.apiService.uploadUserDocument(formData).subscribe((res: any) => {
-          if (res?.isSuccess) {
+        this.httpClient.post(`${environment.api.baseApiRoot}banker/claim/upload`, formData, {
+          reportProgress: true,
+          observe: 'events'
+        }).subscribe((events: any) => {
+          if(events && events.type === HttpEventType.UploadProgress) {
+            this.percentage = Math.round(events.loaded / events.total * 100) 
+          } else if(events.type === HttpEventType.Response) {
+            console.log('events', events);
             this.fileUpload = true;
-            this.notifierService.showSuccess(res.data.message);
-            this.profileDocument.push(fileUploadRes);
+            this.notifierService.showSuccess(events.body.data.message);
             this.isShowLoader = false
-            this.AwsFileList.emit(this.profileDocument);
+            this.AwsFileList.emit([]);
           }
         }, (error: any) => {
+          this.percentage = 0;
           this.notifierService.showError(error?.error?.message || "Something went wrong");
         })
       }
