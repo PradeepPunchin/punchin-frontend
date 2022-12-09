@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { ApiResponse } from 'src/app/models/common';
+import { IDocumentDetailDTO, VerifierDocumentDetail } from 'src/app/models/response/verifier-document.response';
 import { ApiService } from 'src/app/services/api/api.service';
 import { SessionService } from 'src/app/services/session/session.service';
 
@@ -11,9 +13,9 @@ import { SessionService } from 'src/app/services/session/session.service';
 export class DocumentVerificationRequestModalComponent implements OnInit {
 
   documentVerificationRequestId: any
-  documentVerificationDetails: any;
-  documentDetailsDTOList: any = []
-  docUrl: any = []
+  documentVerificationDetails!: VerifierDocumentDetail;
+  documentDetailsDTOList: IDocumentDetailDTO[] = []
+  docUrl: string = '';
 
   constructor(public bsModalRef: BsModalRef,
     private sessionService: SessionService,
@@ -24,7 +26,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   }
 
   getDocumentDetails() {
-    this.apiService.getDocumentDetails(this.documentVerificationRequestId).subscribe((res: any) => {
+    this.apiService.getDocumentDetails(this.documentVerificationRequestId).subscribe((res: ApiResponse<VerifierDocumentDetail> | any) => {
       if (res?.isSuccess) {
         this.documentVerificationDetails = res?.data
         this.documentDetailsDTOList = res?.data.documentDetailsDTOList
@@ -34,10 +36,9 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     })
   }
 
-  viewDoc() {
-    this.docUrl = this.documentDetailsDTOList
+  viewDoc(documentDTO: IDocumentDetailDTO) {
+    this.docUrl = documentDTO.documentUrlListDTOList[0].documentUrl;
     console.log(this.docUrl, "docUrl");
-
   }
 
 }

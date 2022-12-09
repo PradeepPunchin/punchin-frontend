@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.scss']
 })
-export class PdfViewerComponent implements OnInit {
+export class PdfViewerComponent implements OnInit, OnChanges {
 
-  @Input() docUrl = ""
+  @Input() docUrl: string = ""
 
   pdfSrc: string = "this.docUrl";
   data: any
@@ -15,6 +15,9 @@ export class PdfViewerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(): void {
     console.log(this.docUrl, "url");
   }
 
