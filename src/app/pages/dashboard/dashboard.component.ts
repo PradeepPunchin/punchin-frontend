@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
   verifierCardList: any
   verifiercordListData: any = []
   innerStep: number = 0
-  bsModalRef?: BsModalRef;
+  // bsModalRef?: BsModalRef;
 
 
   constructor(
@@ -48,7 +48,8 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private eventService: EventService,
     private utilitiesService: UtilityService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    public bsModalRef: BsModalRef,
   ) { }
 
   ngOnInit(): void {
@@ -65,7 +66,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onGetUploadedFile(event: any) {
-    if(this.bsModalRef) {
+    if (this.bsModalRef) {
       this.bsModalRef.hide();
     }
     this.isShow = event.length > 0 ? false : true;
@@ -114,7 +115,7 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
         this.getClaimList();
-        this.isShow = true
+        // this.isShow = true
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong")

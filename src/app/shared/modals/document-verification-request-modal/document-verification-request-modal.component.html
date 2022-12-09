@@ -71,7 +71,8 @@
                                         Rejected
                                     </p>
                                 </td>
-                                <td class="text-center" (click)="viewDoc(item)"><img src="../../../assets/icons/eye.svg"></td>
+                                <td class="text-center" (click)="viewDoc(item)"><img
+                                        src="../../../assets/icons/eye.svg"></td>
                             </tr>
                         </ng-container>
                     </tbody>
@@ -86,8 +87,9 @@
                 </div>
                 <app-pdf-viewer [docUrl]="docUrl"></app-pdf-viewer>
                 <div class="document-preview-btns text-center mt-auto">
-                    <button type="button" class="btn btn-outline-primary">Reject</button>
-                    <button type="button" class="btn btn-primary">Approve</button>
+                    <button type="button" class="btn btn-outline-primary"
+                        (click)="approveAndReject('REJECT')">Reject</button>
+                    <button type="button" class="btn btn-primary" (click)="approveAndReject('APPROVE')">Approve</button>
                 </div>
             </div>
         </div>

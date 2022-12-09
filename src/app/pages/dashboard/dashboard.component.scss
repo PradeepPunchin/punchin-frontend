@@ -108,6 +108,10 @@
       padding: 20px 20px 24px;
       margin-bottom: 0;
     }
+    .btn1 {
+      margin-left: 55% !important;
+      padding: 7px 15px;
+    }
     .btn-primary {
       background-color: $buttonColor;
       border-radius: 5px;
@@ -162,6 +166,9 @@
     }
     td:last-child {
       background-color: $white;
+    }
+    .status-button {
+      color: $blueColor;
     }
   }
   .pagination-box {

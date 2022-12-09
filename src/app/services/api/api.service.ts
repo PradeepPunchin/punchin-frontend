@@ -19,8 +19,7 @@ export class ApiService {
   }
 
   logout() {
-    return this.http.get(
-      `${this.baseApiUrl}auth/logout`)
+    return this.http.get(`${this.baseApiUrl}auth/logout`)
   }
 
   // banker api
@@ -55,16 +54,15 @@ export class ApiService {
   downloadMISFile(data: any) {
     return this.http.get(`${this.baseApiUrl}banker/downloadMISFile?claimStatus=${data}`)
   }
+
   getClaimListByClaimid(id: any) {
     return this.http.get(`${this.baseApiUrl}banker/claim/${id}`)
   }
+
   uploadDocument(claimId: number, data: any, docType: any) {
     return this.http.put(`${this.baseApiUrl}banker/claim/${claimId}/uploadDocument/${docType}`, "")
 
   }
-
-
-
 
   //varifier api
   getVerifierDashboardData() {
@@ -74,18 +72,16 @@ export class ApiService {
   getVerifierDocumentRequestData(pageNo: number, pageSize: number) {
     return this.http.get(`${this.baseApiUrl}verifier/getVerifierDataDocumentClaimsData?page=${pageNo}&limit=${pageSize}`)
   }
+
   getVerifierClaimsData(data: any, pageNo: number, pageSize: number) {
     return this.http.get(`${this.baseApiUrl}verifier/claim?claimDataFilter=${data}&page=${pageNo}&limit=${pageSize}`)
   }
+
   getDocumentDetails(id: number) {
     return this.http.get(`${this.baseApiUrl}verifier/getDocumentDetails?claimDataId=${id}`);
   }
 
-
-
-
-
-
-
-
+  getacceptAndRejectDocuments(data: any, id: number,) {
+    return this.http.post(`${this.baseApiUrl}verifier/acceptAndRejectDocuments?claimDocumentId=${id}&status=${data}`, "");
+  }
 }

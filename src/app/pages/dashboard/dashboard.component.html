@@ -40,10 +40,12 @@
     <div *ngIf="claimListContent.length === 0 && isShow === true">
         <app-file-upload (AwsFileList)="onGetUploadedFile($event)"></app-file-upload>
     </div>
-
     <div class="cases-claims-box" *ngIf="cordListData.length > 0">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6>Case/Claim</h6>
+            <button type="button" class="btn btn-primary btn1" *ngIf="onStep === 0 || onStep === 1 || onStep === 2"
+                (click)="openModal1(fileTemplate)"> <img src="../../../assets/icons/action(white).svg"
+                    class="me-2">Upload xls File</button>
             <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('ALL')"
                 *ngIf="onStep === 0"><img src="../../../assets/icons/download.svg" class="me-2">Download
                 Standardized Format</button>
@@ -53,9 +55,6 @@
             <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('IN_PROGRESS')"
                 *ngIf="onStep === 2"><img src="../../../assets/icons/download.svg" class="me-2">Download
                 Standardized Format</button>
-            <button type="button" class="btn btn-outline-primary" *ngIf="onStep === 0" (click)="openModal1(fileTemplate)">Uplaod
-                file</button>
-
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 0">
             <table class="table  table-sm">
@@ -111,7 +110,7 @@
                         <td>{{item.insurerName}}</td>
                         <td>{{item.policyNumber}}</td>
                         <td>{{item.masterPolNumber}}</td>
-                        <td>{{item.policyStartDate}}</td>
+                        <td>{{item.policyStartDate | date}}</td>
                         <td>{{item.policyCoverageDuration}} Years</td>
                         <td>{{item.policySumAssured}}</td>
                         <td>{{item.nomineeName}}</td>
@@ -119,7 +118,7 @@
                         <td>{{item.nomineeContactNumber}}</td>
                         <td>{{item.nomineeEmailId}}</td>
                         <td>{{item.nomineeAddress}}</td>
-                        <td class="text-center"><img src="assets/icons/action.svg"></td>
+                        <td class="text-center">{{item.claimStatus}}</td>
 
                     </tr>
                 </tbody>
@@ -181,7 +180,7 @@
                         <td>{{item.insurerName}}</td>
                         <td>{{item.policyNumber}}</td>
                         <td>{{item.masterPolNumber}}</td>
-                        <td>{{item.policyStartDate}}</td>
+                        <td>{{item.policyStartDate | date}}</td>
                         <td>{{item.policyCoverageDuration}} Years</td>
                         <td>{{item.policySumAssured}}</td>
                         <td>{{item.nomineeName}}</td>
@@ -189,7 +188,7 @@
                         <td>{{item.nomineeContactNumber}}</td>
                         <td>{{item.nomineeEmailId}}</td>
                         <td>{{item.nomineeAddress}}</td>
-                        <td class="text-center"><img src="assets/icons/action.svg"></td>
+                        <td class="text-center status-button">{{item.claimStatus}}</td>
 
                     </tr>
                 </tbody>
@@ -251,7 +250,7 @@
                         <td>{{item.insurerName}}</td>
                         <td>{{item.policyNumber}}</td>
                         <td>{{item.masterPolNumber}}</td>
-                        <td>{{item.policyStartDate}}</td>
+                        <td>{{item.policyStartDate | date}}</td>
                         <td>{{item.policyCoverageDuration}} Years</td>
                         <td>{{item.policySumAssured}}</td>
                         <td>{{item.nomineeName}}</td>
@@ -259,7 +258,7 @@
                         <td>{{item.nomineeContactNumber}}</td>
                         <td>{{item.nomineeEmailId}}</td>
                         <td>{{item.nomineeAddress}}</td>
-                        <td class="text-center"><img src="assets/icons/action.svg"></td>
+                        <td class="text-center">{{item.claimStatus}}</td>
 
                     </tr>
                 </tbody>
@@ -345,7 +344,7 @@
                         <td>{{item.insurerName}}</td>
                         <td>{{item.policyNumber}}</td>
                         <td>{{item.masterPolNumber}}</td>
-                        <td>{{item.policyStartDate}}</td>
+                        <td>{{item.policyStartDate | date}}</td>
                         <td>{{item.policyCoverageDuration}} Years</td>
                         <td>{{item.policySumAssured}}</td>
                         <td>{{item.nomineeName}}</td>
@@ -411,16 +410,17 @@
         </div>
     </div>
 
-    <div class="cases-claims-box" *ngIf="verifiercordListData.length > 0">
+    <div class="cases-claims-box">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6 *ngIf="onStep === 0 || onStep === 1">Cases/Claims</h6>
+            <h6 *ngIf="(onStep === 0 || onStep === 1 ) && verifiercordListData.length > 0">Cases/Claims</h6>
             <div *ngIf="onStep === 2">
                 <button type="button" class="btn btn-primary m-2" [ngClass]="{active: innerStep === 0}"
                     (click)="innerStep = 0" (click)="verifierCardDetails('WIP')">In-Progress</button>
                 <button type="button" class="btn btn-light" [ngClass]="{active: innerStep === 1}"
                     (click)="innerStep = 1" (click)="verifierCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                *ngIf="verifiercordListData.length > 0">
                 <option selected>Filter by Status</option>
                 <option value="1">All</option>
                 <option value="2">Pending</option>
@@ -428,7 +428,7 @@
             </select>
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 0">
-            <table class="table table-sm">
+            <table class="table table-sm" *ngIf="verifiercordListData.length > 0">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
@@ -455,12 +455,11 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td>{{item.id}}</td>
-                        <td>{{item.claimInwardDate}}</td>
+                        <td>{{item.claimInwardDate | date }}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
                         <td>{{item.borrowerAddress}}</td>
-                        <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
@@ -477,7 +476,7 @@
             </table>
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 1">
-            <table class="table table-sm">
+            <table class="table table-sm" *ngIf="verifiercordListData.length > 0">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
@@ -504,7 +503,7 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td>{{item.id}}</td>
-                        <td>{{item.claimInwardDate}}</td>
+                        <td>{{item.claimInwardDate | date}}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
@@ -519,14 +518,13 @@
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
-                        <td><img src="assets/icons/bluetick.svg"></td>
-                        <td class="text-center"><img src="assets/icons/eye.svg"></td>
+                        <td class="text-center">{{item.claimStatus}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 2 && innerStep === 0">
-            <table class="table table-sm">
+            <table class="table table-sm" *ngIf="verifiercordListData.length > 0">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
@@ -553,7 +551,7 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td>{{item.id}}</td>
-                        <td>{{item.claimInwardDate}}</td>
+                        <td>{{item.claimInwardDate | date}}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
@@ -568,14 +566,13 @@
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
-                        <td><img src="assets/icons/bluetick.svg"></td>
-                        <td class="text-center"><img src="assets/icons/eye.svg"></td>
+                        <td class="text-center">{{item.claimStatus}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 2 && innerStep === 1">
-            <table class="table table-sm">
+            <table class="table table-sm" *ngIf="verifiercordListData.length > 0">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
@@ -602,7 +599,7 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td>{{item.id}}</td>
-                        <td>{{item.claimInwardDate}}</td>
+                        <td>{{item.claimInwardDate | date}}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
@@ -618,12 +615,13 @@
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
-                        <td class="text-center"><img src="assets/icons/eye.svg"></td>
+                        <td class="text-center">{{item.claimStatus}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="pagination-box d-flex justify-content-between align-items-center">
+        <div class="pagination-box d-flex justify-content-between align-items-center"
+            *ngIf="verifiercordListData.length > 0">
             <div class="pages-per-rows d-flex align-items-center">
                 <p class="per-row-title">Page Per Rows</p>
                 <h6 class="per-row-text">30</h6>
@@ -786,13 +784,12 @@
 </div> -->
 
 <ng-template #fileTemplate>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
-    <button type="button" class="btn-close close pull-right" aria-label="Close">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-file-upload (AwsFileList)="onGetUploadedFile($event)"></app-file-upload>
-  </div>
+    <div class="modal-header">
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-file-upload (AwsFileList)="onGetUploadedFile($event)"></app-file-upload>
+    </div>
 </ng-template>

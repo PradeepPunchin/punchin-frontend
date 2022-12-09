@@ -25,13 +25,20 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.getDocumentDetails()
   }
 
+  approveAndReject(type: any) {
+    this.apiService.getacceptAndRejectDocuments(type, this.documentVerificationRequestId).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        console.log(res, "res")
+      }
+    })
+  }
+
   getDocumentDetails() {
     this.apiService.getDocumentDetails(this.documentVerificationRequestId).subscribe((res: ApiResponse<VerifierDocumentDetail> | any) => {
       if (res?.isSuccess) {
         this.documentVerificationDetails = res?.data
         this.documentDetailsDTOList = res?.data.documentDetailsDTOList
         console.log(this.documentDetailsDTOList, "documentVerificationDetails");
-
       }
     })
   }
