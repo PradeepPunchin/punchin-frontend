@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
   verifierCardList: any
   verifiercordListData: any = []
   innerStep: number = 0
+  isShowFileUploaded: boolean = true
   // bsModalRef?: BsModalRef;
 
 
@@ -116,7 +117,7 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
         this.getClaimList();
-        // this.isShow = true
+        this.isShowFileUploaded = true;
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
@@ -213,10 +214,15 @@ export class DashboardComponent implements OnInit {
   }
 
   openModal1(template: any) {
+    this.isShowFileUploaded = false;
     const initialState: ModalOptions = {
       class: 'file-modal-custom-width'
     };
     this.bsModalRef = this.modalService.show(template, initialState);
+  }
+  closeModal() {
+    this.bsModalRef.hide()
+    this.isShowFileUploaded = true;
   }
 }
 

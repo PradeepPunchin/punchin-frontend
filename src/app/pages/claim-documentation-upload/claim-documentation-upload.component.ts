@@ -20,11 +20,14 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   maxSize: number = 5;
   viewClaimList: boolean = true;
   editCliamList: boolean = false;
-  uplaodClaimForm: any;
+  showClaimForm!: FormGroup;
+  uploadForm !: FormGroup
   ClaimListDataById: any = []
   fileUpload: boolean = false;
   file: any;
   files: any[] = [];
+
+
 
 
 
@@ -36,7 +39,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.uplaodClaimForm = this.formBuilder.group({
+    this.showClaimForm = this.formBuilder.group({
       caseId: ['', [Validators.required]],
       brrower_name: ['', [Validators.required]],
       borrower_address: ['', [Validators.required]],
@@ -51,25 +54,28 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       outstanding_loan_amt: ['', [Validators.required]],
       balance_claim_amt: ['', [Validators.required]],
     })
+    this.uploadForm = this.formBuilder.group({
+      docType: [null, [Validators.required]]
+    })
     this.getClaimSubmiitedList();
 
   }
 
   patchValue() {
-    this.uplaodClaimForm.patchValue({
+    this.showClaimForm.patchValue({
       caseId: this.ClaimListDataById.punchinClaimId,
       brrower_name: this.ClaimListDataById.borrowerName,
       borrower_address: this.ClaimListDataById.borrowerAddress,
       load_type: this.ClaimListDataById.loanType,
       loan_acc_number: this.ClaimListDataById.loanAccountNumber,
       insurer_name: this.ClaimListDataById.insurerName,
-      borrower_policy_number: this.ClaimListDataById.policyNumber,
-      master_policy_number: this.ClaimListDataById.masterPolNumber,
-      borrower_sum_assured: "150000",
+      borrower_policy_number: this.ClaimListDataById.borrowerPolicyNumber,
+      master_policy_number: this.ClaimListDataById.masterPolicyNumbet,
+      borrower_sum_assured: this.ClaimListDataById.borrowerPolicyNumber,
       original_loan_amt: this.ClaimListDataById.loanAmount,
       Loan_paid_by_borrower: this.ClaimListDataById.loanAmount,
-      outstanding_loan_amt: "50000",
-      balance_claim_amt: "30000",
+      outstanding_loan_amt: this.ClaimListDataById.outstandingLoanAmount,
+      balance_claim_amt: this.ClaimListDataById.balanceClaimAmount,
     })
 
   }
@@ -80,6 +86,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.submittedClaimList = res?.data
         this.submittedclaimListContent = res?.data.content
         this.totalrecords = res?.data.totalElements
+
       }
     })
   }
@@ -110,30 +117,41 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.getClaimSubmiitedList();
   }
 
-  onFileDropped(event: any) {
-    this.prepareFilesList(event);
-  }
+  // file uplaod
   async fileBrowseHandler(event: any) {
-    this.prepareFilesList(event.target.files);
     this.file = event.target.files[0];
-    const files: any[] = event.target.files;
-    this.fileUpload = false;
-    if (files && files.length > 0) {
-
-      this.uplaodClaimForm
-      for (let i = 0; i < files.length; i++) {
-        const formData: FormData = new FormData();
-        formData.append('multipartFile', this.files[i], this.files[i].name);
-        const fileUploadRes = await this.apiService.uploadUserDocument(formData).subscribe((res: any) => {
-          this.fileUpload = true;
-          this.notifierService.showSuccess('File Uploaded');
-        })
-      }
-    }
   }
-  prepareFilesList(files: any) {
-    for (const item of files) {
-      this.files.push(item);
-    }
+
+  uploadDocument() {
+    let selectedDoc = this.uploadForm.controls.docType.value
+    const formData: FormData = new FormData();
+    formData.append('multipartFiles', this.file,);
+    this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.notifierService.showSuccess(res?.message);
+        this.uploadForm.reset()
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
+  }
+
+  saveToDraft() {
+    this.notifierService.showSuccess("save to draft sucessfull")
+    this.viewClaimList = true;
+    this.editCliamList = false;
+  }
+
+  submitClaim() {
+    this.apiService.forwardClaim(this.ClaimListDataById.id).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.notifierService.showSuccess(res?.message)
+        this.viewClaimList = true;
+        this.editCliamList = false;
+      }
+    },
+      (error: any) => {
+        this.notifierService.showError(error?.error?.message || "Something went wrong");
+      })
   }
 }

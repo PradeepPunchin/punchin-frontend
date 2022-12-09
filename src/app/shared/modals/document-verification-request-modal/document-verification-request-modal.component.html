@@ -70,12 +70,19 @@
                                     <p class="doc-status-red-text" *ngIf="item.isVerified == false">
                                         Pending
                                     </p>
-                                    <p class="doc-status-red-text" *ngIf="item.isVerified == true">
+                                    <p class="doc-status-blue-text"
+                                        *ngIf="item.isVerified == true && item.isApproved == false">
+                                        Rejected
+                                    </p>
+                                    <p class="doc-status-blue-text"
+                                        *ngIf="item.isVerified == true && item.isApproved == true">
                                         Approved
                                     </p>
                                 </td>
                                 <td class="text-center" (click)="viewDoc(item)"><img
                                         src="../../../assets/icons/eye.svg"></td>
+                                <td class="text-center" (click)="Downlaod(item.id)"><img
+                                        src="../../../assets/icons/download.svg"></td>
                             </tr>
                         </ng-container>
                     </tbody>
@@ -91,8 +98,8 @@
                 <app-pdf-viewer [docUrl]="docUrl" [docType]="docType"></app-pdf-viewer>
                 <div class="document-preview-btns text-center mt-auto">
                     <button type="button" class="btn btn-outline-primary"
-                        (click)="approveAndReject('REJECT')">Reject</button>
-                    <button type="button" class="btn btn-primary" (click)="approveAndReject('APPROVE')">Approve</button>
+                        (click)="approveAndReject('false')">Reject</button>
+                    <button type="button" class="btn btn-primary" (click)="approveAndReject('true')">Approve</button>
                 </div>
             </div>
         </div>

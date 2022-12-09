@@ -40,7 +40,7 @@
     <div *ngIf="claimListContent.length === 0 && isShow === true">
         <app-file-upload (AwsFileList)="onGetUploadedFile($event)"></app-file-upload>
     </div>
-    <div class="cases-claims-box" *ngIf="cordListData.length > 0">
+    <div class="cases-claims-box" *ngIf="cordListData.length > 0 && isShowFileUploaded">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6>Case/Claim</h6>
             <button type="button" class="btn btn-primary btn1" *ngIf="onStep === 0 || onStep === 1 || onStep === 2"
@@ -785,7 +785,7 @@
 
 <ng-template #fileTemplate>
     <div class="modal-header">
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
     </div>

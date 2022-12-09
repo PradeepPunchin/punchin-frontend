@@ -59,10 +59,13 @@ export class ApiService {
     return this.http.get(`${this.baseApiUrl}banker/claim/${id}`)
   }
 
-  uploadDocument(claimId: number, data: any, docType: any) {
-    return this.http.put(`${this.baseApiUrl}banker/claim/${claimId}/uploadDocument/${docType}`, "")
-
+  uploadDocument(claimId: number, docType: any, data: any) {
+    return this.http.put(`${this.baseApiUrl}banker/claim/${claimId}/uploadDocument/${docType}`, data)
   }
+  forwardClaim(id: number) {
+    return this.http.put(`${this.baseApiUrl}banker/claim/${id}/forward-to-verifier`, "")
+  }
+
 
   //varifier api
   getVerifierDashboardData() {
@@ -81,7 +84,9 @@ export class ApiService {
     return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/documents`);
   }
 
-  getacceptAndRejectDocuments(data: any, id: number,) {
-    return this.http.post(`${this.baseApiUrl}verifier/acceptAndRejectDocuments?claimDocumentId=${id}&status=${data}`, "");
+  getAcceptAndRejectDocuments(id: number, docId: number, body: any) {
+    return this.http.post(`${this.baseApiUrl}verifier/claim/${id}/document/${docId}/doc-approve-reject`, body);
   }
 }
+
+
