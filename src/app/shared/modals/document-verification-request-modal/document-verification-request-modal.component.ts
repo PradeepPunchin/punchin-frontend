@@ -12,7 +12,8 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
 
   documentVerificationRequestId: any
   documentVerificationDetails: any;
-  docUrl: any
+  documentDetailsDTOList: any = []
+  docUrl: any = []
 
   constructor(public bsModalRef: BsModalRef,
     private sessionService: SessionService,
@@ -26,12 +27,17 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.apiService.getDocumentDetails(this.documentVerificationRequestId).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.documentVerificationDetails = res?.data
+        this.documentDetailsDTOList = res?.data.documentDetailsDTOList
+        console.log(this.documentDetailsDTOList, "documentVerificationDetails");
+
       }
     })
   }
 
-  viewDoc(data: any) {
-    this.docUrl = this.documentVerificationDetails.documentDetailsDTOList[0].documentUrlListDTOList[0].documentUrl
+  viewDoc() {
+    this.docUrl = this.documentDetailsDTOList
+    console.log(this.docUrl, "docUrl");
+
   }
 
 }

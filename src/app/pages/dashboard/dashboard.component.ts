@@ -10,6 +10,7 @@ import { SessionService } from 'src/app/services/session/session.service';
 import { UtilityService } from 'src/app/services/utility/utility.service';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals/document-verification-request-modal/document-verification-request-modal.component';
+import { FileUploadComponent } from 'src/app/shared/file-upload/file-upload.component';
 import { UplaodFileComponent } from 'src/app/shared/modals/uplaod-file/uplaod-file.component';
 
 
@@ -218,7 +219,7 @@ export class DashboardComponent implements OnInit {
     const initialState: ModalOptions = {
       class: 'file-modal-custom-width'
     };
-    this.bsModalRef = this.modalService.show(UplaodFileComponent, initialState);
+    this.bsModalRef = this.modalService.show(UplaodFileComponent);
   }
 }
 
