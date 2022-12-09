@@ -39,19 +39,26 @@ export class FileUploadComponent implements OnInit {
   /**
    * on file drop handler
    */
-  onFileDropped(event: any) {
+  onFileDropped(event: any, template: any) {
     this.prepareFilesList(event);
+    this.fileBrowseHandler(event, template, 'drag')
   }
 
   /**
    * handle file from browsing
    */
-  fileBrowseHandler(event: any, template: any) {
+  fileBrowseHandler(event: any, template: any, uploadMethod: string) {
     // this.isShowLoader = true
     this.modalRef = this.modalService.show(template);
-    this.prepareFilesList(event.target.files);
-    this.file = event.target.files[0];
-    const files: any[] = event.target.files;
+    if(uploadMethod === 'drag') {
+      this.prepareFilesList(event);
+      this.file = event;
+    } else {
+      this.prepareFilesList(event.target.files);  
+      this.file = event.target.files[0];
+    }
+    
+    const files: any[] = uploadMethod === 'drag' ? [event] : event.target.files;
     this.fileUpload = false;
     this.isShowFile = false
     if (files && files.length > 0) {
@@ -114,6 +121,7 @@ export class FileUploadComponent implements OnInit {
    * @param files (Files List)
    */
   prepareFilesList(files: any) {
+    this.files = [];
     for (const item of files) {
       item.progress = 0;
       this.files.push(item);
