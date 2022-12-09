@@ -53,7 +53,7 @@
             <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('IN_PROGRESS')"
                 *ngIf="onStep === 2"><img src="../../../assets/icons/download.svg" class="me-2">Download
                 Standardized Format</button>
-            <button type="button" class="btn btn-outline-primary" *ngIf="onStep === 0" (click)="openModal1()">Uplaod
+            <button type="button" class="btn btn-outline-primary" *ngIf="onStep === 0" (click)="openModal1(fileTemplate)">Uplaod
                 file</button>
 
         </div>
@@ -784,3 +784,15 @@
         <div class="col-4"></div>
     </div>
 </div> -->
+
+<ng-template #fileTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-file-upload></app-file-upload>
+  </div>
+</ng-template>

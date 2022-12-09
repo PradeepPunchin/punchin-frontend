@@ -11,7 +11,6 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { DocumentVerificationRequestModalComponent } from './modals/document-verification-request-modal/document-verification-request-modal.component';
 import { DocumentRejectModalComponent } from './modals/document-reject-modal/document-reject-modal.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
-import { UplaodFileComponent } from './modals/uplaod-file/uplaod-file.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +21,6 @@ import { UplaodFileComponent } from './modals/uplaod-file/uplaod-file.component'
     DocumentVerificationRequestModalComponent,
     PdfViewerComponent,
     DocumentRejectModalComponent,
-    UplaodFileComponent,
 
   ],
   imports: [
@@ -37,7 +35,7 @@ import { UplaodFileComponent } from './modals/uplaod-file/uplaod-file.component'
     TopNavComponent,
     FileUploadComponent,
     DocumentVerificationRequestModalComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
   ]
 })
 export class SharedModule { }
