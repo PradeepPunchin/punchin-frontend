@@ -53,6 +53,8 @@
             <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('IN_PROGRESS')"
                 *ngIf="onStep === 2"><img src="../../../assets/icons/download.svg" class="me-2">Download
                 Standardized Format</button>
+            <button type="button" class="btn btn-outline-primary" *ngIf="onStep === 0" (click)="openModal1()">Uplaod
+                file</button>
 
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 0">
@@ -89,7 +91,6 @@
                         <th scope="col">Email id </th>
                         <th scope="col">Nominee Address </th>
                         <th scope="col" class="text-center">Action</th>
-
                     </tr>
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
@@ -283,7 +284,6 @@
             </div>
         </div>
     </div>
-
     <div class="cases-claims-box" *ngIf="claimListContent.length > 0">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6>Service/Claim Dashboard</h6>
@@ -371,16 +371,9 @@
             </div>
         </div>
     </div>
-
-    <!-- <ng-container *ngIf="!cordListData || (cordListData && cordListData.length === 0)">
-        <div class="error-wrapper">
-            <h1>Oops</h1>
-            <p>
-                No Data Found
-            </p>
-        </div>
-    </ng-container> -->
 </ng-container>
+
+
 
 
 <!-- Verifier Dashboard -->
@@ -478,7 +471,7 @@
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
-                        <td class="text-center" (click)="openModal()"><img src="assets/icons/eye.svg"></td>
+                        <td class="text-center" (click)="openModal(item.id)"><img src="assets/icons/eye.svg"></td>
                     </tr>
                 </tbody>
             </table>
@@ -646,7 +639,6 @@
 
     <ng-container *ngIf="!verifiercordListData || (verifiercordListData && verifiercordListData.length === 0)">
         <div class="error-wrapper">
-            <h1>Oops</h1>
             <p>
                 No Data Found
             </p>

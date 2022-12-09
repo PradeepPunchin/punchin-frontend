@@ -77,6 +77,11 @@ export class ApiService {
   getVerifierClaimsData(data: any, pageNo: number, pageSize: number) {
     return this.http.get(`${this.baseApiUrl}verifier/claim?claimDataFilter=${data}&page=${pageNo}&limit=${pageSize}`)
   }
+  getDocumentDetails(id: number) {
+    return this.http.get(`${this.baseApiUrl}verifier/getDocumentDetails?claimDataId=${id}`);
+  }
+
+
 
 
 

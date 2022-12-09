@@ -61,12 +61,12 @@ export class FileUploadComponent implements OnInit {
             this.notifierService.showSuccess(res.data.message);
             this.profileDocument.push(fileUploadRes);
             this.isShowLoader = false
+            this.AwsFileList.emit(this.profileDocument);
           }
         }, (error: any) => {
           this.notifierService.showError(error?.error?.message || "Something went wrong");
         })
       }
-      this.AwsFileList.emit(this.profileDocument);
     }
   }
 

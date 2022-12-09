@@ -1,0 +1,19 @@
+@import "../../../../assets/css/variables";
+
+.modal-header {
+    border: none;
+    padding: 20px 20px 0;
+    .modal-title {
+        font-weight: 600;
+        font-size: $fontSize14;
+        color: $textColor;
+    }
+    .btn-close {
+        font-size: $fontSize12;
+        padding: 4px;
+    }
+}
+
+.modal-body {
+    padding: 12px 20px 35px;
+}

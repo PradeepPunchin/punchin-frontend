@@ -10,6 +10,7 @@ import { SessionService } from 'src/app/services/session/session.service';
 import { UtilityService } from 'src/app/services/utility/utility.service';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals/document-verification-request-modal/document-verification-request-modal.component';
+import { UplaodFileComponent } from 'src/app/shared/modals/uplaod-file/uplaod-file.component';
 
 
 @Component({
@@ -203,16 +204,22 @@ export class DashboardComponent implements OnInit {
     this.showCardDetails('ALL')
   }
 
-  openModal() {
+  openModal(id: any) {
     const initialState: ModalOptions = {
       initialState: {
-        documentVerificationRequestId: 1,
+        documentVerificationRequestId: id,
       },
       class: 'modal-custom-width'
     };
     this.bsModalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
   }
 
+  openModal1() {
+    const initialState: ModalOptions = {
+      class: 'file-modal-custom-width'
+    };
+    this.bsModalRef = this.modalService.show(UplaodFileComponent, initialState);
+  }
 }
 
 

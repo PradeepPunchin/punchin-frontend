@@ -12,20 +12,19 @@
                 <div class="row document-verification-row">
                     <div class="col-3">
                         <p class="document-verification-title">Borrower Name</p>
-                        <p class="document-verification-text">Ram Prakash</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.borrowerName}}</p>
                     </div>
                     <div class="col-3">
                         <p class="document-verification-title">Borrower Address</p>
-                        <p class="document-verification-text">H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP </p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.borrowerAddress}}</p>
                     </div>
                     <div class="col-3">
                         <p class="document-verification-title">Loan Account No.</p>
-                        <p class="document-verification-text">34675000002146</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.loanAccountNumber}}</p>
                     </div>
                     <div class="col-3">
                         <p class="document-verification-title">Insurer Name</p>
-                        <p class="document-verification-text">Bagic</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.insurerName}}</p>
                     </div>
                 </div>
             </div>
@@ -35,16 +34,15 @@
                 <div class="row document-verification-row">
                     <div class="col-3">
                         <p class="document-verification-title">Nominee Name</p>
-                        <p class="document-verification-text">Sanjay Prakash</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.nomineeName}}</p>
                     </div>
                     <div class="col-3">
-                        <p class="document-verification-title">Borrower Address</p>
-                        <p class="document-verification-text">H-23, Gali Number 45, Lal bagh
-                            Chowk, Prayagraj, UP </p>
+                        <p class="document-verification-title">Nominee Address</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.nomineeAddress}}</p>
                     </div>
                     <div class="col-3">
                         <p class="document-verification-title">Relation</p>
-                        <p class="document-verification-text">Son</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.nomineeRelationShip}}</p>
                     </div>
                 </div>
             </div>
@@ -74,7 +72,8 @@
                             <td class="text-center">
                                 <p class="doc-status-grey-text">Not Uploaded</p>
                             </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"
+                                    (click)="viewDoc('DEATH_CERTIFICATE')"></td>
                         </tr>
                         <tr>
                             <td>Borrower ID Proof</td>
@@ -126,7 +125,7 @@
                     <h6 class="document-preview-heading mb-0">Document Preview</h6>
                     <img src="../../../../assets/icons/preview.svg">
                 </div>
-                <app-pdf-viewer></app-pdf-viewer>
+                <app-pdf-viewer [docUrl]="docUrl"></app-pdf-viewer>
                 <div class="document-preview-btns text-center mt-auto">
                     <button type="button" class="btn btn-outline-primary">Reject</button>
                     <button type="button" class="btn btn-primary">Approve</button>
