@@ -79,10 +79,11 @@
                                         Approved
                                     </p>
                                 </td>
-                                <td class="text-center" (click)="viewDoc(item)"><img
-                                        src="../../../assets/icons/eye.svg"></td>
-                                <td class="text-center" (click)="Downlaod(item.id)"><img
-                                        src="../../../assets/icons/download.svg"></td>
+                                <td class="text-center">
+                                    <span (click)="viewDoc(item)" class="ml-2"><img
+                                            src="../../../assets/icons/eye.svg"></span>
+                                    <span (click)="Downlaod(item)"><img src="../../../assets/icons/download.svg"></span>
+                                </td>
                             </tr>
                         </ng-container>
                     </tbody>

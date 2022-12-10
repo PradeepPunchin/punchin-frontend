@@ -20,6 +20,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   docType: string = "";
   isShoeDoc: boolean = false
   docId: any
+  downlaodUrl: any
 
   constructor(public bsModalRef: BsModalRef,
     private sessionService: SessionService,
@@ -63,8 +64,13 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.sessionService.setSessions({ docId: documentDTO.id })
   }
 
-  Downlaod(id: any) {
-
+  Downlaod(documentDTO: IDocumentDetailDTO) {
+    this.downlaodUrl = documentDTO.documentUrlDTOS[0].docUrl;
+    let a = document.createElement('a');
+    a.target = '_blank';
+    a.href = this.downlaodUrl;
+    document.body.appendChild(a);
+    a.click();
   }
 
 }
