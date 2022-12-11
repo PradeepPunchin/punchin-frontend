@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { ApiResponse } from 'src/app/models/common';
 import { IDocumentDetailDTO, VerifierDocumentDetail } from 'src/app/models/response/verifier-document.response';
@@ -21,20 +22,40 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   isShoeDoc: boolean = false
   docId: any
   downlaodUrl: any
+  reasonForm!: FormGroup
+  reasonFormSubmitted: boolean = false
+
+
 
   constructor(public bsModalRef: BsModalRef,
     private sessionService: SessionService,
     private apiService: ApiService,
-    private notifierService: NotifierService
+    private notifierService: NotifierService,
+    private modalService: BsModalService,
+    private formBuilder: FormBuilder
   ) { }
   ngOnInit(): void {
     this.getDocumentDetails()
+
+    this.reasonForm = this.formBuilder.group({
+      reason: ['', [Validators.required]],
+    })
   }
+
+  openApprovedModal(approved: any) {
+    this.bsModalRef = this.modalService.show(approved);
+  }
+  openRejectModal(reject: any) {
+    this.bsModalRef = this.modalService.show(reject);
+  }
+
+
 
   approveAndReject(data: any) {
     this.docId = this.sessionService.getSession("docId")
     let req = {
-      "approved": data
+      "approved": data,
+      "reason": this.reasonForm.controls.value || ""
     }
     this.apiService.getAcceptAndRejectDocuments(this.documentVerificationRequestId, this.docId, req).subscribe((res: any) => {
       if (res?.isSuccess) {

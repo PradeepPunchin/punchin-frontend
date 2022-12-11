@@ -265,8 +265,8 @@
             </table>
         </div>
 
-        <div class="pagination-box d-flex justify-content-between align-items-center">
-            <div class="pages-per-rows d-flex align-items-center">
+        <div class="pagination-box d-flex justify-content-end align-items-center">
+            <!-- <div class="pages-per-rows d-flex align-items-center">
                 <p class="per-row-title">Page Per Rows</p>
                 <h6 class="per-row-text">
                     <select (input)="pagePerData($event)">
@@ -274,7 +274,7 @@
                         <option [value]="totalrecords">{{totalrecords}}</option>
                     </select>
                 </h6>
-            </div>
+            </div> -->
 
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
@@ -356,12 +356,16 @@
                 </tbody>
             </table>
         </div>
-        <div class="pagination-box d-flex justify-content-between align-items-center">
-            <div class="pages-per-rows d-flex align-items-center">
+        <div class="pagination-box d-flex justify-content-end align-items-center">
+            <!-- <div class="pages-per-rows d-flex align-items-center">
                 <p class="per-row-title">Page Per Rows</p>
-                <h6 class="per-row-text">10</h6>
-                <img src="../../../assets/icons/chevron-down.svg">
-            </div>
+                <h6 class="per-row-text">
+                    <select (input)="pagePerData($event)">
+                        <option value="10">10</option>
+                        <option [value]="totalrecords">{{totalrecords}}</option>
+                    </select>
+                </h6>
+            </div> -->
 
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
@@ -620,13 +624,17 @@
                 </tbody>
             </table>
         </div>
-        <div class="pagination-box d-flex justify-content-between align-items-center"
+        <div class="pagination-box d-flex justify-content-end align-items-center"
             *ngIf="verifiercordListData.length > 0">
-            <div class="pages-per-rows d-flex align-items-center">
+            <!-- <div class="pages-per-rows d-flex align-items-center">
                 <p class="per-row-title">Page Per Rows</p>
-                <h6 class="per-row-text">30</h6>
-                <img src="../../../assets/icons/chevron-down.svg">
-            </div>
+                <h6 class="per-row-text">
+                    <select (input)="pagePerData($event)">
+                        <option value="10">10</option>
+                        <option [value]="totalrecords">{{totalrecords}}</option>
+                    </select>
+                </h6>
+            </div> -->
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"

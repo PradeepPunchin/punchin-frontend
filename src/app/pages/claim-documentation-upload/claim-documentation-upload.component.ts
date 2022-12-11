@@ -13,11 +13,10 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
 })
 export class ClaimDocumentationUploadComponent implements OnInit {
   totalrecords!: number;
-  pageNo: number = 1;
+  pageNo: number = 0;
   pageSize: number = 10;
   submittedClaimList: any;
   submittedclaimListContent: any = []
-  maxSize: number = 5;
   viewClaimList: boolean = true;
   editCliamList: boolean = false;
   showClaimForm!: FormGroup;

@@ -37,6 +37,8 @@ export class ApiService {
   }
 
   getClaimSubmiitedList(pageNo: number, pageSize: number) {
+    console.log(pageNo, "pageNo");
+
     return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SUBMITTED&limit=${pageSize}&page=${pageNo}`);
   }
 

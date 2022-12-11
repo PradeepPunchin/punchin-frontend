@@ -161,7 +161,7 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.verifierCardList = res?.data
         this.verifiercordListData = res?.data.content
-        this.totalrecords = res?.data.totalElements
+        this.totalrecords = res?.data.totalRecords
       }
     })
   }
@@ -198,10 +198,11 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  pagePerData(event: any) {
-    this.pageSize = event.target.value
-    this.showCardDetails('ALL')
-  }
+  // pagePerData(event: any) {
+  //   console.log(event, "event");
+  //   this.pageSize = event.target.value
+  //   this.showCardDetails('ALL');
+  // }
 
   openModal(id: any) {
     const initialState: ModalOptions = {
