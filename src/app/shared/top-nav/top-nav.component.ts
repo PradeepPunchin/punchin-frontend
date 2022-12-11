@@ -13,6 +13,8 @@ import { SessionService } from 'src/app/services/session/session.service';
 })
 export class TopNavComponent implements OnInit {
   role: any;
+  isProfileOptionVisible: boolean = false;
+
   navLinks: INavItem[] = [
     {
       id: 1,

@@ -67,4 +67,39 @@
       margin-left: 10px;
     }
   }
+  .profile-logout-box {
+    position: absolute;
+    background-color: $white;
+    border-radius: 7px;
+    width: 142px;
+    height: 90px;
+    padding: 18px 0 0 20px;
+    right: 0;
+    top: 69px;
+    .profile-text,
+    .logout-text {
+      text-decoration: none;
+    }
+    .profile-text span,
+    .logout-text span {
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $navbarTextColor;
+      margin-bottom: 0;
+      margin-left: 16px;
+    }
+    .logout-text {
+      margin-top: 16px;
+    }
+  }
+  // .profile-logout-box::after {
+  //   content: "";
+  //   position: absolute;
+  //   top: 2px;
+  //   right: 14px;
+  //   width: 12px;
+  //   height: 12px;
+  //   background-color: $white;
+  //   transform: rotate(45deg) translate(-50%, -50%);
+  // }
 }
