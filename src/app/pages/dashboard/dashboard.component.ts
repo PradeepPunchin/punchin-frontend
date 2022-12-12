@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
   isShowFileUploaded: boolean = true
   bankerData: any;
   verifierData: any
+  isRemove: boolean = false
   // bsModalRef?: BsModalRef;
 
 
@@ -122,6 +123,7 @@ export class DashboardComponent implements OnInit {
         this.notifierService.showSuccess(res?.message)
         this.getClaimList();
         this.isShowFileUploaded = true;
+        this.isShow = true
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
@@ -192,9 +194,9 @@ export class DashboardComponent implements OnInit {
     if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'UNDER_VERIFICATION') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("UNDER_VERIFICATION");
-    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'SETTLED') {
+    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'SUBMITTED_TO_INSURER') {
       this.pageNo = event.page - 1;
-      this.verifierCardDetails("SETTLED");
+      this.verifierCardDetails("SUBMITTED_TO_INSURER");
     } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'WIP') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("WIP")

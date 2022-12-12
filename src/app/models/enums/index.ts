@@ -30,7 +30,7 @@ export enum BANKERSTATUSENUM {
 
 export enum VERIFIERSTATUSENUM {
     underVerification = "UNDER_VERIFICATION",
-    settled = "SETTLED",
+    settled = "SUBMITTED_TO_INSURER",
     inprogress = "IN_PROGRESS",
-
+    all = "ALL",
 }
