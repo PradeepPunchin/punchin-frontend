@@ -162,7 +162,7 @@ export class DashboardComponent implements OnInit {
   }
   //  verifier card api
   verifierCardDetails(data: any) {
-    this.verifierData == data;
+    this.verifierData = data;
     this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.verifierCardList = res?.data
@@ -203,6 +203,9 @@ export class DashboardComponent implements OnInit {
     } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'DISCREPENCY') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("DISCREPENCY")
+    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'ALL') {
+      this.pageNo = event.page - 1;
+      this.verifierCardDetails("ALL")
     }
   }
 

@@ -34,7 +34,9 @@
             </thead>
             <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
                 <tr>
-                    <td>{{i+1}}</td>
+                    <td>
+                        {{ (pageNo) * pageSize + i +1 }}
+                    </td>
                     <td>{{item.id}}</td>
                     <td>{{item.claimDate |date}}</td>
                     <td>{{item.borrowerName}}</td>
