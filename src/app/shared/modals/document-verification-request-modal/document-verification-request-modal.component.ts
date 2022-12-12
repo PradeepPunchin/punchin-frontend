@@ -97,6 +97,10 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
 
   Downlaod(documentDTO: IDocumentDetailDTO) {
     this.downlaodUrl = documentDTO.documentUrlDTOS[0].docUrl;
+    console.log(this.downlaodUrl, "this.downlaodUrl");
+
+    console.log(this.downlaodUrl, "downlaodUrl");
+
     let a = document.createElement('a');
     // a.target = '_blank';
     a.href = this.downlaodUrl;

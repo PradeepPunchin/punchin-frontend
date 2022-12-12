@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ApiService } from 'src/app/services/api/api.service';
+import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals/document-verification-request-modal/document-verification-request-modal.component';
 
 @Component({
   selector: 'app-document-verification-request',
@@ -18,6 +20,8 @@ export class DocumentVerificationRequestComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    private modalService: BsModalService,
+    public bsModalRef: BsModalRef,
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +36,16 @@ export class DocumentVerificationRequestComponent implements OnInit {
         this.totalrecords = res?.data.totalRecords
       }
     })
+  }
+
+  openModal(id: any) {
+    const initialState: ModalOptions = {
+      initialState: {
+        documentVerificationRequestId: id,
+      },
+      class: 'modal-custom-width'
+    };
+    this.bsModalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
   }
 
   pageChanged(event: PageChangedEvent) {
