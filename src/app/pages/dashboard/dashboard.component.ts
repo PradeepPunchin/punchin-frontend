@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
 
     if (this.role === ROLES.verifier || this.role === ROLES.admin) {
       this.getVerifierDashboardData();
-      this.verifierCardDetails("UNDER_VERIFICATION")
+      this.verifierCardDetails("ALL")
     }
   }
 
@@ -82,12 +82,11 @@ export class DashboardComponent implements OnInit {
 
   showCardDetails(data: any) {
     this.bankerData = data;
-
     this.apiService.getCardList(data, this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
         this.cordListData = res?.data.content
-        this.totalrecords = res?.data.totalElements
+        this.totalrecords = res?.data.totalRecords
         if (this.cordListData.length > 0) {
           this.isShow = false
         }
@@ -163,26 +162,31 @@ export class DashboardComponent implements OnInit {
   }
   //  verifier card api
   verifierCardDetails(data: any) {
-    this.verifierData == data;
-    this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.verifierCardList = res?.data
-        this.verifiercordListData = res?.data.content
-        this.totalrecords = res?.data.totalRecords
-      }
-    })
+    this.verifierData = data;
+    if (data === 'UNDER_VERIFICATION') {
+      this.router.navigate(['/pages/claim-documentation'])
+    } else {
+      this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.verifierCardList = res?.data
+          this.verifiercordListData = res?.data.content
+          this.totalrecords = res?.data.totalRecords
+        }
+      })
+    }
   }
 
 
   //pagination
   pageChanged(event: PageChangedEvent) {
+    console.log(event, "event");
+
     if (this.claimList && this.claimList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
       this.getClaimList();
     }
     if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
       this.pageNo = event.page - 1;
-
       this.showCardDetails("ALL");
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'WIP') {
       this.pageNo = event.page - 1;
@@ -191,10 +195,7 @@ export class DashboardComponent implements OnInit {
       this.pageNo = event.page - 1;
       this.showCardDetails("SETTLED");
     }
-    if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'UNDER_VERIFICATION') {
-      this.pageNo = event.page - 1;
-      this.verifierCardDetails("UNDER_VERIFICATION");
-    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'SUBMITTED_TO_INSURER') {
+    if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'SUBMITTED_TO_INSURER') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("SUBMITTED_TO_INSURER");
     } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'WIP') {
@@ -203,6 +204,9 @@ export class DashboardComponent implements OnInit {
     } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'DISCREPENCY') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("DISCREPENCY")
+    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'ALL') {
+      this.pageNo = event.page - 1;
+      this.verifierCardDetails("ALL")
     }
   }
 

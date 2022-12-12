@@ -94,7 +94,9 @@
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>
+                            {{ (pageNo) * pageSize + i +1 }}
+                        </td>
                         <td>Leader</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
@@ -164,7 +166,9 @@
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>
+                            {{ (pageNo) * pageSize + i +1 }}
+                        </td>
                         <td>Leader</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
@@ -234,7 +238,9 @@
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>
+                            {{ (pageNo) * pageSize + i +1 }}
+                        </td>
                         <td>Leader</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
@@ -328,7 +334,9 @@
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of claimListContent;let i = index">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>
+                            {{ (pageNo) * pageSize + i +1 }}
+                        </td>
                         <td>Leader</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
@@ -466,7 +474,9 @@
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>
+                            {{ (pageNo) * pageSize + i +1 }}
+                        </td>
                         <td>{{item.id}}</td>
                         <td>{{item.claimInwardDate | date }}</td>
                         <td>{{item.borrowerName}}</td>
@@ -514,7 +524,9 @@
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>
+                            {{ (pageNo) * pageSize + i +1 }}
+                        </td>
                         <td>{{item.id}}</td>
                         <td>{{item.claimInwardDate | date}}</td>
                         <td>{{item.borrowerName}}</td>
@@ -562,7 +574,9 @@
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>
+                            {{ (pageNo) * pageSize + i +1 }}
+                        </td>
                         <td>{{item.id}}</td>
                         <td>{{item.claimInwardDate | date}}</td>
                         <td>{{item.borrowerName}}</td>
@@ -610,7 +624,9 @@
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>
+                            {{ (pageNo) * pageSize + i +1 }}
+                        </td>
                         <td>{{item.id}}</td>
                         <td>{{item.claimInwardDate | date}}</td>
                         <td>{{item.borrowerName}}</td>
@@ -659,7 +675,9 @@
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>
+                            {{ (pageNo) * pageSize + i +1 }}
+                        </td>
                         <td>{{item.id}}</td>
                         <td>{{item.claimInwardDate | date}}</td>
                         <td>{{item.borrowerName}}</td>
