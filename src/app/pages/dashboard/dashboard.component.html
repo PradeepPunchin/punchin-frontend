@@ -94,7 +94,9 @@
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>
+                            {{ (pageNo) * pageSize + i +1 }}
+                        </td>
                         <td>Leader</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
