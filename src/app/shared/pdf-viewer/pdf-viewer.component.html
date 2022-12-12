@@ -4,8 +4,11 @@
             <pdf-viewer [src]="docUrl" [render-text]="true" [original-size]="false" style="width: 400px; height: 500px">
             </pdf-viewer>
         </div>
-        <div class="col-12" *ngIf="docType == 'jpg'">
+        <div class="col-12" *ngIf="docType == 'jpg' || docType == 'png' || docType == 'jpeg'">
             <img [src]="docUrl" style="width: 100%">
+        </div>
+        <div class="col-12" *ngIf="docType == 'txt'">
+            <a [href]="docUrl"></a>
         </div>
     </div>
 </div>

@@ -60,10 +60,11 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.apiService.getAcceptAndRejectDocuments(this.documentVerificationRequestId, this.docId, req).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
+        this.bsModalRef.hide();
         this.getDocumentDetails();
       }
     }, (error: any) => {
-      this.notifierService.showError(error?.error?.message || "Something went wrong")
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
     })
   }
 
@@ -88,7 +89,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   Downlaod(documentDTO: IDocumentDetailDTO) {
     this.downlaodUrl = documentDTO.documentUrlDTOS[0].docUrl;
     let a = document.createElement('a');
-    a.target = '_blank';
+    // a.target = '_blank';
     a.href = this.downlaodUrl;
     document.body.appendChild(a);
     a.click();

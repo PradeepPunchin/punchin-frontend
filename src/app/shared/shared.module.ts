@@ -30,7 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     DirectivesModule,
     PdfViewerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     NoDataFoundComponent,
