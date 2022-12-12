@@ -384,7 +384,7 @@
     <div class="container-fluid claim-dashboard-box">
         <h6>Service/Claim Dashboard</h6>
         <div class="row">
-            <div class="col-4" [ngClass]="{active: onStep === 0}" (click)="onStep = 0 ">
+            <div class="col-3" [ngClass]="{active: onStep === 0}" (click)="onStep = 0 ">
                 <div class="claims-allocated-box" (click)="verifierCardDetails('UNDER_VERIFICATION')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
@@ -393,21 +393,30 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4" [ngClass]="{active: onStep === 1}" (click)="onStep = 1">
+            <div class="col-3" [ngClass]="{active: onStep === 1}" (click)="onStep = 1">
                 <div class="claims-action-pending-box" (click)="verifierCardDetails('SETTLED')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.settled] || 0}}</h5>
-                        <h6>Settled Cases</h6>
+                        <h6>Approved Cases</h6>
                     </div>
                 </div>
             </div>
-            <div class="col-4" [ngClass]="{active: onStep === 2}" (click)="onStep = 2">
+            <div class="col-3" [ngClass]="{active: onStep === 2}" (click)="onStep = 2">
                 <div class="claims-in-progress-box" (click)="verifierCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.inprogress] || 0}}</h5>
                         <h6>Progress Cases</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3" [ngClass]="{active: onStep === 3}" (click)="onStep = 3">
+                <div class="claims-allocated-box" (click)="verifierCardDetails('WIP')">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>{{verifierDashboardData[verifierStatusEnum.all] || 0}}</h5>
+                        <h6>ALL Cases</h6>
                     </div>
                 </div>
             </div>
@@ -622,6 +631,55 @@
                         <td class="text-center">{{item.claimStatus}}</td>
                     </tr>
                 </tbody>
+            </table>
+        </div>
+        <div class="table-container table-responsive" *ngIf="onStep === 3">
+            <table class="table table-sm" *ngIf="verifiercordListData.length > 0">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Case/Claim Id </th>
+                        <th scope="col">Claim Registration Date </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Contact number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Signed claim form </th>
+                        <th scope="col">Death Certificate </th>
+                        <th scope="col">Borrower ID Proof</th>
+                        <th scope="col">Borrower Add proof </th>
+                        <th scope="col">Nominee Id Proof </th>
+                        <th scope="col">Nominee Add proof </th>
+                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">FIR / Postmortem report</th>
+                        <th scope="col">Affidavit (Name mismatch etc)</th>
+                        <th scope="col">Discrepancy / AR / FR resolution</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <!-- <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.claimInwardDate | date}}</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td class="text-center">{{item.claimStatus}}</td>
+                    </tr>
+                </tbody> -->
             </table>
         </div>
         <div class="pagination-box d-flex justify-content-end align-items-center"
