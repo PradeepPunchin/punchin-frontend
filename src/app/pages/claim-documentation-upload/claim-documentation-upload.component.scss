@@ -1,0 +1,220 @@
+@import "../../../assets/css/variables";
+
+.cases-claims-box {
+  background-color: $white;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
+  margin-top: 14px;
+  padding-right: 25px;
+  margin-bottom: 15px;
+  .claim-dashboard-btns {
+    h6 {
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $textColor;
+      padding: 20px 20px 24px;
+      margin-bottom: 0;
+    }
+    // .btn-primary {
+    //     background-color: $buttonColor;
+    //     border-radius: 5px;
+    //     font-weight: 600;
+    //     font-size: $fontSize14;
+    //     color: $white;
+    //     padding: 6px 15px;
+    //     margin-left: 10px;
+    //     border-color: $buttonColor;
+    // }
+    // .btn-outline-primary {
+    //     border-color: $icon-color;
+    //     border-radius: 5px;
+    //     font-weight: 600;
+    //     font-size: $fontSize14;
+    //     color: $icon-color;
+    //     padding: 6px 15px;
+    // }
+    // .btn-outline-primary:hover {
+    //     background: $white;
+    // }
+    .form-select-sm {
+      width: 20%;
+    }
+  }
+  .table-container {
+    .table {
+      margin-bottom: 19px;
+      width: 4000px;
+    }
+    th {
+      background-color: $tableHeaderColor;
+      font-weight: 600;
+      font-size: $fontSize12;
+      color: $white;
+      height: 52px;
+    }
+    td {
+      font-size: $fontSize12;
+      color: $navbarTextColor;
+      height: 64px;
+    }
+    th:first-child,
+    td:first-child {
+      padding-left: 16px;
+    }
+    th:last-child,
+    td:last-child {
+      position: sticky;
+      right: 0px;
+      width: 107px;
+    }
+    td:last-child {
+      background-color: $white;
+    }
+  }
+  .pagination-box {
+    padding: 0 26px 20px 20px;
+    .pages-per-rows {
+      .per-row-title {
+        font-size: $fontSize14;
+        color: $navbarTextColor;
+        margin-right: 8px;
+        margin-bottom: 0;
+      }
+      .per-row-text {
+        font-weight: 800;
+        font-size: $fontSize14;
+        color: $buttonColor;
+        padding: 0;
+        margin-right: 5px;
+        margin-bottom: 0;
+      }
+    }
+
+    .pagination-content {
+      ::ng-deep ul.pagination {
+        margin-bottom: 0;
+        padding-bottom: 10px;
+        li.page-item .page-link {
+          width: 30px;
+          height: 30px;
+          border-color: $icon-color;
+          border-radius: 6px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: 500;
+          font-size: $fontSize14;
+          color: $icon-color;
+          padding: 0;
+          margin: 0 7px !important;
+        }
+        li.page-item.active .page-link {
+          background-color: $buttonColor;
+          border-color: $buttonColor;
+          color: $white;
+          z-index: 0;
+        }
+        li.page-item .page-link:hover {
+          background-color: $buttonColor;
+          border-color: $buttonColor;
+          color: $white;
+        }
+        li.pagination-prev .page-link,
+        li.pagination-next .page-link {
+          border-color: $paginationBorderColor;
+          color: $paginationArrowColor;
+          font-size: $fontSize24;
+        }
+        li.pagination-prev.disabled .page-link {
+          color: $paginationBorderColor;
+        }
+      }
+    }
+  }
+}
+.error-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-left: 10px;
+  margin: 2% auto;
+  h1 {
+    font-size: 34px;
+    font-weight: 500;
+  }
+  p {
+    font-size: 26px;
+    font-weight: 400;
+  }
+}
+
+// Documentation Upload
+.documentation-upload-box {
+  background-color: $white;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
+  margin: 14px 0 30px;
+  padding: 22px 48px 48px;
+  .documentation-upload-heading {
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $black;
+    margin-bottom: 14px;
+  }
+  .heading-color-box {
+    h6 {
+      background-color: $textColorBox;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $black;
+      margin-bottom: 0;
+      padding: 12px 20px;
+      margin-bottom: 16px;
+      margin-top: 20px;
+    }
+  }
+  .documentation-upload-forms {
+    .form-label {
+      font-size: $fontSize13;
+      color: $black;
+    }
+    .form-control {
+      background-color: $inputBackground;
+      border-color: $inputBorderColor;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $black;
+      height: 45px;
+    }
+    .form-control::placeholder {
+      color: $black;
+    }
+  }
+
+  .submit-save-btn {
+    margin-top: 30px;
+    .btn-primary {
+      background-color: $buttonColor;
+      border-color: $buttonColor;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $white;
+      margin-left: 16px;
+      padding: 6px 14px;
+    }
+  }
+  .btn-outline-primary {
+    border-color: $navbarTextColor;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $navbarTextColor;
+    padding: 6px 14px;
+  }
+  .btn-outline-primary:hover {
+    background-color: $white;
+  }
+}

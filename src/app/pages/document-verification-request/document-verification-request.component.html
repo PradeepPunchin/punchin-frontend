@@ -1,1 +1,83 @@
-<p>document-verification-request works!</p>
+<div class="cases-claims-box" *ngIf="verifierRequestList.length > 0">
+    <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
+        <h6>Case/Claim)</h6>
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option selected>Filter by Status</option>
+            <option value="1">All</option>
+            <option value="2">Pending</option>
+            <option value="3">Submitted Document</option>
+        </select>
+    </div>
+    <div class="table-container table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr class="align-middle">
+                    <th scope="col">S.No</th>
+                    <th scope="col">Case/Claim Id </th>
+                    <th scope="col">Claim Registration Date </th>
+                    <th scope="col">Borrower Name</th>
+                    <th scope="col">Nominee Name </th>
+                    <th scope="col">Contact number</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Signed claim form </th>
+                    <th scope="col">Death Certificate </th>
+                    <th scope="col">Borrower ID Proof</th>
+                    <th scope="col">Borrower Add proof </th>
+                    <th scope="col">Nominee Id Proof </th>
+                    <th scope="col">Nominee Add proof </th>
+                    <th scope="col">Bank A/c Proof </th>
+                    <th scope="col">FIR / Postmortem report</th>
+                    <th scope="col">Affidavit (Name mismatch etc)</th>
+                    <th scope="col">Discrepancy / AR / FR resolution</th>
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{item.id}}</td>
+                    <td>{{item.claimInwardDate}}</td>
+                    <td>{{item.borrowerName}}</td>
+                    <td>{{item.nomineeName}}</td>
+                    <td>{{item.borrowerContactNumber}}</td>
+                    <td>{{item.borrowerAddress}}</td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/eye.svg"></td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="pagination-box d-flex justify-content-between align-items-center">
+        <div class="pages-per-rows d-flex align-items-center">
+            <select (input)="pagePerData($event)">
+                <option value="10">10</option>
+                <option [value]="totalrecords">{{totalrecords}}</option>
+            </select>
+        </div>
+
+        <div class="pagination-content">
+            <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
+                (pageChanged)="pageChanged($event)" [itemsPerPage]="10" firstText="&laquo;" lastText="&raquo;">
+            </pagination>
+        </div>
+    </div>
+
+</div>
+<ng-container *ngIf="!verifierRequestList || (verifierRequestList && verifierRequestList?.length === 0)">
+    <div class="error-wrapper">
+        <p>
+            No Data Found
+        </p>
+    </div>
+</ng-container>

@@ -4,6 +4,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UtilityService {
+  checkFileUpload: any;
+
 
   constructor() { }
+
+  setuploadFile(checked: boolean) {
+    this.checkFileUpload = checked
+  }
+  getuplaodFile() {
+    return this.checkFileUpload;
+  }
 }

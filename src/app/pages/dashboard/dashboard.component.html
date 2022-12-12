@@ -2,8 +2,8 @@
     <div class="container-fluid claim-dashboard-box">
         <h6>Service/Claim Dashboard</h6>
         <div class="row">
-            <div class="col-4">
-                <div class="claims-allocated-box">
+            <div class="col-4" [ngClass]="{ active: onStep === 0 }" (click)="onStep = 0">
+                <div class="claims-allocated-box" (click)="showCardDetails('ALL')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -13,8 +13,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="claims-action-pending-box">
+            <div class="col-4" [ngClass]="{ active: onStep === 1 }" (click)="onStep = 1">
+                <div class="claims-action-pending-box" (click)="showCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -24,8 +24,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="claims-in-progress-box">
+            <div class="col-4" [ngClass]="{ active: onStep === 2 }" (click)="onStep = 2">
+                <div class="claims-in-progress-box" (click)="showCardDetails('SETTLED')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -37,53 +37,767 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid bulk-upload-box">
-        <div class="d-flex align-items-center justify-content-between upload-box-head">
-            <h6>Bulk Upload</h6>
-            <button type="button" class="btn btn-outline-primary"><img src="../../../assets/icons/download.svg"
-                    class="me-2">Download
+    <div *ngIf="claimListContent.length === 0 && isShow === true">
+        <app-file-upload (AwsFileList)="onGetUploadedFile($event)"></app-file-upload>
+    </div>
+    <div class="cases-claims-box" *ngIf="cordListData.length > 0 && isShowFileUploaded">
+        <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
+            <h6>Case/Claim</h6>
+            <button type="button" class="btn btn-primary btn1" *ngIf="onStep === 0 || onStep === 1 || onStep === 2"
+                (click)="openModal1(fileTemplate)"> <img src="../../../assets/icons/action(white).svg"
+                    class="me-2">Upload xls File</button>
+            <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('ALL')"
+                *ngIf="onStep === 0"><img src="../../../assets/icons/download.svg" class="me-2">Download
+                Standardized Format</button>
+            <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('SETTLED')"
+                *ngIf="onStep === 1"><img src="../../../assets/icons/download.svg" class="me-2">Download
+                Standardized Format</button>
+            <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('IN_PROGRESS')"
+                *ngIf="onStep === 2"><img src="../../../assets/icons/download.svg" class="me-2">Download
                 Standardized Format</button>
         </div>
-        <a class="upload-box">
-            <div class="text-center">
-                <img src="../../../assets/icons/upload-icon.svg">
-                <h6>Click to upload <span>or drag and drop</span></h6>
+        <div class="table-container table-responsive" *ngIf="onStep === 0">
+            <table class="table  table-sm">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Lender Name </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Borrower contact number</th>
+                        <th scope="col">Loan Account Number</th>
+                        <th scope="col">Borrower address</th>
+                        <th scope="col">Loan Type/Category </th>
+                        <!-- <th scope="col">Loan o/s amt </th> -->
+                        <th scope="col">Branch code </th>
+                        <th scope="col">Branch Name </th>
+                        <th scope="col">Branch Address</th>
+                        <th scope="col">Branch Pincode </th>
+                        <th scope="col">Loan Account Mgr
+                            Name (current)</th>
+                        <th scope="col">Acnt Mgr Phone
+                            Number (current)</th>
+                        <th scope="col">Insurer Name </th>
+                        <th scope="col">Borrower Pol. Number</th>
+                        <th scope="col">Master Pol number </th>
+                        <th scope="col">Policy Start Date </th>
+                        <th scope="col">Policy Coverage
+                            Duration (Years)</th>
+                        <th scope="col">Policy Sum Assured </th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Nominee
+                            Relationship </th>
+                        <th scope="col">Contact Number </th>
+                        <th scope="col">Email id </th>
+                        <th scope="col">Nominee Address </th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>Leader</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.loanAccountNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td>{{item.loanType}}</td>
+                        <td>{{item.branchCode}}</td>
+                        <td>{{item.branchName}}</td>
+                        <td>{{item.branchAddress}}</td>
+                        <td>{{item.branchPinCode}}</td>
+                        <td>{{item.loanAccountManagerName}}</td>
+                        <td>{{item.accountManagerContactNumber}}</td>
+                        <td>{{item.insurerName}}</td>
+                        <td>{{item.policyNumber}}</td>
+                        <td>{{item.masterPolNumber}}</td>
+                        <td>{{item.policyStartDate | date}}</td>
+                        <td>{{item.policyCoverageDuration}} Years</td>
+                        <td>{{item.policySumAssured}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.nomineeRelationShip}}</td>
+                        <td>{{item.nomineeContactNumber}}</td>
+                        <td>{{item.nomineeEmailId}}</td>
+                        <td>{{item.nomineeAddress}}</td>
+                        <td class="text-center">{{item.claimStatus}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-container table-responsive" *ngIf="onStep === 1">
+            <table class="table  table-sm">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Lender Name </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Borrower contact number</th>
+                        <th scope="col">Loan Account Number</th>
+                        <th scope="col">Borrower address</th>
+                        <th scope="col">Loan Type/Category </th>
+                        <!-- <th scope="col">Loan o/s amt </th> -->
+                        <th scope="col">Branch code </th>
+                        <th scope="col">Branch Name </th>
+                        <th scope="col">Branch Address</th>
+                        <th scope="col">Branch Pincode </th>
+                        <th scope="col">Loan Account Mgr
+                            Name (current)</th>
+                        <th scope="col">Acnt Mgr Phone
+                            Number (current)</th>
+                        <th scope="col">Insurer Name </th>
+                        <th scope="col">Borrower Pol. Number</th>
+                        <th scope="col">Master Pol number </th>
+                        <th scope="col">Policy Start Date </th>
+                        <th scope="col">Policy Coverage
+                            Duration (Years)</th>
+                        <th scope="col">Policy Sum Assured </th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Nominee
+                            Relationship </th>
+                        <th scope="col">Contact Number </th>
+                        <th scope="col">Email id </th>
+                        <th scope="col">Nominee Address </th>
+                        <th scope="col" class="text-center">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>Leader</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.loanAccountNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td>{{item.loanType}}</td>
+                        <td>{{item.branchCode}}</td>
+                        <td>{{item.branchName}}</td>
+                        <td>{{item.branchAddress}}</td>
+                        <td>{{item.branchPinCode}}</td>
+                        <td>{{item.loanAccountManagerName}}</td>
+                        <td>{{item.accountManagerContactNumber}}</td>
+                        <td>{{item.insurerName}}</td>
+                        <td>{{item.policyNumber}}</td>
+                        <td>{{item.masterPolNumber}}</td>
+                        <td>{{item.policyStartDate | date}}</td>
+                        <td>{{item.policyCoverageDuration}} Years</td>
+                        <td>{{item.policySumAssured}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.nomineeRelationShip}}</td>
+                        <td>{{item.nomineeContactNumber}}</td>
+                        <td>{{item.nomineeEmailId}}</td>
+                        <td>{{item.nomineeAddress}}</td>
+                        <td class="text-center status-button">{{item.claimStatus}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-container table-responsive" *ngIf="onStep === 2  ">
+            <table class="table  table-sm">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Lender Name </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Borrower contact number</th>
+                        <th scope="col">Loan Account Number</th>
+                        <th scope="col">Borrower address</th>
+                        <th scope="col">Loan Type/Category </th>
+                        <!-- <th scope="col">Loan o/s amt </th> -->
+                        <th scope="col">Branch code </th>
+                        <th scope="col">Branch Name </th>
+                        <th scope="col">Branch Address</th>
+                        <th scope="col">Branch Pincode </th>
+                        <th scope="col">Loan Account Mgr
+                            Name (current)</th>
+                        <th scope="col">Acnt Mgr Phone
+                            Number (current)</th>
+                        <th scope="col">Insurer Name </th>
+                        <th scope="col">Borrower Pol. Number</th>
+                        <th scope="col">Master Pol number </th>
+                        <th scope="col">Policy Start Date </th>
+                        <th scope="col">Policy Coverage
+                            Duration (Years)</th>
+                        <th scope="col">Policy Sum Assured </th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Nominee
+                            Relationship </th>
+                        <th scope="col">Contact Number </th>
+                        <th scope="col">Email id </th>
+                        <th scope="col">Nominee Address </th>
+                        <th scope="col" class="text-center">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>Leader</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.loanAccountNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td>{{item.loanType}}</td>
+                        <td>{{item.branchCode}}</td>
+                        <td>{{item.branchName}}</td>
+                        <td>{{item.branchAddress}}</td>
+                        <td>{{item.branchPinCode}}</td>
+                        <td>{{item.loanAccountManagerName}}</td>
+                        <td>{{item.accountManagerContactNumber}}</td>
+                        <td>{{item.insurerName}}</td>
+                        <td>{{item.policyNumber}}</td>
+                        <td>{{item.masterPolNumber}}</td>
+                        <td>{{item.policyStartDate | date}}</td>
+                        <td>{{item.policyCoverageDuration}} Years</td>
+                        <td>{{item.policySumAssured}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.nomineeRelationShip}}</td>
+                        <td>{{item.nomineeContactNumber}}</td>
+                        <td>{{item.nomineeEmailId}}</td>
+                        <td>{{item.nomineeAddress}}</td>
+                        <td class="text-center">{{item.claimStatus}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination-box d-flex justify-content-end align-items-center">
+            <!-- <div class="pages-per-rows d-flex align-items-center">
+                <p class="per-row-title">Page Per Rows</p>
+                <h6 class="per-row-text">
+                    <select (input)="pagePerData($event)">
+                        <option value="10">10</option>
+                        <option [value]="totalrecords">{{totalrecords}}</option>
+                    </select>
+                </h6>
+            </div> -->
+
+            <div class="pagination-content">
+                <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
+                    (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
+                    max-size="5"></pagination>
             </div>
-        </a>
+        </div>
+    </div>
+    <div class="cases-claims-box" *ngIf="claimListContent.length > 0">
+        <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
+            <h6>Service/Claim Dashboard</h6>
+            <div>
+                <button type="button" class="btn btn-outline-primary" (click)="deleteClaim()">Discard</button>
+                <button type="button" class="btn btn-primary" (click)="submitClaim()">Submit</button>
+            </div>
+        </div>
+        <div class="table-container table-responsive">
+            <table class="table">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Lender Name </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Borrower contact number</th>
+                        <th scope="col">Loan Account Number</th>
+                        <th scope="col">Borrower address</th>
+                        <th scope="col">Loan Type/Category </th>
+                        <!-- <th scope="col">Loan o/s amt </th> -->
+                        <th scope="col">Branch code </th>
+                        <th scope="col">Branch Name </th>
+                        <th scope="col">Branch Address</th>
+                        <th scope="col">Branch Pincode </th>
+                        <th scope="col">Loan Account Mgr
+                            Name (current)</th>
+                        <th scope="col">Acnt Mgr Phone
+                            Number (current)</th>
+                        <th scope="col">Insurer Name </th>
+                        <th scope="col">Borrower Pol. Number</th>
+                        <th scope="col">Master Pol number </th>
+                        <th scope="col">Policy Start Date </th>
+                        <th scope="col">Policy Coverage
+                            Duration (Years)</th>
+                        <th scope="col">Policy Sum Assured </th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Nominee
+                            Relationship </th>
+                        <th scope="col">Contact Number </th>
+                        <th scope="col">Email id </th>
+                        <th scope="col">Nominee Address </th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle" *ngFor="let item of claimListContent;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>Leader</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.loanAccountNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td>{{item.loanType}}</td>
+                        <td>{{item.branchCode}}</td>
+                        <td>{{item.branchName}}</td>
+                        <td>{{item.branchAddress}}</td>
+                        <td>{{item.branchPinCode}}</td>
+                        <td>{{item.loanAccountManagerName}}</td>
+                        <td>{{item.accountManagerContactNumber}}</td>
+                        <td>{{item.insurerName}}</td>
+                        <td>{{item.policyNumber}}</td>
+                        <td>{{item.masterPolNumber}}</td>
+                        <td>{{item.policyStartDate | date}}</td>
+                        <td>{{item.policyCoverageDuration}} Years</td>
+                        <td>{{item.policySumAssured}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.nomineeRelationShip}}</td>
+                        <td>{{item.nomineeContactNumber}}</td>
+                        <td>{{item.nomineeEmailId}}</td>
+                        <td>{{item.nomineeAddress}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination-box d-flex justify-content-end align-items-center">
+            <!-- <div class="pages-per-rows d-flex align-items-center">
+                <p class="per-row-title">Page Per Rows</p>
+                <h6 class="per-row-text">
+                    <select (input)="pagePerData($event)">
+                        <option value="10">10</option>
+                        <option [value]="totalrecords">{{totalrecords}}</option>
+                    </select>
+                </h6>
+            </div> -->
+
+            <div class="pagination-content">
+                <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
+                    (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
+                    max-size="5"></pagination>
+            </div>
+        </div>
     </div>
 </ng-container>
 
+
+
+
+<!-- Verifier Dashboard -->
 <ng-container *ngIf="role =='ADMIN' || role =='VERIFIER'">
     <div class="container-fluid claim-dashboard-box">
         <h6>Service/Claim Dashboard</h6>
         <div class="row">
-            <div class="col-4">
-                <div class="claims-allocated-box">
+            <div class="col-4" [ngClass]="{active: onStep === 0}" (click)="onStep = 0 ">
+                <div class="claims-allocated-box" (click)="verifierCardDetails('UNDER_VERIFICATION')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>0</h5>
-                        <h6>Total Cases</h6>
+                        <h5>{{verifierDashboardData[verifierStatusEnum.underVerification] || 0}}</h5>
+                        <h6>Under Verification Cases</h6>
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="claims-action-pending-box">
+            <div class="col-4" [ngClass]="{active: onStep === 1}" (click)="onStep = 1">
+                <div class="claims-action-pending-box" (click)="verifierCardDetails('SETTLED')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>0</h5>
-                        <h6>Pending Cases</h6>
+                        <h5>{{verifierDashboardData[verifierStatusEnum.settled] || 0}}</h5>
+                        <h6>Settled Cases</h6>
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="claims-in-progress-box">
+            <div class="col-4" [ngClass]="{active: onStep === 2}" (click)="onStep = 2">
+                <div class="claims-in-progress-box" (click)="verifierCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>0</h5>
-                        <h6>Approved Cases</h6>
+                        <h5>{{verifierDashboardData[verifierStatusEnum.inprogress] || 0}}</h5>
+                        <h6>Progress Cases</h6>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="cases-claims-box">
+        <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
+            <h6 *ngIf="(onStep === 0 || onStep === 1 ) && verifiercordListData.length > 0">Cases/Claims</h6>
+            <div *ngIf="onStep === 2">
+                <button type="button" class="btn btn-primary m-2" [ngClass]="{active: innerStep === 0}"
+                    (click)="innerStep = 0" (click)="verifierCardDetails('WIP')">In-Progress</button>
+                <button type="button" class="btn btn-light" [ngClass]="{active: innerStep === 1}"
+                    (click)="innerStep = 1" (click)="verifierCardDetails('DISCREPENCY')">Discrepancy</button>
+            </div>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                *ngIf="verifiercordListData.length > 0">
+                <option selected>Filter by Status</option>
+                <option value="1">All</option>
+                <option value="2">Pending</option>
+                <option value="3">Sent to Insurer</option>
+            </select>
+        </div>
+        <div class="table-container table-responsive" *ngIf="onStep === 0">
+            <table class="table table-sm" *ngIf="verifiercordListData.length > 0">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Case/Claim Id </th>
+                        <th scope="col">Claim Registration Date </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Contact number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Signed claim form </th>
+                        <th scope="col">Death Certificate </th>
+                        <th scope="col">Borrower ID Proof</th>
+                        <th scope="col">Borrower Add proof </th>
+                        <th scope="col">Nominee Id Proof </th>
+                        <th scope="col">Nominee Add proof </th>
+                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">FIR / Postmortem report</th>
+                        <th scope="col">Affidavit (Name mismatch etc)</th>
+                        <th scope="col">Discrepancy / AR / FR resolution</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.claimInwardDate | date }}</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td class="text-center" (click)="openModal(item.id)"><img src="assets/icons/eye.svg"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container table-responsive" *ngIf="onStep === 1">
+            <table class="table table-sm" *ngIf="verifiercordListData.length > 0">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Case/Claim Id </th>
+                        <th scope="col">Claim Registration Date </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Contact number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Signed claim form </th>
+                        <th scope="col">Death Certificate </th>
+                        <th scope="col">Borrower ID Proof</th>
+                        <th scope="col">Borrower Add proof </th>
+                        <th scope="col">Nominee Id Proof </th>
+                        <th scope="col">Nominee Add proof </th>
+                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">FIR / Postmortem report</th>
+                        <th scope="col">Affidavit (Name mismatch etc)</th>
+                        <th scope="col">Discrepancy / AR / FR resolution</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.claimInwardDate | date}}</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td class="text-center">{{item.claimStatus}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container table-responsive" *ngIf="onStep === 2 && innerStep === 0">
+            <table class="table table-sm" *ngIf="verifiercordListData.length > 0">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Case/Claim Id </th>
+                        <th scope="col">Claim Registration Date </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Contact number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Signed claim form </th>
+                        <th scope="col">Death Certificate </th>
+                        <th scope="col">Borrower ID Proof</th>
+                        <th scope="col">Borrower Add proof </th>
+                        <th scope="col">Nominee Id Proof </th>
+                        <th scope="col">Nominee Add proof </th>
+                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">FIR / Postmortem report</th>
+                        <th scope="col">Affidavit (Name mismatch etc)</th>
+                        <th scope="col">Discrepancy / AR / FR resolution</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.claimInwardDate | date}}</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td class="text-center">{{item.claimStatus}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container table-responsive" *ngIf="onStep === 2 && innerStep === 1">
+            <table class="table table-sm" *ngIf="verifiercordListData.length > 0">
+                <thead>
+                    <tr class="align-middle">
+                        <th scope="col">S.No</th>
+                        <th scope="col">Case/Claim Id </th>
+                        <th scope="col">Claim Registration Date </th>
+                        <th scope="col">Borrower Name</th>
+                        <th scope="col">Nominee Name </th>
+                        <th scope="col">Contact number</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Signed claim form </th>
+                        <th scope="col">Death Certificate </th>
+                        <th scope="col">Borrower ID Proof</th>
+                        <th scope="col">Borrower Add proof </th>
+                        <th scope="col">Nominee Id Proof </th>
+                        <th scope="col">Nominee Add proof </th>
+                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">FIR / Postmortem report</th>
+                        <th scope="col">Affidavit (Name mismatch etc)</th>
+                        <th scope="col">Discrepancy / AR / FR resolution</th>
+                        <th scope="col" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.claimInwardDate | date}}</td>
+                        <td>{{item.borrowerName}}</td>
+                        <td>{{item.nomineeName}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
+                        <td>{{item.borrowerAddress}}</td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td><img src="assets/icons/bluetick.svg"></td>
+                        <td class="text-center">{{item.claimStatus}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination-box d-flex justify-content-end align-items-center"
+            *ngIf="verifiercordListData.length > 0">
+            <!-- <div class="pages-per-rows d-flex align-items-center">
+                <p class="per-row-title">Page Per Rows</p>
+                <h6 class="per-row-text">
+                    <select (input)="pagePerData($event)">
+                        <option value="10">10</option>
+                        <option [value]="totalrecords">{{totalrecords}}</option>
+                    </select>
+                </h6>
+            </div> -->
+            <div class="pagination-content">
+                <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
+                    (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
+                    max-size="5"></pagination>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="!verifiercordListData || (verifiercordListData && verifiercordListData.length === 0)">
+        <div class="error-wrapper">
+            <p>
+                No Data Found
+            </p>
+        </div>
+    </ng-container>
 </ng-container>
+
+
+
+
+
+<!-- Discrepancy/New Requirements -->
+<!-- <div class="container-fluid new-requirements-container">
+    <h6 class="new-requirements-heading">Discrepancy/New Requirements</h6>
+
+    <div class="row">
+        <div class="col-8">
+            <div class="table-responsive new-requirements-table">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr class="align-middle">
+                            <th scope="col">Document Name</th>
+                            <th scope="col" class="text-center">Uploaded Doc</th>
+                            <th scope="col" class="text-center">Doc Status</th>
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Income Tax Returns</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-blue-text">Approved</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Medical Records</td>
+                            <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-grey-text">Not Uploaded</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Legal hier certificate</td>
+                            <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-grey-text">Not Uploaded</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Police Investigation Report</td>
+                            <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-grey-text">Not Uploaded</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Relationship Proof (in case of minor nominee)</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-red-text">Rejected</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Guardian - Id proof (in case of minor nominee)</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-blue-text">Approved</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Medical attendent certificate</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-blue-text">Approved</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Guardian - Id proof (in case of minor nominee)</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-blue-text">Approved</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Guardian - Add proof (in case of minor nominee)</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-blue-text">Approved</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                        <tr>
+                            <td>Other Document</td>
+                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
+                            <td class="text-center">
+                                <p class="doc-status-blue-text">Approved</p>
+                            </td>
+                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="document-preview-container">
+                <p class="upload-required-text">Upload Required Documents</p>
+
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Select Additional Document Type</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+
+                <div class="browse-upload-box d-flex align-items-center justify-content-between">
+                    <p class="browse-text">Browse</p>
+                    <button type="button" class="btn btn-light">Upload</button>
+                </div>
+
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row discrepancy-remark-container">
+        <div class="col-8">
+            <h6 class="discrepancy-remark-text">Discrepancy Remark</h6>
+            <div class="discrepancy-remark">
+                <p class="document-mismatch-text">Document mismatch please upload again <br> the following documents.
+                </p>
+                <p class="bank-account-cheque-leaf"> 1. Bank Account Cheque Leaf</p>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div> -->
+
+<ng-template #fileTemplate>
+    <div class="modal-header">
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-file-upload (AwsFileList)="onGetUploadedFile($event)"></app-file-upload>
+    </div>
+</ng-template>
