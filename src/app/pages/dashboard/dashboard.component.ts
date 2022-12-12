@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.cardList = res?.data
         this.cordListData = res?.data.content
-        this.totalrecords = res?.data.totalElements
+        this.totalrecords = res?.data.totalRecords
         if (this.cordListData.length > 0) {
           this.isShow = false
         }
