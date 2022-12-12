@@ -412,11 +412,11 @@
                 </div>
             </div>
             <div class="col-3" [ngClass]="{active: onStep === 3}" (click)="onStep = 3">
-                <div class="claims-allocated-box" (click)="verifierCardDetails('WIP')">
+                <div class="claims-allocated-box" (click)="verifierCardDetails('ALL')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.all] || 0}}</h5>
-                        <h6>ALL Cases</h6>
+                        <h6>Total Cases</h6>
                     </div>
                 </div>
             </div>
@@ -657,7 +657,7 @@
                         <th scope="col" class="text-center">Action</th>
                     </tr>
                 </thead>
-                <!-- <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
+                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
                         <td>{{i+1}}</td>
                         <td>{{item.id}}</td>
@@ -679,7 +679,7 @@
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td class="text-center">{{item.claimStatus}}</td>
                     </tr>
-                </tbody> -->
+                </tbody>
             </table>
         </div>
         <div class="pagination-box d-flex justify-content-end align-items-center"
