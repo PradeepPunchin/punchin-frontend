@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     private apiService: ApiService,
     private formBuilder: FormBuilder
   ) {
-    if(localStorage.getItem(STORAGETOKENENUM.token)) {
+    if (localStorage.getItem(STORAGETOKENENUM.token)) {
       this.router.navigate(['/pages'])
     }
   }
@@ -50,12 +50,12 @@ export class LoginComponent implements OnInit {
       }).subscribe((res: ApiResponse<ILoginResponse> | any) => {
         if (res?.isSuccess) {
           this.loginFormSubmitting = false;
-          if(res?.data) {
-            if(res?.data?.user?.accountLocked) {
+          if (res?.data) {
+            if (res?.data?.user?.accountLocked) {
               this.notifierService.showError('Account Locked');
               return;
             }
-            if(res?.data?.user?.status === USERSTATUS.inactive) {
+            if (res?.data?.user?.status === USERSTATUS.inactive) {
               this.notifierService.showError('Account not active');
               return;
             }
@@ -68,10 +68,10 @@ export class LoginComponent implements OnInit {
           }
         } else {
           this.notifierService.showError(res?.message || "Something went wrong");
-          this.loginFormSubmitting = false;  
+          this.loginFormSubmitting = false;
         }
       }, (error: any) => {
-        this.notifierService.showError(error.error.message);
+        this.notifierService.showError(error.error?.message);
         this.loginFormSubmitting = false;
       })
     } else {
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
   }
 
   togglePassword(inputFieldPassword: any) {
-    
+
     if (inputFieldPassword.type == "password") {
       inputFieldPassword.type = "text";
       this.show1 = !this.show1;

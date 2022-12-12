@@ -27,8 +27,8 @@
                     <th scope="col">Nominee Add proof </th>
                     <th scope="col">Bank A/c Proof </th>
                     <th scope="col">FIR / Postmortem report</th>
-                    <th scope="col">Affidavit (Name mismatch etc)</th>
-                    <th scope="col">Discrepancy / AR / FR resolution</th>
+                    <!-- <th scope="col">Affidavit (Name mismatch etc)</th> -->
+                    <!-- <th scope="col">Discrepancy / AR / FR resolution</th> -->
                     <th scope="col" class="text-center">Action</th>
                 </tr>
             </thead>
@@ -36,21 +36,55 @@
                 <tr>
                     <td>{{i+1}}</td>
                     <td>{{item.id}}</td>
-                    <td>{{item.claimInwardDate}}</td>
+                    <td>{{item.claimDate |date}}</td>
                     <td>{{item.borrowerName}}</td>
                     <td>{{item.nomineeName}}</td>
-                    <td>{{item.borrowerContactNumber}}</td>
-                    <td>{{item.borrowerAddress}}</td>
+                    <td>{{item.nomineeContactNumber}}</td>
+                    <td>{{item.nomineeAddress}}</td>
+                    <td>
+                        <span *ngIf="item.singnedClaimDocument == true"> <img src="assets/icons/bluetick.svg"></span>
+                        <span *ngIf="item.singnedClaimDocument == false"> <img src="assets/icons/cross.svg"></span>
+                        <span *ngIf="item.singnedClaimDocument == null">not uplaod</span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.deathCertificate == true"> <img src="assets/icons/bluetick.svg"></span>
+                        <span *ngIf="item.deathCertificate == false"> <img src="assets/icons/cross.svg"></span>
+                        <span *ngIf="item.deathCertificate == null">not uplaod</span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.borrowerIdProof == true"> <img src="assets/icons/bluetick.svg"></span>
+                        <span *ngIf="item.borrowerIdProof == false"> <img src="assets/icons/cross.svg"></span>
+                        <span *ngIf="item.borrowerIdProof == null">not uplaod</span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.borrowerAddressProof == true"> <img src="assets/icons/bluetick.svg"></span>
+                        <span *ngIf="item.borrowerAddressProof == false"> <img src="assets/icons/cross.svg"></span>
+                        <span *ngIf="item.borrowerAddressProof == null">not uplaod</span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.nomineeIdProof == true"> <img src="assets/icons/bluetick.svg"></span>
+                        <span *ngIf="item.nomineeIdProof == false"> <img src="assets/icons/cross.svg"></span>
+                        <span *ngIf="item.nomineeIdProof == null">not uplaod</span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.nomineeAddressProof == true"> <img src="assets/icons/bluetick.svg"></span>
+                        <span *ngIf="item.nomineeAddressProof == false"> <img src="assets/icons/cross.svg"></span>
+                        <span *ngIf="item.nomineeAddressProof == null">not uplaod</span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.bankAccountProof == true"> <img src="assets/icons/bluetick.svg"></span>
+                        <span *ngIf="item.bankAccountProof == false"> <img src="assets/icons/cross.svg"></span>
+                        <span *ngIf="item.bankAccountProof == null">not uplaod</span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.firPostmortemReport == true"> <img src="assets/icons/bluetick.svg"></span>
+                        <span *ngIf="item.firPostmortemReport == false"> <img src="assets/icons/cross.svg"></span>
+                        <span *ngIf="item.firPostmortemReport == null">not uplaod</span>
+                    </td>
+
+                    <!-- <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
                     <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
-                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
-                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
-                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
-                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
-                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
-                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
-                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
-                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
-                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td>
+                    <td class="text-center"><img src="assets/icons/bluetick.svg"></td> -->
                     <td class="text-center"><img src="assets/icons/eye.svg"></td>
                 </tr>
             </tbody>
@@ -67,8 +101,8 @@
         </div>
 
         <div class="pagination-content">
-            <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
-                (pageChanged)="pageChanged($event)" [itemsPerPage]="10" firstText="&laquo;" lastText="&raquo;">
+            <pagination [boundaryLinks]="true" [totalItems]="totalrecords" (pageChanged)="pageChanged($event)"
+                [maxSize]="3" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
             </pagination>
         </div>
     </div>
