@@ -102,7 +102,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     console.log(this.downlaodUrl, "downlaodUrl");
 
     let a = document.createElement('a');
-    // a.target = '_blank';
+    a.target = '_blank';
     a.href = this.downlaodUrl;
     document.body.appendChild(a);
     a.click();
