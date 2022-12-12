@@ -129,6 +129,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  viewUnderVerification() {
+    this.router.navigate(['/pages/document-verification'])
+
+  }
+
   submitClaim() {
     this.apiService.submitClaims().subscribe((res: any) => {
       if (res?.isSuccess) {
@@ -164,7 +169,7 @@ export class DashboardComponent implements OnInit {
   verifierCardDetails(data: any) {
     this.verifierData = data;
     if (data === 'UNDER_VERIFICATION') {
-      this.router.navigate(['/pages/claim-documentation'])
+      this.router.navigate(['/pages/document-verification'])
     } else {
       this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
         if (res?.isSuccess) {
@@ -209,6 +214,10 @@ export class DashboardComponent implements OnInit {
       this.verifierCardDetails("ALL")
     }
   }
+  // if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'UNDER_VERIFICATION') {
+  //   this.pageNo = event.page - 1;
+  //   this.verifierCardDetails("UNDER_VERIFICATION");
+  // } else
 
   // pagePerData(event: any) {
   //   console.log(event, "event");
