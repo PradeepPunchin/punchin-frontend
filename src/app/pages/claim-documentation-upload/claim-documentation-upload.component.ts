@@ -88,7 +88,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       if (res?.isSuccess) {
         this.submittedClaimList = res?.data
         this.submittedclaimListContent = res?.data.content
-        this.totalrecords = res?.data.totalElements
+        this.totalrecords = res?.data.totalRecords
         this.totalpage = res?.data.totalPages
       }
     })
