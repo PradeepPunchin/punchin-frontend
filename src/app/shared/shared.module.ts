@@ -11,6 +11,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { DocumentVerificationRequestModalComponent } from './modals/document-verification-request-modal/document-verification-request-modal.component';
 import { DocumentRejectModalComponent } from './modals/document-reject-modal/document-reject-modal.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -20,14 +22,15 @@ import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
     FileUploadComponent,
     DocumentVerificationRequestModalComponent,
     PdfViewerComponent,
-    DocumentRejectModalComponent
-    
+    DocumentRejectModalComponent,
+
   ],
   imports: [
     CommonModule,
     RouterModule,
     DirectivesModule,
-    PdfViewerModule
+    PdfViewerModule,
+    ReactiveFormsModule,
   ],
   exports: [
     NoDataFoundComponent,
@@ -35,7 +38,7 @@ import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
     TopNavComponent,
     FileUploadComponent,
     DocumentVerificationRequestModalComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
   ]
 })
 export class SharedModule { }

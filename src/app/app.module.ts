@@ -10,6 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './services/interceptors';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -26,7 +27,7 @@ import { httpInterceptorProviders } from './services/interceptors';
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-
+    ModalModule.forRoot()
   ],
   // httpInterceptorProviders
   providers: [httpInterceptorProviders],

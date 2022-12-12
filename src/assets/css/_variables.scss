@@ -15,9 +15,9 @@ $inputColor: #8b8b8b;
 $buttonColor: #134e85;
 $accountTextColor: #333333;
 $lightTextColor: #9c9c9c;
-
-// font-size
-
+$tableHeaderColor: #103150;
+$paginationBorderColor: #bcbcbc;
+$paginationArrowColor: #185bc3;
 $navbarTextColor: #5c5c5c;
 $dashboardBackground: #f5f5f5;
 $uploadText: #667085;
@@ -25,15 +25,31 @@ $borderColor: #eaecf0;
 $seaGreenColor: #1dafaf;
 $purpleColor: #8888dd;
 $blueColor: #7cb5ec;
+$textColorBox: #f1f6ff;
+$inputBackground: #f9f9f9;
+$inputBorderColor: #d5d9e0;
+$borderBoxColor: #e0e0e0;
+$tableBorderColor: #dadada;
+$tableTextColor: #9d9d9d;
+$tableBlueTextColor: #7cb5ec;
+$tableRedTextColor: #ec837c;
+$greyButtonColor: rgba(92, 92, 92, 0.15);
+$blueButtonColor: rgba(124, 181, 236, 0.15);
+$redButtonColor: rgba(236, 131, 124, 0.15);
+$previewBorderColor: #e8e8e8;
+$uploadTextColor: #0f0f0f;
+$uploadButtonBorderColor: #d4d8df;
 
 // Font Sizes
 $fontSize32: 2rem;
 $fontSize28: 28px;
+$fontSize24: 24px;
 $fontSize22: 22px;
 $fontSize20: 20px;
 $fontSize18: 1.125rem;
 $fontSize16: 1rem;
 $fontSize14: 0.875rem;
+$fontSize13: 13px;
 $fontSize12: 0.75rem;
 $fontSize10: 10px;
 $fontSize8: 8px;

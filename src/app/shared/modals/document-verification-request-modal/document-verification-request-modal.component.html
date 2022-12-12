@@ -1,2 +1,144 @@
-<p>document-verification-request-modal works!</p>
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Document Verification</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-7">
+            <div class="document-verification-box">
+                <h6 class="document-verification-heading">Borrower Details</h6>
+                <div class="row document-verification-row">
+                    <div class="col-3">
+                        <p class="document-verification-title">Borrower Name</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.borrowerName}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="document-verification-title">Borrower Address</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.borrowerAddress}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="document-verification-title">Loan Account No.</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.loanAccountNumber}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="document-verification-title">Insurer Name</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.insurerName}}</p>
+                    </div>
+                </div>
+            </div>
 
+            <div class="document-verification-box">
+                <h6 class="document-verification-heading">Nominee Details</h6>
+                <div class="row document-verification-row">
+                    <div class="col-3">
+                        <p class="document-verification-title">Nominee Name</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.nomineeName}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="document-verification-title">Nominee Address</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.nomineeAddress}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="document-verification-title">Relation</p>
+                        <p class="document-verification-text">{{documentVerificationDetails?.nomineeRelationShip}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive document-verification-table">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr class="align-middle">
+                            <th scope="col">Document Name</th>
+                            <th scope="col" class="text-center">Uploaded Doc</th>
+                            <th scope="col" class="text-center">Doc Status</th>
+                            <th scope="col" class="text-center">View Doc</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let item of documentDetailsDTOList">
+                            <tr>
+                                <td>
+                                    {{item.docType}}
+                                </td>
+                                <td class="text-center">
+                                    <img src="../../../../assets/icons/right-tick-blue.svg">
+                                </td>
+                                <td class="text-center">
+                                    <p class="doc-status-red-text" *ngIf="item.isVerified == false">
+                                        Pending
+                                    </p>
+                                    <p class="doc-status-blue-text"
+                                        *ngIf="item.isVerified == true && item.isApproved == false">
+                                        Rejected
+                                    </p>
+                                    <p class="doc-status-blue-text"
+                                        *ngIf="item.isVerified == true && item.isApproved == true">
+                                        Approved
+                                    </p>
+                                </td>
+                                <td class="text-center">
+                                    <span (click)="viewDoc(item)" class="ml-2"><img
+                                            src="../../../assets/icons/eye.svg"></span>
+                                    <span (click)="Downlaod(item)"><img src="../../../assets/icons/download.svg"></span>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-5" *ngIf="isShoeDoc === true">
+            <div class="document-preview-container d-flex flex-column">
+                <div class="d-flex justify-content-between mb-4">
+                    <h6 class="document-preview-heading mb-0">Document Preview</h6>
+                    <!-- <img src="../../../../assets/icons/preview.svg"> -->
+                </div>
+                <app-pdf-viewer [docUrl]="docUrl" [docType]="docType"></app-pdf-viewer>
+                <div class="document-preview-btns text-center mt-auto">
+                    <button type="button" class="btn btn-outline-primary"
+                        (click)="openRejectModal(reject)">Reject</button>
+                    <button type="button" class="btn btn-primary" (click)="openApprovedModal(approved)">Approve</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #approved>
+    <div class="modal-header">
+        <h4 class="modal-title">Please confirm..</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Do you really want to ... ? </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="bsModalRef.hide()">No</button>
+        <button type="button" class="btn btn-primary" (click)="approveAndReject('true')">Yes</button>
+    </div>
+</ng-template>
+
+<ng-template #reject>
+    <div class="modal-header">
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="reasonForm">
+        <div class="modal-body">
+            <label for="exampleDataList" class="form-label">Reason</label>
+            <input class="form-control" placeholder="Reason" formControlName="reason">
+            <small class="text-danger"
+                *ngIf="reasonForm.controls.reason.invalid &&(reasonFormSubmitted ||reasonForm.controls.reason.touched)">
+                <span *ngIf="reasonForm.controls.reason?.errors?.required">reason is required</span>
+            </small>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" [disabled]="!reasonForm.valid"
+                    (click)="approveAndReject('false')">Submit</button>
+            </div>
+        </div>
+    </form>
+</ng-template>

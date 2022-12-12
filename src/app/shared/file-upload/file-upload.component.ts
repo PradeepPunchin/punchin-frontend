@@ -1,6 +1,8 @@
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ApiService } from 'src/app/services/api/api.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -10,17 +12,23 @@ import { NotifierService } from 'src/app/services/notifier/notifier.service';
 })
 export class FileUploadComponent implements OnInit {
   selectedFile = null;
-  profileDocument: any = [];  
   fileUpload: boolean = false;
   file: any;
+  pageNo: number = 0;
+  pageSize: number = 10;
+  isShowLoader: boolean = false
+  isShowFile: boolean = true
 
 
-  @Output() AwsFileList : EventEmitter<any> = new EventEmitter(); 
+  @Output() AwsFileList: EventEmitter<any> = new EventEmitter();
+  percentage: number = 0;
+  modalRef?: BsModalRef;
 
   constructor(
-    private apiService : ApiService,
-    private notifierService: NotifierService
-    ) { }
+    private httpClient: HttpClient,
+    private notifierService: NotifierService,
+    private modalService: BsModalService
+  ) { }
 
   ngOnInit(): void {
 
@@ -31,26 +39,52 @@ export class FileUploadComponent implements OnInit {
   /**
    * on file drop handler
    */
-  onFileDropped(event: any) {
+  onFileDropped(event: any, template: any) {
     this.prepareFilesList(event);
+    this.fileBrowseHandler(event, template, 'drag')
   }
 
   /**
    * handle file from browsing
    */
-  async fileBrowseHandler(event: any) {
-    this.prepareFilesList(event.target.files);
-    this.file= event.target.files[0];
-    const files: any[] = event.target.files;
-    this.fileUpload=false;
-    if(files && files.length > 0) {
-      for(let i=0; i<files.length; i++){
-        // const fileUploadRes = await this.mainService.uploadUserDocument(files[i]);
-        // this.fileUpload=true;
-        // this.notifierService.showSuccess('File Uploaded');
-        // this.profileDocument.push(fileUploadRes);
+  fileBrowseHandler(event: any, template: any, uploadMethod: string) {
+    // this.isShowLoader = true
+    this.modalRef = this.modalService.show(template);
+    if (uploadMethod === 'drag') {
+      this.prepareFilesList(event);
+      this.file = event;
+    } else {
+      this.prepareFilesList(event.target.files);
+      this.file = event.target.files[0];
+    }
+
+    const files: any[] = uploadMethod === 'drag' ? [event] : event.target.files;
+    this.fileUpload = false;
+    this.isShowFile = false
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        const formData: FormData = new FormData();
+        formData.append('multipartFile', this.files[i], this.files[i].name);
+        this.httpClient.post(`${environment.api.baseApiRoot}banker/claim/upload`, formData, {
+          reportProgress: true,
+          observe: 'events'
+        }).subscribe((events: any) => {
+          if (events && events.type === HttpEventType.UploadProgress) {
+            this.percentage = Math.round(events.loaded / events.total * 100)
+          } else if (events.type === HttpEventType.Response) {
+            console.log('events', events);
+            this.fileUpload = true;
+            this.notifierService.showSuccess(events.body.message);
+            this.isShowLoader = false
+            this.modalRef?.hide();
+            this.AwsFileList.emit([...events.body.data]);
+          }
+        }, (error: any) => {
+          this.percentage = 0;
+          this.modalRef?.hide();
+          this.notifierService.showError(error?.error?.message || "Something went wrong");
+        })
       }
-      this.AwsFileList.emit(this.profileDocument);
     }
   }
 
@@ -87,6 +121,7 @@ export class FileUploadComponent implements OnInit {
    * @param files (Files List)
    */
   prepareFilesList(files: any) {
+    this.files = [];
     for (const item of files) {
       item.progress = 0;
       this.files.push(item);
@@ -111,7 +146,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   uploadFileToAWS() {
-    
+
   }
 
 }

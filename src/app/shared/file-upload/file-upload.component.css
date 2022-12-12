@@ -3,7 +3,7 @@
     height: 100px;
     padding: 2rem;
     text-align: center;
-    border: dashed 1px #316BE7;
+    border: dashed 1px #316be7;
     border-radius: 10px;
     position: relative;
     margin: 0 auto;
@@ -12,14 +12,66 @@
     align-items: center;
 }
 
+/* file upload */
+.bulk-upload-box {
+    padding: 0 20px 15px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
+    border-radius: 6px;
+    margin: 14px 0 18px;
+}
+.upload-box-head {
+    padding: 16px 0 12px;
+}
+
+.bulk-txt {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 14px;
+    color: #2b2c2d;
+}
+.btn-outline-primary {
+    border-color: #3489c9;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #3489c9;
+}
+.btn-outline-primary:hover {
+    background-color: #ffffff;
+}
+.upload-box {
+    background-color: #ffffff;
+    border: 1px dashed #eaecf0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 228px;
+    text-decoration: none;
+    cursor: pointer;
+}
+h6 {
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #134e85;
+    margin-top: 12px;
+}
+span {
+    font-weight: 400;
+    color: #667085;
+}
+
 input {
-    opacity: 0;
+    /* opacity: 0;
     position: absolute;
     z-index: 2;
     width: 100%;
     height: 100%;
     top: 0;
-    left: 0;
+    left: 0; */
+    /* display: none; */
 }
 
 label {
@@ -44,7 +96,7 @@ h3 {
 }
 
 .click-text {
-    color: #316BE7;
+    color: #316be7;
 }
 
 .logo-wrapper img {
@@ -59,7 +111,11 @@ h3 {
 }
 
 .files-list {
-    margin-top: 1.5rem;
+    /* margin-top: 1.5rem; */
+    position: relative;
+    width: 100%;
+    /* left: 25%;
+    top: 50%; */
 }
 .single-file {
     display: flex;
@@ -92,7 +148,7 @@ h3 {
 }
 
 .info {
-    width: 100%
+    width: 100%;
 }
 
 .progress-cont {
@@ -111,7 +167,7 @@ h3 {
     top: 0;
     left: 0;
     border-radius: 4px;
-    background-color: #316BE7;
+    background-color: #316be7;
     transition: 0.5s all;
 }
 
@@ -162,8 +218,7 @@ h3 {
     }
 }
 
-
-@media screen and (max-width: 767px){
+@media screen and (max-width: 767px) {
     h3 {
         font-size: 12px;
         font-weight: 600;
