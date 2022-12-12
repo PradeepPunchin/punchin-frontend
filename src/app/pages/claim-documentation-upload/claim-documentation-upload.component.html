@@ -2,11 +2,12 @@
     <div class="cases-claims-box" *ngIf="submittedclaimListContent?.length>0">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6>Case/Claim ({{totalrecords}})</h6>
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                (input)="filterByStatus($event)">
                 <option selected>Filter by Status</option>
-                <option value="1">All</option>
-                <option value="2">Pending</option>
-                <option value="3">Submitted Document</option>
+                <option value="ALL">All</option>
+                <option value="BANKER_ACTION_PENDING">Pending</option>
+                <option value="SUBMITTED">Submitted Document</option>
             </select>
         </div>
 
@@ -73,13 +74,18 @@
                         <td>{{item.nomineeContactNumber}}</td>
                         <td>{{item.nomineeEmailId}}</td>
                         <td>{{item.nomineeAddress}}</td>
-                        <td class="text-center" (click)="editClaimList(item.id)"><img src="assets/icons/action.svg">
+                        <td class="text-center">
+                            <span (click)="editClaimList(item.id)" *ngIf="item.isForwardToVerifier === false"><img
+                                    src="assets/icons/action.svg"></span>
+
+                            <span *ngIf="item.isForwardToVerifier === true"><img
+                                    src="assets/icons/action(fade).svg"></span>
+
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
         <div class="pagination-box d-flex justify-content-between align-items-center">
             <div class="pages-per-rows d-flex align-items-center">
                 <p class="per-row-title">Page Per Rows</p>

@@ -37,7 +37,7 @@ export class ApiService {
   }
 
   getClaimSubmiitedList(pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SUBMITTED&page=${pageNo}&limit=${pageSize}`);
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=ALL&page=${pageNo}&limit=${pageSize}`);
   }
 
   getCardList(data: any, pageNo: number, pageSize: number) {

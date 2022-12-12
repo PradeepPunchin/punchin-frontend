@@ -27,6 +27,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   file: any;
   files: any[] = [];
   isSucessUpload: boolean = false
+  filterData: any;
 
 
 
@@ -89,9 +90,21 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.submittedclaimListContent = res?.data.content
         this.totalrecords = res?.data.totalElements
         this.totalpage = res?.data.totalPages
-
       }
     })
+  }
+  filterByStatus(event: any) {
+    this.filterData = event.target.value
+    this.apiService.getCardList(event.target.value, this.pageNo, this.pageSize).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.submittedClaimList = res?.data
+        this.submittedclaimListContent = res?.data.content
+        this.totalrecords = res?.data.totalRecords
+        this.totalpage = res?.data.totalPages
+      }
+    })
+
+
   }
 
   editClaimList(id: any) {
