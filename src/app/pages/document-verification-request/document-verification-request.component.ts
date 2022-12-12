@@ -27,9 +27,9 @@ export class DocumentVerificationRequestComponent implements OnInit {
   getVerifierDocumentRequestData() {
     this.apiService.getVerifierDocumentRequestData(this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
-        this.verifierRequestList = res?.data
-        // this.verifierRequestList = res?.data.content
-        this.totalrecords = res?.data.totalElements
+        this.RequestList = res?.data
+        this.verifierRequestList = res?.data.content
+        this.totalrecords = res?.data.totalRecords
       }
     })
   }

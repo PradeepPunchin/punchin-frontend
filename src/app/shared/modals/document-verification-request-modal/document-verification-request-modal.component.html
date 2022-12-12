@@ -1,5 +1,9 @@
 <div class="modal-header">
-    <h4 class="modal-title pull-left">Document Verification</h4>
+    <h4 class="modal-title pull-left">Document Verification
+        <span *ngIf="documentDetailsDTOList.length> 0">
+            <button type="button" class="btn btn-primary">Download All</button>
+        </span>
+    </h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
@@ -80,7 +84,7 @@
                                     </p>
                                 </td>
                                 <td class="text-center">
-                                    <span (click)="viewDoc(item)" class="ml-2"><img
+                                    <span (click)="viewDoc(item)" style="margin-right:15px"><img
                                             src="../../../assets/icons/eye.svg"></span>
                                     <span (click)="Downlaod(item)"><img src="../../../assets/icons/download.svg"></span>
                                 </td>
@@ -116,7 +120,7 @@
     <div class="modal-body">
         Do you really want to ... ? </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="bsModalRef.hide()">No</button>
+        <button type="button" class="btn btn-outline-primary" (click)="close()">No</button>
         <button type="button" class="btn btn-primary" (click)="approveAndReject('true')">Yes</button>
     </div>
 </ng-template>
@@ -127,16 +131,28 @@
             <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
     </div>
-    <form [formGroup]="reasonForm">
+    <form [formGroup]="remarkForm">
         <div class="modal-body">
-            <label for="exampleDataList" class="form-label">Reason</label>
-            <input class="form-control" placeholder="Reason" formControlName="reason">
+            <select id="reason" class="form-select" formControlName="reason">
+                <option selected [ngValue]="null">Select Reason</option>
+                <option value="Wrong Document Uploaded">Wrong Document Uploaded</option>
+                <option value="Image not clear and not readable">Image not clear and not readable</option>
+                <option value="Required Stamp Missing">Required Stamp Missing</option>
+                <option value="Document Mismatched">Document Mismatched</option>
+                <option value="Document Uploaded in wrong / another field">Document Uploaded in wrong / another field
+                </option>
+                <option value="Mutilated document not accepted, Pls upload new">Mutilated document not accepted, Pls
+                    upload new</option>
+                <option value="Any other reason">Any other reason</option>
+            </select>
+
+            <input class="form-control" placeholder=" Enter Remark" formControlName="remark">
             <small class="text-danger"
-                *ngIf="reasonForm.controls.reason.invalid &&(reasonFormSubmitted ||reasonForm.controls.reason.touched)">
-                <span *ngIf="reasonForm.controls.reason?.errors?.required">reason is required</span>
+                *ngIf="remarkForm.controls.remark.invalid &&(remarkFormSubmitted ||remarkForm.controls.remark.touched)">
+                <span *ngIf="remarkForm.controls.remark?.errors?.required">Remark is required</span>
             </small>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" [disabled]="!reasonForm.valid"
+                <button type="button" class="btn btn-primary" [disabled]="!remarkForm.valid"
                     (click)="approveAndReject('false')">Submit</button>
             </div>
         </div>
