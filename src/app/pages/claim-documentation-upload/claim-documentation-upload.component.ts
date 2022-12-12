@@ -26,6 +26,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   fileUpload: boolean = false;
   file: any;
   files: any[] = [];
+  isSucessUpload: boolean = false
+
 
 
 
@@ -130,6 +132,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message);
+        this.isSucessUpload = true
         this.uploadForm.reset()
       }
     }, (error: any) => {
@@ -149,6 +152,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.notifierService.showSuccess(res?.message)
         this.viewClaimList = true;
         this.editCliamList = false;
+        this.isSucessUpload = false
       }
     },
       (error: any) => {
