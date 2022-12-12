@@ -39,6 +39,8 @@ export class DashboardComponent implements OnInit {
   verifiercordListData: any = []
   innerStep: number = 0
   isShowFileUploaded: boolean = true
+  bankerData: any;
+  verifierData: any
   // bsModalRef?: BsModalRef;
 
 
@@ -78,6 +80,8 @@ export class DashboardComponent implements OnInit {
   }
 
   showCardDetails(data: any) {
+    this.bankerData = data;
+
     this.apiService.getCardList(data, this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
@@ -157,6 +161,7 @@ export class DashboardComponent implements OnInit {
   }
   //  verifier card api
   verifierCardDetails(data: any) {
+    this.verifierData == data;
     this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.verifierCardList = res?.data
@@ -173,26 +178,27 @@ export class DashboardComponent implements OnInit {
       this.pageNo = event.page - 1;
       this.getClaimList();
     }
-    if (this.cardList && this.cardList.length !== this.totalrecords) {
+    if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
       this.pageNo = event.page - 1;
+
       this.showCardDetails("ALL");
-    } else if (this.cardList && this.cardList.length !== this.totalrecords) {
+    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'WIP') {
       this.pageNo = event.page - 1;
       this.showCardDetails("WIP");
-    } else if (this.cardList && this.cardList.length !== this.totalrecords) {
+    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'SETTLED') {
       this.pageNo = event.page - 1;
       this.showCardDetails("SETTLED");
     }
-    if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords) {
+    if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'UNDER_VERIFICATION') {
       this.pageNo = event.page - 1;
-      this.verifierCardList("UNDER_VERIFICATION");
-    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords) {
+      this.verifierCardDetails("UNDER_VERIFICATION");
+    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'SETTLED') {
       this.pageNo = event.page - 1;
-      this.verifierCardList("SETTLED");
-    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords) {
+      this.verifierCardDetails("SETTLED");
+    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'WIP') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("WIP")
-    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords) {
+    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'DISCREPENCY') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("DISCREPENCY")
     }
