@@ -244,16 +244,18 @@
                     <option value="1">DOGH</option>
                     <option value="2">POS Letter</option>
                     <option value="3">MEF</option>
+                    <option value="4">Proposal form</option>
+                    <option value="5">FUF</option>
+                    <option value="6">Covid Q</option>
+                    <option value="7">Sanction letter</option>
+                    <option value="8">CAS</option>
                 </select>
             </div>
             <div class="col-4">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Proposal form</option>
-                    <option value="1">FUF</option>
-                    <option value="2">Covid Q</option>
-                    <option value="3">Sanction letter</option>
-                    <option value="3">CAS</option>
-                </select>
+                <div class="browse-upload-box d-flex align-items-center justify-content-between">
+                    <p class="browse-text">Upload scaned file</p>
+                    <button type="button" class="btn btn-light">Upload</button>
+                </div>
             </div>
         </form>
     </div>
@@ -408,4 +410,40 @@
         <img src="../../../assets/icons/logout.svg">
         <span>Logout</span>
     </a>
+</div>
+
+<div class="rejection-container">
+    <form class="row g-3">
+        <div class="col-12">
+            <h6 class="rejection-heading">Rejection</h6>
+        </div>
+        <div class="col-12">
+            <label for="reason" class="form-label">Reason</label>
+            <select id="reason" class="form-select">
+                <option selected>Select Reason</option>
+                <option>Wrong Document Uploaded</option>
+                <option>Image not clear and not readable</option>
+                <option>Required Stamp Missing</option>
+                <option>Document Mismatched</option>
+                <option>Document Uploaded in wrong / another field</option>
+                <option>Mutilated document not accepted, Pls upload new</option>
+                <option>Any other reason</option>
+            </select>
+        </div>
+        <div class="col-12">
+            <label for="rejectRemark" class="form-label">Reject Remark</label>
+            <textarea class="form-control" placeholder="Enter remark" id="rejectRemark"></textarea>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<div class="successfully-approved">
+    <h6 class="text-center">Successfully Approved</h6>
+</div>
+
+<div class="document-rejected">
+    <h6 class="text-center">Document Rejected</h6>
 </div>
