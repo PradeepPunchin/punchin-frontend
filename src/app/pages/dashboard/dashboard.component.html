@@ -13,6 +13,17 @@
                     </div>
                 </div>
             </div>
+            <div class="col-4" [ngClass]="{ active: onStep === 0 }" (click)="onStep = 0">
+                <div class="claims-allocated-box" (click)="showCardDetails('ALL')">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>
+                            {{bankerDashboardData[bankerStatusEnum.all] || 0}}
+                        </h5>
+                        <h6>Total Cases</h6>
+                    </div>
+                </div>
+            </div>
             <div class="col-4" [ngClass]="{ active: onStep === 1 }" (click)="onStep = 1">
                 <div class="claims-action-pending-box" (click)="showCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">

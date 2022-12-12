@@ -33,4 +33,5 @@ export enum VERIFIERSTATUSENUM {
     settled = "SETTLED",
     inprogress = "IN_PROGRESS",
 
+
 }
