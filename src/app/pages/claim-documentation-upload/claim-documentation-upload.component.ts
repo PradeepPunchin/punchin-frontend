@@ -15,6 +15,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   totalrecords!: number;
   pageNo: number = 0;
   pageSize: number = 10;
+  totalpage!: number;
   submittedClaimList: any;
   submittedclaimListContent: any = []
   viewClaimList: boolean = true;
@@ -85,6 +86,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.submittedClaimList = res?.data
         this.submittedclaimListContent = res?.data.content
         this.totalrecords = res?.data.totalElements
+        this.totalpage = res?.data.totalPages
 
       }
     })

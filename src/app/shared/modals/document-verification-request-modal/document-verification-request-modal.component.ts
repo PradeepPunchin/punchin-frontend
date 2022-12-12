@@ -22,8 +22,8 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   isShoeDoc: boolean = false
   docId: any
   downlaodUrl: any
-  reasonForm!: FormGroup
-  reasonFormSubmitted: boolean = false
+  remarkForm!: FormGroup
+  remarkFormSubmitted: boolean = false
 
 
 
@@ -37,8 +37,10 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   ngOnInit(): void {
     this.getDocumentDetails()
 
-    this.reasonForm = this.formBuilder.group({
-      reason: ['', [Validators.required]],
+    this.remarkForm = this.formBuilder.group({
+      remark: ['', [Validators.required]],
+      reason: [null, [Validators.required]]
+
     })
   }
 
@@ -53,21 +55,28 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
 
   approveAndReject(data: any) {
     this.docId = this.sessionService.getSession("docId")
+
     let req = {
       "approved": data,
-      "reason": this.reasonForm.controls.value || ""
+      "reason": this.remarkForm.controls.reason.value || "",
+      "remark": this.remarkForm.controls.remark.value || ""
     }
     this.apiService.getAcceptAndRejectDocuments(this.documentVerificationRequestId, this.docId, req).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
         this.bsModalRef.hide();
         this.getDocumentDetails();
+        this.remarkForm.reset();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
     })
   }
 
+  close() {
+    this.bsModalRef.hide();
+    this.remarkForm.reset();
+  }
 
   getDocumentDetails() {
     this.apiService.getDocumentDetails(this.documentVerificationRequestId).subscribe((res: ApiResponse<VerifierDocumentDetail> | any) => {

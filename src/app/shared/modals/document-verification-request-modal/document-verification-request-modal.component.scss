@@ -12,6 +12,16 @@
     font-size: $fontSize12;
     padding: 4px;
   }
+  .btn-primary {
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $white;
+    background-color: $buttonColor;
+    border-color: $buttonColor;
+    margin-left: 10px;
+    padding: 5px 12px;
+    border-radius: 5px;
+  }
 }
 
 .modal-body {
@@ -134,5 +144,32 @@
         border-radius: 5px;
       }
     }
+  }
+  select {
+    margin: 15px 0px;
+  }
+  .modal-footer {
+    border-top: 0 none;
+  }
+}
+.modal-footer {
+  .btn-primary {
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $white;
+    background-color: $buttonColor;
+    border-color: $buttonColor;
+    margin-left: 10px;
+    padding: 5px 12px;
+    border-radius: 5px;
+  }
+  .btn-outline-primary {
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $icon-color;
+    background-color: $white;
+    border-color: $icon-color;
+    padding: 5px 12px;
+    border-radius: 5px;
   }
 }

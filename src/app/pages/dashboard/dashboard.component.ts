@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   claimList: any
   claimListContent: any = []
   totalrecords!: number;
-  pageNo: number = 1;
+  pageNo: number = 0;
   pageSize: number = 10;
   onStep: number = 0;
   cordListData: any = []

@@ -37,9 +37,7 @@ export class ApiService {
   }
 
   getClaimSubmiitedList(pageNo: number, pageSize: number) {
-    console.log(pageNo, "pageNo");
-
-    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SUBMITTED&limit=${pageSize}&page=${pageNo}`);
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=SUBMITTED&page=${pageNo}&limit=${pageSize}`);
   }
 
   getCardList(data: any, pageNo: number, pageSize: number) {
@@ -75,7 +73,7 @@ export class ApiService {
   }
 
   getVerifierDocumentRequestData(pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}verifier/getVerifierDataDocumentClaimsData?page=${pageNo}&limit=${pageSize}`)
+    return this.http.get(`${this.baseApiUrl}verifier/claim/data-with-document-status?page=${pageNo}&limit=${pageSize}`)
   }
 
   getVerifierClaimsData(data: any, pageNo: number, pageSize: number) {
@@ -90,5 +88,4 @@ export class ApiService {
     return this.http.post(`${this.baseApiUrl}verifier/claim/${id}/document/${docId}/doc-approve-reject`, body);
   }
 }
-
 
