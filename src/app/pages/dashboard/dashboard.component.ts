@@ -82,7 +82,6 @@ export class DashboardComponent implements OnInit {
 
   showCardDetails(data: any) {
     this.bankerData = data;
-
     this.apiService.getCardList(data, this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
@@ -176,13 +175,14 @@ export class DashboardComponent implements OnInit {
 
   //pagination
   pageChanged(event: PageChangedEvent) {
+    console.log(event, "event");
+
     if (this.claimList && this.claimList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
       this.getClaimList();
     }
     if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
       this.pageNo = event.page - 1;
-
       this.showCardDetails("ALL");
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'WIP') {
       this.pageNo = event.page - 1;
