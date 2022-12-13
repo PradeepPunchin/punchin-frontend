@@ -8,20 +8,28 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class DocumentViewerComponent implements OnInit, OnChanges {
   @Input() docUrl: string = ""
   @Input() docType: string = ""
+  showData: boolean = true
+  DocUrl: string = ""
 
 
 
   viewer = 'google';
   selectedType = 'txt';
-  DemoDoc = "https://www.le.ac.uk/oerresources/bdra/html/resources/example.txt"
+  // DemoDoc = "https://www.le.ac.uk/oerresources/bdra/html/resources/example.txt"
 
   constructor() { }
 
   ngOnInit(): void {
   }
   ngOnChanges() {
-    console.log(this.docUrl, "docUrl");
-
+    this.showData = true
+    if (this.DocUrl = this.docUrl) {
+    }
+    setTimeout(() => {                           // <<<---using ()=> syntax
+      if (this.DocUrl = this.docUrl) {
+        this.showData = false
+      }
+    }, 5000);
 
   }
 
