@@ -41,8 +41,7 @@ export class DashboardComponent implements OnInit {
   isShowFileUploaded: boolean = true
   bankerData: any;
   verifierData: any
-  isRemove: boolean = false
-  // bsModalRef?: BsModalRef;
+  bsModalRef?: BsModalRef;
 
 
   constructor(
@@ -53,7 +52,6 @@ export class DashboardComponent implements OnInit {
     private eventService: EventService,
     private utilitiesService: UtilityService,
     private modalService: BsModalService,
-    public bsModalRef: BsModalRef,
   ) { }
 
   ngOnInit(): void {
@@ -65,13 +63,13 @@ export class DashboardComponent implements OnInit {
 
     if (this.role === ROLES.verifier || this.role === ROLES.admin) {
       this.getVerifierDashboardData();
-      this.verifierCardDetails("UNDER_VERIFICATION")
+      this.verifierCardDetails("ALL")
     }
   }
 
   onGetUploadedFile(event: any) {
     if (this.bsModalRef) {
-      this.bsModalRef.hide();
+      this.bsModalRef?.hide();
     }
 
     this.isShow = event.length > 0 ? false : true;
@@ -82,12 +80,11 @@ export class DashboardComponent implements OnInit {
 
   showCardDetails(data: any) {
     this.bankerData = data;
-
     this.apiService.getCardList(data, this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
         this.cordListData = res?.data.content
-        this.totalrecords = res?.data.totalElements
+        this.totalrecords = res?.data.totalRecords
         if (this.cordListData.length > 0) {
           this.isShow = false
         }
@@ -123,11 +120,20 @@ export class DashboardComponent implements OnInit {
         this.notifierService.showSuccess(res?.message)
         this.getClaimList();
         this.isShowFileUploaded = true;
-        this.isShow = true
+        if (this.cordListData.length > 0) {
+          this.isShow = false
+        } else {
+          this.isShow = true
+        }
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
     })
+  }
+
+  viewUnderVerification() {
+    this.router.navigate(['/pages/document-verification'])
+
   }
 
   submitClaim() {
@@ -163,14 +169,18 @@ export class DashboardComponent implements OnInit {
   }
   //  verifier card api
   verifierCardDetails(data: any) {
-    this.verifierData == data;
-    this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.verifierCardList = res?.data
-        this.verifiercordListData = res?.data.content
-        this.totalrecords = res?.data.totalRecords
-      }
-    })
+    this.verifierData = data;
+    if (data === 'UNDER_VERIFICATION') {
+      this.router.navigate(['/pages/document-verification'])
+    } else {
+      this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.verifierCardList = res?.data
+          this.verifiercordListData = res?.data.content
+          this.totalrecords = res?.data.totalRecords
+        }
+      })
+    }
   }
 
 
@@ -182,7 +192,6 @@ export class DashboardComponent implements OnInit {
     }
     if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
       this.pageNo = event.page - 1;
-
       this.showCardDetails("ALL");
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'WIP') {
       this.pageNo = event.page - 1;
@@ -190,11 +199,12 @@ export class DashboardComponent implements OnInit {
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'SETTLED') {
       this.pageNo = event.page - 1;
       this.showCardDetails("SETTLED");
-    }
-    if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'UNDER_VERIFICATION') {
+    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'UNDER_VERIFICATION') {
       this.pageNo = event.page - 1;
-      this.verifierCardDetails("UNDER_VERIFICATION");
-    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'SUBMITTED_TO_INSURER') {
+      this.showCardDetails("UNDER_VERIFICATION");
+    }
+
+    if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'SUBMITTED_TO_INSURER') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("SUBMITTED_TO_INSURER");
     } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'WIP') {
@@ -203,24 +213,21 @@ export class DashboardComponent implements OnInit {
     } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'DISCREPENCY') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("DISCREPENCY")
+    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'ALL') {
+      this.pageNo = event.page - 1;
+      this.verifierCardDetails("ALL")
     }
   }
+  // if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'UNDER_VERIFICATION') {
+  //   this.pageNo = event.page - 1;
+  //   this.verifierCardDetails("UNDER_VERIFICATION");
+  // } else
 
   // pagePerData(event: any) {
   //   console.log(event, "event");
   //   this.pageSize = event.target.value
   //   this.showCardDetails('ALL');
   // }
-
-  openModal(id: any) {
-    const initialState: ModalOptions = {
-      initialState: {
-        documentVerificationRequestId: id,
-      },
-      class: 'modal-custom-width'
-    };
-    this.bsModalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
-  }
 
   openModal1(template: any) {
     this.isShowFileUploaded = false;
@@ -230,7 +237,7 @@ export class DashboardComponent implements OnInit {
     this.bsModalRef = this.modalService.show(template, initialState);
   }
   closeModal() {
-    this.bsModalRef.hide()
+    this.bsModalRef?.hide()
     this.isShowFileUploaded = true;
   }
 }

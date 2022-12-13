@@ -1,6 +1,7 @@
 <ng-container *ngIf="viewClaimList">
-    <div class="cases-claims-box" *ngIf="submittedclaimListContent?.length>0">
-        <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
+    <div class="cases-claims-box">
+        <div class="claim-dashboard-btns d-flex justify-content-between align-items-center"
+            *ngIf="submittedclaimListContent?.length>0">
             <h6>Case/Claim ({{totalrecords}})</h6>
             <select class="form-select form-select-sm" aria-label=".form-select-sm example"
                 (input)="filterByStatus($event)">
@@ -48,53 +49,56 @@
 
                     </tr>
                 </thead>
-                <tbody class="align-middle" *ngFor="let item of submittedclaimListContent;let i = index">
-                    <tr>
-                        <td>{{i+1}}</td>
-                        <td>Leader</td>
-                        <td>{{item.borrowerName}}</td>
-                        <td>{{item.borrowerContactNumber}}</td>
-                        <td>{{item.loanAccountNumber}}</td>
-                        <td>{{item.borrowerAddress}}</td>
-                        <td>{{item.loanType}}</td>
-                        <td>{{item.branchCode}}</td>
-                        <td>{{item.branchName}}</td>
-                        <td>{{item.branchAddress}}</td>
-                        <td>{{item.branchPinCode}}</td>
-                        <td>{{item.loanAccountManagerName}}</td>
-                        <td>{{item.accountManagerContactNumber}}</td>
-                        <td>{{item.insurerName}}</td>
-                        <td>{{item.policyNumber}}</td>
-                        <td>{{item.masterPolNumber}}</td>
-                        <td>{{item.policyStartDate}}</td>
-                        <td>{{item.policyCoverageDuration}} Years</td>
-                        <td>{{item.policySumAssured}}</td>
-                        <td>{{item.nomineeName}}</td>
-                        <td>{{item.nomineeRelationShip}}</td>
-                        <td>{{item.nomineeContactNumber}}</td>
-                        <td>{{item.nomineeEmailId}}</td>
-                        <td>{{item.nomineeAddress}}</td>
-                        <td class="text-center">
-                            <span (click)="editClaimList(item.id)" *ngIf="item.isForwardToVerifier === false"><img
-                                    src="assets/icons/action.svg"></span>
-
-                            <span *ngIf="item.isForwardToVerifier === true"><img
-                                    src="assets/icons/action(fade).svg"></span>
-
-                        </td>
-                    </tr>
-                </tbody>
+                <ng-container *ngIf="submittedclaimListContent?.length>0">
+                    <tbody class="align-middle" *ngFor="let item of submittedclaimListContent;let i = index">
+                        <tr>
+                            <td>
+                                {{ (pageNo) * pageSize + i +1 }}
+                            </td>
+                            <td>Leader</td>
+                            <td>{{item.borrowerName}}</td>
+                            <td>{{item.borrowerContactNumber}}</td>
+                            <td>{{item.loanAccountNumber}}</td>
+                            <td>{{item.borrowerAddress}}</td>
+                            <td>{{item.loanType}}</td>
+                            <td>{{item.branchCode}}</td>
+                            <td>{{item.branchName}}</td>
+                            <td>{{item.branchAddress}}</td>
+                            <td>{{item.branchPinCode}}</td>
+                            <td>{{item.loanAccountManagerName}}</td>
+                            <td>{{item.accountManagerContactNumber}}</td>
+                            <td>{{item.insurerName}}</td>
+                            <td>{{item.policyNumber}}</td>
+                            <td>{{item.masterPolNumber}}</td>
+                            <td>{{item.policyStartDate}}</td>
+                            <td>{{item.policyCoverageDuration}} Years</td>
+                            <td>{{item.policySumAssured}}</td>
+                            <td>{{item.nomineeName}}</td>
+                            <td>{{item.nomineeRelationShip}}</td>
+                            <td>{{item.nomineeContactNumber}}</td>
+                            <td>{{item.nomineeEmailId}}</td>
+                            <td>{{item.nomineeAddress}}</td>
+                            <td class="text-center">
+                                <span (click)="editClaimList(item.id)" *ngIf="item.isForwardToVerifier === false"><img
+                                        src="assets/icons/action.svg"></span>
+                                <span *ngIf="item.isForwardToVerifier === true"><img
+                                        src="assets/icons/action(fade).svg"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </ng-container>
             </table>
         </div>
-        <div class="pagination-box d-flex justify-content-between align-items-center">
+        <div class="pagination-box d-flex justify-content-end align-items-center"
+            *ngIf="submittedclaimListContent?.length>0">
             <div class="pages-per-rows d-flex align-items-center">
-                <p class="per-row-title">Page Per Rows</p>
+                <!-- <p class="per-row-title">Page Per Rows</p>
                 <h6 class="per-row-text">
                     <select (input)="pagePerData($event)">
                         <option value="10">10</option>
                         <option [value]="totalrecords">{{totalrecords}}</option>
                     </select>
-                </h6>
+                </h6> -->
                 <!-- <img src="../../../assets/icons/chevron-down.svg"> -->
             </div>
 
@@ -107,14 +111,14 @@
     </div>
 </ng-container>
 
-<ng-container
+<!-- <ng-container
     *ngIf="!submittedclaimListContent || (submittedclaimListContent && submittedclaimListContent?.length === 0)">
     <div class="error-wrapper">
         <p>
             No Data Found
         </p>
     </div>
-</ng-container>
+</ng-container> -->
 
 
 <!-- Documentation Upload -->
@@ -241,12 +245,10 @@
                 </select>
             </div>
             <div class="col-4">
-                <input type="file" multiple (change)="fileBrowseHandler($event)"
-                    accept=".Doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png" />
-
+                <input type="file" multiple (change)="fileBrowseHandler($event)" accept=".pdf,.jpg,.jpeg,.png" />
             </div>
             <div class="col-4">
-                <button type="button" class="btn btn-primary" (click)="uploadDocument()">Uplaod</button>
+                <button type="button" class="btn btn-primary" (click)="uploadDocument()">uplaod</button>
 
             </div>
         </form>

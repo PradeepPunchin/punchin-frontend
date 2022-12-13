@@ -12,6 +12,8 @@ import { DocumentVerificationRequestModalComponent } from './modals/document-ver
 import { DocumentRejectModalComponent } from './modals/document-reject-modal/document-reject-modal.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DocumentVerificationRequestModalComponent,
     PdfViewerComponent,
     DocumentRejectModalComponent,
+    DocumentViewerComponent,
 
   ],
   imports: [
@@ -31,6 +34,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     DirectivesModule,
     PdfViewerModule,
     ReactiveFormsModule,
+    NgxDocViewerModule
   ],
   exports: [
     NoDataFoundComponent,

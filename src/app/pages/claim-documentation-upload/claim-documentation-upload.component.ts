@@ -88,7 +88,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       if (res?.isSuccess) {
         this.submittedClaimList = res?.data
         this.submittedclaimListContent = res?.data.content
-        this.totalrecords = res?.data.totalElements
+        this.totalrecords = res?.data.totalRecords
         this.totalpage = res?.data.totalPages
       }
     })
@@ -163,9 +163,10 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.forwardClaim(this.ClaimListDataById.id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
+        this.getClaimSubmiitedList();
         this.viewClaimList = true;
         this.editCliamList = false;
-        this.isSucessUpload = false
+        this.isSucessUpload = false;
       }
     },
       (error: any) => {

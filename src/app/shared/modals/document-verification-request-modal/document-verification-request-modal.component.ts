@@ -24,15 +24,22 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   downlaodUrl: any
   remarkForm!: FormGroup
   remarkFormSubmitted: boolean = false
+  bsModalRef1?: BsModalRef;
+  bsModalRef2?: BsModalRef;
+  // modalRef?: BsModalRef;
 
 
 
-  constructor(public bsModalRef: BsModalRef,
+
+
+  constructor(
     private sessionService: SessionService,
     private apiService: ApiService,
     private notifierService: NotifierService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public modalRef: BsModalRef,
+
   ) { }
   ngOnInit(): void {
     this.getDocumentDetails()
@@ -44,14 +51,14 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     })
   }
 
+
   openApprovedModal(approved: any) {
-    this.bsModalRef = this.modalService.show(approved);
+    this.bsModalRef1 = this.modalService.show(approved);
   }
+
   openRejectModal(reject: any) {
-    this.bsModalRef = this.modalService.show(reject);
+    this.bsModalRef2 = this.modalService.show(reject);
   }
-
-
 
   approveAndReject(data: any) {
     this.docId = this.sessionService.getSession("docId")
@@ -64,7 +71,8 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.apiService.getAcceptAndRejectDocuments(this.documentVerificationRequestId, this.docId, req).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
-        this.bsModalRef.hide();
+        this.bsModalRef2?.hide();
+        this.bsModalRef1?.hide();
         this.getDocumentDetails();
         this.remarkForm.reset();
       }
@@ -74,7 +82,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   }
 
   close() {
-    this.bsModalRef.hide();
+    this.bsModalRef2?.hide();
     this.remarkForm.reset();
   }
 
@@ -91,14 +99,14 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   viewDoc(documentDTO: IDocumentDetailDTO) {
     this.docUrl = documentDTO.documentUrlDTOS[0].docUrl;
     this.docType = documentDTO.documentUrlDTOS[0].docFormat;
-    this.isShoeDoc = true
+    this.isShoeDoc = true;
     this.sessionService.setSessions({ docId: documentDTO.id })
   }
 
   Downlaod(documentDTO: IDocumentDetailDTO) {
     this.downlaodUrl = documentDTO.documentUrlDTOS[0].docUrl;
     let a = document.createElement('a');
-    // a.target = '_blank';
+    a.target = '_blank';
     a.href = this.downlaodUrl;
     document.body.appendChild(a);
     a.click();

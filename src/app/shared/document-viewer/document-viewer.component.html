@@ -1,0 +1,18 @@
+<div class="container-fluid" *ngIf="showData == false
+">
+  <div class="row">
+    <div class="col-12" *ngIf="docType == 'pdf'">
+      <ngx-doc-viewer [url]="DocUrl" viewer="google" style="width:100%;height:500px;"></ngx-doc-viewer>
+
+    </div>
+    <div class="col-12" *ngIf="docType === 'jpg' || docType === 'png' || docType === 'jpeg'">
+      <img [src]="DocUrl" style="width: 100%; height:  500px;">
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="showData == true">
+  <!-- <p style="color:blue">Loading....</p> -->
+  <i class="fa fa-circle-o-notch fa-spin"></i>
+</div>
