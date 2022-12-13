@@ -16,12 +16,12 @@ export class DocumentVerificationRequestComponent implements OnInit {
   RequestList: any;
   verifierRequestList: any = []
   maxSize: number = 5;
+  modalRef?: BsModalRef;
 
 
   constructor(
     private apiService: ApiService,
     private modalService: BsModalService,
-    public bsModalRef: BsModalRef,
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class DocumentVerificationRequestComponent implements OnInit {
       },
       class: 'modal-custom-width'
     };
-    this.bsModalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
+    this.modalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
   }
 
   pageChanged(event: PageChangedEvent) {

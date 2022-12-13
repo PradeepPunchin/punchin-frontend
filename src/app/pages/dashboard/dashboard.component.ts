@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
   isShowFileUploaded: boolean = true
   bankerData: any;
   verifierData: any
-  // bsModalRef?: BsModalRef;
+  bsModalRef?: any = BsModalRef;
 
 
   constructor(
@@ -52,7 +52,6 @@ export class DashboardComponent implements OnInit {
     private eventService: EventService,
     private utilitiesService: UtilityService,
     private modalService: BsModalService,
-    public bsModalRef: BsModalRef,
   ) { }
 
   ngOnInit(): void {
@@ -196,7 +195,11 @@ export class DashboardComponent implements OnInit {
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'SETTLED') {
       this.pageNo = event.page - 1;
       this.showCardDetails("SETTLED");
+    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'UNDER_VERIFICATION') {
+      this.pageNo = event.page - 1;
+      this.showCardDetails("UNDER_VERIFICATION");
     }
+
     if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'SUBMITTED_TO_INSURER') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("SUBMITTED_TO_INSURER");

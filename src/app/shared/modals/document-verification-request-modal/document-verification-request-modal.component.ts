@@ -24,10 +24,15 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   downlaodUrl: any
   remarkForm!: FormGroup
   remarkFormSubmitted: boolean = false
+  bsModalRef1?: any = BsModalRef;
+  bsModalRef2?: any = BsModalRef;
+  modalRef?: BsModalRef;
 
 
 
-  constructor(public bsModalRef: BsModalRef,
+
+
+  constructor(
     private sessionService: SessionService,
     private apiService: ApiService,
     private notifierService: NotifierService,
@@ -44,11 +49,17 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     })
   }
 
+  close1() {
+    console.log("close Modal");
+
+    this.modalRef?.hide()
+  }
+
   openApprovedModal(approved: any) {
-    this.bsModalRef = this.modalService.show(approved);
+    this.bsModalRef1 = this.modalService.show(approved);
   }
   openRejectModal(reject: any) {
-    this.bsModalRef = this.modalService.show(reject);
+    this.bsModalRef2 = this.modalService.show(reject);
   }
 
 
@@ -64,7 +75,8 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.apiService.getAcceptAndRejectDocuments(this.documentVerificationRequestId, this.docId, req).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
-        this.bsModalRef.hide();
+        this.bsModalRef2.hide();
+        this.bsModalRef1.hide();
         this.getDocumentDetails();
         this.remarkForm.reset();
       }
@@ -74,7 +86,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   }
 
   close() {
-    this.bsModalRef.hide();
+    this.bsModalRef2.hide();
     this.remarkForm.reset();
   }
 
