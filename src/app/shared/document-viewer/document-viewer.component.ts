@@ -20,17 +20,17 @@ export class DocumentViewerComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
+
   }
+
   ngOnChanges() {
     this.showData = true
-    if (this.DocUrl = this.docUrl) {
-    }
-    setTimeout(() => {                           // <<<---using ()=> syntax
+    setTimeout(() => {
       if (this.DocUrl = this.docUrl) {
         this.showData = false
       }
-    }, 5000);
-
+    }, 9000);
   }
-
 }
+
+

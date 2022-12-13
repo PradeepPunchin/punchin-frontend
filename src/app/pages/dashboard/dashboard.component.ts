@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
   isShowFileUploaded: boolean = true
   bankerData: any;
   verifierData: any
-  // bsModalRef?: BsModalRef;
+  bsModalRef?: BsModalRef;
 
 
   constructor(
@@ -52,7 +52,6 @@ export class DashboardComponent implements OnInit {
     private eventService: EventService,
     private utilitiesService: UtilityService,
     private modalService: BsModalService,
-    public bsModalRef: BsModalRef,
   ) { }
 
   ngOnInit(): void {
@@ -70,7 +69,7 @@ export class DashboardComponent implements OnInit {
 
   onGetUploadedFile(event: any) {
     if (this.bsModalRef) {
-      this.bsModalRef.hide();
+      this.bsModalRef?.hide();
     }
 
     this.isShow = event.length > 0 ? false : true;
@@ -121,7 +120,11 @@ export class DashboardComponent implements OnInit {
         this.notifierService.showSuccess(res?.message)
         this.getClaimList();
         this.isShowFileUploaded = true;
-        this.router.navigate(['/pages'])
+        if (this.cordListData.length > 0) {
+          this.isShow = false
+        } else {
+          this.isShow = true
+        }
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
@@ -196,7 +199,11 @@ export class DashboardComponent implements OnInit {
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'SETTLED') {
       this.pageNo = event.page - 1;
       this.showCardDetails("SETTLED");
+    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'UNDER_VERIFICATION') {
+      this.pageNo = event.page - 1;
+      this.showCardDetails("UNDER_VERIFICATION");
     }
+
     if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'SUBMITTED_TO_INSURER') {
       this.pageNo = event.page - 1;
       this.verifierCardDetails("SUBMITTED_TO_INSURER");
@@ -222,16 +229,6 @@ export class DashboardComponent implements OnInit {
   //   this.showCardDetails('ALL');
   // }
 
-  // openModal(id: any) {
-  //   const initialState: ModalOptions = {
-  //     initialState: {
-  //       documentVerificationRequestId: id,
-  //     },
-  //     class: 'modal-custom-width'
-  //   };
-  //   this.bsModalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
-  // }
-
   openModal1(template: any) {
     this.isShowFileUploaded = false;
     const initialState: ModalOptions = {
@@ -240,7 +237,7 @@ export class DashboardComponent implements OnInit {
     this.bsModalRef = this.modalService.show(template, initialState);
   }
   closeModal() {
-    this.bsModalRef.hide()
+    this.bsModalRef?.hide()
     this.isShowFileUploaded = true;
   }
 }

@@ -36,9 +36,7 @@
                         <ng-container *ngIf="verifierRequestList.length > 0">
                                 <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
                                         <tr>
-                                                <td>
-                                                        {{ (pageNo) * pageSize + i +1 }}
-                                                </td>
+                                                <td>{{ (pageNo) * pageSize + i +1 }}</td>
                                                 <td>{{item.id}}</td>
                                                 <td>{{item.claimDate |date}}</td>
                                                 <td>{{item.borrowerName}}</td>
@@ -51,13 +49,10 @@
                                                         <span *ngIf="item.singnedClaimDocument === 'NOT_UPLOADED'"> <img
                                                                         src="assets/icons/cross.svg"></span>
                                                         <span *ngIf="item.singnedClaimDocument === 'APPROVED'"><img
-                                                                        src="assets/icons/green tick.jpg"
-                                                                        style="width: 20px"></span>
+                                                                        src="assets/icons/tick-green.svg"></span>
                                                         <span *ngIf="item.singnedClaimDocument === 'REJECTED'"><img
-                                                                        src="assets/icons/cross.png"
-                                                                        style="width: 15px">
+                                                                        src="assets/icons/cross-red.svg">
                                                         </span>
-
                                                 </td>
                                                 <td>
                                                         <span *ngIf="item.deathCertificate === 'UPLOADED'"> <img
@@ -65,13 +60,10 @@
                                                         <span *ngIf="item.deathCertificate === 'NOT_UPLOADED'"> <img
                                                                         src="assets/icons/cross.svg"></span>
                                                         <span *ngIf="item.deathCertificate === 'APPROVED'"><img
-                                                                        src="assets/icons/green tick.jpg"
-                                                                        style="width: 20px"></span>
+                                                                        src="assets/icons/tick-green.svg"></span>
                                                         <span *ngIf="item.deathCertificate === 'REJECTED'"><img
-                                                                        src="assets/icons/cross.png"
-                                                                        style="width: 15px">
+                                                                        src="assets/icons/cross-red.svg">
                                                         </span>
-
                                                 </td>
                                                 <td>
                                                         <span *ngIf="item.borrowerIdProof === 'UPLOADED'"> <img
@@ -79,11 +71,9 @@
                                                         <span *ngIf="item.borrowerIdProof === 'NOT_UPLOADED'"> <img
                                                                         src="assets/icons/cross.svg"></span>
                                                         <span *ngIf="item.borrowerIdProof === 'APPROVED'"><img
-                                                                        src="assets/icons/green tick.jpg"
-                                                                        style="width: 20px"></span>
+                                                                        src="assets/icons/tick-green.svg"></span>
                                                         <span *ngIf="item.borrowerIdProof === 'REJECTED'"><img
-                                                                        src="assets/icons/cross.png"
-                                                                        style="width: 15px">
+                                                                        src="assets/icons/cross-red.svg">
                                                         </span>
                                                 </td>
                                                 <td>
@@ -92,11 +82,9 @@
                                                         <span *ngIf="item.borrowerAddressProof === 'NOT_UPLOADED'"> <img
                                                                         src="assets/icons/cross.svg"></span>
                                                         <span *ngIf="item.borrowerAddressProof === 'APPROVED'"><img
-                                                                        src="assets/icons/green tick.jpg"
-                                                                        style="width: 20px"></span>
+                                                                        src="assets/icons/tick-green.svg"></span>
                                                         <span *ngIf="item.borrowerAddressProof === 'REJECTED'"><img
-                                                                        src="assets/icons/cross.png"
-                                                                        style="width: 15px">
+                                                                        src="assets/icons/cross-red.svg">
                                                         </span>
                                                 </td>
                                                 <td>
@@ -105,11 +93,9 @@
                                                         <span *ngIf="item.nomineeIdProof === 'NOT_UPLOADED'"> <img
                                                                         src="assets/icons/cross.svg"></span>
                                                         <span *ngIf="item.nomineeIdProof === 'APPROVED'"><img
-                                                                        src="assets/icons/green tick.jpg"
-                                                                        style="width: 20px"></span>
+                                                                        src="assets/icons/tick-green.svg"></span>
                                                         <span *ngIf="item.nomineeIdProof === 'REJECTED'"><img
-                                                                        src="assets/icons/cross.png"
-                                                                        style="width: 15px">
+                                                                        src="assets/icons/cross-red.svg">
                                                         </span>
                                                 </td>
                                                 <td>
@@ -118,11 +104,9 @@
                                                         <span *ngIf="item.nomineeAddressProof === 'NOT_UPLOADED'"> <img
                                                                         src="assets/icons/cross.svg"></span>
                                                         <span *ngIf="item.nomineeAddressProof === 'APPROVED'"><img
-                                                                        src="assets/icons/green tick.jpg"
-                                                                        style="width: 20px"></span>
+                                                                        src="assets/icons/tick-green.svg"></span>
                                                         <span *ngIf="item.nomineeAddressProof === 'REJECTED'"><img
-                                                                        src="assets/icons/cross.png"
-                                                                        style="width: 15px">
+                                                                        src="assets/icons/cross-red.svg">
                                                         </span>
                                                 </td>
                                                 <td>
@@ -131,13 +115,10 @@
                                                         <span *ngIf="item.bankAccountProof === 'NOT_UPLOADED'"> <img
                                                                         src="assets/icons/cross.svg"></span>
                                                         <span *ngIf="item.bankAccountProof === 'APPROVED'"><img
-                                                                        src="assets/icons/green tick.jpg"
-                                                                        style="width: 20px"></span>
+                                                                        src="assets/icons/tick-green.svg"></span>
                                                         <span *ngIf="item.bankAccountProof === 'REJECTED'"><img
-                                                                        src="assets/icons/cross.png"
-                                                                        style="width: 15px">
+                                                                        src="assets/icons/cross-red.svg">
                                                         </span>
-
                                                 </td>
                                                 <td>
                                                         <span *ngIf="item.firPostmortemReport === 'UPLOADED'"> <img
@@ -145,11 +126,9 @@
                                                         <span *ngIf="item.firPostmortemReport === 'NOT_UPLOADED'"> <img
                                                                         src="assets/icons/cross.svg"></span>
                                                         <span *ngIf="item.firPostmortemReport === 'APPROVED'"><img
-                                                                        src="assets/icons/green tick.jpg"
-                                                                        style="width: 20px"></span>
+                                                                        src="assets/icons/tick-green.svg"></span>
                                                         <span *ngIf="item.firPostmortemReport === 'REJECTED'"><img
-                                                                        src="assets/icons/cross.png"
-                                                                        style="width: 15px">
+                                                                        src="assets/icons/cross-red.svg">
                                                         </span>
                                                 </td>
                                                 <td>
@@ -158,13 +137,10 @@
                                                         <span *ngIf="item.additionalDoc === 'NOT_UPLOADED'"> <img
                                                                         src="assets/icons/cross.svg"></span>
                                                         <span *ngIf="item.additionalDoc ==='APPROVED'"><img
-                                                                        src="assets/icons/green tick.jpg"
-                                                                        style="width: 20px"></span>
+                                                                        src="assets/icons/tick-green.svg"></span>
                                                         <span *ngIf="item.additionalDoc === 'REJECTED'"><img
-                                                                        src="assets/icons/cross.png"
-                                                                        style="width: 15px">
+                                                                        src="assets/icons/cross-red.svg">
                                                         </span>
-
                                                 </td>
                                                 <td class="text-center" (click)="openModal(item.id)"><img
                                                                 src="assets/icons/eye.svg"></td>

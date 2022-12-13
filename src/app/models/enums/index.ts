@@ -25,7 +25,9 @@ export enum PLATFORM {
 export enum BANKERSTATUSENUM {
     inprogress = "IN_PROGRESS",
     all = "ALL",
-    settled = "SETTLED"
+    settled = "SETTLED",
+    underVerification = "UNDER_VERIFICATION",
+
 }
 
 export enum VERIFIERSTATUSENUM {
