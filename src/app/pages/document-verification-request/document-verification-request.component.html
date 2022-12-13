@@ -48,9 +48,10 @@
                                 src="assets/icons/bluetick.svg"></span>
                         <span *ngIf="item.singnedClaimDocument === 'NOT_UPLOADED'"> <img
                                 src="assets/icons/cross.svg"></span>
-                        <span *ngIf="item.singnedClaimDocument === 'APPROVED'"><i class="fa-check-circle"></i></span>
+                        <span *ngIf="item.singnedClaimDocument === 'APPROVED'"><img src="assets/icons/green tick.jpg"
+                                style="width: 20px"></span>
                         <span *ngIf="item.singnedClaimDocument === 'REJECTED'"><i class="fa fa-times-circle-o"
-                                aria-hidden="true"></i>
+                                aria-hidden="true" style="color: red;"></i>
                         </span>
 
                     </td>
@@ -58,36 +59,38 @@
                         <span *ngIf="item.deathCertificate === 'UPLOADED'"> <img src="assets/icons/bluetick.svg"></span>
                         <span *ngIf="item.deathCertificate === 'NOT_UPLOADED'"> <img
                                 src="assets/icons/cross.svg"></span>
-                        <span *ngIf="item.deathCertificate === 'APPROVED'"><i class="fa-check-circle"></i></span>
+                        <span *ngIf="item.deathCertificate === 'APPROVED'"><img src="assets/icons/green tick.jpg"
+                                style="width: 20px"></span>
                         <span *ngIf="item.deathCertificate === 'REJECTED'"><i class="fa fa-times-circle-o"
-                                aria-hidden="true"></i>
+                                aria-hidden="true" style="color: red;"></i>
                         </span>
 
                     </td>
                     <td>
-                        <span *ngIf="item.deathCertificate === 'UPLOADED'"> <img src="assets/icons/bluetick.svg"></span>
-                        <span *ngIf="item.deathCertificate === 'NOT_UPLOADED'"> <img
-                                src="assets/icons/cross.svg"></span>
-                        <span *ngIf="item.deathCertificate === 'APPROVED'"><i class="fa-check-circle"></i></span>
-                        <span *ngIf="item.deathCertificate === 'REJECTED'"><i class="fa fa-times-circle-o"
-                                aria-hidden="true"></i>
+                        <span *ngIf="item.borrowerIdProof === 'UPLOADED'"> <img src="assets/icons/bluetick.svg"></span>
+                        <span *ngIf="item.borrowerIdProof === 'NOT_UPLOADED'"> <img src="assets/icons/cross.svg"></span>
+                        <span *ngIf="item.borrowerIdProof === 'APPROVED'"><img src="assets/icons/green tick.jpg"
+                                style="width: 20px"></span>
+                        <span *ngIf="item.borrowerIdProof === 'REJECTED'"><i class="fa fa-times-circle-o"
+                                aria-hidden="true" style="color: red;"></i>
                         </span>
                     </td>
                     <td>
-                        <span *ngIf="item.deathCertificate === 'UPLOADED'"> <img src="assets/icons/bluetick.svg"></span>
-                        <span *ngIf="item.deathCertificate === 'NOT_UPLOADED'"> <img
+                        <span *ngIf="item.borrowerAddressProof === 'UPLOADED'"> <img
+                                src="assets/icons/bluetick.svg"></span>
+                        <span *ngIf="item.borrowerAddressProof === 'NOT_UPLOADED'"> <img
                                 src="assets/icons/cross.svg"></span>
-                        <span *ngIf="item.deathCertificate === 'APPROVED'"><i class="fa-check-circle"
-                                style="color: green"></i></span>
-                        <span *ngIf="item.deathCertificate === 'REJECTED'"><i class="fa fa-times-circle-o"
+                        <span *ngIf="item.borrowerAddressProof === 'APPROVED'"><img src="assets/icons/green tick.jpg"
+                                style="width: 20px"></span>
+                        <span *ngIf="item.borrowerAddressProof === 'REJECTED'"><i class="fa fa-times-circle-o"
                                 aria-hidden="true" style="color: red;"></i>
                         </span>
                     </td>
                     <td>
                         <span *ngIf="item.nomineeIdProof === 'UPLOADED'"> <img src="assets/icons/bluetick.svg"></span>
                         <span *ngIf="item.nomineeIdProof === 'NOT_UPLOADED'"> <img src="assets/icons/cross.svg"></span>
-                        <span *ngIf="item.nomineeIdProof === 'APPROVED'"><i class="fa-check-circle"
-                                style="color: green"></i></span>
+                        <span *ngIf="item.nomineeIdProof === 'APPROVED'"><img src="assets/icons/green tick.jpg"
+                                style="width: 20px"></span>
                         <span *ngIf="item.nomineeIdProof === 'REJECTED'"><i class="fa fa-times-circle-o"
                                 aria-hidden="true" style="color: red;"></i>
                         </span>
@@ -97,8 +100,8 @@
                                 src="assets/icons/bluetick.svg"></span>
                         <span *ngIf="item.nomineeAddressProof === 'NOT_UPLOADED'"> <img
                                 src="assets/icons/cross.svg"></span>
-                        <span *ngIf="item.nomineeAddressProof === 'APPROVED'"><i class="fa-check-circle"
-                                style="color: green"></i></span>
+                        <span *ngIf="item.nomineeAddressProof === 'APPROVED'"><img src="assets/icons/green tick.jpg"
+                                style="width: 20px"></span>
                         <span *ngIf="item.nomineeAddressProof === 'REJECTED'"><i class="fa fa-times-circle-o"
                                 aria-hidden="true" style="color: red;"></i>
                         </span>
@@ -107,8 +110,8 @@
                         <span *ngIf="item.bankAccountProof === 'UPLOADED'"> <img src="assets/icons/bluetick.svg"></span>
                         <span *ngIf="item.bankAccountProof === 'NOT_UPLOADED'"> <img
                                 src="assets/icons/cross.svg"></span>
-                        <span *ngIf="item.bankAccountProof === 'APPROVED'"><i class="fa-check-circle"
-                                style="color: green"></i></span>
+                        <span *ngIf="item.bankAccountProof === 'APPROVED'"><img src="assets/icons/green tick.jpg"
+                                style="width: 20px"></span>
                         <span *ngIf="item.bankAccountProof === 'REJECTED'"><i class="fa fa-times-circle-o"
                                 aria-hidden="true" style="color: red;"></i>
                         </span>
@@ -118,8 +121,8 @@
                                 src="assets/icons/bluetick.svg"></span>
                         <span *ngIf="item.firPostmortemReport === 'NOT_UPLOADED'"> <img
                                 src="assets/icons/cross.svg"></span>
-                        <span *ngIf="item.firPostmortemReport === 'APPROVED'"><i class="fa-check-circle"
-                                style="color: green"></i></span>
+                        <span *ngIf="item.firPostmortemReport === 'APPROVED'"><img src="assets/icons/green tick.jpg"
+                                style="width: 20px"></span>
                         <span *ngIf="item.firPostmortemReport === 'REJECTED'"><i class="fa fa-times-circle-o"
                                 aria-hidden="true" style="color: red;"></i>
                         </span>
@@ -127,8 +130,8 @@
                     <td>
                         <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img src="assets/icons/bluetick.svg"></span>
                         <span *ngIf="item.additionalDoc === 'NOT_UPLOADED'"> <img src="assets/icons/cross.svg"></span>
-                        <span *ngIf="item.additionalDoc ==='APPROVED'"><i class="fa-check-circle"
-                                style="color: green"></i></span>
+                        <span *ngIf="item.additionalDoc ==='APPROVED'"><img src="assets/icons/green tick.jpg"
+                                style="width: 20px"></span>
                         <span *ngIf="item.additionalDoc === 'REJECTED'"><i class="fa fa-times-circle-o"
                                 aria-hidden="true" style="color: red;"></i>
                         </span>

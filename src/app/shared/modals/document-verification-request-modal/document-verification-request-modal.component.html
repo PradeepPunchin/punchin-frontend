@@ -68,7 +68,13 @@
                                     {{item.docType}}
                                 </td>
                                 <td class="text-center">
-                                    <img src="../../../../assets/icons/right-tick-blue.svg">
+                                    <span *ngIf="item.isVerified == false"><img
+                                            src="../../../../assets/icons/right-tick-blue.svg"></span>
+                                    <span *ngIf="item.isVerified == true && item.isApproved == false"><i
+                                            class="fa-check-circle" style="color: green"></i></span>
+                                    <span *ngIf="item.isVerified == true && item.isApproved == true"><i
+                                            class="fa fa-times-circle-o" aria-hidden="true" style="color: red;"></i>
+                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <p class="doc-status-yellow-text" *ngIf="item.isVerified == false">
