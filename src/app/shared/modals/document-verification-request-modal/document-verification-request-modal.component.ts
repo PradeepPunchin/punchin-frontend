@@ -51,18 +51,14 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     })
   }
 
-  close1() {
-    this.modalRef?.hide()
-  }
 
   openApprovedModal(approved: any) {
     this.bsModalRef1 = this.modalService.show(approved);
   }
+
   openRejectModal(reject: any) {
     this.bsModalRef2 = this.modalService.show(reject);
   }
-
-
 
   approveAndReject(data: any) {
     this.docId = this.sessionService.getSession("docId")

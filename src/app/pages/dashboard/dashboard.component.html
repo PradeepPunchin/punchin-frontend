@@ -129,7 +129,7 @@
                         <td>{{item.nomineeContactNumber}}</td>
                         <td>{{item.nomineeEmailId}}</td>
                         <td>{{item.nomineeAddress}}</td>
-                        <td class="text-center">{{item.claimStatus}}</td>
+                        <td class="text-center status-button">{{item.claimStatus}}</td>
 
                     </tr>
                 </tbody>
@@ -273,7 +273,7 @@
                         <td>{{item.nomineeContactNumber}}</td>
                         <td>{{item.nomineeEmailId}}</td>
                         <td>{{item.nomineeAddress}}</td>
-                        <td class="text-center">{{item.claimStatus}}</td>
+                        <td class="text-center status-button">{{item.claimStatus}}</td>
 
                     </tr>
                 </tbody>
@@ -344,7 +344,7 @@
                         <td>{{item.nomineeContactNumber}}</td>
                         <td>{{item.nomineeEmailId}}</td>
                         <td>{{item.nomineeAddress}}</td>
-                        <td class="text-center">{{item.claimStatus}}</td>
+                        <td class="text-center status-button">{{item.claimStatus}}</td>
 
                     </tr>
                 </tbody>
@@ -551,7 +551,7 @@
                         <th scope="col">FIR / Postmortem report</th>
                         <th scope="col">Affidavit (Name mismatch etc)</th>
                         <th scope="col">Discrepancy / AR / FR resolution</th>
-                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col" class="text-center ">Status</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
@@ -575,7 +575,7 @@
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
-                        <td class="text-center"><img src="assets/icons/eye.svg"></td>
+                        <td class="text-center status-button">{{item.claimStatus}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -601,7 +601,7 @@
                         <th scope="col">FIR / Postmortem report</th>
                         <th scope="col">Affidavit (Name mismatch etc)</th>
                         <th scope="col">Discrepancy / AR / FR resolution</th>
-                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col" class="text-center">Status</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
@@ -652,7 +652,7 @@
                         <th scope="col">FIR / Postmortem report</th>
                         <th scope="col">Affidavit (Name mismatch etc)</th>
                         <th scope="col">Discrepancy / AR / FR resolution</th>
-                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col" class="text-center">Status</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
@@ -727,7 +727,7 @@
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
                         <td><img src="assets/icons/bluetick.svg"></td>
-                        <td class="text-center">{{item.claimStatus}}</td>
+                        <td class="text-center"><img src="assets/icons/eye.svg"></td>
                     </tr>
                 </tbody>
             </table>

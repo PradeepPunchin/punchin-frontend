@@ -229,16 +229,6 @@ export class DashboardComponent implements OnInit {
   //   this.showCardDetails('ALL');
   // }
 
-  // openModal(id: any) {
-  //   const initialState: ModalOptions = {
-  //     initialState: {
-  //       documentVerificationRequestId: id,
-  //     },
-  //     class: 'modal-custom-width'
-  //   };
-  //   this.bsModalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
-  // }
-
   openModal1(template: any) {
     this.isShowFileUploaded = false;
     const initialState: ModalOptions = {
