@@ -71,10 +71,10 @@
                                     <span *ngIf="item.isVerified == false"><img
                                             src="../../../../assets/icons/right-tick-blue.svg"></span>
                                     <span *ngIf="item.isVerified == true && item.isApproved == false">
-                                        <img src="assets/icons/cross.png" style="width: 15px">
+                                        <img src="assets/icons/cross-red.svg" style="width: 15px">
                                     </span>
                                     <span *ngIf="item.isVerified == true && item.isApproved == true">
-                                        <img src="assets/icons/green tick.jpg" style="width: 20px"> </span>
+                                        <img src="assets/icons/tick-green.svg" style="width: 20px"> </span>
                                 </td>
                                 <td class="text-center">
                                     <p class="doc-status-yellow-text" *ngIf="item.isVerified == false">

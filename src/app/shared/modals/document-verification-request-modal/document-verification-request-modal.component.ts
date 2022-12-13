@@ -26,7 +26,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   remarkFormSubmitted: boolean = false
   bsModalRef1?: BsModalRef;
   bsModalRef2?: BsModalRef;
-  modalRef?: BsModalRef;
+  // modalRef?: BsModalRef;
 
 
 
@@ -37,7 +37,9 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     private apiService: ApiService,
     private notifierService: NotifierService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public modalRef: BsModalRef,
+
   ) { }
   ngOnInit(): void {
     this.getDocumentDetails()
@@ -50,8 +52,6 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   }
 
   close1() {
-    console.log("close Modal");
-
     this.modalRef?.hide()
   }
 
