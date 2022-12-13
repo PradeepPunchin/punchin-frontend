@@ -20,7 +20,9 @@ export class DocumentViewerComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
+
   }
+
   ngOnChanges() {
     this.showData = true
     setTimeout(() => {

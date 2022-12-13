@@ -19,10 +19,6 @@ export class PdfViewerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log(this.docUrl, "docUrl");
-    console.log(this.docType, "doctype");
-
-
   }
 
 }
