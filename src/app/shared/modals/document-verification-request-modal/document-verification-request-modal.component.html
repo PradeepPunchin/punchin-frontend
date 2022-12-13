@@ -4,7 +4,7 @@
             <button type="button" class="btn btn-primary">Download All</button>
         </span>
     </h4>
-    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="close()">
         <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
 </div>
@@ -68,13 +68,20 @@
                                     {{item.docType}}
                                 </td>
                                 <td class="text-center">
-                                    <img src="../../../../assets/icons/right-tick-blue.svg">
+                                    <span *ngIf="item.isVerified == false"><img
+                                            src="../../../../assets/icons/right-tick-blue.svg"></span>
+                                    <span *ngIf="item.isVerified == true && item.isApproved == false">
+                                        <i class="fa fa-times-circle-o" aria-hidden="true" style="color: red;"></i>
+                                    </span>
+
+                                    <span *ngIf="item.isVerified == true && item.isApproved == true">
+                                        <img src="assets/icons/green tick.jpg" style="width: 20px"> </span>
                                 </td>
                                 <td class="text-center">
-                                    <p class="doc-status-red-text" *ngIf="item.isVerified == false">
-                                        Pending
+                                    <p class="doc-status-yellow-text" *ngIf="item.isVerified == false">
+                                        Uploaded
                                     </p>
-                                    <p class="doc-status-blue-text"
+                                    <p class="doc-status-red-text"
                                         *ngIf="item.isVerified == true && item.isApproved == false">
                                         Rejected
                                     </p>
