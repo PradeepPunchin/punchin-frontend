@@ -122,7 +122,9 @@ export class DashboardComponent implements OnInit {
         this.notifierService.showSuccess(res?.message)
         this.getClaimList();
         this.isShowFileUploaded = true;
-        this.isShow = true
+        this.router.navigate(['/pages'])
+
+        // this.isShow = true
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
@@ -184,8 +186,6 @@ export class DashboardComponent implements OnInit {
 
   //pagination
   pageChanged(event: PageChangedEvent) {
-    console.log(event, "event");
-
     if (this.claimList && this.claimList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
       this.getClaimList();
