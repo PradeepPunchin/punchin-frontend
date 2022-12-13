@@ -13,6 +13,7 @@ export interface VerifierDocumentDetail {
 export interface IDocumentDetailDTO {
     id: number,
     docType: string,
+    agentDocType: string,
     isApproved: boolean,
     isVerified: boolean,
     documentUrlDTOS: IDocumetnUrlListDTO[]

@@ -65,15 +65,14 @@
                         <ng-container *ngFor="let item of documentDetailsDTOList">
                             <tr>
                                 <td>
-                                    {{item.docType}}
+                                    {{item.agentDocType}}
                                 </td>
                                 <td class="text-center">
                                     <span *ngIf="item.isVerified == false"><img
                                             src="../../../../assets/icons/right-tick-blue.svg"></span>
                                     <span *ngIf="item.isVerified == true && item.isApproved == false">
-                                        <i class="fa fa-times-circle-o" aria-hidden="true" style="color: red;"></i>
+                                        <img src="assets/icons/cross.png" style="width: 20px">
                                     </span>
-
                                     <span *ngIf="item.isVerified == true && item.isApproved == true">
                                         <img src="assets/icons/green tick.jpg" style="width: 20px"> </span>
                                 </td>
@@ -107,7 +106,8 @@
                     <h6 class="document-preview-heading mb-0">Document Preview</h6>
                     <!-- <img src="../../../../assets/icons/preview.svg"> -->
                 </div>
-                <app-pdf-viewer [docUrl]="docUrl" [docType]="docType"></app-pdf-viewer>
+                <!-- <app-pdf-viewer [docUrl]="docUrl" [docType]="docType"></app-pdf-viewer> -->
+                <app-document-viewer [docUrl]="docUrl" [docType]="docType"></app-document-viewer>
                 <div class="document-preview-btns text-center mt-auto">
                     <button type="button" class="btn btn-outline-primary"
                         (click)="openRejectModal(reject)">Reject</button>
