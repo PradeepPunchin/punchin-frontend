@@ -163,9 +163,10 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.forwardClaim(this.ClaimListDataById.id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
+        this.getClaimSubmiitedList();
         this.viewClaimList = true;
         this.editCliamList = false;
-        this.isSucessUpload = false
+        this.isSucessUpload = false;
       }
     },
       (error: any) => {
