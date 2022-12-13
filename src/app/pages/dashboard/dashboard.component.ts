@@ -41,7 +41,6 @@ export class DashboardComponent implements OnInit {
   isShowFileUploaded: boolean = true
   bankerData: any;
   verifierData: any
-  isRemove: boolean = false
   // bsModalRef?: BsModalRef;
 
 
@@ -123,8 +122,6 @@ export class DashboardComponent implements OnInit {
         this.getClaimList();
         this.isShowFileUploaded = true;
         this.router.navigate(['/pages'])
-
-        // this.isShow = true
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
