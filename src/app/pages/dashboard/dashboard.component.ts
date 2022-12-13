@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
   isShowFileUploaded: boolean = true
   bankerData: any;
   verifierData: any
-  bsModalRef?: any = BsModalRef;
+  bsModalRef?: BsModalRef;
 
 
   constructor(
@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
 
   onGetUploadedFile(event: any) {
     if (this.bsModalRef) {
-      this.bsModalRef.hide();
+      this.bsModalRef?.hide();
     }
 
     this.isShow = event.length > 0 ? false : true;
@@ -120,7 +120,11 @@ export class DashboardComponent implements OnInit {
         this.notifierService.showSuccess(res?.message)
         this.getClaimList();
         this.isShowFileUploaded = true;
-        this.router.navigate(['/pages'])
+        if (this.cordListData.length > 0) {
+          this.isShow = false
+        } else {
+          this.isShow = true
+        }
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
@@ -243,7 +247,7 @@ export class DashboardComponent implements OnInit {
     this.bsModalRef = this.modalService.show(template, initialState);
   }
   closeModal() {
-    this.bsModalRef.hide()
+    this.bsModalRef?.hide()
     this.isShowFileUploaded = true;
   }
 }

@@ -120,14 +120,14 @@
 <ng-template #approved>
     <div class="modal-header">
         <h4 class="modal-title">Please confirm..</h4>
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef1.hide()">
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef1?.hide()">
             <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
     </div>
     <div class="modal-body">
         Do you really want to ... ? </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="bsModalRef1.hide()">No</button>
+        <button type="button" class="btn btn-outline-primary" (click)="bsModalRef1?.hide()">No</button>
         <button type="button" class="btn btn-primary" (click)="approveAndReject('true')">Yes</button>
     </div>
 </ng-template>

@@ -24,8 +24,8 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   downlaodUrl: any
   remarkForm!: FormGroup
   remarkFormSubmitted: boolean = false
-  bsModalRef1?: any = BsModalRef;
-  bsModalRef2?: any = BsModalRef;
+  bsModalRef1?: BsModalRef;
+  bsModalRef2?: BsModalRef;
   modalRef?: BsModalRef;
 
 
@@ -75,8 +75,8 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.apiService.getAcceptAndRejectDocuments(this.documentVerificationRequestId, this.docId, req).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
-        this.bsModalRef2.hide();
-        this.bsModalRef1.hide();
+        this.bsModalRef2?.hide();
+        this.bsModalRef1?.hide();
         this.getDocumentDetails();
         this.remarkForm.reset();
       }
@@ -86,7 +86,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   }
 
   close() {
-    this.bsModalRef2.hide();
+    this.bsModalRef2?.hide();
     this.remarkForm.reset();
   }
 
@@ -103,16 +103,12 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   viewDoc(documentDTO: IDocumentDetailDTO) {
     this.docUrl = documentDTO.documentUrlDTOS[0].docUrl;
     this.docType = documentDTO.documentUrlDTOS[0].docFormat;
-    this.isShoeDoc = true
+    this.isShoeDoc = true;
     this.sessionService.setSessions({ docId: documentDTO.id })
   }
 
   Downlaod(documentDTO: IDocumentDetailDTO) {
     this.downlaodUrl = documentDTO.documentUrlDTOS[0].docUrl;
-    console.log(this.downlaodUrl, "this.downlaodUrl");
-
-    console.log(this.downlaodUrl, "downlaodUrl");
-
     let a = document.createElement('a');
     a.target = '_blank';
     a.href = this.downlaodUrl;
