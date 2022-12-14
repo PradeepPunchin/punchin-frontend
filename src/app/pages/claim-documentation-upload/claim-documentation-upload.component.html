@@ -124,7 +124,7 @@
 <!-- Documentation Upload -->
 <div class="container-fluid documentation-upload-box" *ngIf="editCliamList">
     <h6 class="documentation-upload-heading" (click)="back()" style="cursor:pointer">
-        <i class="fa fa-arrow-left"></i>Back
+        <i class="fa fa-arrow-left" style="margin-right: 5px"></i>Back
     </h6>
 
     <h6 class="documentation-upload-heading">Documentation Upload</h6>
@@ -248,7 +248,7 @@
                 <input type="file" multiple (change)="fileBrowseHandler($event)" accept=".pdf,.jpg,.jpeg,.png" />
             </div>
             <div class="col-4">
-                <button type="button" class="btn btn-primary" (click)="uploadDocument()">uplaod</button>
+                <button type="button" class="btn btn-primary" (click)="uploadDocument()">Uplaod</button>
 
             </div>
         </form>

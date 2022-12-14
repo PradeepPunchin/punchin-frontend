@@ -53,7 +53,7 @@
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6>Case/Claim</h6>
             <button type="button" class="btn btn-primary btn1"
-                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 ||onStep === 3" (click)="openModal1(fileTemplate)">
+                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3" (click)="openModal1(fileTemplate)">
                 <img src="../../../assets/icons/action(white).svg" class="me-2">Upload xls File</button>
             <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('ALL')"
                 *ngIf="onStep === 0"><img src="../../../assets/icons/download.svg" class="me-2">Download MIS report
