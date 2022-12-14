@@ -51,6 +51,12 @@
     }
   }
 
+  .verification-table-title {
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $black;
+    margin: 20px 0 10px;
+  }
   .document-verification-table {
     height: 250px;
     .table {
