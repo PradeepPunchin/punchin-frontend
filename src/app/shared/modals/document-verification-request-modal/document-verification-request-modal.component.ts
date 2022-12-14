@@ -113,18 +113,12 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   }
 
   downlaodAllDocumnet() {
-    console.log(this.documentVerificationRequestId, "this.documentVerificationRequestId");
     this.apiService.getDownlaodAllDocuments(this.documentVerificationRequestId).subscribe((res: any) => {
       if (res?.isSuccess) {
-        console.log(res.data);
-
-        // var link = document.createElement("a")
-        // link.href = res?.data
-        // link.click()
-        // this.notifierService.showSuccess(res?.message);
-
-      } else {
-        this.notifierService.showError(res?.message || "Something went wrong");
+        var link = document.createElement("a")
+        link.href = res?.data
+        link.click()
+        this.notifierService.showSuccess(res?.message);
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
