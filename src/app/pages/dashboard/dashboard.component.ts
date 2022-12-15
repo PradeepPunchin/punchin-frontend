@@ -147,8 +147,8 @@ export class DashboardComponent implements OnInit {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
     })
   }
-  downloadMISFile(data: any) {
-    this.apiService.downloadMISFile(data).subscribe((res: any) => {
+  getDownloadExcelFormat() {
+    this.apiService.getDownloadExcelFormat().subscribe((res: any) => {
       if (res?.isSuccess) {
         var link = document.createElement("a")
         link.href = res.data

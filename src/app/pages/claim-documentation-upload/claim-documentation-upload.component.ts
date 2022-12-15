@@ -28,6 +28,10 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   isSucessUpload: boolean = false
   filterData: any = "ALL";
   isUploaded: boolean = false
+  viewDocument: any
+  uploadedData: any
+  isUploadedTable: boolean = false
+  isSubmittedTable: boolean = false
 
 
 
@@ -99,11 +103,45 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   editClaimList(id: any) {
     this.apiService.getClaimListByClaimid(id).subscribe((res: any) => {
       if (res?.isSuccess) {
+        this.isUploadedTable = false
+        this.isSubmittedTable = true
         this.ClaimListDataById = res?.data
         this.patchValue()
         this.viewClaimList = false;
         this.editCliamList = true;
       }
+    })
+  }
+  saveToDraft() {
+    this.apiService.DocumnetSaveDraft(this.ClaimListDataById.id).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.notifierService.showSuccess(res.message)
+        this.viewClaimList = true;
+        this.editCliamList = false;
+        this.pageNo = 0;
+        this.getClaimUploadList();
+        this.isSucessUpload = false;
+
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
+  }
+
+
+  viewDoc(item: any) {
+    this.viewDocument = item.documentUrlDTOS[0].docUrl
+    window.open(this.viewDocument)
+  }
+  deleteDoc(id: any) {
+    this.apiService.deleteDocument(id).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.notifierService.showSuccess(res.message)
+        this.viewClaimList = true;
+        this.editCliamList = false;
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
     })
   }
 
@@ -112,6 +150,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.getClaimUploadList();
     this.viewClaimList = true;
     this.editCliamList = false;
+    this.isSucessUpload = false;
   }
   //pagination
   pageChanged(event: PageChangedEvent) {
@@ -131,6 +170,11 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.file = event.target.files[0];
   }
 
+  viewUploadedDoc(item: any) {
+    this.viewDocument = item.documentUrls[0].docUrl
+    window.open(this.viewDocument)
+  }
+
   uploadDocument() {
     this.isUploaded = true
     let selectedDoc = this.uploadForm.controls.docType.value
@@ -138,6 +182,9 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     formData.append('multipartFiles', this.file,);
     this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
       if (res?.isSuccess) {
+        this.isUploadedTable = true
+        this.isSubmittedTable = false
+        this.uploadedData = res?.data.claimDocuments
         this.notifierService.showSuccess(res?.message);
         this.isUploaded = false
         this.isSucessUpload = true
@@ -150,14 +197,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     })
   }
 
-  saveToDraft() {
-    this.notifierService.showSuccess("save to draft sucessfull")
-    this.viewClaimList = true;
-    this.editCliamList = false;
-    this.pageNo = 0;
-    this.getClaimUploadList();
-
-  }
 
   submitClaim() {
     this.apiService.forwardClaim(this.ClaimListDataById.id).subscribe((res: any) => {

@@ -56,10 +56,11 @@
             <button type="button" class="btn btn-primary btn1"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3" (click)="openModal1(fileTemplate)">
                 <img src="../../../assets/icons/action(white).svg" class="me-2">Upload xls File</button>
-            <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('ALL')"
-                *ngIf="onStep === 0"><img src="../../../assets/icons/download.svg" class="me-2">Download MIS report
+            <button type="button" class="btn btn-outline-primary"
+                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"><img
+                    src="../../../assets/icons/download.svg" class="me-2">Download MIS report
             </button>
-            <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('SETTLED')"
+            <!-- <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('SETTLED')"
                 *ngIf="onStep === 1"><img src="../../../assets/icons/download.svg" class="me-2">Download MIS report
             </button>
             <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('IN_PROGRESS')"
@@ -67,10 +68,11 @@
             </button>
             <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('UNDER_VERIFICATION')"
                 *ngIf="onStep === 3"><img src="../../../assets/icons/download.svg" class="me-2">Download MIS report
-            </button>
+            </button> -->
             <button type="button" class="btn btn-outline-primary"
-                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"><img
-                    src="../../../assets/icons/download.svg" class="me-2">Download Standardized Format
+                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"
+                (click)="getDownloadExcelFormat()"><img src="../../../assets/icons/download.svg" class="me-2">Download
+                Standardized Format
             </button>
         </div>
         <div *ngIf="cordListData.length > 0 && isShowFileUploaded">

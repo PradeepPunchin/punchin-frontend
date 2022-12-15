@@ -69,7 +69,7 @@
                             <td>{{item.insurerName}}</td>
                             <td>{{item.policyNumber}}</td>
                             <td>{{item.masterPolNumber}}</td>
-                            <td>{{item.policyStartDate}}</td>
+                            <td>{{item.policyStartDate | date}}</td>
                             <td>{{item.policyCoverageDuration}} Years</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.nomineeName}}</td>
@@ -259,6 +259,63 @@
                     </ng-template>
                 </button>
 
+            </div>
+            <div class="col-8" *ngIf="isSubmittedTable">
+                <div class="table-responsive document-upload-table"
+                    *ngIf="ClaimListDataById.claimDocumentsDTOS.length > 0">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr class="align-middle">
+                                <th scope="col">Document Type</th>
+                                <th scope="col" class="text-center">Document View</th>
+                                <th scope="col" class="text-center">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let item of ClaimListDataById.claimDocumentsDTOS">
+                                <tr>
+                                    <td>{{item.docType}}</td>
+                                    <td class="text-center">
+                                        <span (click)="viewDoc(item)"><i class="fa fa-eye"
+                                                aria-hidden="true"></i></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span (click)="deleteDoc(item.id)"><i class="fa fa-trash"
+                                                aria-hidden="true"></i></span>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-8" *ngIf="isUploadedTable">
+                <div class="table-responsive document-upload-table">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr class="align-middle">
+                                <th scope="col">Document Type</th>
+                                <th scope="col" class="text-center">Document View</th>
+                                <th scope="col" class="text-center">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container>
+                                <tr>
+                                    <td>{{uploadedData?.docType}}</td>
+                                    <td class="text-center">
+                                        <span (click)="viewUploadedDoc(uploadedData)"><i class="fa fa-eye"
+                                                aria-hidden="true"></i></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span (click)="deleteDoc(uploadedData.id)"><i class="fa fa-trash"
+                                                aria-hidden="true"></i></span>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </form>
     </div>
