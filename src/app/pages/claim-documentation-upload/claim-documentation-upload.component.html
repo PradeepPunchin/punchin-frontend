@@ -229,26 +229,36 @@
             <h6>Document Upload</h6>
         </div>
         <div class="alert alert-success" *ngIf="isSucessUpload">
-            <strong>Success!</strong> file Uplaod Successfully.
+            <strong>Success!</strong> file Upload Successfully.
         </div>
         <form [formGroup]="uploadForm" class="row g-3 documentation-upload-forms">
             <div class="col-4">
                 <select class="form-select" aria-label="Default select example" formControlName="docType">
                     <option selected [ngValue]="null">Document Type</option>
                     <option value="CAS">CAS</option>
-                    <option value="COVID_Q">COVID_Q</option>
-                    <option value="FUF">DOGH</option>
-                    <option value="POS_LETTER">POS LETTER</option>
-                    <option value="PROPOSAL_FORM">PROPOSAL FORM</option>
-                    <option value="PROPOSAL_FORM">SANCTION LETTER</option>
-                    <option value="SANCTION_LETTER">SMQ</option>
+                    <option value="COVID_Q">COVID Q</option>
+                    <option value="FUF">FUF</option>
+                    <option value="DOGH">DOGH</option>
+                    <option value="POS_LETTER">POS Letter</option>
+                    <option value="PROPOSAL_FORM">Proposal Form </option>
+                    <option value="SANCTION_LETTER">Sanction Letter</option>
+                    <option value="SMQ">SMQ</option>
+                    <option value="MEF">MEF</option>
+                    <option value="OTHERS">Others</option>
                 </select>
             </div>
             <div class="col-4">
                 <input type="file" multiple (change)="fileBrowseHandler($event)" accept=".pdf,.jpg,.jpeg,.png" />
             </div>
             <div class="col-4">
-                <button type="button" class="btn btn-primary" (click)="uploadDocument()">Uplaod</button>
+                <button type="button" class="btn btn-primary" (click)="uploadDocument()">
+                    <ng-container *ngIf="isUploaded;else isUploadedDone">
+                        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Uploading..
+                    </ng-container>
+                    <ng-template #isUploadedDone>
+                        Upload
+                    </ng-template>
+                </button>
 
             </div>
         </form>

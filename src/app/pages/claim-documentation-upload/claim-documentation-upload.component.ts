@@ -28,9 +28,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   files: any[] = [];
   isSucessUpload: boolean = false
   filterData: any;
-
-
-
+  isUploaded: boolean = false
 
 
 
@@ -95,7 +93,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
   filterByStatus(event: any) {
     this.filterData = event.target.value
-    this.apiService.getCardList(event.target.value, this.pageNo, this.pageSize).subscribe((res: any) => {
+    this.apiService.getCardList(this.filterData, this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.submittedClaimList = res?.data
         this.submittedclaimListContent = res?.data.content
@@ -139,6 +137,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   uploadDocument() {
+    this.isUploaded = true
     let selectedDoc = this.uploadForm.controls.docType.value
     const formData: FormData = new FormData();
     formData.append('multipartFiles', this.file,);
@@ -147,9 +146,12 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.notifierService.showSuccess(res?.message);
         this.isSucessUpload = true
         this.uploadForm.reset()
+        this.isUploaded = false
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
+      this.isUploaded = false
+
     })
   }
 

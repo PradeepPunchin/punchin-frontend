@@ -1,7 +1,16 @@
 <div class="modal-header">
     <h4 class="modal-title pull-left">Document Verification
         <span *ngIf="documentDetailsDTOList.length> 0">
-            <button type="button" class="btn btn-primary" (click)="downlaodAllDocumnet()">Download All</button>
+            <button type="button" class="btn btn-primary" (click)="downloadAllDocumnet()">
+                <ng-container *ngIf="isDownloadDoc ;else isDownloadDocDone">
+                    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Downloading..
+                </ng-container>
+                <ng-template #isDownloadDocDone>
+                    Download All
+                </ng-template>
+            </button>
+
+            <!-- <button type="button" class="btn btn-primary" (click)="downlaodAllDocumnet()">Download All</button> -->
         </span>
     </h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">

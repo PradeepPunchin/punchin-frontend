@@ -236,7 +236,9 @@ export class DashboardComponent implements OnInit {
   openModal1(template: any) {
     this.isShowFileUploaded = false;
     const initialState: ModalOptions = {
-      class: 'file-modal-custom-width'
+      class: 'file-modal-custom-width',
+      backdrop: 'static',
+      keyboard: false
     };
     this.bsModalRef = this.modalService.show(template, initialState);
   }
