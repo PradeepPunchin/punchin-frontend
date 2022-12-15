@@ -82,7 +82,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   filterByStatus(event: any) {
     this.filterData = event.target.value
     this.pageNo = 0;
-    this.getClaimUploadList()
+    this.getClaimUploadList();
   }
 
   getClaimUploadList() {
@@ -109,6 +109,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   back() {
     this.pageNo = 0;
+    this.getClaimUploadList();
     this.viewClaimList = true;
     this.editCliamList = false;
   }
@@ -138,9 +139,9 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message);
+        this.isUploaded = false
         this.isSucessUpload = true
         this.uploadForm.reset()
-        this.isUploaded = false
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
