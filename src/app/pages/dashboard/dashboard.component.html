@@ -39,7 +39,7 @@
                 <div class="claims-verify-box" (click)="showCardDetails('UNDER_VERIFICATION')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
-                        <h5>{{verifierDashboardData[verifierStatusEnum.underVerification] || 0}}</h5>
+                        <h5>{{bankerDashboardData[bankerStatusEnum.underVerification] || 0}}</h5>
                         <h6>Under Verification Cases</h6>
                     </div>
                 </div>
@@ -67,6 +67,10 @@
             </button>
             <button type="button" class="btn btn-outline-primary" (click)="downloadMISFile('UNDER_VERIFICATION')"
                 *ngIf="onStep === 3"><img src="../../../assets/icons/download.svg" class="me-2">Download MIS report
+            </button>
+            <button type="button" class="btn btn-outline-primary"
+                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"><img
+                    src="../../../assets/icons/download.svg" class="me-2">Download Standardized Format
             </button>
         </div>
         <div *ngIf="cordListData.length > 0 && isShowFileUploaded">

@@ -23,7 +23,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   showClaimForm!: FormGroup;
   uploadForm !: FormGroup
   ClaimListDataById: any = []
-  fileUpload: boolean = false;
   file: any;
   files: any[] = [];
   isSucessUpload: boolean = false
@@ -82,6 +81,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   getClaimSubmiitedList() {
+    DataTransfer
     this.apiService.getClaimSubmiitedList(this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.submittedClaimList = res?.data
