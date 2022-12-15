@@ -26,7 +26,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   file: any;
   files: any[] = [];
   isSucessUpload: boolean = false
-  filterData: any;
+  filterData: any = "ALL";
   isUploaded: boolean = false
 
 
@@ -57,8 +57,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.uploadForm = this.formBuilder.group({
       docType: [null, [Validators.required]]
     })
-    this.getClaimSubmiitedList();
-
+    this.getClaimUploadList();
   }
 
   patchValue() {
@@ -80,20 +79,14 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   }
 
-  getClaimSubmiitedList() {
-    DataTransfer
-    this.apiService.getClaimSubmiitedList(this.pageNo, this.pageSize).subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.submittedClaimList = res?.data
-        this.submittedclaimListContent = res?.data.content
-        this.totalrecords = res?.data.totalRecords
-        this.totalpage = res?.data.totalPages
-      }
-    })
-  }
   filterByStatus(event: any) {
     this.filterData = event.target.value
-    this.apiService.getCardList(this.filterData, this.pageNo, this.pageSize).subscribe((res: any) => {
+    this.pageNo = 0;
+    this.getClaimUploadList()
+  }
+
+  getClaimUploadList() {
+    this.apiService.getClaimUploadList(this.filterData, this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.submittedClaimList = res?.data
         this.submittedclaimListContent = res?.data.content
@@ -101,8 +94,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.totalpage = res?.data.totalPages
       }
     })
-
-
   }
 
   editClaimList(id: any) {
@@ -115,7 +106,9 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       }
     })
   }
+
   back() {
+    this.pageNo = 0;
     this.viewClaimList = true;
     this.editCliamList = false;
   }
@@ -123,12 +116,13 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   pageChanged(event: PageChangedEvent) {
     if (this.submittedClaimList && this.submittedClaimList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
-      this.getClaimSubmiitedList();
+      this.getClaimUploadList();
     }
+
   }
   pagePerData(event: any) {
     this.pageSize = event.target.value
-    this.getClaimSubmiitedList();
+    this.getClaimUploadList();
   }
 
   // file uplaod
@@ -159,13 +153,17 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.notifierService.showSuccess("save to draft sucessfull")
     this.viewClaimList = true;
     this.editCliamList = false;
+    this.pageNo = 0;
+    this.getClaimUploadList();
+
   }
 
   submitClaim() {
     this.apiService.forwardClaim(this.ClaimListDataById.id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
-        this.getClaimSubmiitedList();
+        this.pageNo = 0;
+        this.getClaimUploadList();
         this.viewClaimList = true;
         this.editCliamList = false;
         this.isSucessUpload = false;
