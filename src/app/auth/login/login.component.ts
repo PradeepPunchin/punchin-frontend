@@ -46,7 +46,8 @@ export class LoginComponent implements OnInit {
       this.loginFormSubmitting = true;
       this.apiService.login({
         userId: this.loginForm.value.userId,
-        password: this.loginForm.value.password
+        password: this.loginForm.value.password,
+        "platform": "WEB"
       }).subscribe((res: ApiResponse<ILoginResponse> | any) => {
         if (res?.isSuccess) {
           this.loginFormSubmitting = false;
