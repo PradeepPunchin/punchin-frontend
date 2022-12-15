@@ -27,6 +27,8 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   bsModalRef1?: BsModalRef;
   bsModalRef2?: BsModalRef;
   // modalRef?: BsModalRef;
+  isDownloadDoc: boolean = false
+
 
 
 
@@ -110,6 +112,22 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     a.href = this.downlaodUrl;
     document.body.appendChild(a);
     a.click();
+  }
+
+  downloadAllDocumnet() {
+    this.isDownloadDoc = true
+    this.apiService.getDownlaodAllDocuments(this.documentVerificationRequestId).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        var link = document.createElement("a")
+        link.href = res?.data
+        link.click()
+        this.notifierService.showSuccess(res?.message);
+        this.isDownloadDoc = false
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+      this.isDownloadDoc = false
+    })
   }
 
 }

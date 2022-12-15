@@ -52,7 +52,8 @@ export class ApiService {
     return this.http.put(`${this.baseApiUrl}banker/claim/submit`, "")
   }
   downloadMISFile(data: any) {
-    return this.http.get(`${this.baseApiUrl}banker/downloadMISFile?claimStatus=${data}`)
+    // return this.http.get(`${this.baseApiUrl}banker/downloadMISFile?claimStatus=${data}`)
+    return this.http.get(`${this.baseApiUrl}banker/download-excel-format`)
   }
 
   getClaimListByClaimid(id: any) {
@@ -86,6 +87,10 @@ export class ApiService {
 
   getAcceptAndRejectDocuments(id: number, docId: number, body: any) {
     return this.http.post(`${this.baseApiUrl}verifier/claim/${id}/document/${docId}/doc-approve-reject`, body);
+  }
+
+  getDownlaodAllDocuments(id: any) {
+    return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/download-all-documents`)
   }
 }
 

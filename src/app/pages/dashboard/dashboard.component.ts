@@ -119,6 +119,7 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
         this.getClaimList();
+        this.showCardDetails("ALL");
         this.isShowFileUploaded = true;
         if (this.cordListData.length > 0) {
           this.isShow = false
@@ -149,9 +150,12 @@ export class DashboardComponent implements OnInit {
   downloadMISFile(data: any) {
     this.apiService.downloadMISFile(data).subscribe((res: any) => {
       if (res?.isSuccess) {
-        console.log(res, "res");
-
+        var link = document.createElement("a")
+        link.href = res.data
+        link.click()
       }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
     })
   }
 
@@ -232,7 +236,9 @@ export class DashboardComponent implements OnInit {
   openModal1(template: any) {
     this.isShowFileUploaded = false;
     const initialState: ModalOptions = {
-      class: 'file-modal-custom-width'
+      class: 'file-modal-custom-width',
+      backdrop: 'static',
+      keyboard: false
     };
     this.bsModalRef = this.modalService.show(template, initialState);
   }
