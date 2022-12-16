@@ -149,10 +149,6 @@
 
 <!-- Documentation Upload -->
 <div class="container-fluid documentation-upload-box" *ngIf="editCliamList">
-    <h6 class="documentation-upload-heading" (click)="back()" style="cursor:pointer">
-        <i class="fa fa-arrow-left" style="margin-right: 5px"></i>Back
-    </h6>
-
     <h6 class="documentation-upload-heading">Documentation Upload</h6>
     <form [formGroup]="showClaimForm">
         <div class="borrower-details">
@@ -274,12 +270,13 @@
                 </select>
             </div>
             <div class="col-4">
-                <input type="file" multiple (change)="fileBrowseHandler($event)" accept=".pdf,.jpg,.jpeg,.png" />
+                <input type="file" multiple (change)="fileBrowseHandler($event)" accept=".pdf,.jpg,.jpeg,.png"
+                    formControlName="files" />
             </div>
             <div class="col-4">
-                <button type="button" class="btn btn-primary" (click)="uploadDocument()">
+                <button type="button" class="btn btn-primary" (click)="uploadDocument()" [disabled]="!uploadForm.valid">
                     <ng-container *ngIf="isUploaded;else isUploadedDone">
-                        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Uploading..
+                        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Uploading...
                     </ng-container>
                     <ng-template #isUploadedDone>
                         Upload

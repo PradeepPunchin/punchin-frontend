@@ -60,7 +60,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       balance_claim_amt: ['', [Validators.required]],
     })
     this.uploadForm = this.formBuilder.group({
-      docType: [null, [Validators.required]]
+      docType: [null, [Validators.required]],
+      files: ["", [Validators.required]]
     })
     this.getClaimUploadList();
   }
@@ -114,6 +115,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       }
     })
   }
+
   saveToDraft() {
     this.apiService.DocumnetSaveDraft(this.ClaimListDataById.id).subscribe((res: any) => {
       if (res?.isSuccess) {
@@ -135,11 +137,13 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.viewDocument = item.documentUrlDTOS[0].docUrl
     window.open(this.viewDocument)
   }
+
   deleteDoc(id: any) {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
-        this.editClaimList(this.docId)
+        this.editClaimList(this.docId);
+        this.isSucessUpload = false;
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -153,6 +157,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.editCliamList = false;
     this.isSucessUpload = false;
   }
+
   //pagination
   pageChanged(event: PageChangedEvent) {
     if (this.submittedClaimList && this.submittedClaimList.length !== this.totalrecords) {
@@ -161,6 +166,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     }
 
   }
+
   pagePerData(event: any) {
     this.pageSize = event.target.value
     this.getClaimUploadList();
@@ -171,32 +177,36 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.file = event.target.files[0];
   }
 
+  uploadDocument() {
+    if (!this.file) {
+      this.notifierService.showError("Please Select File")
+    }
+    else {
+      this.isUploaded = true
+      let selectedDoc = this.uploadForm.controls.docType.value
+      const formData: FormData = new FormData();
+      formData.append('multipartFiles', this.file,)
+      this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.isUploadedTable = true
+          this.isSubmittedTable = false
+          this.isUploaded = false
+          this.uploadedData = res?.data.claimDocuments
+          this.notifierService.showSuccess(res?.message);
+          this.isSucessUpload = true
+          this.uploadForm.reset();
+        }
+      }, (error: any) => {
+        this.notifierService.showError(error?.error?.message || "Something went wrong");
+        this.isUploaded = false
+      })
+    }
+  }
+
   viewUploadedDoc(item: any) {
     this.viewDocument = item.documentUrls[0].docUrl
     window.open(this.viewDocument)
   }
-
-  uploadDocument() {
-    this.isUploaded = true
-    let selectedDoc = this.uploadForm.controls.docType.value
-    const formData: FormData = new FormData();
-    formData.append('multipartFiles', this.file,);
-    this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.isUploadedTable = true
-        this.isSubmittedTable = false
-        this.isUploaded = false
-        this.uploadedData = res?.data.claimDocuments
-        this.notifierService.showSuccess(res?.message);
-        this.isSucessUpload = true
-        this.uploadForm.reset()
-      }
-    }, (error: any) => {
-      this.notifierService.showError(error?.error?.message || "Something went wrong");
-      this.isUploaded = false
-    })
-  }
-
 
   submitClaim() {
     this.apiService.forwardClaim(this.ClaimListDataById.id).subscribe((res: any) => {
@@ -208,9 +218,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.editCliamList = false;
         this.isSucessUpload = false;
       }
-    },
-      (error: any) => {
-        this.notifierService.showError(error?.error?.message || "Something went wrong");
-      })
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
   }
 }
