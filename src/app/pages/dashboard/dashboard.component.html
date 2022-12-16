@@ -170,7 +170,9 @@
                             <td>{{item.nomineeContactNumber}}</td>
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
-                            <td class="text-center status-button">{{item.claimStatus}}</td>
+                            <td class="text-center status-button">
+                                {{item.claimStatus}}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -681,11 +683,11 @@
                     (click)="innerStep = 1" (click)="verifierCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
             <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                *ngIf="verifiercordListData.length > 0">
+                *ngIf="verifiercordListData.length > 0 && onStep === 0" (input)="filterByStatus($event)">
                 <option selected>Filter by Status</option>
-                <option value="1">All</option>
-                <option value="2">Pending</option>
-                <option value="3">Sent to Insurer</option>
+                <option value="ALL">All</option>
+                <option value="WIP">In-Progress</option>
+                <!-- <option value="3">Sent to Insurer</option> -->
             </select>
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 0">

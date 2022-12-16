@@ -33,7 +33,6 @@ export class DashboardComponent implements OnInit {
   pageSize: number = 7;
   onStep: number = 0;
   cordListData: any = []
-
   cardList: any
   isShow: boolean = true
   verifierCardList: any
@@ -41,8 +40,9 @@ export class DashboardComponent implements OnInit {
   innerStep: number = 0
   isShowFileUploaded: boolean = true
   bankerData: any;
-  verifierData: any
+  verifierData: any = "ALL"
   bsModalRef?: BsModalRef;
+  filterStatus: any
 
 
   constructor(
@@ -182,7 +182,7 @@ export class DashboardComponent implements OnInit {
     if (data === 'UNDER_VERIFICATION') {
       this.router.navigate(['/pages/document-verification'])
     } else {
-      this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
+      this.apiService.getVerifierClaimsData(this.verifierData, this.pageNo, this.pageSize).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.verifierCardList = res?.data
           this.verifiercordListData = res?.data.content
@@ -190,6 +190,15 @@ export class DashboardComponent implements OnInit {
         }
       })
     }
+  }
+  filterByStatus(event: any) {
+    this.verifierData = event.target.value
+    this.pageNo = 0;
+    this.verifierCardDetails(this.verifierData)
+
+
+    console.log(this.verifierData, "this.filture");
+
   }
 
 

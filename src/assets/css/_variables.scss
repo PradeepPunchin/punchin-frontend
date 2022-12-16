@@ -5,6 +5,7 @@
 // Colors
 $primary: #212060;
 $secondary: #fecd08;
+$verifyTabColor: #d8c148;
 $fadeYellow: #ece3a1;
 $black: #000000;
 $white: #ffffff;
@@ -40,7 +41,10 @@ $redButtonColor: rgba(236, 131, 124, 0.15);
 $previewBorderColor: #e8e8e8;
 $uploadTextColor: #0f0f0f;
 $uploadButtonBorderColor: #d4d8df;
-$verifyTabColor: #d8c148;
+$statusVerifyColor: #d8c148;
+$statusSubmittedColor: #7fd06e;
+$statusProgressColor: #6b9bf9;
+$statusAgentColor: #8888dd;
 $deleteColor: red;
 
 // Font Sizes
