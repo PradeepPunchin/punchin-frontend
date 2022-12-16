@@ -90,7 +90,9 @@ export class DashboardComponent implements OnInit {
           this.isShow = false
         }
       }
-    })
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
   }
 
   getBankerDashboardData() {
@@ -112,6 +114,8 @@ export class DashboardComponent implements OnInit {
         this.claimListContent = res?.data.content
         this.totalrecords = res?.data.totalElements
       }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
     })
   }
 
@@ -198,9 +202,6 @@ export class DashboardComponent implements OnInit {
     if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
       this.pageNo = event.page - 1;
       this.showCardDetails("ALL");
-    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'WIP') {
-      this.pageNo = event.page - 1;
-      this.showCardDetails("WIP");
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'SETTLED') {
       this.pageNo = event.page - 1;
       this.showCardDetails("SETTLED");

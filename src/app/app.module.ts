@@ -27,9 +27,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-top-right',
       preventDuplicates: true,
-      closeButton: true
+      closeButton: true,
+      newestOnTop: false,
+
     }),
     ModalModule.forRoot()
   ],
