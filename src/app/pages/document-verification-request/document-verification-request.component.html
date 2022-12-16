@@ -142,15 +142,14 @@
                                                                         src="assets/icons/cross-red.svg">
                                                         </span>
                                                 </td>
-                                                <td class="text-center" (click)="openModal(item.id)"
-                                                        style="cursor:pointer;"><img src="assets/icons/eye.svg"></td>
+                                                <td class="text-center" (click)="openModal(item.id)"> <span><img
+                                                                        src="assets/icons/eye.svg"></span></td>
                                         </tr>
                                 </tbody>
                         </ng-container>
 
                 </table>
         </div>
-
         <div class="pagination-box d-flex justify-content-end align-items-center"
                 *ngIf="verifierRequestList.length > 0">
                 <!-- <div class="pages-per-rows d-flex align-items-center">
@@ -159,7 +158,6 @@
             <option [value]="totalrecords">{{totalrecords}}</option>
         </select>
     </div> -->
-
                 <div class="pagination-content">
                         <pagination [boundaryLinks]="true" [totalItems]="totalrecords"
                                 (pageChanged)="pageChanged($event)" [maxSize]="3" previousText="&lsaquo;"
@@ -167,7 +165,6 @@
                         </pagination>
                 </div>
         </div>
-
 </div>
 <!-- <ng-container *ngIf="!verifierRequestList || (verifierRequestList && verifierRequestList?.length === 0)">
         <div class="error-wrapper">

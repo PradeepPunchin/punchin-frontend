@@ -106,10 +106,12 @@
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
                             <td class="text-center">
-                                <span (click)="editClaimList(item.id)" *ngIf="item.isForwardToVerifier === false"><img
-                                        src="assets/icons/action.svg"></span>
-                                <span *ngIf="item.isForwardToVerifier === true"><img
-                                        src="assets/icons/action(fade).svg"></span>
+                                <ng-container *ngIf="item.claimStatus === 'CLAIM_INTIMATED'; else OtherStatus">
+                                    <span (click)="editClaimList(item.id)"><img src="assets/icons/action.svg"></span>
+                                </ng-container>
+                                <ng-template #OtherStatus>
+                                    <span><img src="assets/icons/action(fade).svg"></span>
+                                </ng-template>
                             </td>
                         </tr>
                     </tbody>
