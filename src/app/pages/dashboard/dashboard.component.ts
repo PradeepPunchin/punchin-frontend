@@ -112,7 +112,7 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.claimList = res?.data
         this.claimListContent = res?.data.content
-        this.totalrecords = res?.data.totalElements
+        this.totalrecords = res?.data.totalRecords
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");

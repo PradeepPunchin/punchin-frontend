@@ -618,7 +618,7 @@
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                    max-size="3"></pagination>
+                    [maxSize]="2"></pagination>
             </div>
         </div>
     </div>
@@ -673,7 +673,7 @@
         </div>
     </div>
 
-    <div class="cases-claims-box">
+    <div class="cases-claims-box verifier-table">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6 *ngIf="(onStep === 0 || onStep === 1 ) && verifiercordListData.length > 0">Cases/Claims</h6>
             <div *ngIf="onStep === 2">
