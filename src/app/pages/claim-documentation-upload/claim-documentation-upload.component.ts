@@ -14,7 +14,7 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
 export class ClaimDocumentationUploadComponent implements OnInit {
   totalrecords!: number;
   pageNo: number = 0;
-  pageSize: number = 10;
+  pageSize: number = 7;
   totalpage!: number;
   submittedClaimList: any;
   submittedclaimListContent: any = []
@@ -27,11 +27,12 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   files: any[] = [];
   isSucessUpload: boolean = false
   filterData: any = "ALL";
-  isUploaded: boolean = false
   viewDocument: any
   uploadedData: any
   isUploadedTable: boolean = false
   isSubmittedTable: boolean = false
+  docId: any
+  isUploaded: boolean = false
 
 
 
@@ -93,14 +94,15 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.getClaimUploadList(this.filterData, this.pageNo, this.pageSize).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.submittedClaimList = res?.data
-        this.submittedclaimListContent = res?.data.content
-        this.totalrecords = res?.data.totalRecords
-        this.totalpage = res?.data.totalPages
+        this.submittedclaimListContent = res?.data?.content
+        this.totalrecords = res?.data?.totalRecords
+        this.totalpage = res?.data?.totalPages
       }
     })
   }
 
   editClaimList(id: any) {
+    this.docId = id
     this.apiService.getClaimListByClaimid(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.isUploadedTable = false
@@ -137,8 +139,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
-        this.viewClaimList = true;
-        this.editCliamList = false;
+        this.editClaimList(this.docId)
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -184,16 +185,15 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       if (res?.isSuccess) {
         this.isUploadedTable = true
         this.isSubmittedTable = false
+        this.isUploaded = false
         this.uploadedData = res?.data.claimDocuments
         this.notifierService.showSuccess(res?.message);
-        this.isUploaded = false
         this.isSucessUpload = true
         this.uploadForm.reset()
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
       this.isUploaded = false
-
     })
   }
 

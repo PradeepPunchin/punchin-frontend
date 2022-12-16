@@ -81,34 +81,46 @@
                     <thead>
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
-                            <th scope="col">Lender Name </th>
+                            <th scope="col">Punchin Claim Id </th>
+                            <th scope="col">Punchin Banker Id</th>
+                            <th scope="col">Claim Inward Date</th>
                             <th scope="col">Borrower Name</th>
-                            <th scope="col">Borrower contact number</th>
+                            <th scope="col">Borrower Contact Number</th>
+                            <th scope="col">Borrower City</th>
+                            <th scope="col">Borrower State</th>
+                            <th scope="col">Borrower Pin Code</th>
+                            <th scope="col">Borrower Email Id</th>
+                            <th scope="col">Borrower Alternate Contact Number</th>
+                            <th scope="col">Borrower Alternate Contact Details</th>
+                            <th scope="col">Borrower DOB</th>
                             <th scope="col">Loan Account Number</th>
-                            <th scope="col">Borrower address</th>
-                            <th scope="col">Loan Type/Category </th>
-                            <!-- <th scope="col">Loan o/s amt </th> -->
-                            <th scope="col">Branch code </th>
-                            <th scope="col">Branch Name </th>
+                            <th scope="col">Borrower Address</th>
+                            <th scope="col">Loan Type</th>
+                            <th scope="col">Loan Disbursal Date</th>
+                            <th scope="col">Loan Outstanding Amount</th>
+                            <th scope="col">Loan Amount</th>
+                            <th scope="col">Loan Amount Paid By Borrower</th>
+                            <th scope="col">Loan Amount Balance</th>
+                            <th scope="col">Branch Code</th>
+                            <th scope="col">Branch Name</th>
                             <th scope="col">Branch Address</th>
-                            <th scope="col">Branch Pincode </th>
-                            <th scope="col">Loan Account Mgr
-                                Name (current)</th>
-                            <th scope="col">Acnt Mgr Phone
-                                Number (current)</th>
-                            <th scope="col">Insurer Name </th>
-                            <th scope="col">Borrower Pol. Number</th>
-                            <th scope="col">Master Pol number </th>
-                            <th scope="col">Policy Start Date </th>
-                            <th scope="col">Policy Coverage
-                                Duration (Years)</th>
-                            <th scope="col">Policy Sum Assured </th>
-                            <th scope="col">Nominee Name </th>
-                            <th scope="col">Nominee
-                                Relationship </th>
-                            <th scope="col">Contact Number </th>
-                            <th scope="col">Email id </th>
-                            <th scope="col">Nominee Address </th>
+                            <th scope="col">Branch Pin Code</th>
+                            <th scope="col">Branch City</th>
+                            <th scope="col">Branch State</th>
+                            <th scope="col">Loan Account Manager Name</th>
+                            <th scope="col">Account Manager Contact Number</th>
+                            <th scope="col">Insurer Name</th>
+                            <th scope="col">Master Pol Number</th>
+                            <th scope="col">Policy Number</th>
+                            <th scope="col">Policy Start Date</th>
+                            <th scope="col">Policy Coverage Duration</th>
+                            <th scope="col">Policy Sum Assured</th>
+                            <th scope="col">Insurer Claim Id</th>
+                            <th scope="col">Nominee Name</th>
+                            <th scope="col">Nominee RelationShip</th>
+                            <th scope="col">Nominee Contact Number</th>
+                            <th scope="col">Nominee Email Id</th>
+                            <th scope="col">Nominee Address</th>
                             <th scope="col" class="text-center">Status</th>
                         </tr>
                     </thead>
@@ -117,31 +129,47 @@
                             <td>
                                 {{ (pageNo) * pageSize + i +1 }}
                             </td>
-                            <td>Leader</td>
+                            <td>{{item.punchinClaimId}}</td>
+                            <td>{{item.punchinBankerId}}</td>
+                            <td>{{item.claimInwardDate | date}}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
+                            <td>{{item.borrowerCity}}</td>
+                            <td>{{item.borrowerState}}</td>
+                            <td>{{item.borrowerPinCode}}</td>
+                            <td>{{item.borrowerEmailId}}</td>
+                            <td>{{item.borrowerAlternateContactNumber}}</td>
+                            <td>{{item.borrowerAlternateContactDetails}}</td>
+                            <td>{{item.borrowerDob}}</td>
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
-                            <td>{{item.loanType}}</td>
+                            <td>{{item.loanType }}</td>
+                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanOutstandingAmount}}</td>
+                            <td>{{item.loanAmount}}</td>
+                            <td>{{item.loanAmountPaidByBorrower}}</td>
+                            <td>{{item.loanAmountBalance}}</td>
                             <td>{{item.branchCode}}</td>
                             <td>{{item.branchName}}</td>
                             <td>{{item.branchAddress}}</td>
                             <td>{{item.branchPinCode}}</td>
+                            <td>{{item.branchCity}}</td>
+                            <td>{{item.branchState}}</td>
                             <td>{{item.loanAccountManagerName}}</td>
                             <td>{{item.accountManagerContactNumber}}</td>
                             <td>{{item.insurerName}}</td>
-                            <td>{{item.policyNumber}}</td>
                             <td>{{item.masterPolNumber}}</td>
-                            <td>{{item.policyStartDate | date}}</td>
-                            <td>{{item.policyCoverageDuration}} Years</td>
+                            <td>{{item.policyNumber}}</td>
+                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
+                            <td>{{item.insurerClaimId}}</td>
                             <td>{{item.nomineeName}}</td>
                             <td>{{item.nomineeRelationShip}}</td>
                             <td>{{item.nomineeContactNumber}}</td>
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
                             <td class="text-center status-button">{{item.claimStatus}}</td>
-
                         </tr>
                     </tbody>
                 </table>
@@ -153,36 +181,47 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Lender Name </th>
+                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">Insurer Claim Id</th>
+                        <th scope="col">Punchin Banker Id</th>
+                        <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
-                        <th scope="col">Borrower contact number</th>
+                        <th scope="col">Borrower Contact Number</th>
+                        <th scope="col">Borrower City</th>
+                        <th scope="col">Borrower State</th>
+                        <th scope="col">Borrower Pin Code</th>
+                        <th scope="col">Borrower Email Id</th>
+                        <th scope="col">Borrower Alternate Contact Number</th>
+                        <th scope="col">Borrower Alternate Contact Details</th>
+                        <th scope="col">Borrower DOB</th>
                         <th scope="col">Loan Account Number</th>
-                        <th scope="col">Borrower address</th>
-                        <th scope="col">Loan Type/Category </th>
-                        <!-- <th scope="col">Loan o/s amt </th> -->
-                        <th scope="col">Branch code </th>
-                        <th scope="col">Branch Name </th>
+                        <th scope="col">Borrower Address</th>
+                        <th scope="col">Loan Type</th>
+                        <th scope="col">Loan Disbursal Date</th>
+                        <th scope="col">Loan Outstanding Amount</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">Loan Amount Paid By Borrower</th>
+                        <th scope="col">Loan Amount Balance</th>
+                        <th scope="col">Branch Code</th>
+                        <th scope="col">Branch Name</th>
                         <th scope="col">Branch Address</th>
-                        <th scope="col">Branch Pincode </th>
-                        <th scope="col">Loan Account Mgr
-                            Name (current)</th>
-                        <th scope="col">Acnt Mgr Phone
-                            Number (current)</th>
-                        <th scope="col">Insurer Name </th>
-                        <th scope="col">Borrower Pol. Number</th>
-                        <th scope="col">Master Pol number </th>
-                        <th scope="col">Policy Start Date </th>
-                        <th scope="col">Policy Coverage
-                            Duration (Years)</th>
-                        <th scope="col">Policy Sum Assured </th>
-                        <th scope="col">Nominee Name </th>
-                        <th scope="col">Nominee
-                            Relationship </th>
-                        <th scope="col">Contact Number </th>
-                        <th scope="col">Email id </th>
-                        <th scope="col">Nominee Address </th>
+                        <th scope="col">Branch Pin Code</th>
+                        <th scope="col">Branch City</th>
+                        <th scope="col">Branch State</th>
+                        <th scope="col">Loan Account Manager Name</th>
+                        <th scope="col">Account Manager Contact Number</th>
+                        <th scope="col">Insurer Name</th>
+                        <th scope="col">Master Pol Number</th>
+                        <th scope="col">Policy Number</th>
+                        <th scope="col">Policy Start Date</th>
+                        <th scope="col">Policy Coverage Duration</th>
+                        <th scope="col">Policy Sum Assured</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee RelationShip</th>
+                        <th scope="col">Nominee Contact Number</th>
+                        <th scope="col">Nominee Email Id</th>
+                        <th scope="col">Nominee Address</th>
                         <th scope="col" class="text-center">Status</th>
-
                     </tr>
                 </thead>
                 <ng-container *ngIf="cordListData.length > 0 && isShowFileUploaded">
@@ -191,23 +230,40 @@
                             <td>
                                 {{ (pageNo) * pageSize + i +1 }}
                             </td>
-                            <td>Leader</td>
+                            <td>{{item.punchinClaimId}}</td>
+                            <td>{{item.insurerClaimId}}</td>
+                            <td>{{item.punchinBankerId}}</td>
+                            <td>{{item.claimInwardDate | date}}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
+                            <td>{{item.borrowerCity}}</td>
+                            <td>{{item.borrowerState}}</td>
+                            <td>{{item.borrowerPinCode}}</td>
+                            <td>{{item.borrowerEmailId}}</td>
+                            <td>{{item.borrowerAlternateContactNumber}}</td>
+                            <td>{{item.borrowerAlternateContactDetails}}</td>
+                            <td>{{item.borrowerDob}}</td>
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
-                            <td>{{item.loanType}}</td>
+                            <td>{{item.loanType }}</td>
+                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanOutstandingAmount}}</td>
+                            <td>{{item.loanAmount}}</td>
+                            <td>{{item.loanAmountPaidByBorrower}}</td>
+                            <td>{{item.loanAmountBalance}}</td>
                             <td>{{item.branchCode}}</td>
                             <td>{{item.branchName}}</td>
                             <td>{{item.branchAddress}}</td>
                             <td>{{item.branchPinCode}}</td>
+                            <td>{{item.branchCity}}</td>
+                            <td>{{item.branchState}}</td>
                             <td>{{item.loanAccountManagerName}}</td>
                             <td>{{item.accountManagerContactNumber}}</td>
                             <td>{{item.insurerName}}</td>
-                            <td>{{item.policyNumber}}</td>
                             <td>{{item.masterPolNumber}}</td>
-                            <td>{{item.policyStartDate | date}}</td>
-                            <td>{{item.policyCoverageDuration}} Years</td>
+                            <td>{{item.policyNumber}}</td>
+                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.nomineeName}}</td>
                             <td>{{item.nomineeRelationShip}}</td>
@@ -215,7 +271,6 @@
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
                             <td class="text-center status-button">{{item.claimStatus}}</td>
-
                         </tr>
                     </tbody>
                 </ng-container>
@@ -227,36 +282,47 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Lender Name </th>
+                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">Punchin Banker Id</th>
+                        <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
-                        <th scope="col">Borrower contact number</th>
+                        <th scope="col">Borrower Contact Number</th>
+                        <th scope="col">Borrower City</th>
+                        <th scope="col">Borrower State</th>
+                        <th scope="col">Borrower Pin Code</th>
+                        <th scope="col">Borrower Email Id</th>
+                        <th scope="col">Borrower Alternate Contact Number</th>
+                        <th scope="col">Borrower Alternate Contact Details</th>
+                        <th scope="col">Borrower DOB</th>
                         <th scope="col">Loan Account Number</th>
-                        <th scope="col">Borrower address</th>
-                        <th scope="col">Loan Type/Category </th>
-                        <!-- <th scope="col">Loan o/s amt </th> -->
-                        <th scope="col">Branch code </th>
-                        <th scope="col">Branch Name </th>
+                        <th scope="col">Borrower Address</th>
+                        <th scope="col">Loan Type</th>
+                        <th scope="col">Loan Disbursal Date</th>
+                        <th scope="col">Loan Outstanding Amount</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">Loan Amount Paid By Borrower</th>
+                        <th scope="col">Loan Amount Balance</th>
+                        <th scope="col">Branch Code</th>
+                        <th scope="col">Branch Name</th>
                         <th scope="col">Branch Address</th>
-                        <th scope="col">Branch Pincode </th>
-                        <th scope="col">Loan Account Mgr
-                            Name (current)</th>
-                        <th scope="col">Acnt Mgr Phone
-                            Number (current)</th>
-                        <th scope="col">Insurer Name </th>
-                        <th scope="col">Borrower Pol. Number</th>
-                        <th scope="col">Master Pol number </th>
-                        <th scope="col">Policy Start Date </th>
-                        <th scope="col">Policy Coverage
-                            Duration (Years)</th>
-                        <th scope="col">Policy Sum Assured </th>
-                        <th scope="col">Nominee Name </th>
-                        <th scope="col">Nominee
-                            Relationship </th>
-                        <th scope="col">Contact Number </th>
-                        <th scope="col">Email id </th>
-                        <th scope="col">Nominee Address </th>
+                        <th scope="col">Branch Pin Code</th>
+                        <th scope="col">Branch City</th>
+                        <th scope="col">Branch State</th>
+                        <th scope="col">Loan Account Manager Name</th>
+                        <th scope="col">Account Manager Contact Number</th>
+                        <th scope="col">Insurer Name</th>
+                        <th scope="col">Master Pol Number</th>
+                        <th scope="col">Policy Number</th>
+                        <th scope="col">Policy Start Date</th>
+                        <th scope="col">Policy Coverage Duration</th>
+                        <th scope="col">Policy Sum Assured</th>
+                        <th scope="col">Insurer Claim Id</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee RelationShip</th>
+                        <th scope="col">Nominee Contact Number</th>
+                        <th scope="col">Nominee Email Id</th>
+                        <th scope="col">Nominee Address</th>
                         <th scope="col" class="text-center">Status</th>
-
                     </tr>
                 </thead>
                 <ng-container *ngIf="cordListData.length > 0 && isShowFileUploaded">
@@ -265,31 +331,47 @@
                             <td>
                                 {{ (pageNo) * pageSize + i +1 }}
                             </td>
-                            <td>Leader</td>
+                            <td>{{item.punchinClaimId}}</td>
+                            <td>{{item.punchinBankerId}}</td>
+                            <td>{{item.claimInwardDate | date}}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
+                            <td>{{item.borrowerCity}}</td>
+                            <td>{{item.borrowerState}}</td>
+                            <td>{{item.borrowerPinCode}}</td>
+                            <td>{{item.borrowerEmailId}}</td>
+                            <td>{{item.borrowerAlternateContactNumber}}</td>
+                            <td>{{item.borrowerAlternateContactDetails}}</td>
+                            <td>{{item.borrowerDob}}</td>
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
-                            <td>{{item.loanType}}</td>
+                            <td>{{item.loanType }}</td>
+                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanOutstandingAmount}}</td>
+                            <td>{{item.loanAmount}}</td>
+                            <td>{{item.loanAmountPaidByBorrower}}</td>
+                            <td>{{item.loanAmountBalance}}</td>
                             <td>{{item.branchCode}}</td>
                             <td>{{item.branchName}}</td>
                             <td>{{item.branchAddress}}</td>
                             <td>{{item.branchPinCode}}</td>
+                            <td>{{item.branchCity}}</td>
+                            <td>{{item.branchState}}</td>
                             <td>{{item.loanAccountManagerName}}</td>
                             <td>{{item.accountManagerContactNumber}}</td>
                             <td>{{item.insurerName}}</td>
-                            <td>{{item.policyNumber}}</td>
                             <td>{{item.masterPolNumber}}</td>
-                            <td>{{item.policyStartDate | date}}</td>
-                            <td>{{item.policyCoverageDuration}} Years</td>
+                            <td>{{item.policyNumber}}</td>
+                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
+                            <td>{{item.insurerClaimId}}</td>
                             <td>{{item.nomineeName}}</td>
                             <td>{{item.nomineeRelationShip}}</td>
                             <td>{{item.nomineeContactNumber}}</td>
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
                             <td class="text-center status-button">{{item.claimStatus}}</td>
-
                         </tr>
                     </tbody>
                 </ng-container>
@@ -300,36 +382,47 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Lender Name </th>
+                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">Punchin Banker Id</th>
+                        <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
-                        <th scope="col">Borrower contact number</th>
+                        <th scope="col">Borrower Contact Number</th>
+                        <th scope="col">Borrower City</th>
+                        <th scope="col">Borrower State</th>
+                        <th scope="col">Borrower Pin Code</th>
+                        <th scope="col">Borrower Email Id</th>
+                        <th scope="col">Borrower Alternate Contact Number</th>
+                        <th scope="col">Borrower Alternate Contact Details</th>
+                        <th scope="col">Borrower DOB</th>
                         <th scope="col">Loan Account Number</th>
-                        <th scope="col">Borrower address</th>
-                        <th scope="col">Loan Type/Category </th>
-                        <!-- <th scope="col">Loan o/s amt </th> -->
-                        <th scope="col">Branch code </th>
-                        <th scope="col">Branch Name </th>
+                        <th scope="col">Borrower Address</th>
+                        <th scope="col">Loan Type</th>
+                        <th scope="col">Loan Disbursal Date</th>
+                        <th scope="col">Loan Outstanding Amount</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">Loan Amount Paid By Borrower</th>
+                        <th scope="col">Loan Amount Balance</th>
+                        <th scope="col">Branch Code</th>
+                        <th scope="col">Branch Name</th>
                         <th scope="col">Branch Address</th>
-                        <th scope="col">Branch Pincode </th>
-                        <th scope="col">Loan Account Mgr
-                            Name (current)</th>
-                        <th scope="col">Acnt Mgr Phone
-                            Number (current)</th>
-                        <th scope="col">Insurer Name </th>
-                        <th scope="col">Borrower Pol. Number</th>
-                        <th scope="col">Master Pol number </th>
-                        <th scope="col">Policy Start Date </th>
-                        <th scope="col">Policy Coverage
-                            Duration (Years)</th>
-                        <th scope="col">Policy Sum Assured </th>
-                        <th scope="col">Nominee Name </th>
-                        <th scope="col">Nominee
-                            Relationship </th>
-                        <th scope="col">Contact Number </th>
-                        <th scope="col">Email id </th>
-                        <th scope="col">Nominee Address </th>
+                        <th scope="col">Branch Pin Code</th>
+                        <th scope="col">Branch City</th>
+                        <th scope="col">Branch State</th>
+                        <th scope="col">Loan Account Manager Name</th>
+                        <th scope="col">Account Manager Contact Number</th>
+                        <th scope="col">Insurer Name</th>
+                        <th scope="col">Master Pol Number</th>
+                        <th scope="col">Policy Number</th>
+                        <th scope="col">Policy Start Date</th>
+                        <th scope="col">Policy Coverage Duration</th>
+                        <th scope="col">Policy Sum Assured</th>
+                        <th scope="col">Insurer Claim Id</th>
+                        <th scope="col">Nominee Name</th>
+                        <th scope="col">Nominee RelationShip</th>
+                        <th scope="col">Nominee Contact Number</th>
+                        <th scope="col">Nominee Email Id</th>
+                        <th scope="col">Nominee Address</th>
                         <th scope="col" class="text-center">Status</th>
-
                     </tr>
                 </thead>
                 <ng-container *ngIf="cordListData.length > 0 && isShowFileUploaded">
@@ -338,31 +431,47 @@
                             <td>
                                 {{ (pageNo) * pageSize + i +1 }}
                             </td>
-                            <td>Leader</td>
+                            <td>{{item.punchinClaimId}}</td>
+                            <td>{{item.punchinBankerId}}</td>
+                            <td>{{item.claimInwardDate | date}}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
+                            <td>{{item.borrowerCity}}</td>
+                            <td>{{item.borrowerState}}</td>
+                            <td>{{item.borrowerPinCode}}</td>
+                            <td>{{item.borrowerEmailId}}</td>
+                            <td>{{item.borrowerAlternateContactNumber}}</td>
+                            <td>{{item.borrowerAlternateContactDetails}}</td>
+                            <td>{{item.borrowerDob}}</td>
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
-                            <td>{{item.loanType}}</td>
+                            <td>{{item.loanType }}</td>
+                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanOutstandingAmount}}</td>
+                            <td>{{item.loanAmount}}</td>
+                            <td>{{item.loanAmountPaidByBorrower}}</td>
+                            <td>{{item.loanAmountBalance}}</td>
                             <td>{{item.branchCode}}</td>
                             <td>{{item.branchName}}</td>
                             <td>{{item.branchAddress}}</td>
                             <td>{{item.branchPinCode}}</td>
+                            <td>{{item.branchCity}}</td>
+                            <td>{{item.branchState}}</td>
                             <td>{{item.loanAccountManagerName}}</td>
                             <td>{{item.accountManagerContactNumber}}</td>
                             <td>{{item.insurerName}}</td>
-                            <td>{{item.policyNumber}}</td>
                             <td>{{item.masterPolNumber}}</td>
-                            <td>{{item.policyStartDate | date}}</td>
-                            <td>{{item.policyCoverageDuration}} Years</td>
+                            <td>{{item.policyNumber}}</td>
+                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
+                            <td>{{item.insurerClaimId}}</td>
                             <td>{{item.nomineeName}}</td>
                             <td>{{item.nomineeRelationShip}}</td>
                             <td>{{item.nomineeContactNumber}}</td>
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
                             <td class="text-center status-button">{{item.claimStatus}}</td>
-
                         </tr>
                     </tbody>
                 </ng-container>
@@ -477,7 +586,7 @@
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                    max-size="5"></pagination>
+                    max-size="3"></pagination>
             </div>
         </div>
     </div>
@@ -766,7 +875,7 @@
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                    max-size="5"></pagination>
+                    max-size="3"></pagination>
             </div>
         </div>
     </div>

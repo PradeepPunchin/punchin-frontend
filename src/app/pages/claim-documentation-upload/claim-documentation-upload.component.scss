@@ -43,7 +43,7 @@
   .table-container {
     .table {
       margin-bottom: 19px;
-      width: 4000px;
+      width: 6000px;
     }
     th {
       background-color: $tableHeaderColor;
@@ -249,6 +249,7 @@
       color: $white;
       margin-left: 16px;
       padding: 6px 14px;
+      margin-right: 16px;
     }
   }
   .btn-outline-primary {

@@ -30,9 +30,10 @@ export class DashboardComponent implements OnInit {
   claimListContent: any = []
   totalrecords!: number;
   pageNo: number = 0;
-  pageSize: number = 10;
+  pageSize: number = 7;
   onStep: number = 0;
   cordListData: any = []
+
   cardList: any
   isShow: boolean = true
   verifierCardList: any

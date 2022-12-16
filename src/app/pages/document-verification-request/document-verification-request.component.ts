@@ -12,10 +12,9 @@ import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals
 export class DocumentVerificationRequestComponent implements OnInit {
   totalrecords!: number;
   pageNo: number = 0;
-  pageSize: number = 10;
+  pageSize: number = 7;
   RequestList: any;
   verifierRequestList: any = []
-  maxSize: number = 5;
   modalRef?: BsModalRef;
 
 
