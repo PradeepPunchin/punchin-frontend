@@ -15,11 +15,11 @@ export class ApiService {
   ) { }
 
   login(body: ILoginRequest) {
-    return this.http.post(`${this.baseApiUrl}auth/login`, body)
+    return this.http.post(`${this.baseApiUrl}auth/login`, body);
   }
 
   logout() {
-    return this.http.get(`${this.baseApiUrl}auth/logout`)
+    return this.http.get(`${this.baseApiUrl}auth/logout`);
   }
 
   // banker api
@@ -29,7 +29,7 @@ export class ApiService {
 
   // upload document
   uploadUserDocument(data: any) {
-    return this.http.post(`${this.baseApiUrl}banker/claim/upload`, data)
+    return this.http.post(`${this.baseApiUrl}banker/claim/upload`, data);
   }
 
   getClaimList(pageNo: number, pageSize: number) {
@@ -45,28 +45,35 @@ export class ApiService {
   }
 
   discardClaims() {
-    return this.http.delete(`${this.baseApiUrl}banker/claim/discard`)
+    return this.http.delete(`${this.baseApiUrl}banker/claim/discard`);
   }
 
   submitClaims() {
-    return this.http.put(`${this.baseApiUrl}banker/claim/submit`, "")
+    return this.http.put(`${this.baseApiUrl}banker/claim/submit`, "");
   }
-  downloadMISFile(data: any) {
-    // return this.http.get(`${this.baseApiUrl}banker/downloadMISFile?claimStatus=${data}`)
-    return this.http.get(`${this.baseApiUrl}banker/download-excel-format`)
+
+  getDownloadExcelFormat() {
+    return this.http.get(`${this.baseApiUrl}banker/download-excel-format`);
   }
 
   getClaimListByClaimid(id: any) {
-    return this.http.get(`${this.baseApiUrl}banker/claim/${id}`)
+    return this.http.get(`${this.baseApiUrl}banker/claim/${id}`);
   }
 
   uploadDocument(claimId: number, docType: any, data: any) {
-    return this.http.put(`${this.baseApiUrl}banker/claim/${claimId}/uploadDocument/${docType}`, data)
+    return this.http.put(`${this.baseApiUrl}banker/claim/${claimId}/uploadDocument/${docType}`, data);
   }
   forwardClaim(id: number) {
-    return this.http.put(`${this.baseApiUrl}banker/claim/${id}/forward-to-verifier`, "")
+    return this.http.put(`${this.baseApiUrl}banker/claim/${id}/forward-to-verifier`, "");
   }
 
+  deleteDocument(docId: number) {
+    return this.http.delete(`${this.baseApiUrl}banker/claim/document/delete/${docId}`);
+  }
+
+  DocumnetSaveDraft(claimId: any) {
+    return this.http.post(`${this.baseApiUrl}banker/claim/${claimId}/documents/save-draft`, "");
+  }
 
   //varifier api
   getVerifierDashboardData() {
@@ -74,11 +81,11 @@ export class ApiService {
   }
 
   getVerifierDocumentRequestData(pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}verifier/claim/data-with-document-status?page=${pageNo}&limit=${pageSize}`)
+    return this.http.get(`${this.baseApiUrl}verifier/claim/data-with-document-status?page=${pageNo}&limit=${pageSize}`);
   }
 
   getVerifierClaimsData(data: any, pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}verifier/claim?claimDataFilter=${data}&page=${pageNo}&limit=${pageSize}`)
+    return this.http.get(`${this.baseApiUrl}verifier/claim?claimDataFilter=${data}&page=${pageNo}&limit=${pageSize}`);
   }
 
   getDocumentDetails(id: number) {
@@ -90,7 +97,7 @@ export class ApiService {
   }
 
   getDownlaodAllDocuments(id: any) {
-    return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/download-all-documents`)
+    return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/download-all-documents`);
   }
 }
 

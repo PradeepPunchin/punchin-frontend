@@ -13,6 +13,7 @@ import { SessionService } from 'src/app/services/session/session.service';
 })
 export class TopNavComponent implements OnInit {
   role: any;
+  userId: any
   isProfileOptionVisible: boolean = false;
 
   navLinks: INavItem[] = [
@@ -38,6 +39,7 @@ export class TopNavComponent implements OnInit {
     private apiService: ApiService,
   ) {
     this.role = this.sessionServive.getSession(STORAGETOKENENUM.role)
+    this.userId = this.sessionServive.getSession(STORAGETOKENENUM.userId)
     if (this.role === ROLES.banker) {
       this.navLinks.push({
         id: 2,

@@ -14,7 +14,7 @@
                         <thead>
                                 <tr class="align-middle">
                                         <th scope="col">S.No</th>
-                                        <th scope="col">Case/Claim Id </th>
+                                        <th scope="col">Punchin Claim Id </th>
                                         <th scope="col">Claim Registration Date </th>
                                         <th scope="col">Borrower Name</th>
                                         <th scope="col">Nominee Name </th>
@@ -37,7 +37,7 @@
                                 <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
                                         <tr>
                                                 <td>{{ (pageNo) * pageSize + i +1 }}</td>
-                                                <td>{{item.id}}</td>
+                                                <td>{{item.punchinClaimId}}</td>
                                                 <td>{{item.claimDate |date}}</td>
                                                 <td>{{item.borrowerName}}</td>
                                                 <td>{{item.nomineeName}}</td>
@@ -142,15 +142,14 @@
                                                                         src="assets/icons/cross-red.svg">
                                                         </span>
                                                 </td>
-                                                <td class="text-center" (click)="openModal(item.id)"
-                                                        style="cursor:pointer;"><img src="assets/icons/eye.svg"></td>
+                                                <td class="text-center" (click)="openModal(item.id)"> <span><img
+                                                                        src="assets/icons/eye.svg"></span></td>
                                         </tr>
                                 </tbody>
                         </ng-container>
 
                 </table>
         </div>
-
         <div class="pagination-box d-flex justify-content-end align-items-center"
                 *ngIf="verifierRequestList.length > 0">
                 <!-- <div class="pages-per-rows d-flex align-items-center">
@@ -159,7 +158,6 @@
             <option [value]="totalrecords">{{totalrecords}}</option>
         </select>
     </div> -->
-
                 <div class="pagination-content">
                         <pagination [boundaryLinks]="true" [totalItems]="totalrecords"
                                 (pageChanged)="pageChanged($event)" [maxSize]="3" previousText="&lsaquo;"
@@ -167,7 +165,6 @@
                         </pagination>
                 </div>
         </div>
-
 </div>
 <!-- <ng-container *ngIf="!verifierRequestList || (verifierRequestList && verifierRequestList?.length === 0)">
         <div class="error-wrapper">

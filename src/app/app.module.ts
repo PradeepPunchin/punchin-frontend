@@ -26,7 +26,12 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      closeButton: true,
+      newestOnTop: false,
+
+    }),
     ModalModule.forRoot()
   ],
   // httpInterceptorProviders

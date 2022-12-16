@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   claimListContent: any = []
   totalrecords!: number;
   pageNo: number = 0;
-  pageSize: number = 10;
+  pageSize: number = 7;
   onStep: number = 0;
   cordListData: any = []
   cardList: any
@@ -40,8 +40,9 @@ export class DashboardComponent implements OnInit {
   innerStep: number = 0
   isShowFileUploaded: boolean = true
   bankerData: any;
-  verifierData: any
+  verifierData: any = "ALL"
   bsModalRef?: BsModalRef;
+  filterStatus: any
 
 
   constructor(
@@ -89,7 +90,9 @@ export class DashboardComponent implements OnInit {
           this.isShow = false
         }
       }
-    })
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
   }
 
   getBankerDashboardData() {
@@ -109,8 +112,10 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.claimList = res?.data
         this.claimListContent = res?.data.content
-        this.totalrecords = res?.data.totalElements
+        this.totalrecords = res?.data.totalRecords
       }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
     })
   }
 
@@ -147,8 +152,8 @@ export class DashboardComponent implements OnInit {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
     })
   }
-  downloadMISFile(data: any) {
-    this.apiService.downloadMISFile(data).subscribe((res: any) => {
+  getDownloadExcelFormat() {
+    this.apiService.getDownloadExcelFormat().subscribe((res: any) => {
       if (res?.isSuccess) {
         var link = document.createElement("a")
         link.href = res.data
@@ -177,7 +182,7 @@ export class DashboardComponent implements OnInit {
     if (data === 'UNDER_VERIFICATION') {
       this.router.navigate(['/pages/document-verification'])
     } else {
-      this.apiService.getVerifierClaimsData(data, this.pageNo, this.pageSize).subscribe((res: any) => {
+      this.apiService.getVerifierClaimsData(this.verifierData, this.pageNo, this.pageSize).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.verifierCardList = res?.data
           this.verifiercordListData = res?.data.content
@@ -185,6 +190,15 @@ export class DashboardComponent implements OnInit {
         }
       })
     }
+  }
+  filterByStatus(event: any) {
+    this.verifierData = event.target.value
+    this.pageNo = 0;
+    this.verifierCardDetails(this.verifierData)
+
+
+    console.log(this.verifierData, "this.filture");
+
   }
 
 
@@ -197,9 +211,6 @@ export class DashboardComponent implements OnInit {
     if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
       this.pageNo = event.page - 1;
       this.showCardDetails("ALL");
-    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'WIP') {
-      this.pageNo = event.page - 1;
-      this.showCardDetails("WIP");
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'SETTLED') {
       this.pageNo = event.page - 1;
       this.showCardDetails("SETTLED");
