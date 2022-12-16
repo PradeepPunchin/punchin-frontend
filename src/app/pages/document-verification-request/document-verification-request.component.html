@@ -14,7 +14,7 @@
                         <thead>
                                 <tr class="align-middle">
                                         <th scope="col">S.No</th>
-                                        <th scope="col">Case/Claim Id </th>
+                                        <th scope="col">Punchin Claim Id </th>
                                         <th scope="col">Claim Registration Date </th>
                                         <th scope="col">Borrower Name</th>
                                         <th scope="col">Nominee Name </th>
@@ -37,7 +37,7 @@
                                 <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
                                         <tr>
                                                 <td>{{ (pageNo) * pageSize + i +1 }}</td>
-                                                <td>{{item.id}}</td>
+                                                <td>{{item.punchinClaimId}}</td>
                                                 <td>{{item.claimDate |date}}</td>
                                                 <td>{{item.borrowerName}}</td>
                                                 <td>{{item.nomineeName}}</td>
