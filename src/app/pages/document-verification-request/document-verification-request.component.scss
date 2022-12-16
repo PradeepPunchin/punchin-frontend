@@ -69,6 +69,9 @@
         }
         td:last-child {
             background-color: $white;
+            span {
+                cursor: pointer;
+            }
         }
     }
     .pagination-box {

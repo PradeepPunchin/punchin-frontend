@@ -43,7 +43,7 @@
   .table-container {
     .table {
       margin-bottom: 19px;
-      width: 4000px;
+      width: 6000px;
     }
     th {
       background-color: $tableHeaderColor;
@@ -69,8 +69,12 @@
     }
     td:last-child {
       background-color: $white;
+      span {
+        cursor: pointer;
+      }
     }
   }
+
   .pagination-box {
     padding: 10px 26px 20px 20px;
     .pages-per-rows {
@@ -192,6 +196,50 @@
       color: $black;
     }
   }
+  .document-upload-table {
+    .table {
+      margin-bottom: 0;
+      thead {
+        border-color: $tableBorderColor;
+        position: sticky;
+        top: 0;
+        tr {
+          border-width: 0.5px;
+          th {
+            background-color: $buttonColor;
+            color: $white;
+            font-weight: 600;
+            font-size: $fontSize12;
+            padding: 11px 16px;
+            border: none;
+          }
+        }
+      }
+      tbody {
+        border: 0.5px solid $tableBorderColor;
+        tr {
+          border-width: 0.5px;
+          td {
+            padding: 8px 16px;
+            font-weight: 500;
+            font-size: $fontSize12;
+            color: $black;
+            border-width: 0.5px;
+            .fa-trash {
+              color: $deleteColor;
+              font-size: $fontSize16;
+              cursor: pointer;
+            }
+            .fa-eye {
+              font-size: $fontSize16;
+              cursor: pointer;
+              color: $buttonColor;
+            }
+          }
+        }
+      }
+    }
+  }
 
   .submit-save-btn {
     margin-top: 30px;
@@ -204,6 +252,7 @@
       color: $white;
       margin-left: 16px;
       padding: 6px 14px;
+      margin-right: 16px;
     }
   }
   .btn-outline-primary {
