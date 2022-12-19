@@ -57,9 +57,11 @@
             <button type="button" class="btn btn-primary btn1"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3" (click)="openModal1(fileTemplate)">
                 <img src="../../../assets/icons/action(white).svg" class="me-2">Upload xls File</button>
-            <button type="button" class="btn btn-outline-primary"
+
+            <button type="button" class="btn btn-outline-primary" (click)="downloadMisReport()"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"><img
-                    src="../../../assets/icons/download.svg" class="me-2">Download MIS report
+                    src="../../../assets/icons/download.svg" class="me-2">Download MIS
+                report
             </button>
             <button type="button" class="btn btn-outline-primary"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"
@@ -73,7 +75,7 @@
                     <thead>
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
-                            <th scope="col">Punchin Claim Id </th>
+                            <th scope="col">PunchIn Ref. ID </th>
                             <th scope="col">Punchin Banker Id</th>
                             <th scope="col">Claim Inward Date</th>
                             <th scope="col">Borrower Name</th>
@@ -123,7 +125,7 @@
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date}}</td>
+                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
@@ -136,7 +138,7 @@
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
                             <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.loanOutstandingAmount}}</td>
                             <td>{{item.loanAmount}}</td>
                             <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -152,7 +154,7 @@
                             <td>{{item.insurerName}}</td>
                             <td>{{item.masterPolNumber}}</td>
                             <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.insurerClaimId}}</td>
@@ -175,7 +177,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">PunchIn Ref. ID</th>
                         <th scope="col">Insurer Claim Id</th>
                         <th scope="col">Punchin Banker Id</th>
                         <th scope="col">Claim Inward Date</th>
@@ -227,7 +229,7 @@
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.insurerClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date}}</td>
+                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
@@ -240,7 +242,7 @@
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
                             <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.loanOutstandingAmount}}</td>
                             <td>{{item.loanAmount}}</td>
                             <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -256,7 +258,7 @@
                             <td>{{item.insurerName}}</td>
                             <td>{{item.masterPolNumber}}</td>
                             <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.nomineeName}}</td>
@@ -276,7 +278,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">PunchIn Ref. ID</th>
                         <th scope="col">Punchin Banker Id</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
@@ -327,7 +329,7 @@
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date}}</td>
+                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
@@ -340,7 +342,7 @@
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
                             <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.loanOutstandingAmount}}</td>
                             <td>{{item.loanAmount}}</td>
                             <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -356,7 +358,7 @@
                             <td>{{item.insurerName}}</td>
                             <td>{{item.masterPolNumber}}</td>
                             <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.insurerClaimId}}</td>
@@ -376,7 +378,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">PunchIn Ref. ID</th>
                         <th scope="col">Punchin Banker Id</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
@@ -427,7 +429,7 @@
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date}}</td>
+                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
@@ -440,7 +442,7 @@
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
                             <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.loanOutstandingAmount}}</td>
                             <td>{{item.loanAmount}}</td>
                             <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -456,7 +458,7 @@
                             <td>{{item.insurerName}}</td>
                             <td>{{item.masterPolNumber}}</td>
                             <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.insurerClaimId}}</td>
@@ -504,7 +506,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">PunchIn Ref. ID</th>
                         <th scope="col">Punchin Banker Id</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
@@ -553,7 +555,7 @@
                         </td>
                         <td>{{item.punchinClaimId}}</td>
                         <td>{{item.punchinBankerId}}</td>
-                        <td>{{item.claimInwardDate | date}}</td>
+                        <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
                         <td>{{item.borrowerCity}}</td>
@@ -566,7 +568,7 @@
                         <td>{{item.loanAccountNumber}}</td>
                         <td>{{item.borrowerAddress}}</td>
                         <td>{{item.loanType }}</td>
-                        <td>{{item.loanDisbursalDate | date}}</td>
+                        <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.loanOutstandingAmount}}</td>
                         <td>{{item.loanAmount}}</td>
                         <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -582,7 +584,7 @@
                         <td>{{item.insurerName}}</td>
                         <td>{{item.masterPolNumber}}</td>
                         <td>{{item.policyNumber}}</td>
-                        <td>{{item.policyStartDate | date }}</td>
+                        <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.policyCoverageDuration}}</td>
                         <td>{{item.policySumAssured}}</td>
                         <td>{{item.insurerClaimId}}</td>
@@ -680,12 +682,13 @@
                 <!-- <option value="3">Sent to Insurer</option> -->
             </select>
         </div>
-        <div class="table-container table-responsive" *ngIf="onStep === 0">
+        <div class="table-container table-responsive"
+            *ngIf="onStep === 0 || onStep === 1 || (onStep === 2 && innerStep === 0) || (onStep === 2 && innerStep === 1)">
             <table class="table table-sm">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id</th>
+                        <th scope="col">Punchin Ref. ID</th>
                         <th scope="col">Claim Registration Date </th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Nominee Name </th>
@@ -706,10 +709,10 @@
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
                         <td>
-                            {{ (pageNo) * pageSize + i +1 }}
+                            {{ (currentPage) * pageSize + i +1 }}
                         </td>
                         <td>{{item.punchinClaimId}}</td>
-                        <td>{{item.claimDate | date }}</td>
+                        <td>{{item.claimDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
                         <td>{{item.nomineeContactNumber}}</td>
@@ -812,536 +815,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="table-container table-responsive" *ngIf="onStep === 1">
-            <table class="table table-sm">
-                <thead>
-                    <tr class="align-middle">
-                        <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id</th>
-                        <th scope="col">Claim Registration Date </th>
-                        <th scope="col">Borrower Name</th>
-                        <th scope="col">Nominee Name </th>
-                        <th scope="col">Contact number</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Signed claim form </th>
-                        <th scope="col">Death Certificate </th>
-                        <th scope="col">Borrower ID Proof</th>
-                        <th scope="col">Borrower Add proof </th>
-                        <th scope="col">Nominee Id Proof </th>
-                        <th scope="col">Nominee Add proof </th>
-                        <th scope="col">Bank A/c Proof </th>
-                        <th scope="col">FIR / Postmortem report</th>
-                        <th scope="col">Additional Doc</th>
-                        <th scope="col" class="text-center ">Status</th>
-
-                    </tr>
-                </thead>
-                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
-                    <tr>
-                        <td>
-                            {{ (pageNo) * pageSize + i +1 }}
-                        </td>
-                        <td>{{item.punchinClaimId}}</td>
-                        <td>{{item.claimDate | date }}</td>
-                        <td>{{item.borrowerName}}</td>
-                        <td>{{item.nomineeName}}</td>
-                        <td>{{item.nomineeContactNumber}}</td>
-                        <td>{{item.nomineeAddress}}</td>
-                        <td>
-                            <span *ngIf="item.singnedClaimDocument === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'REJECTED'"><img
-                                    src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.deathCertificate === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'REJECTED'">
-                                <img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.borrowerIdProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.borrowerAddressProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'REJECTED'"><img
-                                    src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.nomineeIdProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.nomineeAddressProof ==='UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.bankAccountProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.firPostmortemReport === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.additionalDoc === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.additionalDoc ==='APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.additionalDoc === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td class="text-center status-button">{{item.claimStatus}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="table-container table-responsive" *ngIf="onStep === 2 && innerStep === 0">
-            <!-- *ngIf="verifiercordListData.length > 0" -->
-            <table class="table table-sm">
-                <thead>
-                    <tr class="align-middle">
-                        <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id</th>
-                        <th scope="col">Claim Registration Date </th>
-                        <th scope="col">Borrower Name</th>
-                        <th scope="col">Nominee Name </th>
-                        <th scope="col">Contact number</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Signed claim form </th>
-                        <th scope="col">Death Certificate </th>
-                        <th scope="col">Borrower ID Proof</th>
-                        <th scope="col">Borrower Add proof </th>
-                        <th scope="col">Nominee Id Proof </th>
-                        <th scope="col">Nominee Add proof </th>
-                        <th scope="col">Bank A/c Proof </th>
-                        <th scope="col">FIR / Postmortem report</th>
-                        <th scope="col">Additional Doc</th>
-                        <th scope="col" class="text-center ">Status</th>
-
-                    </tr>
-                </thead>
-                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
-                    <tr>
-                        <td>
-                            {{ (pageNo) * pageSize + i +1 }}
-                        </td>
-                        <td>{{item.punchinClaimId}}</td>
-                        <td>{{item.claimDate | date }}</td>
-                        <td>{{item.borrowerName}}</td>
-                        <td>{{item.nomineeName}}</td>
-                        <td>{{item.nomineeContactNumber}}</td>
-                        <td>{{item.nomineeAddress}}</td>
-                        <td>
-                            <span *ngIf="item.singnedClaimDocument === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'REJECTED'"><img
-                                    src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.deathCertificate === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'REJECTED'">
-                                <img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.borrowerIdProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.borrowerAddressProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'REJECTED'"><img
-                                    src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.nomineeIdProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.nomineeAddressProof ==='UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.bankAccountProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.firPostmortemReport === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.additionalDoc === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.additionalDoc ==='APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.additionalDoc === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td class="text-center status-button">{{item.claimStatus}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="table-container table-responsive" *ngIf="onStep === 2 && innerStep === 1">
-            <table class="table table-sm">
-                <thead>
-                    <tr class="align-middle">
-                        <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id</th>
-                        <th scope="col">Claim Registration Date </th>
-                        <th scope="col">Borrower Name</th>
-                        <th scope="col">Nominee Name </th>
-                        <th scope="col">Contact number</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Signed claim form </th>
-                        <th scope="col">Death Certificate </th>
-                        <th scope="col">Borrower ID Proof</th>
-                        <th scope="col">Borrower Add proof </th>
-                        <th scope="col">Nominee Id Proof </th>
-                        <th scope="col">Nominee Add proof </th>
-                        <th scope="col">Bank A/c Proof </th>
-                        <th scope="col">FIR / Postmortem report</th>
-                        <th scope="col">Additional Doc</th>
-                        <th scope="col" class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
-                    <tr>
-                        <td>
-                            {{ (pageNo) * pageSize + i +1 }}
-                        </td>
-                        <td>{{item.punchinClaimId}}</td>
-                        <td>{{item.claimDate | date }}</td>
-                        <td>{{item.borrowerName}}</td>
-                        <td>{{item.nomineeName}}</td>
-                        <td>{{item.nomineeContactNumber}}</td>
-                        <td>{{item.nomineeAddress}}</td>
-                        <td>
-                            <span *ngIf="item.singnedClaimDocument === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'REJECTED'"><img
-                                    src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.deathCertificate === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'REJECTED'">
-                                <img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.borrowerIdProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.borrowerAddressProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'REJECTED'"><img
-                                    src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.nomineeIdProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.nomineeAddressProof ==='UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.bankAccountProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.firPostmortemReport === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.additionalDoc === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.additionalDoc ==='APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.additionalDoc === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td class="text-center"><img src="assets/icons/eye.svg"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-sm" *ngIf="verifiercordListData.length > 0">
-                <thead>
-                    <tr class="align-middle">
-                        <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id</th>
-                        <th scope="col">Claim Registration Date </th>
-                        <th scope="col">Borrower Name</th>
-                        <th scope="col">Nominee Name </th>
-                        <th scope="col">Contact number</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Signed claim form </th>
-                        <th scope="col">Death Certificate </th>
-                        <th scope="col">Borrower ID Proof</th>
-                        <th scope="col">Borrower Add proof </th>
-                        <th scope="col">Nominee Id Proof </th>
-                        <th scope="col">Nominee Add proof </th>
-                        <th scope="col">Bank A/c Proof </th>
-                        <th scope="col">FIR / Postmortem report</th>
-                        <th scope="col">Additional Doc</th>
-                        <th scope="col" class="text-center ">Status</th>
-                    </tr>
-                </thead>
-                <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
-                    <tr>
-                        <td>
-                            {{ (pageNo) * pageSize + i +1 }}
-                        </td>
-                        <td>{{item.punchinClaimId}}</td>
-                        <td>{{item.claimDate | date }}</td>
-                        <td>{{item.borrowerName}}</td>
-                        <td>{{item.nomineeName}}</td>
-                        <td>{{item.nomineeContactNumber}}</td>
-                        <td>{{item.nomineeAddress}}</td>
-                        <td>
-                            <span *ngIf="item.singnedClaimDocument === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.singnedClaimDocument === 'REJECTED'"><img
-                                    src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.deathCertificate === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.deathCertificate === 'REJECTED'">
-                                <img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.borrowerIdProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.borrowerAddressProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'REJECTED'"><img
-                                    src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.nomineeIdProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.nomineeAddressProof ==='UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.bankAccountProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.firPostmortemReport === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.additionalDoc === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.additionalDoc ==='APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.additionalDoc === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td class="text-center status-button">{{item.claimStatus}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
         <div class="pagination-box d-flex justify-content-end align-items-center"
             *ngIf="verifiercordListData.length > 0">
             <!-- <div class="pages-per-rows d-flex align-items-center">
@@ -1355,7 +828,7 @@
             </div> -->
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
-                    (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
+                    (pageChanged)="changePage($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
                     max-size="3"></pagination>
             </div>
         </div>

@@ -63,6 +63,7 @@ export class ApiService {
   uploadDocument(claimId: number, docType: any, data: any) {
     return this.http.put(`${this.baseApiUrl}banker/claim/${claimId}/uploadDocument/${docType}`, data);
   }
+
   forwardClaim(id: number) {
     return this.http.put(`${this.baseApiUrl}banker/claim/${id}/forward-to-verifier`, "");
   }
@@ -75,6 +76,10 @@ export class ApiService {
     return this.http.post(`${this.baseApiUrl}banker/claim/${claimId}/documents/save-draft`, "");
   }
 
+  getDownloadMisReport(data: any) {
+    return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${data}`)
+  }
+
   //varifier api
   getVerifierDashboardData() {
     return this.http.get(`${this.baseApiUrl}verifier/getDashboardData`);
@@ -84,8 +89,8 @@ export class ApiService {
     return this.http.get(`${this.baseApiUrl}verifier/claim/data-with-document-status?page=${pageNo}&limit=${pageSize}`);
   }
 
-  getVerifierClaimsData(data: any, pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}verifier/claim?claimDataFilter=${data}&page=${pageNo}&limit=${pageSize}`);
+  getVerifierClaimsData(data: any, page = 0) {
+    return this.http.get(`${this.baseApiUrl}verifier/claim?claimDataFilter=${data}&page=${page}&limit=7`);
   }
 
   getDocumentDetails(id: number) {
