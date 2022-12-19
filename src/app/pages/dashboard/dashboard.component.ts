@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
   verifierData: any = "ALL"
   bsModalRef?: BsModalRef;
   filterStatus: any
+  currentPage = 0
 
 
   constructor(
@@ -152,6 +153,7 @@ export class DashboardComponent implements OnInit {
       this.notifierService.showError(error?.error?.message || "Something went wrong")
     })
   }
+
   getDownloadExcelFormat() {
     this.apiService.getDownloadExcelFormat().subscribe((res: any) => {
       if (res?.isSuccess) {
@@ -161,7 +163,19 @@ export class DashboardComponent implements OnInit {
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
-    })
+    });
+  }
+
+  downloadMisReport() {
+    this.apiService.getDownloadMisReport(this.bankerData).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        var link = document.createElement("a")
+        link.href = res.data
+        link.click()
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
   }
 
   //verifier dashboard
@@ -174,15 +188,16 @@ export class DashboardComponent implements OnInit {
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
-    })
+    });
   }
+
   //  verifier card api
   verifierCardDetails(data: any) {
     this.verifierData = data;
     if (data === 'UNDER_VERIFICATION') {
       this.router.navigate(['/pages/document-verification'])
     } else {
-      this.apiService.getVerifierClaimsData(this.verifierData, this.pageNo, this.pageSize).subscribe((res: any) => {
+      this.apiService.getVerifierClaimsData(this.verifierData).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.verifierCardList = res?.data
           this.verifiercordListData = res?.data.content
@@ -191,14 +206,10 @@ export class DashboardComponent implements OnInit {
       })
     }
   }
+
   filterByStatus(event: any) {
     this.verifierData = event.target.value
-    this.pageNo = 0;
     this.verifierCardDetails(this.verifierData)
-
-
-    console.log(this.verifierData, "this.filture");
-
   }
 
 
@@ -211,32 +222,27 @@ export class DashboardComponent implements OnInit {
     if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
       this.pageNo = event.page - 1;
       this.showCardDetails("ALL");
-    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'SETTLED') {
+    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'WIP') {
       this.pageNo = event.page - 1;
-      this.showCardDetails("SETTLED");
+      this.showCardDetails("WIP");
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'UNDER_VERIFICATION') {
       this.pageNo = event.page - 1;
       this.showCardDetails("UNDER_VERIFICATION");
     }
-
-    if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'SUBMITTED_TO_INSURER') {
-      this.pageNo = event.page - 1;
-      this.verifierCardDetails("SUBMITTED_TO_INSURER");
-    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'WIP') {
-      this.pageNo = event.page - 1;
-      this.verifierCardDetails("WIP")
-    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'DISCREPENCY') {
-      this.pageNo = event.page - 1;
-      this.verifierCardDetails("DISCREPENCY")
-    } else if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'ALL') {
-      this.pageNo = event.page - 1;
-      this.verifierCardDetails("ALL")
-    }
   }
-  // if (this.verifierCardList && this.verifierCardList.length !== this.totalrecords && this.verifierData === 'UNDER_VERIFICATION') {
-  //   this.pageNo = event.page - 1;
-  //   this.verifierCardDetails("UNDER_VERIFICATION");
-  // } else
+
+  changePage(event: PageChangedEvent) {
+    this.currentPage = event.page - 1;
+    this.apiService.getVerifierClaimsData(this.verifierData, this.currentPage).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.verifierCardList = res?.data
+        this.verifiercordListData = res?.data.content
+        this.totalrecords = res?.data.totalRecords
+      }
+
+    })
+  }
+
 
   // pagePerData(event: any) {
   //   console.log(event, "event");
@@ -253,6 +259,7 @@ export class DashboardComponent implements OnInit {
     };
     this.bsModalRef = this.modalService.show(template, initialState);
   }
+
   closeModal() {
     this.bsModalRef?.hide()
     this.isShowFileUploaded = true;
