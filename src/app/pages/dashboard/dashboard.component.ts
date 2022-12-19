@@ -210,9 +210,9 @@ export class DashboardComponent implements OnInit {
     if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
       this.pageNo = event.page - 1;
       this.showCardDetails("ALL");
-    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'SETTLED') {
+    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'WIP') {
       this.pageNo = event.page - 1;
-      this.showCardDetails("SETTLED");
+      this.showCardDetails("WIP");
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'UNDER_VERIFICATION') {
       this.pageNo = event.page - 1;
       this.showCardDetails("UNDER_VERIFICATION");
