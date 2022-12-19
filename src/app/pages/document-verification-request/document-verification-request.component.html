@@ -2,12 +2,12 @@
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center"
                 *ngIf="verifierRequestList.length > 0">
                 <h6>Case/Claim({{totalrecords}})</h6>
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example">
                         <option selected>Filter by Status</option>
                         <option value="1">All</option>
                         <option value="2">Pending</option>
                         <option value="3">Submitted Document</option>
-                </select>
+                </select> -->
         </div>
         <div class="table-container table-responsive">
                 <table class="table table-sm">
@@ -38,7 +38,7 @@
                                         <tr>
                                                 <td>{{ (pageNo) * pageSize + i +1 }}</td>
                                                 <td>{{item.punchinClaimId}}</td>
-                                                <td>{{item.claimDate |date}}</td>
+                                                <td>{{item.claimDate |date: 'dd/MM/yyyy'}}</td>
                                                 <td>{{item.borrowerName}}</td>
                                                 <td>{{item.nomineeName}}</td>
                                                 <td>{{item.nomineeContactNumber}}</td>
