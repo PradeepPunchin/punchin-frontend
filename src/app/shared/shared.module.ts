@@ -14,6 +14,8 @@ import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     DirectivesModule,
     PdfViewerModule,
     ReactiveFormsModule,
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    CollapseModule.forRoot(),
   ],
   exports: [
     NoDataFoundComponent,

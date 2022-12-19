@@ -41,7 +41,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="document-verification-box">
                 <h6 class="document-verification-heading">Nominee Details</h6>
                 <div class="row document-verification-row">
@@ -59,54 +58,124 @@
                     </div>
                 </div>
             </div>
-
-            <div class="table-responsive document-verification-table">
-                <table class="table table-bordered table-sm">
-                    <thead>
-                        <tr class="align-middle">
-                            <th scope="col">Document Name</th>
-                            <th scope="col" class="text-center">Uploaded Doc</th>
-                            <th scope="col" class="text-center">Doc Status</th>
-                            <th scope="col" class="text-center">View Doc</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ng-container *ngFor="let item of documentDetailsDTOList">
-                            <tr>
-                                <td>
-                                    {{item.agentDocType}}
-                                </td>
-                                <td class="text-center">
-                                    <span *ngIf="item.isVerified == false"><img
-                                            src="../../../../assets/icons/right-tick-blue.svg"></span>
-                                    <span *ngIf="item.isVerified == true && item.isApproved == false">
-                                        <img src="assets/icons/cross-red.svg">
-                                    </span>
-                                    <span *ngIf="item.isVerified == true && item.isApproved == true">
-                                        <img src="assets/icons/tick-green.svg"> </span>
-                                </td>
-                                <td class="text-center">
-                                    <p class="doc-status-yellow-text" *ngIf="item.isVerified == false">
-                                        Uploaded
-                                    </p>
-                                    <p class="doc-status-red-text"
-                                        *ngIf="item.isVerified == true && item.isApproved == false">
-                                        Rejected
-                                    </p>
-                                    <p class="doc-status-blue-text"
-                                        *ngIf="item.isVerified == true && item.isApproved == true">
-                                        Approved
-                                    </p>
-                                </td>
-                                <td class="text-center">
-                                    <span (click)="viewDoc(item)" style="margin-right:15px"><img
-                                            src="../../../assets/icons/eye.svg"></span>
-                                    <span (click)="Downlaod(item)"><img src="../../../assets/icons/download.svg"></span>
-                                </td>
+            <!-- // verifier doc table -->
+            <div (click)="isVarifierCollapsed = !isVarifierCollapsed;isBankerCollapsed = !isBankerCollapsed "
+                class="collapse-title" [attr.aria-expanded]="!isVarifierCollapsed"> Verifier
+                Document
+                <!-- <span class="collapse-title-expand-indicator">
+                    <img class="collapse-icon" src="assets/icons/plus.svg" alt="plus-icon">
+                </span> -->
+            </div>
+            <div id="collapseBasic" [collapse]="isVarifierCollapsed">
+                <div class="table-responsive document-verification-table">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr class="align-middle">
+                                <th scope="col">Document Name</th>
+                                <th scope="col" class="text-center">Uploaded Doc</th>
+                                <th scope="col" class="text-center">Doc Status</th>
+                                <th scope="col" class="text-center">View Doc</th>
                             </tr>
-                        </ng-container>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let item of documentDetailsDTOList">
+                                <tr>
+                                    <td>
+                                        {{item.agentDocType}}
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="item.isVerified == false"><img
+                                                src="../../../../assets/icons/right-tick-blue.svg"></span>
+                                        <span *ngIf="item.isVerified == true && item.isApproved == false">
+                                            <img src="assets/icons/cross-red.svg">
+                                        </span>
+                                        <span *ngIf="item.isVerified == true && item.isApproved == true">
+                                            <img src="assets/icons/tick-green.svg"> </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="doc-status-yellow-text" *ngIf="item.isVerified == false">
+                                            Uploaded
+                                        </p>
+                                        <p class="doc-status-red-text"
+                                            *ngIf="item.isVerified == true && item.isApproved == false">
+                                            Rejected
+                                        </p>
+                                        <p class="doc-status-blue-text"
+                                            *ngIf="item.isVerified == true && item.isApproved == true">
+                                            Approved
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <span (click)="viewDoc(item)" style="margin-right:15px"><img
+                                                src="../../../assets/icons/eye.svg"></span>
+                                        <span (click)="Downlaod(item)"><img
+                                                src="../../../assets/icons/download.svg"></span>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- banker doc table -->
+            <div (click)="isBankerCollapsed = !isBankerCollapsed;isVarifierCollapsed = !isVarifierCollapsed"
+                class="collapse-title" [attr.aria-expanded]="!isBankerCollapsed"> Banker
+                Document
+                <!-- <span class="collapse-title-expand-indicator">
+                    <img class="collapse-icon" src="assets/icons/plus.svg" alt="plus-icon">
+                </span> -->
+            </div>
+            <div id="collapseBasic" [collapse]="isBankerCollapsed">
+                <div class="table-responsive document-verification-table">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr class="align-middle">
+                                <th scope="col">Document Name</th>
+                                <th scope="col" class="text-center">Uploaded Doc</th>
+                                <th scope="col" class="text-center">Doc Status</th>
+                                <th scope="col" class="text-center">View Doc</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let item of bankerDocumentDetailsDTOList">
+                                <tr>
+                                    <td>
+                                        {{item.agentDocType}}
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="item.isVerified == false"><img
+                                                src="../../../../assets/icons/right-tick-blue.svg"></span>
+                                        <span *ngIf="item.isVerified == true && item.isApproved == false">
+                                            <img src="assets/icons/cross-red.svg">
+                                        </span>
+                                        <span *ngIf="item.isVerified == true && item.isApproved == true">
+                                            <img src="assets/icons/tick-green.svg"> </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="doc-status-yellow-text" *ngIf="item.isVerified == false">
+                                            Uploaded
+                                        </p>
+                                        <p class="doc-status-red-text"
+                                            *ngIf="item.isVerified == true && item.isApproved == false">
+                                            Rejected
+                                        </p>
+                                        <p class="doc-status-blue-text"
+                                            *ngIf="item.isVerified == true && item.isApproved == true">
+                                            Approved
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <span (click)="viewDoc(item)" style="margin-right:15px"><img
+                                                src="../../../assets/icons/eye.svg"></span>
+                                        <span (click)="Downlaod(item)"><img
+                                                src="../../../assets/icons/download.svg"></span>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-5" *ngIf="isShoeDoc === true">
