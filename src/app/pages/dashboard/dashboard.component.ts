@@ -163,7 +163,19 @@ export class DashboardComponent implements OnInit {
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
-    })
+    });
+  }
+
+  downloadMisReport() {
+    this.apiService.getDownloadMisReport(this.bankerData).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        var link = document.createElement("a")
+        link.href = res.data
+        link.click()
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
   }
 
   //verifier dashboard
@@ -176,7 +188,7 @@ export class DashboardComponent implements OnInit {
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
-    })
+    });
   }
 
   //  verifier card api

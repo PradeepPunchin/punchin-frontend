@@ -16,7 +16,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">PunchIn Ref. ID</th>
                         <th scope="col">Punchin Banker Id</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
@@ -67,7 +67,7 @@
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date}}</td>
+                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
@@ -80,7 +80,7 @@
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
                             <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.loanOutstandingAmount}}</td>
                             <td>{{item.loanAmount}}</td>
                             <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -96,7 +96,7 @@
                             <td>{{item.insurerName}}</td>
                             <td>{{item.masterPolNumber}}</td>
                             <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.insurerClaimId}}</td>

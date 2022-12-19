@@ -57,9 +57,11 @@
             <button type="button" class="btn btn-primary btn1"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3" (click)="openModal1(fileTemplate)">
                 <img src="../../../assets/icons/action(white).svg" class="me-2">Upload xls File</button>
-            <button type="button" class="btn btn-outline-primary"
+
+            <button type="button" class="btn btn-outline-primary" (click)="downloadMisReport()"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"><img
-                    src="../../../assets/icons/download.svg" class="me-2">Download MIS report
+                    src="../../../assets/icons/download.svg" class="me-2">Download MIS
+                report
             </button>
             <button type="button" class="btn btn-outline-primary"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"
@@ -73,7 +75,7 @@
                     <thead>
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
-                            <th scope="col">Punchin Claim Id </th>
+                            <th scope="col">PunchIn Ref. ID </th>
                             <th scope="col">Punchin Banker Id</th>
                             <th scope="col">Claim Inward Date</th>
                             <th scope="col">Borrower Name</th>
@@ -123,7 +125,7 @@
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date}}</td>
+                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
@@ -136,7 +138,7 @@
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
                             <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.loanOutstandingAmount}}</td>
                             <td>{{item.loanAmount}}</td>
                             <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -152,7 +154,7 @@
                             <td>{{item.insurerName}}</td>
                             <td>{{item.masterPolNumber}}</td>
                             <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.insurerClaimId}}</td>
@@ -175,7 +177,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">PunchIn Ref. ID</th>
                         <th scope="col">Insurer Claim Id</th>
                         <th scope="col">Punchin Banker Id</th>
                         <th scope="col">Claim Inward Date</th>
@@ -227,7 +229,7 @@
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.insurerClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date}}</td>
+                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
@@ -240,7 +242,7 @@
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
                             <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.loanOutstandingAmount}}</td>
                             <td>{{item.loanAmount}}</td>
                             <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -256,7 +258,7 @@
                             <td>{{item.insurerName}}</td>
                             <td>{{item.masterPolNumber}}</td>
                             <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.nomineeName}}</td>
@@ -276,7 +278,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">PunchIn Ref. ID</th>
                         <th scope="col">Punchin Banker Id</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
@@ -327,7 +329,7 @@
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date}}</td>
+                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
@@ -340,7 +342,7 @@
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
                             <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.loanOutstandingAmount}}</td>
                             <td>{{item.loanAmount}}</td>
                             <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -356,7 +358,7 @@
                             <td>{{item.insurerName}}</td>
                             <td>{{item.masterPolNumber}}</td>
                             <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.insurerClaimId}}</td>
@@ -376,7 +378,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">PunchIn Ref. ID</th>
                         <th scope="col">Punchin Banker Id</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
@@ -427,7 +429,7 @@
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date}}</td>
+                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
@@ -440,7 +442,7 @@
                             <td>{{item.loanAccountNumber}}</td>
                             <td>{{item.borrowerAddress}}</td>
                             <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date}}</td>
+                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.loanOutstandingAmount}}</td>
                             <td>{{item.loanAmount}}</td>
                             <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -456,7 +458,7 @@
                             <td>{{item.insurerName}}</td>
                             <td>{{item.masterPolNumber}}</td>
                             <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date }}</td>
+                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
                             <td>{{item.insurerClaimId}}</td>
@@ -504,7 +506,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id </th>
+                        <th scope="col">PunchIn Ref. ID</th>
                         <th scope="col">Punchin Banker Id</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
@@ -553,7 +555,7 @@
                         </td>
                         <td>{{item.punchinClaimId}}</td>
                         <td>{{item.punchinBankerId}}</td>
-                        <td>{{item.claimInwardDate | date}}</td>
+                        <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
                         <td>{{item.borrowerCity}}</td>
@@ -566,7 +568,7 @@
                         <td>{{item.loanAccountNumber}}</td>
                         <td>{{item.borrowerAddress}}</td>
                         <td>{{item.loanType }}</td>
-                        <td>{{item.loanDisbursalDate | date}}</td>
+                        <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.loanOutstandingAmount}}</td>
                         <td>{{item.loanAmount}}</td>
                         <td>{{item.loanAmountPaidByBorrower}}</td>
@@ -582,7 +584,7 @@
                         <td>{{item.insurerName}}</td>
                         <td>{{item.masterPolNumber}}</td>
                         <td>{{item.policyNumber}}</td>
-                        <td>{{item.policyStartDate | date }}</td>
+                        <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.policyCoverageDuration}}</td>
                         <td>{{item.policySumAssured}}</td>
                         <td>{{item.insurerClaimId}}</td>
@@ -686,7 +688,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Claim Id</th>
+                        <th scope="col">Punchin Ref. ID</th>
                         <th scope="col">Claim Registration Date </th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Nominee Name </th>
@@ -710,7 +712,7 @@
                             {{ (currentPage) * pageSize + i +1 }}
                         </td>
                         <td>{{item.punchinClaimId}}</td>
-                        <td>{{item.claimDate | date }}</td>
+                        <td>{{item.claimDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
                         <td>{{item.nomineeContactNumber}}</td>

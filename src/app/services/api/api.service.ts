@@ -63,6 +63,7 @@ export class ApiService {
   uploadDocument(claimId: number, docType: any, data: any) {
     return this.http.put(`${this.baseApiUrl}banker/claim/${claimId}/uploadDocument/${docType}`, data);
   }
+
   forwardClaim(id: number) {
     return this.http.put(`${this.baseApiUrl}banker/claim/${id}/forward-to-verifier`, "");
   }
@@ -73,6 +74,10 @@ export class ApiService {
 
   DocumnetSaveDraft(claimId: any) {
     return this.http.post(`${this.baseApiUrl}banker/claim/${claimId}/documents/save-draft`, "");
+  }
+
+  getDownloadMisReport(data: any) {
+    return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${data}`)
   }
 
   //varifier api
