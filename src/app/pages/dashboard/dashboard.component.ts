@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
   bankerData: any;
   verifierData: any = "ALL"
   bsModalRef?: BsModalRef;
+  bsModalRef1?: BsModalRef;
   filterStatus: any
   currentPage = 0
 
@@ -169,11 +170,9 @@ export class DashboardComponent implements OnInit {
   downloadMisReport() {
     this.apiService.getDownloadMisReport(this.bankerData).subscribe((res: any) => {
       if (res?.isSuccess) {
-        console.log(res.data, "res");
-
-        // var link = document.createElement("a")
-        // link.href = res.data
-        // link.click()
+        var link = document.createElement("a")
+        link.href = res.data
+        link.click()
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -265,6 +264,16 @@ export class DashboardComponent implements OnInit {
   closeModal() {
     this.bsModalRef?.hide()
     this.isShowFileUploaded = true;
+  }
+  OpenAdditionalDocModal(template: any) {
+    const initialState: ModalOptions = {
+      class: 'file-modal-custom-width',
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.bsModalRef1 = this.modalService.show(template, initialState)
+
+
   }
 }
 

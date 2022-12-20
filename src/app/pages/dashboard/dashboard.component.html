@@ -116,6 +116,8 @@
                             <th scope="col">Nominee Email Id</th>
                             <th scope="col">Nominee Address</th>
                             <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Raise Additional Doc Request</th>
+
                         </tr>
                     </thead>
                     <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
@@ -163,8 +165,12 @@
                             <td>{{item.nomineeContactNumber}}</td>
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
-                            <td class="text-center status-button">
-                                {{item.claimStatus}}
+                            <td>
+                                <span class="status-button">{{item.claimStatus}}</span>
+                            </td>
+                            <td class="text-center">
+                                <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc)"><img
+                                        src="assets/icons/eye.svg"></span>
                             </td>
                         </tr>
                     </tbody>
@@ -615,7 +621,23 @@
             </div>
         </div>
     </div>
+
+
 </ng-container>
+<ng-template #raiseAdditionalDoc>
+    <div class="modal-header">
+        <h6 class="modal-title">Raise Additional Document Request</h6>
+
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="this.bsModalRef1?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta deleniti quaerat beatae non facilis similique
+            rem dolorem facere voluptatum officia. Porro cupiditate magni culpa inventore esse incidunt provident quae
+            minima!</p>
+    </div>
+</ng-template>
 
 
 
