@@ -175,6 +175,13 @@
       color: $blueColor;
       // background-color: $blueButtonColor;
     }
+    span {
+      .fa-file-text-o {
+        cursor: pointer;
+        color: $buttonColor;
+        font-size: $fontSize16;
+      }
+    }
   }
   .pagination-box {
     padding: 10px 26px 20px 20px;

@@ -76,7 +76,7 @@
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
                             <th scope="col">PunchIn Ref. ID </th>
-                            <th scope="col">Punchin Banker Id</th>
+                            <th scope="col">Lender Name </th>
                             <th scope="col">Claim Inward Date</th>
                             <th scope="col">Borrower Name</th>
                             <th scope="col">Borrower Contact Number</th>
@@ -117,7 +117,6 @@
                             <th scope="col">Nominee Address</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Raise Additional Doc Request</th>
-
                         </tr>
                     </thead>
                     <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
@@ -169,8 +168,9 @@
                                 <span class="status-button">{{item.claimStatus}}</span>
                             </td>
                             <td class="text-center">
-                                <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc)"><img
-                                        src="assets/icons/eye.svg"></span>
+                                <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc)">
+                                    <i class="fa fa-file-text-o"></i>
+                                </span>
                             </td>
                         </tr>
                     </tbody>
@@ -178,14 +178,13 @@
             </div>
         </div>
 
-        <div class="table-container table-responsive" *ngIf="onStep === 1">
+        <div class="table-container table-responsive" *ngIf="onStep === 1 && isShowFileUploaded">
             <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
                         <th scope="col">PunchIn Ref. ID</th>
-                        <th scope="col">Insurer Claim Id</th>
-                        <th scope="col">Punchin Banker Id</th>
+                        <th scope="col">Lender Name</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Borrower Contact Number</th>
@@ -218,6 +217,7 @@
                         <th scope="col">Policy Start Date</th>
                         <th scope="col">Policy Coverage Duration</th>
                         <th scope="col">Policy Sum Assured</th>
+                        <th scope="col">Insurer Claim Id</th>
                         <th scope="col">Nominee Name</th>
                         <th scope="col">Nominee RelationShip</th>
                         <th scope="col">Nominee Contact Number</th>
@@ -233,7 +233,6 @@
                                 {{ (pageNo) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
-                            <td>{{item.insurerClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
                             <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
@@ -267,6 +266,7 @@
                             <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
+                            <td>{{item.insurerClaimId}}</td>
                             <td>{{item.nomineeName}}</td>
                             <td>{{item.nomineeRelationShip}}</td>
                             <td>{{item.nomineeContactNumber}}</td>
@@ -279,13 +279,13 @@
             </table>
         </div>
 
-        <div class="table-container table-responsive" *ngIf="onStep === 2  ">
+        <div class="table-container table-responsive" *ngIf="onStep === 2  && isShowFileUploaded  ">
             <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
                         <th scope="col">PunchIn Ref. ID</th>
-                        <th scope="col">Punchin Banker Id</th>
+                        <th scope="col">Lender Name</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Borrower Contact Number</th>
@@ -379,13 +379,13 @@
                 </ng-container>
             </table>
         </div>
-        <div class="table-container table-responsive" *ngIf="onStep === 3  ">
+        <div class="table-container table-responsive" *ngIf="onStep === 3  && isShowFileUploaded">
             <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
                         <th scope="col">PunchIn Ref. ID</th>
-                        <th scope="col">Punchin Banker Id</th>
+                        <th scope="col">Lender Name</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Borrower Contact Number</th>
@@ -513,7 +513,7 @@
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
                         <th scope="col">PunchIn Ref. ID</th>
-                        <th scope="col">Punchin Banker Id</th>
+                        <th scope="col">Lender Name</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Borrower Contact Number</th>
@@ -656,6 +656,10 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="mt-2">
+                                <label>Remark</label>
+                                <input class="form-control" placeholder=" Enter Remark">
+                            </div>
                             <div class="d-flex justify-content-end">
                                 <button class="btn btn-primary">Submit</button>
                             </div>
@@ -732,6 +736,8 @@
                 <option selected>Filter by Status</option>
                 <option value="ALL">All</option>
                 <option value="WIP">In-Progress</option>
+                <option value="SETTLED">Approved</option>
+
                 <!-- <option value="3">Sent to Insurer</option> -->
             </select>
         </div>
@@ -752,7 +758,7 @@
                         <th scope="col">Borrower ID Proof</th>
                         <th scope="col">Nominee Id Proof </th>
                         <th scope="col">Bank A/c Proof </th>
-                        <th scope="col">FIR / Postmortem report</th>
+                        <!-- <th scope="col">FIR / Postmortem report</th> -->
                         <th scope="col">Additional Document</th>
                         <th scope="col" class="text-center ">Status</th>
                     </tr>
@@ -820,7 +826,7 @@
                             <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
                         </td>
-                        <td>
+                        <!-- <td>
                             <span *ngIf="item.firPostmortemReport === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>
                             <span *ngIf="item.firPostmortemReport === 'NOT_UPLOADED'"> <img
@@ -829,7 +835,7 @@
                                     src="assets/icons/tick-green.svg"></span>
                             <span *ngIf="item.firPostmortemReport === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
-                        </td>
+                        </td> -->
                         <td>
                             <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>

@@ -29,7 +29,7 @@ export class DocumentViewerComponent implements OnInit, OnChanges {
       if (this.DocUrl = this.docUrl) {
         this.showData = false
       }
-    }, 9000);
+    }, 3000);
   }
 }
 
