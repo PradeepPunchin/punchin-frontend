@@ -173,10 +173,7 @@
     }
     .status-button {
       color: $blueColor;
-      background-color: $blueButtonColor;
-    }
-    .status-button {
-      color: $blueColor !important;
+      // background-color: $blueButtonColor;
     }
   }
   .pagination-box {
@@ -402,12 +399,9 @@
 }
 
 // Discrepancy/New Requirements
-.new-requirements-container {
-  background-color: $white;
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
-  border-radius: 6px;
+.raise-additional-container {
   margin: 14px 0 20px;
-  padding: 22px 100px 24px 127px;
+  // padding: 22px 100px 24px 127px;
   .new-requirements-heading {
     font-weight: 600;
     font-size: $fontSize16;
@@ -443,106 +437,97 @@
             font-size: $fontSize12;
             color: $black;
             border-width: 0.5px;
-            .doc-status-red-text,
-            .doc-status-grey-text,
-            .doc-status-blue-text {
-              font-weight: 600;
-              font-size: $fontSize10;
-              color: $tableTextColor;
-              margin-bottom: 0;
-              border-radius: 50px;
-              padding: 4px 12px;
-              background-color: $greyButtonColor;
-              display: inline;
-            }
-            .doc-status-blue-text {
-              color: $tableBlueTextColor;
-              background-color: $blueButtonColor;
-            }
-            .doc-status-red-text {
-              color: $tableRedTextColor;
-              background-color: $redButtonColor;
-            }
           }
         }
       }
     }
   }
-
-  .document-preview-container {
-    border: 0.5px solid $previewBorderColor;
-    height: 100%;
-    padding: 20px;
-    .upload-required-text {
-      font-size: $fontSize13;
-      color: $black;
-      margin-bottom: 16px;
-    }
-    .form-select {
-      height: 45px;
-      padding: 0 16px 0 20px;
-      font-weight: 600;
-      font-size: $fontSize14;
-      letter-spacing: 0.02em;
-      color: $black;
-    }
-    .browse-upload-box {
-      border: 1px solid $inputBorderColor;
-      border-radius: 4px;
-      margin-top: 12px;
-      padding: 6px 16px 6px 20px;
-      .browse-text {
-        font-weight: 600;
-        font-size: $fontSize14;
-        color: $uploadTextColor;
-        margin-bottom: 0;
-      }
-      .btn-light {
-        font-weight: 600;
-        font-size: $fontSize14;
-        color: $black;
-        background-color: $white;
-        border-color: $uploadButtonBorderColor;
-        box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.05);
-        border-radius: 4px;
-        padding: 7px 20px;
-      }
-    }
-    .btn-primary {
-      font-weight: 600;
-      font-size: $fontSize14;
-      color: $white;
-      background-color: $buttonColor;
-      border-color: $buttonColor;
-      border-radius: 5px;
-      width: 100%;
-      height: 43px;
-      margin-top: 30px;
-    }
-  }
-
-  .discrepancy-remark-container {
-    .discrepancy-remark-text {
-      font-size: $fontSize13;
-      letter-spacing: 0.02em;
-      color: $black;
-      margin-top: 16px;
-    }
-    .discrepancy-remark {
-      background-color: $inputBackground;
-      border: 1px solid $inputBorderColor;
-      border-radius: 4px;
-      padding: 12px 20px 14px;
-      .document-mismatch-text,
-      .bank-account-cheque-leaf {
-        font-weight: 600;
-        font-size: $fontSize14;
-        color: $black;
-        margin-bottom: 0;
-      }
-      .bank-account-cheque-leaf {
-        margin-top: 31px;
-      }
-    }
+  .btn-primary {
+    font-weight: 600;
+    font-size: $fontSize14;
+    color: $white;
+    background-color: $buttonColor;
+    border-color: $buttonColor;
+    border-radius: 5px;
+    width: 25%;
+    height: 43px;
+    margin-top: 30px;
   }
 }
+
+// .document-preview-container {
+//   border: 0.5px solid $previewBorderColor;
+//   height: 100%;
+//   padding: 20px;
+//   .upload-required-text {
+//     font-size: $fontSize13;
+//     color: $black;
+//     margin-bottom: 16px;
+//   }
+//   .form-select {
+//     height: 45px;
+//     padding: 0 16px 0 20px;
+//     font-weight: 600;
+//     font-size: $fontSize14;
+//     letter-spacing: 0.02em;
+//     color: $black;
+//   }
+//   .browse-upload-box {
+//     border: 1px solid $inputBorderColor;
+//     border-radius: 4px;
+//     margin-top: 12px;
+//     padding: 6px 16px 6px 20px;
+//     .browse-text {
+//       font-weight: 600;
+//       font-size: $fontSize14;
+//       color: $uploadTextColor;
+//       margin-bottom: 0;
+//     }
+//     .btn-light {
+//       font-weight: 600;
+//       font-size: $fontSize14;
+//       color: $black;
+//       background-color: $white;
+//       border-color: $uploadButtonBorderColor;
+//       box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.05);
+//       border-radius: 4px;
+//       padding: 7px 20px;
+//     }
+//   }
+//   .btn-primary {
+//     font-weight: 600;
+//     font-size: $fontSize14;
+//     color: $white;
+//     background-color: $buttonColor;
+//     border-color: $buttonColor;
+//     border-radius: 5px;
+//     width: 100%;
+//     height: 43px;
+//     margin-top: 30px;
+//   }
+// }
+
+// .discrepancy-remark-container {
+//   .discrepancy-remark-text {
+//     font-size: $fontSize13;
+//     letter-spacing: 0.02em;
+//     color: $black;
+//     margin-top: 16px;
+//   }
+//   .discrepancy-remark {
+//     background-color: $inputBackground;
+//     border: 1px solid $inputBorderColor;
+//     border-radius: 4px;
+//     padding: 12px 20px 14px;
+//     .document-mismatch-text,
+//     .bank-account-cheque-leaf {
+//       font-weight: 600;
+//       font-size: $fontSize14;
+//       color: $black;
+//       margin-bottom: 0;
+//     }
+//     .bank-account-cheque-leaf {
+//       margin-top: 31px;
+//     }
+//   }
+// }

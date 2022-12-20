@@ -98,7 +98,6 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
         this.documentVerificationDetails = res?.data;
         this.documentDetailsDTOList = res?.data.agentClaimDocumentsDTOs;
         this.bankerDocumentDetailsDTOList = res?.data?.bankerClaimDocumentsDTOs
-        console.log(this.bankerDocumentDetailsDTOList, "documentVerificationDetails");
       }
     })
   }
