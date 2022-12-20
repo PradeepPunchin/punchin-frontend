@@ -720,10 +720,12 @@
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6 *ngIf="(onStep === 0 || onStep === 1 )">Cases/Claims</h6>
             <div *ngIf="onStep === 2">
-                <button type="button" class="btn btn-primary m-2" [ngClass]="{active: innerStep === 0}"
-                    (click)="innerStep = 0" (click)="verifierCardDetails('WIP')">In-Progress</button>
-                <button type="button" class="btn btn-light" [ngClass]="{active: innerStep === 1}"
-                    (click)="innerStep = 1" (click)="verifierCardDetails('DISCREPENCY')">Discrepancy</button>
+                <button type="button" class="btn btn-primary m-2" [routerLinkActive]="['active']"
+                    [ngClass]="{active: innerStep === 0}" (click)="innerStep = 0"
+                    (click)="verifierCardDetails('WIP')">In-Progress</button>
+                <button type="button" [routerLinkActive]="['active']" class="btn btn-primary"
+                    [ngClass]="{active: innerStep === 1}" (click)="innerStep = 1"
+                    (click)="verifierCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
             <select class="form-select form-select-sm" aria-label=".form-select-sm example" *ngIf="onStep === 0"
                 (input)="filterByStatus($event)">
@@ -748,12 +750,10 @@
                         <th scope="col">Signed claim form </th>
                         <th scope="col">Death Certificate </th>
                         <th scope="col">Borrower ID Proof</th>
-                        <!-- <th scope="col">Borrower Add proof </th> -->
                         <th scope="col">Nominee Id Proof </th>
-                        <!-- <th scope="col">Nominee Add proof </th> -->
                         <th scope="col">Bank A/c Proof </th>
                         <th scope="col">FIR / Postmortem report</th>
-                        <th scope="col">additionalDoc</th>
+                        <th scope="col">Additional Document</th>
                         <th scope="col" class="text-center ">Status</th>
                     </tr>
                 </thead>
