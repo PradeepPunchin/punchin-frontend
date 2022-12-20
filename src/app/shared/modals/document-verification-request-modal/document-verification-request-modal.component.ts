@@ -17,6 +17,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   documentVerificationRequestId: any
   documentVerificationDetails!: VerifierDocumentDetail;
   documentDetailsDTOList: IDocumentDetailDTO[] = []
+  bankerDocumentDetailsDTOList: IDocumentDetailDTO[] = []
   docUrl: string = '';
   docType: string = "";
   isShoeDoc: boolean = false
@@ -28,6 +29,9 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   bsModalRef2?: BsModalRef;
   // modalRef?: BsModalRef;
   isDownloadDoc: boolean = false
+  isBankerCollapsed = true;
+  isVarifierCollapsed = false
+
 
 
 
@@ -92,8 +96,9 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.apiService.getDocumentDetails(this.documentVerificationRequestId).subscribe((res: ApiResponse<VerifierDocumentDetail> | any) => {
       if (res?.isSuccess) {
         this.documentVerificationDetails = res?.data;
-        this.documentDetailsDTOList = res?.data.claimDocumentsDTOS;
-        console.log(this.documentDetailsDTOList, "documentVerificationDetails");
+        this.documentDetailsDTOList = res?.data.agentClaimDocumentsDTOs;
+        this.bankerDocumentDetailsDTOList = res?.data?.bankerClaimDocumentsDTOs
+        console.log(this.bankerDocumentDetailsDTOList, "documentVerificationDetails");
       }
     })
   }

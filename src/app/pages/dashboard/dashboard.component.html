@@ -173,7 +173,7 @@
         </div>
 
         <div class="table-container table-responsive" *ngIf="onStep === 1">
-            <table class="table  table-sm">
+            <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
@@ -274,7 +274,7 @@
         </div>
 
         <div class="table-container table-responsive" *ngIf="onStep === 2  ">
-            <table class="table  table-sm">
+            <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
@@ -374,7 +374,7 @@
             </table>
         </div>
         <div class="table-container table-responsive" *ngIf="onStep === 3  ">
-            <table class="table  table-sm">
+            <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>

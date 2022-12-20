@@ -50,6 +50,9 @@
       }
     }
   }
+  .banker-table {
+    margin-top: 40px !important;
+  }
 
   .verification-table-title {
     font-weight: 600;
@@ -120,6 +123,47 @@
       }
     }
   }
+
+  //collaspe
+  .collapsing {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.35s ease;
+  }
+
+  .collapse-title {
+    position: relative;
+    padding: 1rem 3.5rem 1rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: var(--color-strata-yellow-1);
+    margin-bottom: 1rem;
+    background-color: $tableBlueTextColor;
+    margin-top: 20px;
+
+    //  &.collapsed{
+    //   background-color: #fef1c9;
+    // }
+
+    // &-expand-indicator {
+    //   position: absolute;
+    //   top: 50%;
+    //   right: 1rem;
+    //   transform: translateY(-50%);
+    //   .collapse-icon {
+    //     transition: transform 0.35s ease;
+    //   }
+    // }
+    &:not(.collapsed) {
+      .collapse-icon {
+        transition: transform 0.35s ease;
+        transform: rotateZ(45deg);
+      }
+    }
+  }
+
+  // end
 
   .document-preview-container {
     border: 0.5px solid $previewBorderColor;
