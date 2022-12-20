@@ -748,9 +748,9 @@
                         <th scope="col">Signed claim form </th>
                         <th scope="col">Death Certificate </th>
                         <th scope="col">Borrower ID Proof</th>
-                        <th scope="col">Borrower Add proof </th>
+                        <!-- <th scope="col">Borrower Add proof </th> -->
                         <th scope="col">Nominee Id Proof </th>
-                        <th scope="col">Nominee Add proof </th>
+                        <!-- <th scope="col">Nominee Add proof </th> -->
                         <th scope="col">Bank A/c Proof </th>
                         <th scope="col">FIR / Postmortem report</th>
                         <th scope="col">additionalDoc</th>
@@ -801,17 +801,6 @@
                             </span>
                         </td>
                         <td>
-                            <span *ngIf="item.borrowerAddressProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerAddressProof === 'REJECTED'"><img
-                                    src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
                             <span *ngIf="item.nomineeIdProof === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>
                             <span *ngIf="item.nomineeIdProof === 'NOT_UPLOADED'"> <img
@@ -819,16 +808,6 @@
                             <span *ngIf="item.nomineeIdProof === 'APPROVED'"><img
                                     src="assets/icons/tick-green.svg"></span>
                             <span *ngIf="item.nomineeIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td>
-                        <td>
-                            <span *ngIf="item.nomineeAddressProof ==='UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeAddressProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
                         </td>
                         <td>
