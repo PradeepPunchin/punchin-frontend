@@ -169,8 +169,9 @@
                                 <span class="status-button">{{item.claimStatus}}</span>
                             </td>
                             <td class="text-center">
-                                <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc)" style="cursor: pointer;"><img
-                                        src="assets/icons/eye.svg"></span>
+                                <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc)">
+                                    <i class="fa fa-file-text-o"></i>
+                                </span>
                             </td>
                         </tr>
                     </tbody>
@@ -656,6 +657,10 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="mt-2">
+                                <label>Remark</label>
+                                <input class="form-control" placeholder=" Enter Remark">
+                            </div>
                             <div class="d-flex justify-content-end">
                                 <button class="btn btn-primary">Submit</button>
                             </div>

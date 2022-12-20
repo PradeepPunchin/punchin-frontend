@@ -282,10 +282,10 @@ export class DashboardComponent implements OnInit {
   }
 
   Data: Array<any> = [
-    { name: 'Income Tax Returns', value: 'Income Tax Returns' },
-    { name: 'Medical Records', value: 'Medical Records' },
-    { name: 'Police Investigation Report', value: 'Police Investigation Report' },
-    { name: 'Medical attendent certificate', value: 'Medical attendent certificate' },
+    { name: 'BANK_ACCOUNT_PROOF', value: 'BANK_ACCOUNT_PROOF' },
+    { name: 'BORROWER_ID_PROOF', value: 'BORROWER_ID_PROOF' },
+    { name: 'DEATH_CERTIFICATE', value: 'DEATH_CERTIFICATE' },
+    { name: 'SIGNED_FORM', value: 'SIGNED_FORM' },
   ];
 
   onSelectCheckbox(e: any) {
