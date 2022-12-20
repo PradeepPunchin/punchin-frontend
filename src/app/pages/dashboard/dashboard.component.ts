@@ -169,11 +169,9 @@ export class DashboardComponent implements OnInit {
   downloadMisReport() {
     this.apiService.getDownloadMisReport(this.bankerData).subscribe((res: any) => {
       if (res?.isSuccess) {
-        console.log(res.data, "res");
-
-        // var link = document.createElement("a")
-        // link.href = res.data
-        // link.click()
+        var link = document.createElement("a")
+        link.href = res.data
+        link.click()
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
