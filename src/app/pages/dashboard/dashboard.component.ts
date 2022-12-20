@@ -10,7 +10,7 @@ import { SessionService } from 'src/app/services/session/session.service';
 import { UtilityService } from 'src/app/services/utility/utility.service';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals/document-verification-request-modal/document-verification-request-modal.component';
-
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -45,6 +45,7 @@ export class DashboardComponent implements OnInit {
   bsModalRef1?: BsModalRef;
   filterStatus: any
   currentPage = 0
+  form!: FormGroup;
 
 
   constructor(
@@ -55,7 +56,12 @@ export class DashboardComponent implements OnInit {
     private eventService: EventService,
     private utilitiesService: UtilityService,
     private modalService: BsModalService,
-  ) { }
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      checkArray: this.fb.array([], [Validators.required]),
+    });
+  }
 
   ngOnInit(): void {
     this.role = this.sessionServive.getSession(STORAGETOKENENUM.role)
@@ -271,9 +277,34 @@ export class DashboardComponent implements OnInit {
       backdrop: 'static',
       keyboard: false
     };
-    this.bsModalRef1 = this.modalService.show(template, initialState)
+    this.bsModalRef1 = this.modalService.show(template, initialState);
 
+  }
 
+  Data: Array<any> = [
+    { name: 'Income Tax Returns', value: 'Income Tax Returns' },
+    { name: 'Medical Records', value: 'Medical Records' },
+    { name: 'Police Investigation Report', value: 'Police Investigation Report' },
+    { name: 'Medical attendent certificate', value: 'Medical attendent certificate' },
+  ];
+
+  onSelectCheckbox(e: any) {
+    const checkArray: FormArray = this.form.get('checkArray') as FormArray;
+    if (e.target.checked) {
+      checkArray.push(new FormControl(e.target.value));
+    } else {
+      let i: number = 0;
+      checkArray.controls.forEach((item: any) => {
+        if (item.value == e.target.value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+  }
+  submitForm() {
+    console.log(this.form.value);
   }
 }
 

@@ -178,10 +178,10 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   uploadDocument() {
-    if (!this.file) {
-      this.notifierService.showError("Please Select File")
-    }
-    else {
+    // if (!this.file) {
+    //   this.notifierService.showError("Please Select File")
+    // }
+    if (this.file.type === 'image/png' || this.file.type === 'image/jpeg' || this.file.type === 'image/jpg' || this.file.type === 'application/pdf') {
       this.isUploaded = true
       let selectedDoc = this.uploadForm.controls.docType.value
       const formData: FormData = new FormData();
@@ -200,6 +200,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.notifierService.showError(error?.error?.message || "Something went wrong");
         this.isUploaded = false
       })
+    } else {
+      this.notifierService.showError("File type not valid");
     }
   }
 

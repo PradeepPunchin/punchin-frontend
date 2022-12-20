@@ -633,9 +633,38 @@
         </button>
     </div>
     <div class="modal-body">
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta deleniti quaerat beatae non facilis similique
-            rem dolorem facere voluptatum officia. Porro cupiditate magni culpa inventore esse incidunt provident quae
-            minima!</p>
+        <div class="container-fluid raise-additional-container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive new-requirements-table">
+                        <form [formGroup]="form" (ngSubmit)="submitForm()">
+
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr class="align-middle">
+                                        <th scope="col">Document Name</th>
+                                        <th scope="col" class="text-center">Select</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of Data; let i=index">
+                                        <td>{{data.name}}</td>
+                                        <td class="text-center">
+                                            <input type="checkbox" [value]="data.value"
+                                                (change)="onSelectCheckbox($event)" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </ng-template>
 
@@ -689,15 +718,15 @@
 
     <div class="cases-claims-box verifier-table">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6 *ngIf="(onStep === 0 || onStep === 1 ) && verifiercordListData.length > 0">Cases/Claims</h6>
+            <h6 *ngIf="(onStep === 0 || onStep === 1 )">Cases/Claims</h6>
             <div *ngIf="onStep === 2">
                 <button type="button" class="btn btn-primary m-2" [ngClass]="{active: innerStep === 0}"
                     (click)="innerStep = 0" (click)="verifierCardDetails('WIP')">In-Progress</button>
                 <button type="button" class="btn btn-light" [ngClass]="{active: innerStep === 1}"
                     (click)="innerStep = 1" (click)="verifierCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                *ngIf="verifiercordListData.length > 0 && onStep === 0" (input)="filterByStatus($event)">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" *ngIf="onStep === 0"
+                (input)="filterByStatus($event)">
                 <option selected>Filter by Status</option>
                 <option value="ALL">All</option>
                 <option value="WIP">In-Progress</option>
