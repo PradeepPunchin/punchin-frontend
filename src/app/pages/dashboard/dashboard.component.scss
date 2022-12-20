@@ -374,6 +374,22 @@
 }
 
 .verifier-table {
+  .claim-dashboard-btns {
+    .btn-primary {
+      background-color: $tableTextColor;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $white;
+      padding: 6px 15px;
+      margin-left: 10px;
+      border-color: $tableTextColor;
+    }
+    .active {
+      background-color: $buttonColor;
+      border-color: $buttonColor;
+    }
+  }
   .table-container {
     .table {
       margin-bottom: 19px;
