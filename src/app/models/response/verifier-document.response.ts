@@ -2,7 +2,8 @@
 export interface VerifierDocumentDetail {
     borrowerAddress: string,
     borrowerName: string,
-    claimDocumentsDTOS: IDocumentDetailDTO[],
+    agentClaimDocumentsDTOs: IDocumentDetailDTO[],
+    bankerClaimDocumentsDTOs: IDocumentDetailDTO[]
     insurerName: string,
     loanAccountNumber: string,
     nomineeAddress: string,
@@ -18,6 +19,7 @@ export interface IDocumentDetailDTO {
     isVerified: boolean,
     documentUrlDTOS: IDocumetnUrlListDTO[]
 }
+
 
 export interface IDocumetnUrlListDTO {
     docUrl: string
