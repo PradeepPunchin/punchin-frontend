@@ -178,7 +178,7 @@
             </div>
         </div>
 
-        <div class="table-container table-responsive" *ngIf="onStep === 1">
+        <div class="table-container table-responsive" *ngIf="onStep === 1 && isShowFileUploaded">
             <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
@@ -279,7 +279,7 @@
             </table>
         </div>
 
-        <div class="table-container table-responsive" *ngIf="onStep === 2  ">
+        <div class="table-container table-responsive" *ngIf="onStep === 2  && isShowFileUploaded  ">
             <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
@@ -379,7 +379,7 @@
                 </ng-container>
             </table>
         </div>
-        <div class="table-container table-responsive" *ngIf="onStep === 3">
+        <div class="table-container table-responsive" *ngIf="onStep === 3  && isShowFileUploaded">
             <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
