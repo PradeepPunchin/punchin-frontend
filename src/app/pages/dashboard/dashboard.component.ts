@@ -132,7 +132,10 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
         this.getClaimList();
-        this.showCardDetails("ALL");
+        setTimeout(() => {
+          this.pageNo = 0
+          this.showCardDetails("ALL");
+        }, 1000);
         this.isShowFileUploaded = true;
         if (this.cordListData.length > 0) {
           this.isShow = false
@@ -225,8 +228,7 @@ export class DashboardComponent implements OnInit {
     if (this.claimList && this.claimList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
       this.getClaimList();
-    }
-    if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
+    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
       this.pageNo = event.page - 1;
       this.showCardDetails("ALL");
     } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'WIP') {

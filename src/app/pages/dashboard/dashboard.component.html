@@ -117,7 +117,6 @@
                             <th scope="col">Nominee Address</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Raise Additional Doc Request</th>
-
                         </tr>
                     </thead>
                     <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
@@ -380,7 +379,7 @@
                 </ng-container>
             </table>
         </div>
-        <div class="table-container table-responsive" *ngIf="onStep === 3  ">
+        <div class="table-container table-responsive" *ngIf="onStep === 3">
             <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
@@ -737,6 +736,8 @@
                 <option selected>Filter by Status</option>
                 <option value="ALL">All</option>
                 <option value="WIP">In-Progress</option>
+                <option value="SETTLED">Approved</option>
+
                 <!-- <option value="3">Sent to Insurer</option> -->
             </select>
         </div>
