@@ -184,7 +184,6 @@
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
                         <th scope="col">PunchIn Ref. ID</th>
-                        <th scope="col">Insurer Claim Id</th>
                         <th scope="col">Punchin Banker Id</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
@@ -218,6 +217,7 @@
                         <th scope="col">Policy Start Date</th>
                         <th scope="col">Policy Coverage Duration</th>
                         <th scope="col">Policy Sum Assured</th>
+                        <th scope="col">Insurer Claim Id</th>
                         <th scope="col">Nominee Name</th>
                         <th scope="col">Nominee RelationShip</th>
                         <th scope="col">Nominee Contact Number</th>
@@ -233,7 +233,6 @@
                                 {{ (pageNo) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
-                            <td>{{item.insurerClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
                             <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
@@ -267,6 +266,7 @@
                             <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.policyCoverageDuration}}</td>
                             <td>{{item.policySumAssured}}</td>
+                            <td>{{item.insurerClaimId}}</td>
                             <td>{{item.nomineeName}}</td>
                             <td>{{item.nomineeRelationShip}}</td>
                             <td>{{item.nomineeContactNumber}}</td>
