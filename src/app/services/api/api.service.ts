@@ -32,16 +32,16 @@ export class ApiService {
     return this.http.post(`${this.baseApiUrl}banker/claim/upload`, data);
   }
 
-  getClaimList(pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=DRAFT&limit=${pageSize}&page=${pageNo}`);
+  getClaimList(page = 0) {
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=DRAFT&limit=${7}&page=${page}`);
   }
 
   getClaimUploadList(data: any, pageNo: number, pageSize: number) {
     return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${data}&page=${pageNo}&limit=${pageSize}`);
   }
 
-  getCardList(data: any, pageNo: number, pageSize: number) {
-    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${data}&limit=${pageSize}&page=${pageNo}`);
+  getCardList(data: any, page = 0) {
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${data}&limit=7&page=${page}`);
   }
 
   discardClaims() {

@@ -121,17 +121,18 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   downloadAllDocumnet() {
     this.isDownloadDoc = true
     this.apiService.getDownlaodAllDocuments(this.documentVerificationRequestId).subscribe((res: any) => {
-      if (res?.isSuccess) {
-        var link = document.createElement("a")
-        link.href = res?.data
-        link.click()
+      if (res?.isSuccess && res?.data) {
+        window.location.href = res?.data
         this.notifierService.showSuccess(res?.message);
+        this.isDownloadDoc = false
+      } else {
+        this.notifierService.showError("No data found");
         this.isDownloadDoc = false
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
       this.isDownloadDoc = false
-    })
+    });
   }
 
 }
