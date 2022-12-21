@@ -9,12 +9,12 @@
                         <h5>
                             {{bankerDashboardData[bankerStatusEnum.all] || 0}}
                         </h5>
-                        <h6>Total Cases</h6>
+                        <h6> Claims Allocated</h6>
                     </div>
                 </div>
             </div>
             <div class="col-3" [ngClass]="{ active: onStep === 1 }" (click)="onStep = 1">
-                <div class="claims-action-pending-box" (click)="showCardDetails('WIP')">
+                <div class="claims-in-progress-box" (click)="showCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="col-3" [ngClass]="{ active: onStep === 3 }" (click)="onStep = 3">
-                <div class="claims-in-progress-box" (click)="showCardDetails('SETTLED')">
+                <div class="claims-action-pending-box " (click)="showCardDetails('SETTLED')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -491,26 +491,16 @@
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.all] || 0}}</h5>
-                        <h6>Total Cases</h6>
+                        <h6> Claims Allocated</h6>
                     </div>
                 </div>
             </div>
-
             <div class="col-3" [ngClass]="{active: onStep === 1}" (click)="onStep = 1">
-                <div class="claims-action-pending-box" (click)="verifierCardDetails('SETTLED')">
-                    <img src="../../../assets/icons/claim.svg">
-                    <div>
-                        <h5>{{verifierDashboardData[verifierStatusEnum.settled] || 0}}</h5>
-                        <h6>Approved Cases</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3" [ngClass]="{active: onStep === 2}" (click)="onStep = 2">
                 <div class="claims-in-progress-box" (click)="verifierCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.inprogress] || 0}}</h5>
-                        <h6>In-Progress Cases</h6>
+                        <h6>WIP Cases</h6>
                     </div>
                 </div>
             </div>
@@ -523,13 +513,22 @@
                     </div>
                 </div>
             </div>
+            <div class="col-3" [ngClass]="{active: onStep === 2}" (click)="onStep = 2">
+                <div class="claims-action-pending-box" (click)="verifierCardDetails('SETTLED')">
+                    <img src="../../../assets/icons/claim.svg">
+                    <div>
+                        <h5>{{verifierDashboardData[verifierStatusEnum.settled] || 0}}</h5>
+                        <h6>Submitted Cases</h6>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="cases-claims-box verifier-table">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6 *ngIf="(onStep === 0 || onStep === 1 )">Cases/Claims({{totalrecords}})</h6>
-            <div *ngIf="onStep === 2">
+            <h6 *ngIf="(onStep === 0 || onStep === 2 )">Cases/Claims({{totalrecords}})</h6>
+            <div *ngIf="onStep === 1">
                 <button type="button" class="btn btn-primary m-2" [routerLinkActive]="['active']"
                     [ngClass]="{active: innerStep === 0}" (click)="innerStep = 0"
                     (click)="verifierCardDetails('WIP')">In-Progress</button>
@@ -548,7 +547,7 @@
             </select>
         </div>
         <div class="table-container table-responsive"
-            *ngIf="onStep === 0 || onStep === 1 || (onStep === 2 && innerStep === 0) || (onStep === 2 && innerStep === 1)">
+            *ngIf="onStep === 0 || onStep === 1 || (onStep === 1 && innerStep === 0) || (onStep === 1 && innerStep === 1) || onStep === 2">
             <table class="table table-sm">
                 <thead>
                     <tr class="align-middle">
