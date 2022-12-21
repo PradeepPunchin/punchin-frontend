@@ -39,7 +39,7 @@
                                                 <td>{{item.borrowerName}}</td>
                                                 <td>{{item.nomineeName}}</td>
                                                 <td>{{item.nomineeContactNumber}}</td>
-                                                <td>{{item.nomineeAddress}}</td>
+                                                <td>{{item.borrowerAddress}}</td>
                                                 <td>
                                                         <span *ngIf="item.singnedClaimDocument === 'UPLOADED'"> <img
                                                                         src="assets/icons/bluetick.svg"></span>
@@ -135,7 +135,7 @@
     </div> -->
                 <div class="pagination-content">
                         <pagination [boundaryLinks]="true" [totalItems]="totalrecords"
-                                (pageChanged)="pageChanged($event)" [maxSize]="3" previousText="&lsaquo;"
+                                (pageChanged)="pageChanged($event)" [maxSize]="5" previousText="&lsaquo;"
                                 nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
                         </pagination>
                 </div>

@@ -62,9 +62,10 @@
             <div (click)="isVarifierCollapsed = !isVarifierCollapsed;isBankerCollapsed = !isBankerCollapsed "
                 class="collapse-title" [attr.aria-expanded]="!isVarifierCollapsed"> Customer
                 Document
-                <!-- <span class="collapse-title-expand-indicator">
-                    <img class="collapse-icon" src="assets/icons/plus.svg" alt="plus-icon">
-                </span> -->
+                <span class="collapse-title-expand-indicator">
+                    <span *ngIf="isVarifierCollapsed"><i class="fa fa-arrow-down"></i></span>
+                    <span *ngIf="!isVarifierCollapsed"><i class="fa fa-arrow-up"></i></span>
+                </span>
             </div>
             <div id="collapseBasic" [collapse]="isVarifierCollapsed">
                 <div class="table-responsive document-verification-table">
@@ -122,9 +123,10 @@
             <div (click)="isBankerCollapsed = !isBankerCollapsed;isVarifierCollapsed = !isVarifierCollapsed"
                 class="collapse-title" [attr.aria-expanded]="!isBankerCollapsed"> Banker
                 Document
-                <!-- <span class="collapse-title-expand-indicator">
-                    <img class="collapse-icon" src="assets/icons/plus.svg" alt="plus-icon">
-                </span> -->
+                <span class="collapse-title-expand-indicator">
+                    <span *ngIf="isBankerCollapsed"><i class="fa fa-arrow-down"></i></span>
+                    <span *ngIf="!isBankerCollapsed"><i class="fa fa-arrow-up"></i></span>
+                </span>
             </div>
             <div id="collapseBasic" [collapse]="isBankerCollapsed">
                 <div class="table-responsive document-verification-table">

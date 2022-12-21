@@ -122,7 +122,7 @@
                     <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                         <tr>
                             <td>
-                                {{ (pageNo) * pageSize + i +1 }}
+                                {{ (currentPage) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
@@ -178,7 +178,8 @@
             </div>
         </div>
 
-        <div class="table-container table-responsive" *ngIf="onStep === 1 && isShowFileUploaded">
+        <div class="table-container table-responsive"
+            *ngIf="(onStep === 1 || onStep === 2 || onStep === 3) && isShowFileUploaded">
             <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
@@ -230,7 +231,7 @@
                     <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                         <tr>
                             <td>
-                                {{ (pageNo) * pageSize + i +1 }}
+                                {{ (currentPage) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
@@ -278,208 +279,6 @@
                 </ng-container>
             </table>
         </div>
-
-        <div class="table-container table-responsive" *ngIf="onStep === 2  && isShowFileUploaded  ">
-            <table class="table  table-sm" *ngIf="isShow === false">
-                <thead>
-                    <tr class="align-middle">
-                        <th scope="col">S.No</th>
-                        <th scope="col">PunchIn Ref. ID</th>
-                        <th scope="col">Lender Name</th>
-                        <th scope="col">Claim Inward Date</th>
-                        <th scope="col">Borrower Name</th>
-                        <th scope="col">Borrower Contact Number</th>
-                        <th scope="col">Borrower City</th>
-                        <th scope="col">Borrower State</th>
-                        <th scope="col">Borrower Pin Code</th>
-                        <th scope="col">Borrower Email Id</th>
-                        <th scope="col">Borrower Alternate Contact Number</th>
-                        <th scope="col">Borrower Alternate Contact Details</th>
-                        <th scope="col">Borrower DOB</th>
-                        <th scope="col">Loan Account Number</th>
-                        <th scope="col">Borrower Address</th>
-                        <th scope="col">Loan Type</th>
-                        <th scope="col">Loan Disbursal Date</th>
-                        <th scope="col">Loan Outstanding Amount</th>
-                        <th scope="col">Loan Amount</th>
-                        <th scope="col">Loan Amount Paid By Borrower</th>
-                        <th scope="col">Loan Amount Balance</th>
-                        <th scope="col">Branch Code</th>
-                        <th scope="col">Branch Name</th>
-                        <th scope="col">Branch Address</th>
-                        <th scope="col">Branch Pin Code</th>
-                        <th scope="col">Branch City</th>
-                        <th scope="col">Branch State</th>
-                        <th scope="col">Loan Account Manager Name</th>
-                        <th scope="col">Account Manager Contact Number</th>
-                        <th scope="col">Insurer Name</th>
-                        <th scope="col">Master Pol Number</th>
-                        <th scope="col">Policy Number</th>
-                        <th scope="col">Policy Start Date</th>
-                        <th scope="col">Policy Coverage Duration</th>
-                        <th scope="col">Policy Sum Assured</th>
-                        <th scope="col">Insurer Claim Id</th>
-                        <th scope="col">Nominee Name</th>
-                        <th scope="col">Nominee RelationShip</th>
-                        <th scope="col">Nominee Contact Number</th>
-                        <th scope="col">Nominee Email Id</th>
-                        <th scope="col">Nominee Address</th>
-                        <th scope="col" class="text-center">Status</th>
-                    </tr>
-                </thead>
-                <ng-container *ngIf="cordListData.length > 0 && isShowFileUploaded">
-                    <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
-                        <tr>
-                            <td>
-                                {{ (pageNo) * pageSize + i +1 }}
-                            </td>
-                            <td>{{item.punchinClaimId}}</td>
-                            <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
-                            <td>{{item.borrowerName}}</td>
-                            <td>{{item.borrowerContactNumber}}</td>
-                            <td>{{item.borrowerCity}}</td>
-                            <td>{{item.borrowerState}}</td>
-                            <td>{{item.borrowerPinCode}}</td>
-                            <td>{{item.borrowerEmailId}}</td>
-                            <td>{{item.borrowerAlternateContactNumber}}</td>
-                            <td>{{item.borrowerAlternateContactDetails}}</td>
-                            <td>{{item.borrowerDob}}</td>
-                            <td>{{item.loanAccountNumber}}</td>
-                            <td>{{item.borrowerAddress}}</td>
-                            <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
-                            <td>{{item.loanOutstandingAmount}}</td>
-                            <td>{{item.loanAmount}}</td>
-                            <td>{{item.loanAmountPaidByBorrower}}</td>
-                            <td>{{item.loanAmountBalance}}</td>
-                            <td>{{item.branchCode}}</td>
-                            <td>{{item.branchName}}</td>
-                            <td>{{item.branchAddress}}</td>
-                            <td>{{item.branchPinCode}}</td>
-                            <td>{{item.branchCity}}</td>
-                            <td>{{item.branchState}}</td>
-                            <td>{{item.loanAccountManagerName}}</td>
-                            <td>{{item.accountManagerContactNumber}}</td>
-                            <td>{{item.insurerName}}</td>
-                            <td>{{item.masterPolNumber}}</td>
-                            <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
-                            <td>{{item.policyCoverageDuration}}</td>
-                            <td>{{item.policySumAssured}}</td>
-                            <td>{{item.insurerClaimId}}</td>
-                            <td>{{item.nomineeName}}</td>
-                            <td>{{item.nomineeRelationShip}}</td>
-                            <td>{{item.nomineeContactNumber}}</td>
-                            <td>{{item.nomineeEmailId}}</td>
-                            <td>{{item.nomineeAddress}}</td>
-                            <td class="text-center status-button">{{item.claimStatus}}</td>
-                        </tr>
-                    </tbody>
-                </ng-container>
-            </table>
-        </div>
-        <div class="table-container table-responsive" *ngIf="onStep === 3  && isShowFileUploaded">
-            <table class="table  table-sm" *ngIf="isShow === false">
-                <thead>
-                    <tr class="align-middle">
-                        <th scope="col">S.No</th>
-                        <th scope="col">PunchIn Ref. ID</th>
-                        <th scope="col">Lender Name</th>
-                        <th scope="col">Claim Inward Date</th>
-                        <th scope="col">Borrower Name</th>
-                        <th scope="col">Borrower Contact Number</th>
-                        <th scope="col">Borrower City</th>
-                        <th scope="col">Borrower State</th>
-                        <th scope="col">Borrower Pin Code</th>
-                        <th scope="col">Borrower Email Id</th>
-                        <th scope="col">Borrower Alternate Contact Number</th>
-                        <th scope="col">Borrower Alternate Contact Details</th>
-                        <th scope="col">Borrower DOB</th>
-                        <th scope="col">Loan Account Number</th>
-                        <th scope="col">Borrower Address</th>
-                        <th scope="col">Loan Type</th>
-                        <th scope="col">Loan Disbursal Date</th>
-                        <th scope="col">Loan Outstanding Amount</th>
-                        <th scope="col">Loan Amount</th>
-                        <th scope="col">Loan Amount Paid By Borrower</th>
-                        <th scope="col">Loan Amount Balance</th>
-                        <th scope="col">Branch Code</th>
-                        <th scope="col">Branch Name</th>
-                        <th scope="col">Branch Address</th>
-                        <th scope="col">Branch Pin Code</th>
-                        <th scope="col">Branch City</th>
-                        <th scope="col">Branch State</th>
-                        <th scope="col">Loan Account Manager Name</th>
-                        <th scope="col">Account Manager Contact Number</th>
-                        <th scope="col">Insurer Name</th>
-                        <th scope="col">Master Pol Number</th>
-                        <th scope="col">Policy Number</th>
-                        <th scope="col">Policy Start Date</th>
-                        <th scope="col">Policy Coverage Duration</th>
-                        <th scope="col">Policy Sum Assured</th>
-                        <th scope="col">Insurer Claim Id</th>
-                        <th scope="col">Nominee Name</th>
-                        <th scope="col">Nominee RelationShip</th>
-                        <th scope="col">Nominee Contact Number</th>
-                        <th scope="col">Nominee Email Id</th>
-                        <th scope="col">Nominee Address</th>
-                        <th scope="col" class="text-center">Status</th>
-                    </tr>
-                </thead>
-                <ng-container *ngIf="cordListData.length > 0 && isShowFileUploaded">
-                    <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
-                        <tr>
-                            <td>
-                                {{ (pageNo) * pageSize + i +1 }}
-                            </td>
-                            <td>{{item.punchinClaimId}}</td>
-                            <td>{{item.punchinBankerId}}</td>
-                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
-                            <td>{{item.borrowerName}}</td>
-                            <td>{{item.borrowerContactNumber}}</td>
-                            <td>{{item.borrowerCity}}</td>
-                            <td>{{item.borrowerState}}</td>
-                            <td>{{item.borrowerPinCode}}</td>
-                            <td>{{item.borrowerEmailId}}</td>
-                            <td>{{item.borrowerAlternateContactNumber}}</td>
-                            <td>{{item.borrowerAlternateContactDetails}}</td>
-                            <td>{{item.borrowerDob}}</td>
-                            <td>{{item.loanAccountNumber}}</td>
-                            <td>{{item.borrowerAddress}}</td>
-                            <td>{{item.loanType }}</td>
-                            <td>{{item.loanDisbursalDate | date: 'dd/MM/yyyy' }}</td>
-                            <td>{{item.loanOutstandingAmount}}</td>
-                            <td>{{item.loanAmount}}</td>
-                            <td>{{item.loanAmountPaidByBorrower}}</td>
-                            <td>{{item.loanAmountBalance}}</td>
-                            <td>{{item.branchCode}}</td>
-                            <td>{{item.branchName}}</td>
-                            <td>{{item.branchAddress}}</td>
-                            <td>{{item.branchPinCode}}</td>
-                            <td>{{item.branchCity}}</td>
-                            <td>{{item.branchState}}</td>
-                            <td>{{item.loanAccountManagerName}}</td>
-                            <td>{{item.accountManagerContactNumber}}</td>
-                            <td>{{item.insurerName}}</td>
-                            <td>{{item.masterPolNumber}}</td>
-                            <td>{{item.policyNumber}}</td>
-                            <td>{{item.policyStartDate | date: 'dd/MM/yyyy' }}</td>
-                            <td>{{item.policyCoverageDuration}}</td>
-                            <td>{{item.policySumAssured}}</td>
-                            <td>{{item.insurerClaimId}}</td>
-                            <td>{{item.nomineeName}}</td>
-                            <td>{{item.nomineeRelationShip}}</td>
-                            <td>{{item.nomineeContactNumber}}</td>
-                            <td>{{item.nomineeEmailId}}</td>
-                            <td>{{item.nomineeAddress}}</td>
-                            <td class="text-center status-button">{{item.claimStatus}}</td>
-                        </tr>
-                    </tbody>
-                </ng-container>
-            </table>
-        </div>
-
         <div class="pagination-box d-flex justify-content-end align-items-center"
             *ngIf="cordListData.length > 0 && isShowFileUploaded">
             <!-- <div class="pages-per-rows d-flex align-items-center">
@@ -494,17 +293,24 @@
 
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
-                    (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                    [maxSize]="3"></pagination>
+                    (pageChanged)="changeBankerPage($event)" [itemsPerPage]="pageSize" firstText="&laquo;"
+                    lastText="&raquo;" [maxSize]="5"></pagination>
             </div>
         </div>
     </div>
     <div class="cases-upload-box" *ngIf="claimListContent.length > 0">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6>Service/Claim Dashboard</h6>
+            <h6>Service/Claim Dashboard ({{totalrecords}})</h6>
             <div>
                 <button type="button" class="btn btn-outline-primary" (click)="deleteClaim()">Discard</button>
-                <button type="button" class="btn btn-primary" (click)="submitClaim()">Submit</button>
+                <button type="button" class="btn btn-primary" (click)="submitClaim()">
+                    <ng-container *ngIf="isSubmitted ;else isSubmittedDone">
+                        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Submitting...
+                    </ng-container>
+                    <ng-template #isSubmittedDone>
+                        Submit
+                    </ng-template>
+                </button>
             </div>
         </div>
         <div class="table-container table-responsive">
@@ -557,7 +363,7 @@
                 <tbody class="align-middle" *ngFor="let item of claimListContent;let i = index">
                     <tr>
                         <td>
-                            {{ (pageNo) * pageSize + i +1 }}
+                            {{ (currentPage) * pageSize + i +1 }}
                         </td>
                         <td>{{item.punchinClaimId}}</td>
                         <td>{{item.punchinBankerId}}</td>
@@ -617,7 +423,7 @@
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                    [maxSize]="2"></pagination>
+                    [maxSize]="5"></pagination>
             </div>
         </div>
     </div>
@@ -722,7 +528,7 @@
 
     <div class="cases-claims-box verifier-table">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6 *ngIf="(onStep === 0 || onStep === 1 )">Cases/Claims</h6>
+            <h6 *ngIf="(onStep === 0 || onStep === 1 )">Cases/Claims({{totalrecords}})</h6>
             <div *ngIf="onStep === 2">
                 <button type="button" class="btn btn-primary m-2" [routerLinkActive]="['active']"
                     [ngClass]="{active: innerStep === 0}" (click)="innerStep = 0"
@@ -758,7 +564,6 @@
                         <th scope="col">Borrower ID Proof</th>
                         <th scope="col">Nominee Id Proof </th>
                         <th scope="col">Bank A/c Proof </th>
-                        <!-- <th scope="col">FIR / Postmortem report</th> -->
                         <th scope="col">Additional Document</th>
                         <th scope="col" class="text-center ">Status</th>
                     </tr>
@@ -773,7 +578,7 @@
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
                         <td>{{item.nomineeContactNumber}}</td>
-                        <td>{{item.nomineeAddress}}</td>
+                        <td>{{item.borrowerAddress}}</td>
                         <td>
                             <span *ngIf="item.singnedClaimDocument === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>
@@ -826,16 +631,6 @@
                             <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
                         </td>
-                        <!-- <td>
-                            <span *ngIf="item.firPostmortemReport === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.firPostmortemReport === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span>
-                        </td> -->
                         <td>
                             <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>
@@ -864,8 +659,8 @@
             </div> -->
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
-                    (pageChanged)="changePage($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                    max-size="3"></pagination>
+                    (pageChanged)="changeVerifierPage($event)" [itemsPerPage]="pageSize" firstText="&laquo;"
+                    lastText="&raquo;" [maxSize]="5"></pagination>
             </div>
         </div>
     </div>
