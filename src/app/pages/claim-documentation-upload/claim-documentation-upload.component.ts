@@ -25,7 +25,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   ClaimListDataById: any = []
   file: any;
   files: any[] = [];
-  isSucessUpload: boolean = false
   filterData: any = "ALL";
   viewDocument: any
   uploadedData: any
@@ -124,8 +123,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.editCliamList = false;
         this.pageNo = 0;
         this.getClaimUploadList();
-        this.isSucessUpload = false;
-
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -143,7 +140,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
         this.editClaimList(this.docId);
-        this.isSucessUpload = false;
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -155,7 +151,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.getClaimUploadList();
     this.viewClaimList = true;
     this.editCliamList = false;
-    this.isSucessUpload = false;
   }
 
   //pagination
@@ -193,7 +188,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
           this.isUploaded = false
           this.uploadedData = res?.data.claimDocuments
           this.notifierService.showSuccess(res?.message);
-          this.isSucessUpload = true
           this.uploadForm.reset();
         }
       }, (error: any) => {
@@ -218,7 +212,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.getClaimUploadList();
         this.viewClaimList = true;
         this.editCliamList = false;
-        this.isSucessUpload = false;
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
