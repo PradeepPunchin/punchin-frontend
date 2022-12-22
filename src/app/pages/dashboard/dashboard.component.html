@@ -9,7 +9,7 @@
                         <h5>
                             {{bankerDashboardData[bankerStatusEnum.all] || 0}}
                         </h5>
-                        <h6> Claims Allocated</h6>
+                        <h6> Claims - Allocated</h6>
                     </div>
                 </div>
             </div>
@@ -495,7 +495,7 @@
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.all] || 0}}</h5>
-                        <h6> Claims Allocated</h6>
+                        <h6> Claims - Allocated</h6>
                     </div>
                 </div>
             </div>
@@ -568,6 +568,7 @@
                         <th scope="col">Borrower ID Proof</th>
                         <th scope="col">Nominee Id Proof </th>
                         <th scope="col">Bank A/c Proof </th>
+                        <th scope="col"> Nominee KYC Proof</th>
                         <th scope="col">Additional Document</th>
                         <th scope="col" class="text-center ">Status</th>
                     </tr>
@@ -634,6 +635,17 @@
                                     src="assets/icons/tick-green.svg"></span>
                             <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
+                        </td>
+                        <td>
+                            <span><img src="assets/icons/cross.svg"></span>
+                            <!-- <span *ngIf="item.bankAccountProof === 'UPLOADED'"> <img
+                                    src="assets/icons/bluetick.svg"></span>
+                            <span *ngIf="item.bankAccountProof === 'NOT_UPLOADED'"> <img
+                                    src="assets/icons/cross.svg"></span>
+                            <span *ngIf="item.bankAccountProof === 'APPROVED'"><img
+                                    src="assets/icons/tick-green.svg"></span>
+                            <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
+                            </span> -->
                         </td>
                         <td>
                             <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img
