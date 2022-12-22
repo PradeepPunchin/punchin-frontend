@@ -61,7 +61,7 @@
     margin: 20px 0 10px;
   }
   .document-verification-table {
-    height: 250px;
+    height: 260px;
     .table {
       margin-bottom: 0;
       thead {
@@ -107,7 +107,7 @@
             }
             .doc-status-yellow-text {
               color: $secondary;
-              background-color: $fadeYellow;
+              background-color: $fadedYellow;
             }
 
             .doc-status-red-text {
@@ -117,6 +117,9 @@
             .doc-status-blue-text {
               color: $blueColor;
               background-color: $blueButtonColor;
+            }
+            span {
+              cursor: pointer;
             }
           }
         }
@@ -142,25 +145,21 @@
     background-color: $tableBlueTextColor;
     margin-top: 20px;
 
-    //  &.collapsed{
-    //   background-color: #fef1c9;
-    // }
-
-    // &-expand-indicator {
-    //   position: absolute;
-    //   top: 50%;
-    //   right: 1rem;
-    //   transform: translateY(-50%);
+    &-expand-indicator {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      // .collapse-icon {
+      //   transition: transform 0.35s ease;
+      // }
+    }
+    // &:not(.collapsed) {
     //   .collapse-icon {
     //     transition: transform 0.35s ease;
+    //     transform: rotateZ(45deg);
     //   }
     // }
-    &:not(.collapsed) {
-      .collapse-icon {
-        transition: transform 0.35s ease;
-        transform: rotateZ(45deg);
-      }
-    }
   }
 
   // end

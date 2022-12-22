@@ -45,6 +45,7 @@ export class DashboardComponent implements OnInit {
   bsModalRef1?: BsModalRef;
   filterStatus: any
   currentPage = 0
+  isSubmitted: boolean = false
   form!: FormGroup;
 
 
@@ -87,9 +88,10 @@ export class DashboardComponent implements OnInit {
     }, 1000);
   }
 
+  // banker card table data
   showCardDetails(data: any) {
     this.bankerData = data;
-    this.apiService.getCardList(data, this.pageNo, this.pageSize).subscribe((res: any) => {
+    this.apiService.getCardList(this.bankerData).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
         this.cordListData = res?.data.content
@@ -101,8 +103,10 @@ export class DashboardComponent implements OnInit {
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
     });
+
   }
 
+  //banker dashboard
   getBankerDashboardData() {
     this.apiService.getBankerDashboardData().subscribe((res: ApiResponse<any> | any) => {
       if (res?.isSuccess) {
@@ -115,8 +119,10 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  //After uplaod file(Draft)
   getClaimList() {
-    this.apiService.getClaimList(this.pageNo, this.pageSize).subscribe((res: any) => {
+    this.currentPage = 0
+    this.apiService.getClaimList().subscribe((res: any) => {
       if (res?.isSuccess) {
         this.claimList = res?.data
         this.claimListContent = res?.data.content
@@ -127,15 +133,16 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  //discard upload file
   deleteClaim() {
     this.apiService.discardClaims().subscribe((res: any) => {
       if (res?.isSuccess) {
-        this.notifierService.showSuccess(res?.message)
+        this.notifierService.showSuccess(res?.message);
         this.getClaimList();
         setTimeout(() => {
-          this.pageNo = 0
+          this.currentPage = 0
           this.showCardDetails("ALL");
-        }, 1000);
+        }, 100);
         this.isShowFileUploaded = true;
         if (this.cordListData.length > 0) {
           this.isShow = false
@@ -150,38 +157,43 @@ export class DashboardComponent implements OnInit {
 
   viewUnderVerification() {
     this.router.navigate(['/pages/document-verification'])
-
   }
 
+  //submit upload file
   submitClaim() {
+    this.isSubmitted = true
     this.apiService.submitClaims().subscribe((res: any) => {
       if (res?.isSuccess) {
+        this.isSubmitted = false
         this.notifierService.showSuccess(res?.message)
         this.router.navigate(['/pages/claim-documentation'])
       }
     }, (error: any) => {
+      this.isSubmitted = false
       this.notifierService.showError(error?.error?.message || "Something went wrong")
     })
   }
 
+  // download standardized excel
   getDownloadExcelFormat() {
     this.apiService.getDownloadExcelFormat().subscribe((res: any) => {
-      if (res?.isSuccess) {
-        var link = document.createElement("a")
-        link.href = res.data
-        link.click()
+      if (res?.isSuccess && res?.data) {
+        window.location.href = res.data
+      } else {
+        this.notifierService.showError("No data found");
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
     });
   }
 
+  //  download msi report
   downloadMisReport() {
     this.apiService.getDownloadMisReport(this.bankerData).subscribe((res: any) => {
-      if (res?.isSuccess) {
-        var link = document.createElement("a")
-        link.href = res.data
-        link.click()
+      if (res?.isSuccess && res?.data) {
+        window.location.href = res.data
+      } else {
+        this.notifierService.showError("No data found");
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -225,22 +237,28 @@ export class DashboardComponent implements OnInit {
 
   //pagination
   pageChanged(event: PageChangedEvent) {
-    if (this.claimList && this.claimList.length !== this.totalrecords) {
-      this.pageNo = event.page - 1;
-      this.getClaimList();
-    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'ALL') {
-      this.pageNo = event.page - 1;
-      this.showCardDetails("ALL");
-    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'WIP') {
-      this.pageNo = event.page - 1;
-      this.showCardDetails("WIP");
-    } else if (this.cardList && this.cardList.length !== this.totalrecords && this.bankerData === 'UNDER_VERIFICATION') {
-      this.pageNo = event.page - 1;
-      this.showCardDetails("UNDER_VERIFICATION");
-    }
+    this.currentPage = event.page - 1;
+    this.apiService.getClaimList(this.currentPage).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.claimList = res?.data
+        this.claimListContent = res?.data.content
+        this.totalrecords = res?.data.totalRecords
+      }
+    })
   }
 
-  changePage(event: PageChangedEvent) {
+  changeBankerPage(event: PageChangedEvent) {
+    this.currentPage = event.page - 1;
+    this.apiService.getCardList(this.bankerData, this.currentPage).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.cardList = res?.data
+        this.cordListData = res?.data.content
+        this.totalrecords = res?.data.totalRecords
+      }
+    })
+  }
+
+  changeVerifierPage(event: PageChangedEvent) {
     this.currentPage = event.page - 1;
     this.apiService.getVerifierClaimsData(this.verifierData, this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
@@ -248,9 +266,10 @@ export class DashboardComponent implements OnInit {
         this.verifiercordListData = res?.data.content
         this.totalrecords = res?.data.totalRecords
       }
-
     })
   }
+  // end pagination
+
 
 
   // pagePerData(event: any) {
@@ -283,6 +302,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  // raise additional document
   Data: Array<any> = [
     { name: 'BANK_ACCOUNT_PROOF', value: 'BANK_ACCOUNT_PROOF' },
     { name: 'BORROWER_ID_PROOF', value: 'BORROWER_ID_PROOF' },
@@ -308,6 +328,7 @@ export class DashboardComponent implements OnInit {
   submitForm() {
     console.log(this.form.value);
   }
+  // end
 }
 
 
