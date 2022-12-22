@@ -75,6 +75,9 @@ export class DashboardComponent implements OnInit {
       this.getVerifierDashboardData();
       this.verifierCardDetails("ALL")
     }
+    if (this.role === "") {
+      this.bsModalRef?.hide();
+    }
   }
 
   onGetUploadedFile(event: any) {
