@@ -261,6 +261,8 @@
                         <th scope="col">Nominee Email Id</th>
                         <th scope="col">Nominee Address</th>
                         <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-center" *ngIf="onStep === 1 && innerStep === 1">Action</th>
+
                     </tr>
                 </thead>
                 <ng-container *ngIf="cordListData.length > 0 && isShowFileUploaded">
@@ -310,6 +312,11 @@
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
                             <td class="text-center status-button">{{item.claimStatus}}</td>
+                            <td class="text-center" *ngIf="onStep === 1 && innerStep === 1">
+                                <span (click)="OpenBankerDiscrepancyModal(bankerDiscrepancy)">
+                                    <i class="fa fa-file-text-o"></i>
+                                </span>
+                            </td>
                         </tr>
                     </tbody>
                 </ng-container>
@@ -464,55 +471,230 @@
         </div>
     </div>
 
+    <ng-template #raiseAdditionalDoc>
+        <div class="modal-header">
+            <h6 class="modal-title">Raise Additional Document Request</h6>
 
-</ng-container>
-<ng-template #raiseAdditionalDoc>
-    <div class="modal-header">
-        <h6 class="modal-title">Raise Additional Document Request</h6>
+            <button type="button" class="btn-close close pull-right" aria-label="Close"
+                (click)="this.bsModalRef1?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid raise-additional-container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive new-requirements-table">
+                            <form [formGroup]="form" (ngSubmit)="submitForm()">
 
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="this.bsModalRef1?.hide()">
-            <span aria-hidden="true" class="visually-hidden">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="container-fluid raise-additional-container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="table-responsive new-requirements-table">
-                        <form [formGroup]="form" (ngSubmit)="submitForm()">
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                        <tr class="align-middle">
+                                            <th scope="col">Document Name</th>
+                                            <th scope="col" class="text-center">Select</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of Data; let i=index">
+                                            <td>{{data.name}}</td>
+                                            <td class="text-center">
+                                                <input type="checkbox" [value]="data.value"
+                                                    (change)="onSelectCheckbox($event)" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="mt-2">
+                                    <label>Remark</label>
+                                    <input class="form-control" placeholder=" Enter Remark">
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #bankerDiscrepancy>
+        <div class="modal-header">
+            <h6 class="modal-title">Raise Additional Document Request</h6>
+
+            <button type="button" class="btn-close close pull-right" aria-label="Close"
+                (click)="this.bsModalRef2?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container-fluid new-requirements-container">
+                <h6 class="new-requirements-heading">Discrepancy/New Requirements</h6>
+
+                <div class="row">
+                    <div class="col-8">
+                        <div class="table-responsive new-requirements-table">
                             <table class="table table-bordered table-sm">
                                 <thead>
                                     <tr class="align-middle">
                                         <th scope="col">Document Name</th>
-                                        <th scope="col" class="text-center">Select</th>
+                                        <th scope="col" class="text-center">Uploaded Doc</th>
+                                        <th scope="col" class="text-center">Doc Status</th>
+                                        <th scope="col" class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let data of Data; let i=index">
-                                        <td>{{data.name}}</td>
+                                    <tr>
+                                        <td>Income Tax Returns</td>
+                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
+                                        </td>
                                         <td class="text-center">
-                                            <input type="checkbox" [value]="data.value"
-                                                (change)="onSelectCheckbox($event)" />
+                                            <p class="doc-status-blue-text">Approved</p>
+                                        </td>
+                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Medical Records</td>
+                                        <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg">
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="doc-status-grey-text">Not Uploaded</p>
+                                        </td>
+                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Legal hier certificate</td>
+                                        <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg">
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="doc-status-grey-text">Not Uploaded</p>
+                                        </td>
+                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Police Investigation Report</td>
+                                        <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg">
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="doc-status-grey-text">Not Uploaded</p>
+                                        </td>
+                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Relationship Proof (in case of minor nominee)</td>
+                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="doc-status-red-text">Rejected</p>
+                                        </td>
+                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian - Id proof (in case of minor nominee)</td>
+                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="doc-status-blue-text">Approved</p>
+                                        </td>
+                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Medical attendent certificate</td>
+                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="doc-status-blue-text">Approved</p>
+                                        </td>
+                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian - Id proof (in case of minor nominee)</td>
+                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="doc-status-blue-text">Approved</p>
+                                        </td>
+                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Guardian - Add proof (in case of minor nominee)</td>
+                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="doc-status-blue-text">Approved</p>
+                                        </td>
+                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Other Document</td>
+                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="doc-status-blue-text">Approved</p>
+                                        </td>
+                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="mt-2">
-                                <label>Remark</label>
-                                <input class="form-control" placeholder=" Enter Remark">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="document-preview-container">
+                            <p class="upload-required-text">Upload Required Documents</p>
+
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Select Additional Document Type</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+
+                            <div class="browse-upload-box d-flex align-items-center justify-content-between">
+                                <p class="browse-text">Browse</p>
+                                <button type="button" class="btn btn-light">Upload</button>
                             </div>
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
+
+                            <button type="button" class="btn btn-primary">Submit</button>
+                        </div>
                     </div>
                 </div>
 
+                <div class="row discrepancy-remark-container">
+                    <div class="col-8">
+                        <h6 class="discrepancy-remark-text">Discrepancy Remark</h6>
+                        <div class="discrepancy-remark">
+                            <p class="document-mismatch-text">Document mismatch please upload again <br> the
+                                following documents.
+                            </p>
+                            <p class="bank-account-cheque-leaf"> 1. Bank Account Cheque Leaf</p>
+                        </div>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
             </div>
+
         </div>
-    </div>
-</ng-template>
+    </ng-template>
+
+
+
+
+</ng-container>
+
+
 
 
 
@@ -752,145 +934,6 @@
         </div>
     </ng-container> -->
 </ng-container>
-
-
-
-
-
-<!-- Discrepancy/New Requirements -->
-<!-- <div class="container-fluid new-requirements-container">
-    <h6 class="new-requirements-heading">Discrepancy/New Requirements</h6>
-
-    <div class="row">
-        <div class="col-8">
-            <div class="table-responsive new-requirements-table">
-                <table class="table table-bordered table-sm">
-                    <thead>
-                        <tr class="align-middle">
-                            <th scope="col">Document Name</th>
-                            <th scope="col" class="text-center">Uploaded Doc</th>
-                            <th scope="col" class="text-center">Doc Status</th>
-                            <th scope="col" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Income Tax Returns</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Medical Records</td>
-                            <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-grey-text">Not Uploaded</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Legal hier certificate</td>
-                            <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-grey-text">Not Uploaded</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Police Investigation Report</td>
-                            <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-grey-text">Not Uploaded</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Relationship Proof (in case of minor nominee)</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-red-text">Rejected</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Guardian - Id proof (in case of minor nominee)</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Medical attendent certificate</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Guardian - Id proof (in case of minor nominee)</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Guardian - Add proof (in case of minor nominee)</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Other Document</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="document-preview-container">
-                <p class="upload-required-text">Upload Required Documents</p>
-
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Select Additional Document Type</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-
-                <div class="browse-upload-box d-flex align-items-center justify-content-between">
-                    <p class="browse-text">Browse</p>
-                    <button type="button" class="btn btn-light">Upload</button>
-                </div>
-
-                <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="row discrepancy-remark-container">
-        <div class="col-8">
-            <h6 class="discrepancy-remark-text">Discrepancy Remark</h6>
-            <div class="discrepancy-remark">
-                <p class="document-mismatch-text">Document mismatch please upload again <br> the following documents.
-                </p>
-                <p class="bank-account-cheque-leaf"> 1. Bank Account Cheque Leaf</p>
-            </div>
-        </div>
-        <div class="col-4"></div>
-    </div>
-</div> -->
 
 <ng-template #fileTemplate>
     <div class="modal-header">

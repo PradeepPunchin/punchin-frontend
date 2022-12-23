@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
   verifierData: any = "ALL"
   bsModalRef?: BsModalRef;
   bsModalRef1?: BsModalRef;
+  bsModalRef2?: BsModalRef;
   filterStatus: any
   currentPage = 0
   isSubmitted: boolean = false
@@ -335,6 +336,15 @@ export class DashboardComponent implements OnInit {
       keyboard: false
     };
     this.bsModalRef1 = this.modalService.show(template, initialState);
+  }
+
+  OpenBankerDiscrepancyModal(template: any) {
+    const initialState: ModalOptions = {
+      class: 'file-modal-custom-width',
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.bsModalRef2 = this.modalService.show(template, initialState)
 
   }
 
