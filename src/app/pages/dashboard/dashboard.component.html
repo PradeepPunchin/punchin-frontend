@@ -522,18 +522,15 @@
 
     <ng-template #bankerDiscrepancy>
         <div class="modal-header">
-            <h6 class="modal-title">Raise Additional Document Request</h6>
-
             <button type="button" class="btn-close close pull-right" aria-label="Close"
                 (click)="this.bsModalRef2?.hide()">
                 <span aria-hidden="true" class="visually-hidden">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body new-requirements-container">
 
-            <div class="container-fluid new-requirements-container">
+            <div class="container-fluid ">
                 <h6 class="new-requirements-heading">Discrepancy/New Requirements</h6>
-
                 <div class="row">
                     <div class="col-8">
                         <div class="table-responsive new-requirements-table">
@@ -548,7 +545,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Income Tax Returns</td>
+                                        <td>Loan Account Statement </td>
                                         <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
                                         </td>
                                         <td class="text-center">
@@ -558,7 +555,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Medical Records</td>
+                                        <td>Credit Account statement</td>
                                         <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg">
                                         </td>
                                         <td class="text-center">
@@ -568,7 +565,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Legal hier certificate</td>
+                                        <td>SMQ / DOGH - Resubmission</td>
                                         <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg">
                                         </td>
                                         <td class="text-center">
@@ -578,61 +575,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Police Investigation Report</td>
+                                        <td> Sanction Letter</td>
                                         <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg">
                                         </td>
                                         <td class="text-center">
                                             <p class="doc-status-grey-text">Not Uploaded</p>
-                                        </td>
-                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Relationship Proof (in case of minor nominee)</td>
-                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="doc-status-red-text">Rejected</p>
-                                        </td>
-                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Guardian - Id proof (in case of minor nominee)</td>
-                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="doc-status-blue-text">Approved</p>
-                                        </td>
-                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Medical attendent certificate</td>
-                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="doc-status-blue-text">Approved</p>
-                                        </td>
-                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Guardian - Id proof (in case of minor nominee)</td>
-                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="doc-status-blue-text">Approved</p>
-                                        </td>
-                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Guardian - Add proof (in case of minor nominee)</td>
-                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="doc-status-blue-text">Approved</p>
                                         </td>
                                         <td class="text-center"><img src="../../../assets/icons/eye.svg">
                                         </td>
@@ -642,7 +589,7 @@
                                         <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
                                         </td>
                                         <td class="text-center">
-                                            <p class="doc-status-blue-text">Approved</p>
+                                            <p class="doc-status-red-text">Rejected</p>
                                         </td>
                                         <td class="text-center"><img src="../../../assets/icons/eye.svg">
                                         </td>
@@ -657,12 +604,15 @@
 
                             <select class="form-select" aria-label="Default select example">
                                 <option selected>Select Additional Document Type</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option value="1">Loan Account Statement</option>
+                                <option value="2">Credit Account statement</option>
+                                <option value="3">SMQ / DOGH - Resubmission</option>
+                                <option value="3">Sanction Letter</option>
+                                <option value="3">Other Document</option>
                             </select>
-
-                            <div class="browse-upload-box d-flex align-items-center justify-content-between">
+                            <input type="file" #fileUplaod class="d-none" />
+                            <div class="browse-upload-box d-flex align-items-center justify-content-between"
+                                (click)="fileUplaod.click()">
                                 <p class="browse-text">Browse</p>
                                 <button type="button" class="btn btn-light">Upload</button>
                             </div>
@@ -672,7 +622,7 @@
                     </div>
                 </div>
 
-                <div class="row discrepancy-remark-container">
+                <!-- <div class="row discrepancy-remark-container">
                     <div class="col-8">
                         <h6 class="discrepancy-remark-text">Discrepancy Remark</h6>
                         <div class="discrepancy-remark">
@@ -683,7 +633,7 @@
                         </div>
                     </div>
                     <div class="col-4"></div>
-                </div>
+                </div> -->
             </div>
 
         </div>

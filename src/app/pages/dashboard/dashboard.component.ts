@@ -340,7 +340,7 @@ export class DashboardComponent implements OnInit {
 
   OpenBankerDiscrepancyModal(template: any) {
     const initialState: ModalOptions = {
-      class: 'file-modal-custom-width',
+      class: 'banker-discrepbancy-custom-modal',
       backdrop: 'static',
       keyboard: false
     };
