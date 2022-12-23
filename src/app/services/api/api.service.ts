@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { STORAGETOKENENUM } from 'src/app/models/enums';
 import { ILoginRequest } from 'src/app/models/request/auth.request';
 import { environment } from 'src/environments/environment';
+import { SessionService } from '../session/session.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +11,14 @@ import { environment } from 'src/environments/environment';
 export class ApiService {
 
   private baseApiUrl: string = environment.api.baseApiRoot;
-
+  role: any
   constructor(
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private sessionService: SessionService
+  ) {
+    this.role = this.sessionService.getSession(STORAGETOKENENUM.role)
+
+  }
 
   login(body: ILoginRequest) {
     return this.http.post(`${this.baseApiUrl}auth/login`, body);
@@ -76,7 +82,7 @@ export class ApiService {
     return this.http.post(`${this.baseApiUrl}banker/claim/${claimId}/documents/save-draft`, "");
   }
 
-  getDownloadMisReport(data: any) {
+  getBankerDownloadMISReport(data: any) {
     return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${data}`)
   }
   getBankerSearchData(searchEnum: any, inputData: any, tabType: any) {
@@ -112,6 +118,10 @@ export class ApiService {
 
   getVerifierSearchData(searchEnum: any, inputData: any, tabType: any, page = 0) {
     return this.http.get(`${this.baseApiUrl}verifier/claim/searchVerifier?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&page=${page}&limit=7`);
+  }
+
+  getVerifierDownloadMISReport(data: any) {
+    return this.http.get(`${this.baseApiUrl}verifier/claim/download-mis-report?claimDataFilter=${data}`)
   }
 }
 

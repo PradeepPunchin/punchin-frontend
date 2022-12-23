@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit {
   form!: FormGroup;
   searchForm!: FormGroup
   searchEnum: any
+  inputSearch: any
 
 
   constructor(
@@ -100,6 +101,7 @@ export class DashboardComponent implements OnInit {
   // banker card table data
   showCardDetails(data: any) {
     this.bankerData = data;
+    this.searchForm.reset();
     this.apiService.getCardList(this.bankerData).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
@@ -198,16 +200,29 @@ export class DashboardComponent implements OnInit {
 
   //  download msi report
   downloadMisReport() {
-    this.apiService.getDownloadMisReport(this.bankerData).subscribe((res: any) => {
-      if (res?.isSuccess && res?.data) {
-        window.location.href = res.data
-      } else {
-        this.notifierService.showError("No data found");
-      }
-    }, (error: any) => {
-      this.notifierService.showError(error?.error?.message || "Something went wrong");
-    });
+    if (this.role === ROLES.banker) {
+      this.apiService.getBankerDownloadMISReport(this.bankerData).subscribe((res: any) => {
+        if (res?.isSuccess && res?.data) {
+          window.location.href = res.data
+        } else {
+          this.notifierService.showError("No data found");
+        }
+      }, (error: any) => {
+        this.notifierService.showError(error?.error?.message || "Something went wrong");
+      });
+    } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
+      this.apiService.getVerifierDownloadMISReport(this.verifierData).subscribe((res: any) => {
+        if (res?.isSuccess && res?.data) {
+          window.location.href = res.data
+        } else {
+          this.notifierService.showError("No data found");
+        }
+      }, (error: any) => {
+        this.notifierService.showError(error?.error?.message || "Something went wrong");
+      });
+    }
   }
+
 
   //verifier dashboard
   getVerifierDashboardData() {
@@ -222,9 +237,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  //  verifier card api
+  //  verifier card table api
   verifierCardDetails(data: any) {
     this.verifierData = data;
+    this.searchForm.reset();
     if (data === 'UNDER_VERIFICATION') {
       this.router.navigate(['/pages/document-verification'])
     } else {
@@ -268,14 +284,25 @@ export class DashboardComponent implements OnInit {
   }
 
   changeVerifierPage(event: PageChangedEvent) {
-    this.currentPage = event.page - 1;
-    this.apiService.getVerifierClaimsData(this.verifierData, this.currentPage).subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.verifierCardList = res?.data
-        this.verifiercordListData = res?.data.content
-        this.totalrecords = res?.data.totalRecords
-      }
-    })
+    if (this.searchEnum, this.inputSearch) {
+      this.currentPage = event.page - 1;
+      this.apiService.getVerifierSearchData(this.searchEnum, this.inputSearch, this.verifierData, this.currentPage).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.verifierCardList = res?.data
+          this.verifiercordListData = res?.data.content
+          this.totalrecords = res?.data.totalRecords
+        }
+      });
+    } else {
+      this.currentPage = event.page - 1;
+      this.apiService.getVerifierClaimsData(this.verifierData, this.currentPage).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.verifierCardList = res?.data
+          this.verifiercordListData = res?.data.content
+          this.totalrecords = res?.data.totalRecords
+        }
+      });
+    }
   }
   // end pagination
 
@@ -316,10 +343,10 @@ export class DashboardComponent implements OnInit {
     this.searchEnum = event.target.value
   }
   searchTableData() {
-    let inputSearch = this.searchForm.controls.search.value
+    this.inputSearch = this.searchForm.controls.search.value
     if (this.role === ROLES.banker) {
       if (this.searchForm.valid) {
-        this.apiService.getBankerSearchData(this.searchEnum, inputSearch, this.verifierData).subscribe((res: any) => {
+        this.apiService.getBankerSearchData(this.searchEnum, this.inputSearch, this.verifierData).subscribe((res: any) => {
           if (res?.isSuccess) {
             this.cordListData = res?.data
           }
@@ -333,8 +360,7 @@ export class DashboardComponent implements OnInit {
 
     } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
       if (this.searchForm.valid) {
-        console.log(this.searchEnum, inputSearch, this.verifierData, "dashboard input data");
-        this.apiService.getVerifierSearchData(this.searchEnum, inputSearch, this.verifierData).subscribe((res: any) => {
+        this.apiService.getVerifierSearchData(this.searchEnum, this.inputSearch, this.verifierData).subscribe((res: any) => {
           if (res?.isSuccess) {
             this.verifierCardList = res?.data
             this.verifiercordListData = res?.data.content

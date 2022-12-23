@@ -1,8 +1,9 @@
 <ng-container *ngIf="role =='BANKER'">
     <div class="container-fluid claim-dashboard-box">
-        <div class="claim-dashboard-search d-flex justify-content-between align-items-center">
+        <div class="claim-dashboard-search d-flex justify-content-between align-items-center"
+            *ngIf="cordListData.length > 0">
             <h6>Service/Claim Dashboard</h6>
-            <form [formGroup]="searchForm">
+            <form [formGroup]=" searchForm">
                 <div class="row">
                     <div class="col-4">
                         <select class="form-select form-select-md" aria-label=".form-select-sm example"
@@ -77,7 +78,15 @@
     <div class="cases-claims-box">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center"
             *ngIf="cordListData.length > 0 && isShowFileUploaded">
-            <h6>Case/Claim</h6>
+            <h6 *ngIf="onStep === 0 || onStep === 2 || onStep === 3">Case/Claim({{this.totalrecords || 0}})</h6>
+            <div *ngIf="onStep === 1">
+                <button type="button" class="btn btn-light m-2" [routerLinkActive]="['active']"
+                    [ngClass]="{active: innerStep === 0}" (click)="innerStep = 0"
+                    (click)="showCardDetails('WIP')">In-Progress</button>
+                <button type="button" [routerLinkActive]="['active']" class="btn btn-light"
+                    [ngClass]="{active: innerStep === 1}" (click)="innerStep = 1"
+                    (click)="showCardDetails('DISCREPENCY')">Discrepancy</button>
+            </div>
             <button type="button" class="btn btn-primary btn1"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3" (click)="openModal1(fileTemplate)">
                 <img src="../../../assets/icons/action(white).svg" class="me-2">Upload xls File</button>
@@ -87,8 +96,7 @@
                     src="../../../assets/icons/download.svg" class="me-2">Download MIS
                 report
             </button>
-            <button type="button" class="btn btn-outline-primary"
-                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"
+            <button type="button" class="btn btn-outline-primary" *ngIf="onStep === 0"
                 (click)="getDownloadExcelFormat()"><img src="../../../assets/icons/download.svg" class="me-2">Download
                 Standardized Format
             </button>
@@ -205,7 +213,7 @@
         </div>
 
         <div class="table-container table-responsive"
-            *ngIf="(onStep === 1 || onStep === 2 || onStep === 3) && isShowFileUploaded">
+            *ngIf="((onStep === 1 && innerStep === 0) || (onStep === 1 && innerStep === 1) || onStep === 2 || onStep === 3) && isShowFileUploaded">
             <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
@@ -328,7 +336,7 @@
     </div>
     <div class="cases-upload-box" *ngIf="claimListContent.length > 0">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6>Service/Claim Dashboard ({{totalrecords}})</h6>
+            <h6>Service/Claim Dashboard ({{totalrecords || 0}})</h6>
             <div>
                 <button type="button" class="btn btn-outline-primary" (click)="deleteClaim()">Discard</button>
                 <button type="button" class="btn btn-primary" (click)="submitClaim()">
@@ -512,7 +520,8 @@
 <!-- Verifier Dashboard -->
 <ng-container *ngIf="role =='ADMIN' || role =='VERIFIER'">
     <div class="container-fluid claim-dashboard-box">
-        <div class="claim-dashboard-search d-flex justify-content-between align-items-center">
+        <div class="claim-dashboard-search d-flex justify-content-between align-items-center"
+            *ngIf="verifiercordListData.length > 0">
             <h6>Service/Claim Dashboard</h6>
             <form [formGroup]="searchForm">
                 <div class="row">
@@ -580,7 +589,7 @@
 
     <div class="cases-claims-box verifier-table">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6 *ngIf="(onStep === 0 || onStep === 2 )">Cases/Claims({{totalrecords}})</h6>
+            <h6 *ngIf="(onStep === 0 || onStep === 2 )">Cases/Claims({{totalrecords || 0}})</h6>
             <div *ngIf="onStep === 1">
                 <button type="button" class="btn btn-primary m-2" [routerLinkActive]="['active']"
                     [ngClass]="{active: innerStep === 0}" (click)="innerStep = 0"
@@ -589,7 +598,11 @@
                     [ngClass]="{active: innerStep === 1}" (click)="innerStep = 1"
                     (click)="verifierCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example" *ngIf="onStep === 0"
+            <button type="button" class="btn btn-outline-primary v-bnt1" (click)="downloadMisReport()"><img
+                    src="../../../assets/icons/download.svg" class="me-2">Download MIS
+                report
+            </button>
+            <select class="form-select form-select-md" aria-label=".form-select-sm example" *ngIf="onStep === 0"
                 (input)="filterByStatus($event)">
                 <option selected>Filter by Status</option>
                 <option value="ALL">Allocated</option>
@@ -706,7 +719,8 @@
                             <span *ngIf="item.additionalDoc === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
                         </td>
-                        <td class="text-center status-button">{{item.claimStatus}}</td>
+                        <td class="text-center status-button">
+                            {{item.claimStatus}}</td>
                     </tr>
                 </tbody>
             </table>
