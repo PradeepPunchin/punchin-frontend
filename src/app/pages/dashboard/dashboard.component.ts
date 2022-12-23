@@ -47,6 +47,8 @@ export class DashboardComponent implements OnInit {
   currentPage = 0
   isSubmitted: boolean = false
   form!: FormGroup;
+  searchForm!: FormGroup
+  searchEnum: any
 
 
   constructor(
@@ -57,11 +59,15 @@ export class DashboardComponent implements OnInit {
     private eventService: EventService,
     private utilitiesService: UtilityService,
     private modalService: BsModalService,
-    private fb: FormBuilder
+    private formBuilder: FormBuilder
   ) {
-    this.form = this.fb.group({
-      checkArray: this.fb.array([], [Validators.required]),
+    this.form = this.formBuilder.group({
+      checkArray: this.formBuilder.array([], [Validators.required]),
     });
+    this.searchForm = this.formBuilder.group({
+      selectedValue: [null, [Validators.required]],
+      search: ["", [Validators.required]]
+    })
   }
 
   ngOnInit(): void {
@@ -304,6 +310,47 @@ export class DashboardComponent implements OnInit {
     this.bsModalRef1 = this.modalService.show(template, initialState);
 
   }
+
+  //search
+  searchBySelectedData(event: any) {
+    this.searchEnum = event.target.value
+  }
+  searchTableData() {
+    let inputSearch = this.searchForm.controls.search.value
+    if (this.role === ROLES.banker) {
+      if (this.searchForm.valid) {
+        this.apiService.getBankerSearchData(this.searchEnum, inputSearch, this.verifierData).subscribe((res: any) => {
+          if (res?.isSuccess) {
+            this.cordListData = res?.data
+          }
+        }, (error: any) => {
+          this.notifierService.showError(error?.error?.message || "Something went wrong");
+        })
+      }
+      else {
+        this.notifierService.showError("Something went wrong");
+      }
+
+    } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
+      if (this.searchForm.valid) {
+        console.log(this.searchEnum, inputSearch, this.verifierData, "dashboard input data");
+        this.apiService.getVerifierSearchData(this.searchEnum, inputSearch, this.verifierData).subscribe((res: any) => {
+          if (res?.isSuccess) {
+            this.verifierCardList = res?.data
+            this.verifiercordListData = res?.data.content
+            this.totalrecords = res?.data.totalRecords
+          }
+        }, (error: any) => {
+          this.notifierService.showError(error?.error?.message || "Something went wrong");
+        })
+      }
+      else {
+        this.notifierService.showError("Something went wrong");
+      }
+    } else { }
+
+  }
+  //end
 
   // raise additional document
   Data: Array<any> = [

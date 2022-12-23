@@ -79,6 +79,11 @@ export class ApiService {
   getDownloadMisReport(data: any) {
     return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${data}`)
   }
+  getBankerSearchData(searchEnum: any, inputData: any, tabType: any) {
+    return this.http.get(`${this.baseApiUrl}banker/claim/searchBanker?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}`)
+  }
+
+
 
   //varifier api
   getVerifierDashboardData() {
@@ -103,6 +108,10 @@ export class ApiService {
 
   getDownlaodAllDocuments(id: any) {
     return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/download-all-documents`);
+  }
+
+  getVerifierSearchData(searchEnum: any, inputData: any, tabType: any, page = 0) {
+    return this.http.get(`${this.baseApiUrl}verifier/claim/searchVerifier?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&page=${page}&limit=7`);
   }
 }
 

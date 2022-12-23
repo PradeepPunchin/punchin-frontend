@@ -1,6 +1,30 @@
 <ng-container *ngIf="role =='BANKER'">
     <div class="container-fluid claim-dashboard-box">
-        <h6>Service/Claim Dashboard</h6>
+        <div class="claim-dashboard-search d-flex justify-content-between align-items-center">
+            <h6>Service/Claim Dashboard</h6>
+            <form [formGroup]="searchForm">
+                <div class="row">
+                    <div class="col-4">
+                        <select class="form-select form-select-md" aria-label=".form-select-sm example"
+                            (input)="searchBySelectedData($event)" formControlName="selectedValue">
+                            <option selected [ngValue]="null">Select</option>
+                            <option value="CLAIM_DATA_ID">Claim Data Id</option>
+                            <option value="NAME">Name</option>
+                            <option value="LOAN_ACCOUNT_NUMBER">Loan Account Number</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="search" class="form-control" placeholder="Search..."
+                                formControlName="search" />
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary" (click)="searchTableData()">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="row">
             <div class="col-3" [ngClass]="{ active: onStep === 0 }" (click)="onStep = 0">
                 <div class="claims-allocated-box" (click)="showCardDetails('ALL')">
@@ -20,7 +44,7 @@
                         <h5>
                             {{bankerDashboardData[bankerStatusEnum.inprogress] || 0}}
                         </h5>
-                        <h6>WIP Cases</h6>
+                        <h6>Claims - In Progress</h6>
                     </div>
                 </div>
             </div>
@@ -29,7 +53,7 @@
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{bankerDashboardData[bankerStatusEnum.underVerification] || 0}}</h5>
-                        <h6>Under Verification Cases</h6>
+                        <h6>Claims - Under Verification</h6>
                     </div>
                 </div>
             </div>
@@ -40,7 +64,7 @@
                         <h5>
                             {{bankerDashboardData[bankerStatusEnum.settled] || 0}}
                         </h5>
-                        <h6>Submitted Cases</h6>
+                        <h6>Claims - Submitted </h6>
                     </div>
                 </div>
             </div>
@@ -488,7 +512,32 @@
 <!-- Verifier Dashboard -->
 <ng-container *ngIf="role =='ADMIN' || role =='VERIFIER'">
     <div class="container-fluid claim-dashboard-box">
-        <h6>Service/Claim Dashboard</h6>
+        <div class="claim-dashboard-search d-flex justify-content-between align-items-center">
+            <h6>Service/Claim Dashboard</h6>
+            <form [formGroup]="searchForm">
+                <div class="row">
+                    <div class="col-4">
+                        <select class="form-select form-select-md" aria-label=".form-select-sm example"
+                            (input)="searchBySelectedData($event)" formControlName="selectedValue">
+                            <option selected [ngValue]="null">Select</option>
+                            <option value="CLAIM_DATA_ID">Claim Data Id</option>
+                            <option value="NAME">Name</option>
+                            <option value="LOAN_ACCOUNT_NUMBER">Loan Account Number</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="search" class="form-control" placeholder="Search..."
+                                formControlName="search" />
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary" (click)="searchTableData()">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <div class="row">
             <div class="col-3" [ngClass]="{active: onStep === 0}" (click)="onStep = 0">
                 <div class="claims-allocated-box" (click)="verifierCardDetails('ALL')">
@@ -504,7 +553,7 @@
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.inprogress] || 0}}</h5>
-                        <h6>WIP Cases</h6>
+                        <h6>Claims - In Progress</h6>
                     </div>
                 </div>
             </div>
@@ -513,7 +562,7 @@
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.underVerification] || 0}}</h5>
-                        <h6>Under Verification Cases</h6>
+                        <h6>Claims - Under Verification</h6>
                     </div>
                 </div>
             </div>
@@ -522,7 +571,7 @@
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.settled] || 0}}</h5>
-                        <h6>Submitted Cases</h6>
+                        <h6>Claims - Submitted</h6>
                     </div>
                 </div>
             </div>

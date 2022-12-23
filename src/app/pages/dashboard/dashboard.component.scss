@@ -40,6 +40,21 @@
   .claims-verify-box {
     background-color: $verifyTabColor;
   }
+  .claim-dashboard-search {
+    margin-bottom: 10px;
+    .form-select-md {
+      width: 100%;
+    }
+    .btn-primary {
+      background-color: $buttonColor;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $white;
+      padding: 6px 15px;
+      border-color: $buttonColor;
+    }
+  }
 }
 
 .cord-box {
