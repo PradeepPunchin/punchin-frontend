@@ -21,7 +21,8 @@
                         </div>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-primary" (click)="searchTableData()">Search</button>
+                        <button class="btn btn-primary" (click)="searchTableData()"
+                            [disabled]="!searchForm.valid">Search</button>
                     </div>
                 </div>
             </form>
@@ -610,7 +611,7 @@
                                 <option value="3">Sanction Letter</option>
                                 <option value="3">Other Document</option>
                             </select>
-                            <input type="file" #fileUplaod class="d-none" />
+                            <input type="file" (change)="fileBrowseHandler($event)" #fileUplaod class="d-none" />
                             <div class="browse-upload-box d-flex align-items-center justify-content-between"
                                 (click)="fileUplaod.click()">
                                 <p class="browse-text">Browse</p>

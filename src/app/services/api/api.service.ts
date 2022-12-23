@@ -46,8 +46,12 @@ export class ApiService {
     return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${data}&page=${pageNo}&limit=${pageSize}`);
   }
 
-  getCardList(data: any, page = 0) {
-    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${data}&limit=7&page=${page}`);
+  getCardList(searchEnum: any, inputData: any, tabType: any, page = 0) {
+    if (searchEnum && inputData) {
+      return this.http.get(`${this.baseApiUrl}banker/claim?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&limit=7&page=${page}`);
+    } else {
+      return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${tabType}&limit=7&page=${page}`);
+    }
   }
 
   discardClaims() {
@@ -85,9 +89,9 @@ export class ApiService {
   getBankerDownloadMISReport(data: any) {
     return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${data}`)
   }
-  getBankerSearchData(searchEnum: any, inputData: any, tabType: any) {
-    return this.http.get(`${this.baseApiUrl}banker/claim/searchBanker?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}`)
-  }
+  // getBankerSearchData(searchEnum: any, inputData: any, tabType: any, page = 0) {
+  //   return this.http.get(`${this.baseApiUrl}banker/claim/searchBanker?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}pageNo=${page}&pageSize=$7`)
+  // }
 
 
 

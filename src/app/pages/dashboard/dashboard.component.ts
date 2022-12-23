@@ -88,6 +88,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+
+
   onGetUploadedFile(event: any) {
     if (this.bsModalRef) {
       this.bsModalRef?.hide();
@@ -102,12 +104,13 @@ export class DashboardComponent implements OnInit {
   // banker card table data
   showCardDetails(data: any) {
     this.bankerData = data;
-    this.searchForm.reset();
-    this.apiService.getCardList(this.bankerData).subscribe((res: any) => {
+    this.apiService.getCardList(this.searchEnum, this.inputSearch, this.bankerData).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
         this.cordListData = res?.data.content
         this.totalrecords = res?.data.totalRecords
+        this.searchEnum = "";
+        this.inputSearch = "";
         if (this.cordListData.length > 0) {
           this.isShow = false
         }
@@ -275,7 +278,7 @@ export class DashboardComponent implements OnInit {
 
   changeBankerPage(event: PageChangedEvent) {
     this.currentPage = event.page - 1;
-    this.apiService.getCardList(this.bankerData, this.currentPage).subscribe((res: any) => {
+    this.apiService.getCardList("", "", this.bankerData, this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
         this.cordListData = res?.data.content
@@ -355,18 +358,8 @@ export class DashboardComponent implements OnInit {
   searchTableData() {
     this.inputSearch = this.searchForm.controls.search.value
     if (this.role === ROLES.banker) {
-      if (this.searchForm.valid) {
-        this.apiService.getBankerSearchData(this.searchEnum, this.inputSearch, this.verifierData).subscribe((res: any) => {
-          if (res?.isSuccess) {
-            this.cordListData = res?.data
-          }
-        }, (error: any) => {
-          this.notifierService.showError(error?.error?.message || "Something went wrong");
-        })
-      }
-      else {
-        this.notifierService.showError("Something went wrong");
-      }
+      this.showCardDetails(this.bankerData)
+      this.searchForm.reset();
 
     } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
       if (this.searchForm.valid) {
@@ -387,6 +380,11 @@ export class DashboardComponent implements OnInit {
 
   }
   //end
+
+  //banker discrepnacy
+  fileBrowseHandler(event: any) {
+    console.log(event.target.value, "value");
+  }
 
   // raise additional document
   Data: Array<any> = [
