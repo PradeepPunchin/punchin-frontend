@@ -543,6 +543,7 @@
             border-width: 0.5px;
             .doc-status-red-text,
             .doc-status-grey-text,
+            .doc-status-yellow-text,
             .doc-status-blue-text {
               font-weight: 600;
               font-size: $fontSize10;
@@ -553,13 +554,18 @@
               background-color: $greyButtonColor;
               display: inline;
             }
-            .doc-status-blue-text {
-              color: $tableBlueTextColor;
-              background-color: $blueButtonColor;
+            .doc-status-yellow-text {
+              color: $secondary;
+              background-color: $fadedYellow;
             }
+
             .doc-status-red-text {
               color: $tableRedTextColor;
               background-color: $redButtonColor;
+            }
+            .doc-status-blue-text {
+              color: $blueColor;
+              background-color: $blueButtonColor;
             }
           }
         }

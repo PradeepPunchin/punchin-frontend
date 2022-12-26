@@ -51,6 +51,13 @@ export class DashboardComponent implements OnInit {
   searchForm!: FormGroup
   searchEnum: any
   inputSearch: any
+  file: any;
+  additionalDocType: any;
+  bankerform!: FormGroup;
+  bankerDocCliamId: any
+  bankerDoc: any;
+  selectBankerDoc: any;
+
 
 
   constructor(
@@ -69,6 +76,9 @@ export class DashboardComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       selectedValue: [null, [Validators.required]],
       search: ["", [Validators.required]]
+    })
+    this.bankerform = this.formBuilder.group({
+      addDoc: [null, [Validators.required]],
     })
   }
 
@@ -343,14 +353,24 @@ export class DashboardComponent implements OnInit {
     this.bsModalRef1 = this.modalService.show(template, initialState);
   }
 
-  OpenBankerDiscrepancyModal(template: any) {
+  OpenBankerDiscrepancyModal(template: any, id: any) {
+    this.bankerDocCliamId = id;
     const initialState: ModalOptions = {
       class: 'banker-discrepbancy-custom-modal',
       backdrop: 'static',
       keyboard: false
     };
     this.bsModalRef2 = this.modalService.show(template, initialState)
-
+    this.apiService.getClaimBankerDocuments(id).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.bankerDoc = res?.data.claimDocuments;
+        this.selectBankerDoc = res?.data.rejectedDocList;
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
   }
 
   //search
@@ -384,8 +404,33 @@ export class DashboardComponent implements OnInit {
   //end
 
   //banker discrepnacy
+  filterByAddDoc(event: any) {
+    this.additionalDocType = event.target.value;
+  }
   fileBrowseHandler(event: any) {
-    console.log(event.target.value, "value");
+    this.file = event.target.files[0];
+  }
+
+  submitBankerData() {
+    if (this.file.type === 'image/png' || this.file.type === 'image/jpeg' || this.file.type === 'image/jpg' || this.file.type === 'application/pdf') {
+      const formData: FormData = new FormData();
+      formData.append('multipartFile', this.file)
+      this.apiService.uploadDiscrepancyDocument(this.bankerDocCliamId, this.additionalDocType, formData).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.notifierService.showSuccess(res?.message);
+          this.bsModalRef2?.hide()
+        }
+      }, (error: any) => {
+        this.notifierService.showError(error?.error?.message || "Something went wrong");
+      });
+    } else {
+      this.notifierService.showError("File type not valid");
+    }
+  }
+
+  viewBankerDoc(item: any) {
+    let bankerView = item.documentUrlDTOS[0].docUrl;
+    window.open(bankerView)
   }
 
   // raise additional document

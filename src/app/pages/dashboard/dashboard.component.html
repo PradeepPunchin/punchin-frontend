@@ -315,7 +315,7 @@
                             <td>{{item.nomineeAddress}}</td>
                             <td class="text-center status-button">{{item.claimStatus}}</td>
                             <td class="text-center" *ngIf="onStep === 1 && innerStep === 1">
-                                <span (click)="OpenBankerDiscrepancyModal(bankerDiscrepancy)">
+                                <span (click)="OpenBankerDiscrepancyModal(bankerDiscrepancy, item.id)">
                                     <i class="fa fa-file-text-o"></i>
                                 </span>
                             </td>
@@ -546,81 +546,62 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Loan Account Statement </td>
-                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="doc-status-blue-text">Approved</p>
-                                        </td>
-                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Credit Account statement</td>
-                                        <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg">
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="doc-status-grey-text">Not Uploaded</p>
-                                        </td>
-                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>SMQ / DOGH - Resubmission</td>
-                                        <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg">
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="doc-status-grey-text">Not Uploaded</p>
-                                        </td>
-                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> Sanction Letter</td>
-                                        <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg">
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="doc-status-grey-text">Not Uploaded</p>
-                                        </td>
-                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Other Document</td>
-                                        <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg">
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="doc-status-red-text">Rejected</p>
-                                        </td>
-                                        <td class="text-center"><img src="../../../assets/icons/eye.svg">
-                                        </td>
-                                    </tr>
+                                    <ng-container *ngFor="let item of bankerDoc">
+                                        <tr>
+                                            <td>{{item.agentDocType}} </td>
+                                            <td class="text-center">
+                                                <span *ngIf="item.isVerified == false"><img
+                                                        src="../../../../assets/icons/right-tick-blue.svg"></span>
+                                                <span *ngIf="item.isVerified == true && item.isApproved == false">
+                                                    <img src="assets/icons/cross-red.svg">
+                                                </span>
+                                                <span *ngIf="item.isVerified == true && item.isApproved == true">
+                                                    <img src="assets/icons/tick-green.svg"> </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="doc-status-yellow-text" *ngIf="item.isVerified == false">
+                                                    Uploaded
+                                                </p>
+                                                <p class="doc-status-red-text"
+                                                    *ngIf="item.isVerified == true && item.isApproved == false">
+                                                    Rejected
+                                                </p>
+                                                <p class="doc-status-blue-text"
+                                                    *ngIf="item.isVerified == true && item.isApproved == true">
+                                                    Approved
+                                                </p>
+                                            </td>
+                                            <td class="text-center" (click)="viewBankerDoc(item)"><img
+                                                    src="../../../assets/icons/eye.svg">
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="document-preview-container">
-                            <p class="upload-required-text">Upload Required Documents</p>
+                        <form [formGroup]="bankerform">
 
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Select Additional Document Type</option>
-                                <option value="1">Loan Account Statement</option>
-                                <option value="2">Credit Account statement</option>
-                                <option value="3">SMQ / DOGH - Resubmission</option>
-                                <option value="3">Sanction Letter</option>
-                                <option value="3">Other Document</option>
-                            </select>
-                            <input type="file" (change)="fileBrowseHandler($event)" #fileUplaod class="d-none" />
-                            <div class="browse-upload-box d-flex align-items-center justify-content-between"
-                                (click)="fileUplaod.click()">
-                                <p class="browse-text">Browse</p>
-                                <button type="button" class="btn btn-light">Upload</button>
+                            <div class="document-preview-container">
+                                <p class="upload-required-text">Upload Required Documents</p>
+
+                                <select class="form-select" aria-label="Default select example"
+                                    (input)="filterByAddDoc($event)" formControlName="addDoc">
+                                    <option selected [ngValue]="null">Select Additional Document Type</option>
+                                    <option *ngFor="let item of selectBankerDoc" [value]="item">{{item}}</option>
+                                </select>
+                                <input type="file" (change)="fileBrowseHandler($event)" #fileUplaod class="d-none" />
+                                <div class="browse-upload-box d-flex align-items-center justify-content-between"
+                                    (click)="fileUplaod.click()">
+                                    <p class="browse-text">Browse</p>
+                                    <button type="button" class="btn btn-light">Upload</button>
+                                </div>
+                                <button type="button" class="btn btn-primary" (click)="submitBankerData()"
+                                    [disabled]="!bankerform.valid">Submit</button>
                             </div>
-
-                            <button type="button" class="btn btn-primary">Submit</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
 

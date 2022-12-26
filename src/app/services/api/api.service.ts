@@ -47,8 +47,6 @@ export class ApiService {
   }
 
   getCardList(searchEnum: any, inputData: any, tabType: any, page: any) {
-    console.log(page, "page");
-
     if (searchEnum && inputData) {
       return this.http.get(`${this.baseApiUrl}banker/claim?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&limit=7&page=${page}`);
     } else {
@@ -91,11 +89,14 @@ export class ApiService {
   getBankerDownloadMISReport(data: any) {
     return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${data}`)
   }
-  // getBankerSearchData(searchEnum: any, inputData: any, tabType: any, page = 0) {
-  //   return this.http.get(`${this.baseApiUrl}banker/claim/searchBanker?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}pageNo=${page}&pageSize=$7`)
-  // }
 
+  getClaimBankerDocuments(id: any) {
+    return this.http.get(`${this.baseApiUrl}banker/claim/${id}/documents`)
+  }
 
+  uploadDiscrepancyDocument(id: number, docType: any, data: any) {
+    return this.http.put(`${this.baseApiUrl}banker/claim/${id}/discrepancy-document-upload/${docType}`, data);
+  }
 
   //varifier api
   getVerifierDashboardData() {
