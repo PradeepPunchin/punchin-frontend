@@ -116,6 +116,7 @@ export class DashboardComponent implements OnInit {
   showCardDetails(data: any) {
     this.bankerData = data;
     this.currentPage = 0;
+    this.inputSearch = this.searchForm.controls.search.value
     this.apiService.getCardList(this.searchEnum, this.inputSearch, this.bankerData, this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
@@ -381,7 +382,6 @@ export class DashboardComponent implements OnInit {
     this.searchEnum = event.target.value
   }
   searchTableData() {
-    this.inputSearch = this.searchForm.controls.search.value
     if (this.role === ROLES.banker) {
       this.showCardDetails(this.bankerData)
       this.searchForm.reset();
