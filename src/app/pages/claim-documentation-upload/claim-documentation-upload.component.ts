@@ -142,7 +142,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
-        this.editClaimList(this.docId);
+        this.fileUploadedLists.pop();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -210,7 +210,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   viewUploadedDoc(item: any) {
-    this.viewDocument = item.documentUrls.docUrl
+    this.viewDocument = item.docUrl
     window.open(this.viewDocument)
   }
 

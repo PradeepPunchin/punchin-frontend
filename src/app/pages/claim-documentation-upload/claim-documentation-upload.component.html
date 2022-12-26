@@ -289,8 +289,7 @@
 
             </div>
             <div class="col-8" *ngIf="isSubmittedTable">
-                <div class="table-responsive document-upload-table"
-                    *ngIf="ClaimListDataById.claimDocumentsDTOS.length > 0">
+                <div class="table-responsive document-upload-table" *ngIf="fileUplaodedList.length > 0">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -328,15 +327,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container>
+                            <ng-container *ngFor="let item of fileUplaodedList; let i = index">
                                 <tr>
-                                    <td>{{uploadedData?.docType}}</td>
+                                    <td>{{item?.docType}}</td>
                                     <td class="text-center">
-                                        <span (click)="viewUploadedDoc(uploadedData)"><i class="fa fa-eye"
+                                        <span (click)="viewUploadedDoc(item.documentUrls[0])"><i class="fa fa-eye"
                                                 aria-hidden="true"></i></span>
                                     </td>
                                     <td class="text-center">
-                                        <span (click)="deleteDoc(uploadedData.id)"><i class="fa fa-trash"
+                                        <span (click)="deleteDoc(item.id)"><i class="fa fa-trash"
                                                 aria-hidden="true"></i></span>
                                     </td>
                                 </tr>

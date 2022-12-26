@@ -119,9 +119,9 @@ export class DashboardComponent implements OnInit {
     this.inputSearch = this.searchForm.controls.search.value
     this.apiService.getCardList(this.searchEnum, this.inputSearch, this.bankerData, this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
-        this.cardList = res?.data
-        this.cordListData = res?.data.content
-        this.totalrecords = res?.data.totalRecords
+        this.cardList = res?.data;
+        this.cordListData = res?.data.content;
+        this.totalrecords = res?.data.totalRecords;
         this.searchEnum = "";
         this.inputSearch = "";
         if (this.cordListData.length > 0) {
