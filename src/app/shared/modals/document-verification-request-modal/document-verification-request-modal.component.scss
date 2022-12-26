@@ -140,9 +140,9 @@
     padding: 1rem 3.5rem 1rem 1rem;
     cursor: pointer;
     font-weight: 600;
-    background-color: var(--color-strata-yellow-1);
     margin-bottom: 1rem;
-    background-color: $tableBlueTextColor;
+    // background-color: $tableBlueTextColor;
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
     margin-top: 20px;
 
     &-expand-indicator {

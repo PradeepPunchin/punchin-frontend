@@ -1,6 +1,32 @@
 <ng-container *ngIf="role =='BANKER'">
     <div class="container-fluid claim-dashboard-box">
-        <h6>Service/Claim Dashboard</h6>
+        <div class="claim-dashboard-search d-flex justify-content-between align-items-center"
+            *ngIf="cordListData.length > 0">
+            <h6>Service/Claim Dashboard</h6>
+            <form [formGroup]=" searchForm">
+                <div class="row">
+                    <div class="col-4">
+                        <select class="form-select form-select-md" aria-label=".form-select-sm example"
+                            (input)="searchBySelectedData($event)" formControlName="selectedValue">
+                            <option selected [ngValue]="null">Select</option>
+                            <option value="CLAIM_DATA_ID">Claim Data Id</option>
+                            <option value="NAME">Name</option>
+                            <option value="LOAN_ACCOUNT_NUMBER">Loan Account Number</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="search" class="form-control" placeholder="Search..."
+                                formControlName="search" />
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary" (click)="searchTableData()"
+                            [disabled]="!searchForm.valid">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="row">
             <div class="col-3" [ngClass]="{ active: onStep === 0 }" (click)="onStep = 0">
                 <div class="claims-allocated-box" (click)="showCardDetails('ALL')">
@@ -9,18 +35,18 @@
                         <h5>
                             {{bankerDashboardData[bankerStatusEnum.all] || 0}}
                         </h5>
-                        <h6> Claims Allocated</h6>
+                        <h6> Claims - Allocated</h6>
                     </div>
                 </div>
             </div>
-            <div class="col-3" [ngClass]="{ active: onStep === 1 }" (click)="onStep = 1">
+            <div class="col-3" [ngClass]="{ active: onStep === 1 }" (click)="onStep = 1;innerStep = 0">
                 <div class="claims-in-progress-box" (click)="showCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
                             {{bankerDashboardData[bankerStatusEnum.inprogress] || 0}}
                         </h5>
-                        <h6>WIP Cases</h6>
+                        <h6>Claims - In Progress</h6>
                     </div>
                 </div>
             </div>
@@ -29,7 +55,7 @@
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{bankerDashboardData[bankerStatusEnum.underVerification] || 0}}</h5>
-                        <h6>Under Verification Cases</h6>
+                        <h6>Claims - Under Verification</h6>
                     </div>
                 </div>
             </div>
@@ -40,7 +66,7 @@
                         <h5>
                             {{bankerDashboardData[bankerStatusEnum.settled] || 0}}
                         </h5>
-                        <h6>Submitted Cases</h6>
+                        <h6>Claims - Submitted </h6>
                     </div>
                 </div>
             </div>
@@ -53,7 +79,16 @@
     <div class="cases-claims-box">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center"
             *ngIf="cordListData.length > 0 && isShowFileUploaded">
-            <h6>Case/Claim</h6>
+            <h6 *ngIf="onStep === 0 || onStep === 2 || onStep === 3">Case/Claim({{this.totalrecords || 0}})</h6>
+            <div *ngIf="onStep === 1">
+                <button type="button" class="btn btn-light m-2" [routerLinkActive]="['active']"
+                    [ngClass]="{active: innerStep === 0}" (click)="innerStep = 0"
+                    (click)="showCardDetails('WIP')">In-Progress</button>
+
+                <button type="button" [routerLinkActive]="['active']" class="btn btn-light"
+                    [ngClass]="{active: innerStep === 1}" (click)="innerStep = 1"
+                    (click)="showCardDetails('DISCREPENCY')">Discrepancy</button>
+            </div>
             <button type="button" class="btn btn-primary btn1"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3" (click)="openModal1(fileTemplate)">
                 <img src="../../../assets/icons/action(white).svg" class="me-2">Upload xls File</button>
@@ -63,8 +98,7 @@
                     src="../../../assets/icons/download.svg" class="me-2">Download MIS
                 report
             </button>
-            <button type="button" class="btn btn-outline-primary"
-                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"
+            <button type="button" class="btn btn-outline-primary" *ngIf="onStep === 0"
                 (click)="getDownloadExcelFormat()"><img src="../../../assets/icons/download.svg" class="me-2">Download
                 Standardized Format
             </button>
@@ -75,7 +109,9 @@
                     <thead>
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
-                            <th scope="col">PunchIn Ref. ID </th>
+                            <th scope="col"><span style="cursor:pointer;"
+                                    [routerLink]="['/pages/claim-documentation']">Punchin Ref.
+                                    ID</span></th>
                             <th scope="col">Lender Name </th>
                             <th scope="col">Claim Inward Date</th>
                             <th scope="col">Borrower Name</th>
@@ -122,7 +158,7 @@
                     <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                         <tr>
                             <td>
-                                {{ (currentPage) * pageSize + i +1 }}
+                                {{ (pageNo ) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
@@ -179,12 +215,14 @@
         </div>
 
         <div class="table-container table-responsive"
-            *ngIf="(onStep === 1 || onStep === 2 || onStep === 3) && isShowFileUploaded">
+            *ngIf="((onStep === 1 && innerStep === 0) || (onStep === 1 && innerStep === 1) || onStep === 2 || onStep === 3) && isShowFileUploaded">
             <table class="table  table-sm" *ngIf="isShow === false">
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">PunchIn Ref. ID</th>
+                        <th scope="col"><span style="cursor:pointer;"
+                                [routerLink]="['/pages/claim-documentation']">Punchin Ref.
+                                ID</span></th>
                         <th scope="col">Lender Name</th>
                         <th scope="col">Claim Inward Date</th>
                         <th scope="col">Borrower Name</th>
@@ -225,13 +263,15 @@
                         <th scope="col">Nominee Email Id</th>
                         <th scope="col">Nominee Address</th>
                         <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-center" *ngIf="onStep === 1 && innerStep === 1">Action</th>
+
                     </tr>
                 </thead>
                 <ng-container *ngIf="cordListData.length > 0 && isShowFileUploaded">
                     <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                         <tr>
                             <td>
-                                {{ (currentPage) * pageSize + i +1 }}
+                                {{ (pageNo) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
@@ -274,6 +314,11 @@
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
                             <td class="text-center status-button">{{item.claimStatus}}</td>
+                            <td class="text-center" *ngIf="onStep === 1 && innerStep === 1">
+                                <span (click)="OpenBankerDiscrepancyModal(bankerDiscrepancy, item.id)">
+                                    <i class="fa fa-file-text-o"></i>
+                                </span>
+                            </td>
                         </tr>
                     </tbody>
                 </ng-container>
@@ -294,13 +339,13 @@
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="changeBankerPage($event)" [itemsPerPage]="pageSize" firstText="&laquo;"
-                    lastText="&raquo;" [maxSize]="5"></pagination>
+                    lastText="&raquo;" [maxSize]="5" [(ngModel)]="currentPage"></pagination>
             </div>
         </div>
     </div>
     <div class="cases-upload-box" *ngIf="claimListContent.length > 0">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6>Service/Claim Dashboard ({{totalrecords}})</h6>
+            <h6>Service/Claim Dashboard ({{totalrecords || 0}})</h6>
             <div>
                 <button type="button" class="btn btn-outline-primary" (click)="deleteClaim()">Discard</button>
                 <button type="button" class="btn btn-primary" (click)="submitClaim()">
@@ -419,64 +464,170 @@
                     </select>
                 </h6>
             </div> -->
-
+            {{currentPage}}
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                    [maxSize]="5"></pagination>
+                    [maxSize]="5" [(ngModel)]="currentPage"></pagination>
             </div>
         </div>
     </div>
 
+    <ng-template #raiseAdditionalDoc>
+        <div class="modal-header">
+            <h6 class="modal-title">Raise Additional Document Request</h6>
 
-</ng-container>
-<ng-template #raiseAdditionalDoc>
-    <div class="modal-header">
-        <h6 class="modal-title">Raise Additional Document Request</h6>
+            <button type="button" class="btn-close close pull-right" aria-label="Close"
+                (click)="this.bsModalRef1?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid raise-additional-container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive new-requirements-table">
+                            <form [formGroup]="form" (ngSubmit)="submitForm()">
 
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="this.bsModalRef1?.hide()">
-            <span aria-hidden="true" class="visually-hidden">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="container-fluid raise-additional-container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="table-responsive new-requirements-table">
-                        <form [formGroup]="form" (ngSubmit)="submitForm()">
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                        <tr class="align-middle">
+                                            <th scope="col">Document Name</th>
+                                            <th scope="col" class="text-center">Select</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of Data; let i=index">
+                                            <td>{{data.name}}</td>
+                                            <td class="text-center">
+                                                <input type="checkbox" [value]="data.value"
+                                                    (change)="onSelectCheckbox($event)" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="mt-2">
+                                    <label>Remark</label>
+                                    <input class="form-control" placeholder=" Enter Remark">
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #bankerDiscrepancy>
+        <div class="modal-header">
+            <button type="button" class="btn-close close pull-right" aria-label="Close"
+                (click)="this.bsModalRef2?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body new-requirements-container">
+
+            <div class="container-fluid ">
+                <h6 class="new-requirements-heading">Discrepancy/New Requirements</h6>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="table-responsive new-requirements-table">
                             <table class="table table-bordered table-sm">
                                 <thead>
                                     <tr class="align-middle">
                                         <th scope="col">Document Name</th>
-                                        <th scope="col" class="text-center">Select</th>
+                                        <th scope="col" class="text-center">Uploaded Doc</th>
+                                        <th scope="col" class="text-center">Doc Status</th>
+                                        <th scope="col" class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let data of Data; let i=index">
-                                        <td>{{data.name}}</td>
-                                        <td class="text-center">
-                                            <input type="checkbox" [value]="data.value"
-                                                (change)="onSelectCheckbox($event)" />
-                                        </td>
-                                    </tr>
+                                    <ng-container *ngFor="let item of bankerDoc">
+                                        <tr>
+                                            <td>{{item.agentDocType}} </td>
+                                            <td class="text-center">
+                                                <span *ngIf="item.isVerified == false"><img
+                                                        src="../../../../assets/icons/right-tick-blue.svg"></span>
+                                                <span *ngIf="item.isVerified == true && item.isApproved == false">
+                                                    <img src="assets/icons/cross-red.svg">
+                                                </span>
+                                                <span *ngIf="item.isVerified == true && item.isApproved == true">
+                                                    <img src="assets/icons/tick-green.svg"> </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="doc-status-yellow-text" *ngIf="item.isVerified == false">
+                                                    Uploaded
+                                                </p>
+                                                <p class="doc-status-red-text"
+                                                    *ngIf="item.isVerified == true && item.isApproved == false">
+                                                    Rejected
+                                                </p>
+                                                <p class="doc-status-blue-text"
+                                                    *ngIf="item.isVerified == true && item.isApproved == true">
+                                                    Approved
+                                                </p>
+                                            </td>
+                                            <td class="text-center" (click)="viewBankerDoc(item)"><img
+                                                    src="../../../assets/icons/eye.svg">
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+
                                 </tbody>
                             </table>
-                            <div class="mt-2">
-                                <label>Remark</label>
-                                <input class="form-control" placeholder=" Enter Remark">
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <form [formGroup]="bankerform">
+
+                            <div class="document-preview-container">
+                                <p class="upload-required-text">Upload Required Documents</p>
+
+                                <select class="form-select" aria-label="Default select example"
+                                    (input)="filterByAddDoc($event)" formControlName="addDoc">
+                                    <option selected [ngValue]="null">Select Additional Document Type</option>
+                                    <option *ngFor="let item of selectBankerDoc" [value]="item">{{item}}</option>
+                                </select>
+                                <input type="file" (change)="fileBrowseHandler($event)" #fileUplaod class="d-none" />
+                                <div class="browse-upload-box d-flex align-items-center justify-content-between"
+                                    (click)="fileUplaod.click()">
+                                    <p class="browse-text">Browse</p>
+                                    <button type="button" class="btn btn-light">Upload</button>
+                                </div>
+                                <button type="button" class="btn btn-primary" (click)="submitBankerData()"
+                                    [disabled]="!bankerform.valid">Submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
 
+                <!-- <div class="row discrepancy-remark-container">
+                    <div class="col-8">
+                        <h6 class="discrepancy-remark-text">Discrepancy Remark</h6>
+                        <div class="discrepancy-remark">
+                            <p class="document-mismatch-text">Document mismatch please upload again <br> the
+                                following documents.
+                            </p>
+                            <p class="bank-account-cheque-leaf"> 1. Bank Account Cheque Leaf</p>
+                        </div>
+                    </div>
+                    <div class="col-4"></div>
+                </div> -->
             </div>
+
         </div>
-    </div>
-</ng-template>
+    </ng-template>
+
+
+
+
+</ng-container>
+
+
 
 
 
@@ -484,14 +635,40 @@
 <!-- Verifier Dashboard -->
 <ng-container *ngIf="role =='ADMIN' || role =='VERIFIER'">
     <div class="container-fluid claim-dashboard-box">
-        <h6>Service/Claim Dashboard</h6>
+        <div class="claim-dashboard-search d-flex justify-content-between align-items-center"
+            *ngIf="verifiercordListData.length > 0">
+            <h6>Service/Claim Dashboard</h6>
+            <form [formGroup]="searchForm">
+                <div class="row">
+                    <div class="col-4">
+                        <select class="form-select form-select-md" aria-label=".form-select-sm example"
+                            (input)="searchBySelectedData($event)" formControlName="selectedValue">
+                            <option selected [ngValue]="null">Select</option>
+                            <option value="CLAIM_DATA_ID">Claim Data Id</option>
+                            <option value="NAME">Name</option>
+                            <option value="LOAN_ACCOUNT_NUMBER">Loan Account Number</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="search" class="form-control" placeholder="Search..."
+                                formControlName="search" />
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary" (click)="searchTableData()">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <div class="row">
             <div class="col-3" [ngClass]="{active: onStep === 0}" (click)="onStep = 0">
                 <div class="claims-allocated-box" (click)="verifierCardDetails('ALL')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.all] || 0}}</h5>
-                        <h6> Claims Allocated</h6>
+                        <h6> Claims - Allocated</h6>
                     </div>
                 </div>
             </div>
@@ -500,7 +677,7 @@
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.inprogress] || 0}}</h5>
-                        <h6>WIP Cases</h6>
+                        <h6>Claims - In Progress</h6>
                     </div>
                 </div>
             </div>
@@ -509,7 +686,7 @@
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.underVerification] || 0}}</h5>
-                        <h6>Under Verification Cases</h6>
+                        <h6>Claims - Under Verification</h6>
                     </div>
                 </div>
             </div>
@@ -518,7 +695,7 @@
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.settled] || 0}}</h5>
-                        <h6>Submitted Cases</h6>
+                        <h6>Claims - Submitted</h6>
                     </div>
                 </div>
             </div>
@@ -527,7 +704,7 @@
 
     <div class="cases-claims-box verifier-table">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6 *ngIf="(onStep === 0 || onStep === 2 )">Cases/Claims({{totalrecords}})</h6>
+            <h6 *ngIf="(onStep === 0 || onStep === 2 )">Cases/Claims({{totalrecords || 0}})</h6>
             <div *ngIf="onStep === 1">
                 <button type="button" class="btn btn-primary m-2" [routerLinkActive]="['active']"
                     [ngClass]="{active: innerStep === 0}" (click)="innerStep = 0"
@@ -536,7 +713,11 @@
                     [ngClass]="{active: innerStep === 1}" (click)="innerStep = 1"
                     (click)="verifierCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example" *ngIf="onStep === 0"
+            <button type="button" class="btn btn-outline-primary v-bnt1" (click)="downloadMisReport()"><img
+                    src="../../../assets/icons/download.svg" class="me-2">Download MIS
+                report
+            </button>
+            <select class="form-select form-select-md" aria-label=".form-select-sm example" *ngIf="onStep === 0"
                 (input)="filterByStatus($event)">
                 <option selected>Filter by Status</option>
                 <option value="ALL">Allocated</option>
@@ -552,7 +733,8 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col">Punchin Ref. ID</th>
+                        <th scope="col"><span style="cursor:pointer;" (click)="viewUnderVerification()">Punchin Ref.
+                                ID</span></th>
                         <th scope="col">Claim Registration Date </th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Nominee Name </th>
@@ -563,6 +745,7 @@
                         <th scope="col">Borrower ID Proof</th>
                         <th scope="col">Nominee Id Proof </th>
                         <th scope="col">Bank A/c Proof </th>
+                        <th scope="col"> Nominee KYC Proof</th>
                         <th scope="col">Additional Document</th>
                         <th scope="col" class="text-center ">Status</th>
                     </tr>
@@ -631,6 +814,17 @@
                             </span>
                         </td>
                         <td>
+                            <span><img src="assets/icons/cross.svg"></span>
+                            <!-- <span *ngIf="item.bankAccountProof === 'UPLOADED'"> <img
+                                    src="assets/icons/bluetick.svg"></span>
+                            <span *ngIf="item.bankAccountProof === 'NOT_UPLOADED'"> <img
+                                    src="assets/icons/cross.svg"></span>
+                            <span *ngIf="item.bankAccountProof === 'APPROVED'"><img
+                                    src="assets/icons/tick-green.svg"></span>
+                            <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
+                            </span> -->
+                        </td>
+                        <td>
                             <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>
                             <span *ngIf="item.additionalDoc === 'NOT_UPLOADED'"> <img
@@ -640,7 +834,8 @@
                             <span *ngIf="item.additionalDoc === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
                         </td>
-                        <td class="text-center status-button">{{item.claimStatus}}</td>
+                        <td class="text-center status-button">
+                            {{item.claimStatus}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -672,145 +867,6 @@
         </div>
     </ng-container> -->
 </ng-container>
-
-
-
-
-
-<!-- Discrepancy/New Requirements -->
-<!-- <div class="container-fluid new-requirements-container">
-    <h6 class="new-requirements-heading">Discrepancy/New Requirements</h6>
-
-    <div class="row">
-        <div class="col-8">
-            <div class="table-responsive new-requirements-table">
-                <table class="table table-bordered table-sm">
-                    <thead>
-                        <tr class="align-middle">
-                            <th scope="col">Document Name</th>
-                            <th scope="col" class="text-center">Uploaded Doc</th>
-                            <th scope="col" class="text-center">Doc Status</th>
-                            <th scope="col" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Income Tax Returns</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Medical Records</td>
-                            <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-grey-text">Not Uploaded</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Legal hier certificate</td>
-                            <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-grey-text">Not Uploaded</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Police Investigation Report</td>
-                            <td class="text-center"><img src="../../../../assets/icons/wrong-tick-grey.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-grey-text">Not Uploaded</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Relationship Proof (in case of minor nominee)</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-red-text">Rejected</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Guardian - Id proof (in case of minor nominee)</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Medical attendent certificate</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Guardian - Id proof (in case of minor nominee)</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Guardian - Add proof (in case of minor nominee)</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                        <tr>
-                            <td>Other Document</td>
-                            <td class="text-center"><img src="../../../../assets/icons/right-tick-blue.svg"></td>
-                            <td class="text-center">
-                                <p class="doc-status-blue-text">Approved</p>
-                            </td>
-                            <td class="text-center"><img src="../../../assets/icons/eye.svg"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="document-preview-container">
-                <p class="upload-required-text">Upload Required Documents</p>
-
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Select Additional Document Type</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-
-                <div class="browse-upload-box d-flex align-items-center justify-content-between">
-                    <p class="browse-text">Browse</p>
-                    <button type="button" class="btn btn-light">Upload</button>
-                </div>
-
-                <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="row discrepancy-remark-container">
-        <div class="col-8">
-            <h6 class="discrepancy-remark-text">Discrepancy Remark</h6>
-            <div class="discrepancy-remark">
-                <p class="document-mismatch-text">Document mismatch please upload again <br> the following documents.
-                </p>
-                <p class="bank-account-cheque-leaf"> 1. Bank Account Cheque Leaf</p>
-            </div>
-        </div>
-        <div class="col-4"></div>
-    </div>
-</div> -->
 
 <ng-template #fileTemplate>
     <div class="modal-header">

@@ -32,6 +32,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   isSubmittedTable: boolean = false
   docId: any
   isUploaded: boolean = false
+  fileUploadedLists: any[] = [];
+  fileUplaodedList: any
 
 
 
@@ -187,6 +189,12 @@ export class ClaimDocumentationUploadComponent implements OnInit {
           this.isSubmittedTable = false
           this.isUploaded = false
           this.uploadedData = res?.data.claimDocuments
+          console.log(this.uploadedData, " this.uploadedData");
+
+          this.fileUploadedLists.push(res?.data.claimDocuments)
+          this.fileUplaodedList = this.fileUploadedLists;
+          console.log(this.fileUplaodedList, "fileUplaodedList");
+
           this.notifierService.showSuccess(res?.message);
           this.uploadForm.reset();
         }
@@ -200,7 +208,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   viewUploadedDoc(item: any) {
-    this.viewDocument = item.documentUrls[0].docUrl
+    this.viewDocument = item.documentUrls.docUrl
     window.open(this.viewDocument)
   }
 
