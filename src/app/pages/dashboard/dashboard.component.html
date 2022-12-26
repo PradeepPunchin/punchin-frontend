@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3" [ngClass]="{ active: onStep === 1 }" (click)="onStep = 1">
+            <div class="col-3" [ngClass]="{ active: onStep === 1 }" (click)="onStep = 1;innerStep = 0">
                 <div class="claims-in-progress-box" (click)="showCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
@@ -84,6 +84,7 @@
                 <button type="button" class="btn btn-light m-2" [routerLinkActive]="['active']"
                     [ngClass]="{active: innerStep === 0}" (click)="innerStep = 0"
                     (click)="showCardDetails('WIP')">In-Progress</button>
+
                 <button type="button" [routerLinkActive]="['active']" class="btn btn-light"
                     [ngClass]="{active: innerStep === 1}" (click)="innerStep = 1"
                     (click)="showCardDetails('DISCREPENCY')">Discrepancy</button>
@@ -157,7 +158,7 @@
                     <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                         <tr>
                             <td>
-                                {{ (currentPage) * pageSize + i +1 }}
+                                {{ (pageNo ) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
@@ -270,7 +271,7 @@
                     <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
                         <tr>
                             <td>
-                                {{ (currentPage) * pageSize + i +1 }}
+                                {{ (pageNo) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
@@ -338,7 +339,7 @@
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="changeBankerPage($event)" [itemsPerPage]="pageSize" firstText="&laquo;"
-                    lastText="&raquo;" [maxSize]="5"></pagination>
+                    lastText="&raquo;" [maxSize]="5" [(ngModel)]="currentPage"></pagination>
             </div>
         </div>
     </div>
@@ -463,11 +464,11 @@
                     </select>
                 </h6>
             </div> -->
-
+            {{currentPage}}
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                    [maxSize]="5"></pagination>
+                    [maxSize]="5" [(ngModel)]="currentPage"></pagination>
             </div>
         </div>
     </div>

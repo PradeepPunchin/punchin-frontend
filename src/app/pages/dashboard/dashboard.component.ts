@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
   bsModalRef1?: BsModalRef;
   bsModalRef2?: BsModalRef;
   filterStatus: any
-  currentPage = 0
+  currentPage: any = 0;
   isSubmitted: boolean = false
   form!: FormGroup;
   searchForm!: FormGroup
@@ -104,7 +104,8 @@ export class DashboardComponent implements OnInit {
   // banker card table data
   showCardDetails(data: any) {
     this.bankerData = data;
-    this.apiService.getCardList(this.searchEnum, this.inputSearch, this.bankerData).subscribe((res: any) => {
+    this.currentPage = 0;
+    this.apiService.getCardList(this.searchEnum, this.inputSearch, this.bankerData, this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
         this.cordListData = res?.data.content
@@ -278,6 +279,7 @@ export class DashboardComponent implements OnInit {
 
   changeBankerPage(event: PageChangedEvent) {
     this.currentPage = event.page - 1;
+    this.pageNo = event.page - 1
     this.apiService.getCardList("", "", this.bankerData, this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data

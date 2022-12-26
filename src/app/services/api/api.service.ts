@@ -46,7 +46,9 @@ export class ApiService {
     return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${data}&page=${pageNo}&limit=${pageSize}`);
   }
 
-  getCardList(searchEnum: any, inputData: any, tabType: any, page = 0) {
+  getCardList(searchEnum: any, inputData: any, tabType: any, page: any) {
+    console.log(page, "page");
+
     if (searchEnum && inputData) {
       return this.http.get(`${this.baseApiUrl}banker/claim?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&limit=7&page=${page}`);
     } else {
