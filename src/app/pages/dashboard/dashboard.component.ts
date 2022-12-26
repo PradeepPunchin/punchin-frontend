@@ -49,14 +49,15 @@ export class DashboardComponent implements OnInit {
   isSubmitted: boolean = false
   form!: FormGroup;
   searchForm!: FormGroup
-  searchEnum: any
-  inputSearch: any
+  searchEnum: any;
+  inputSearch: any;
   file: any;
   additionalDocType: any;
   bankerform!: FormGroup;
   bankerDocCliamId: any
   bankerDoc: any;
   selectBankerDoc: any;
+  docName: any;
 
 
 
@@ -115,6 +116,7 @@ export class DashboardComponent implements OnInit {
   showCardDetails(data: any) {
     this.bankerData = data;
     this.currentPage = 0;
+    this.inputSearch = this.searchForm.controls.search.value
     this.apiService.getCardList(this.searchEnum, this.inputSearch, this.bankerData, this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
@@ -125,6 +127,8 @@ export class DashboardComponent implements OnInit {
         if (this.cordListData.length > 0) {
           this.isShow = false
         }
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -378,7 +382,6 @@ export class DashboardComponent implements OnInit {
     this.searchEnum = event.target.value
   }
   searchTableData() {
-    this.inputSearch = this.searchForm.controls.search.value
     if (this.role === ROLES.banker) {
       this.showCardDetails(this.bankerData)
       this.searchForm.reset();
@@ -409,6 +412,7 @@ export class DashboardComponent implements OnInit {
   }
   fileBrowseHandler(event: any) {
     this.file = event.target.files[0];
+    this.docName = this.file.name
   }
 
   submitBankerData() {
