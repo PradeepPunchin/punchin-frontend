@@ -464,7 +464,6 @@
                     </select>
                 </h6>
             </div> -->
-            {{currentPage}}
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
@@ -598,6 +597,7 @@
                                     <p class="browse-text">Browse</p>
                                     <button type="button" class="btn btn-light">Upload</button>
                                 </div>
+                                <p>{{docName}}</p>
                                 <button type="button" class="btn btn-primary" (click)="submitBankerData()"
                                     [disabled]="!bankerform.valid">Submit</button>
                             </div>
@@ -673,7 +673,7 @@
                 </div>
             </div>
             <div class="col-3" [ngClass]="{active: onStep === 1}" (click)="onStep = 1">
-                <div class="claims-in-progress-box" (click)="verifierCardDetails('WIP')">
+                <div class="claims-in-progress-box" (click)="verifierCardDetails('WIP');innerStep = 0">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{verifierDashboardData[verifierStatusEnum.inprogress] || 0}}</h5>

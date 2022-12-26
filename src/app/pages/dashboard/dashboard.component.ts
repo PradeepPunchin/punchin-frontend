@@ -49,14 +49,15 @@ export class DashboardComponent implements OnInit {
   isSubmitted: boolean = false
   form!: FormGroup;
   searchForm!: FormGroup
-  searchEnum: any
-  inputSearch: any
+  searchEnum: any;
+  inputSearch: any;
   file: any;
   additionalDocType: any;
   bankerform!: FormGroup;
   bankerDocCliamId: any
   bankerDoc: any;
   selectBankerDoc: any;
+  docName: any;
 
 
 
@@ -409,6 +410,7 @@ export class DashboardComponent implements OnInit {
   }
   fileBrowseHandler(event: any) {
     this.file = event.target.files[0];
+    this.docName = this.file.name
   }
 
   submitBankerData() {

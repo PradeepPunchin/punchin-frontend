@@ -63,7 +63,7 @@
                     <tbody class="align-middle" *ngFor="let item of submittedclaimListContent;let i = index">
                         <tr>
                             <td>
-                                {{ (pageNo) * pageSize + i +1 }}
+                                {{ (currentPage) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
                             <td>{{item.punchinBankerId}}</td>
@@ -135,7 +135,7 @@
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                    [maxSize]="5"></pagination>
+                    [maxSize]="5" [(ngModel)]="pageNo"></pagination>
             </div>
         </div>
     </div>

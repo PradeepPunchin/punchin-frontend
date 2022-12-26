@@ -14,6 +14,7 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
 export class ClaimDocumentationUploadComponent implements OnInit {
   totalrecords!: number;
   pageNo: number = 0;
+  currentPage: number = 0;
   pageSize: number = 7;
   totalpage!: number;
   submittedClaimList: any;
@@ -123,7 +124,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.notifierService.showSuccess(res.message)
         this.viewClaimList = true;
         this.editCliamList = false;
-        this.pageNo = 0;
+        this.currentPage = 0;
         this.getClaimUploadList();
       }
     }, (error: any) => {
@@ -149,7 +150,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   back() {
-    this.pageNo = 0;
+    this.currentPage = 0;
     this.getClaimUploadList();
     this.viewClaimList = true;
     this.editCliamList = false;
@@ -157,6 +158,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   //pagination
   pageChanged(event: PageChangedEvent) {
+    this.currentPage = event.page - 1;
     if (this.submittedClaimList && this.submittedClaimList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
       this.getClaimUploadList();
@@ -216,7 +218,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.forwardClaim(this.ClaimListDataById.id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
-        this.pageNo = 0;
+        this.currentPage = 0;
         this.getClaimUploadList();
         this.viewClaimList = true;
         this.editCliamList = false;
