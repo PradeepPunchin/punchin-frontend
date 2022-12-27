@@ -161,7 +161,7 @@
                                 {{ (pageNo ) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
-                            <td>{{item.branchName}}</td>
+                            <td>{{item.lenderName}}</td>
                             <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
@@ -274,7 +274,7 @@
                                 {{ (pageNo) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
-                            <td>{{item.branchName}}</td>
+                            <td>{{item.lenderName}}</td>
                             <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
@@ -760,7 +760,7 @@
                         <td>{{item.claimDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
-                        <td>{{item.nomineeContactNumber}}</td>
+                        <td>{{item.borrowerContactNumber}}</td>
                         <td>{{item.borrowerAddress}}</td>
                         <td>
                             <span *ngIf="item.singnedClaimDocument === 'UPLOADED'"> <img
