@@ -66,7 +66,7 @@
                                 {{ (currentPage) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
-                            <td>{{item.punchinBankerId}}</td>
+                            <td>{{item.branchName}}</td>
                             <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
@@ -318,7 +318,7 @@
                 </div>
             </div>
             <div class="col-8" *ngIf="isUploadedTable">
-                <div class="table-responsive document-upload-table" *ngIf="uploadedFileUrls.documentUrls.length > 0">
+                <div class="table-responsive document-upload-table">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -328,19 +328,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>{{uploadedFileUrls?.agentDocType
-                                    }}</td>
-                                <td class="text-center">
-                                    <span (click)="viewUploadedDoc(item)"
-                                        *ngFor="let item of uploadedFileUrls.documentUrls; let i = index"><i
-                                            class="fa fa-eye" aria-hidden="true" style="margin-left:5px"></i></span>
-                                </td>
-                                <td class="text-center">
-                                    <span (click)="deleteDoc1(uploadedFileUrls.id)"><i class="fa fa-trash"
-                                            aria-hidden="true"></i></span>
-                                </td>
-                            </tr>
+                            <ng-container *ngFor="let item of fileUplaodedList">
+                                <tr>
+                                    <td>{{item.agentDocType}}</td>
+                                    <td class="text-center">
+                                        <span (click)="viewUploadedDoc(item1)"
+                                            *ngFor="let item1 of item.documentUrls;"><i class="fa fa-eye"
+                                                aria-hidden="true" style="margin-left:5px"></i></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span (click)="deleteDoc1(item.id)"><i class="fa fa-trash"
+                                                aria-hidden="true"></i></span>
+                                    </td>
+                                </tr>
+                            </ng-container>
                         </tbody>
                     </table>
                 </div>
