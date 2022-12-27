@@ -7,6 +7,8 @@ import { ClaimDocumentationUploadComponent } from './claim-documentation-upload/
 import { DocumentVerificationRequestComponent } from './document-verification-request/document-verification-request.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SharedModule } from '../shared/shared.module';
+import { RemoveunderscorePipe } from '../services/helper/removeunderscore.pipe';
+
 
 
 @NgModule({
@@ -14,6 +16,7 @@ import { SharedModule } from '../shared/shared.module';
     DashboardComponent,
     ClaimDocumentationUploadComponent,
     DocumentVerificationRequestComponent,
+    RemoveunderscorePipe,
   ],
   imports: [
     CommonModule,
@@ -21,7 +24,8 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     FormsModule,
     PaginationModule.forRoot(),
-    SharedModule
+    SharedModule,
+
   ]
 })
 export class PagesModule { }

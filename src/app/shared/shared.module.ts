@@ -18,6 +18,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 
+
 @NgModule({
   declarations: [
     NoDataFoundComponent,
@@ -28,7 +29,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     PdfViewerComponent,
     DocumentRejectModalComponent,
     DocumentViewerComponent,
-
   ],
   imports: [
     CommonModule,
@@ -46,6 +46,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     FileUploadComponent,
     DocumentVerificationRequestModalComponent,
     PdfViewerComponent,
+
   ]
 })
 export class SharedModule { }

@@ -289,7 +289,8 @@
 
             </div>
             <div class="col-8" *ngIf="isSubmittedTable">
-                <div class="table-responsive document-upload-table" *ngIf="fileUplaodedList.length > 0">
+                <div class="table-responsive document-upload-table"
+                    *ngIf="ClaimListDataById.claimDocumentsDTOS.length > 0">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -317,7 +318,7 @@
                 </div>
             </div>
             <div class="col-8" *ngIf="isUploadedTable">
-                <div class="table-responsive document-upload-table">
+                <div class="table-responsive document-upload-table" *ngIf="uploadedFileUrls.documentUrls.length > 0">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -327,19 +328,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let item of fileUplaodedList; let i = index">
-                                <tr>
-                                    <td>{{item?.docType}}</td>
-                                    <td class="text-center">
-                                        <span (click)="viewUploadedDoc(item.documentUrls[0])"><i class="fa fa-eye"
-                                                aria-hidden="true"></i></span>
-                                    </td>
-                                    <td class="text-center">
-                                        <span (click)="deleteDoc(item.id)"><i class="fa fa-trash"
-                                                aria-hidden="true"></i></span>
-                                    </td>
-                                </tr>
-                            </ng-container>
+                            <tr>
+                                <td>{{uploadedFileUrls?.agentDocType
+                                    }}</td>
+                                <td class="text-center">
+                                    <span (click)="viewUploadedDoc(item)"
+                                        *ngFor="let item of uploadedFileUrls.documentUrls; let i = index"><i
+                                            class="fa fa-eye" aria-hidden="true" style="margin-left:5px"></i></span>
+                                </td>
+                                <td class="text-center">
+                                    <span (click)="deleteDoc1(uploadedFileUrls.id)"><i class="fa fa-trash"
+                                            aria-hidden="true"></i></span>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
