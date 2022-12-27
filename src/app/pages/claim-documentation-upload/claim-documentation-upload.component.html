@@ -318,7 +318,7 @@
                 </div>
             </div>
             <div class="col-8" *ngIf="isUploadedTable">
-                <div class="table-responsive document-upload-table">
+                <div class="table-responsive document-upload-table" *ngIf="fileUplaodedList.length > 0">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">

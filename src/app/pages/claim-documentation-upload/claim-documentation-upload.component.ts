@@ -153,7 +153,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
-        this.editClaimList(this.docId)
+        this.fileUplaodedList.pop();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
