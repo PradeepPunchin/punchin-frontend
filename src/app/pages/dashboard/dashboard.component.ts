@@ -11,6 +11,9 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals/document-verification-request-modal/document-verification-request-modal.component';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -43,10 +46,22 @@ export class DashboardComponent implements OnInit {
   verifierData: any = "ALL"
   bsModalRef?: BsModalRef;
   bsModalRef1?: BsModalRef;
+  bsModalRef2?: BsModalRef;
   filterStatus: any
-  currentPage = 0
+  currentPage: any = 0;
   isSubmitted: boolean = false
   form!: FormGroup;
+  searchForm!: FormGroup
+  searchEnum: any;
+  inputSearch: any;
+  file: any;
+  additionalDocType: any;
+  bankerform!: FormGroup;
+  bankerDocCliamId: any
+  bankerDoc: any;
+  selectBankerDoc: any;
+  docName: any;
+
 
 
   constructor(
@@ -57,11 +72,18 @@ export class DashboardComponent implements OnInit {
     private eventService: EventService,
     private utilitiesService: UtilityService,
     private modalService: BsModalService,
-    private fb: FormBuilder
+    private formBuilder: FormBuilder
   ) {
-    this.form = this.fb.group({
-      checkArray: this.fb.array([], [Validators.required]),
+    this.form = this.formBuilder.group({
+      checkArray: this.formBuilder.array([], [Validators.required]),
     });
+    this.searchForm = this.formBuilder.group({
+      selectedValue: [null, [Validators.required]],
+      search: ["", [Validators.required]]
+    })
+    this.bankerform = this.formBuilder.group({
+      addDoc: [null, [Validators.required]],
+    })
   }
 
   ngOnInit(): void {
@@ -75,7 +97,12 @@ export class DashboardComponent implements OnInit {
       this.getVerifierDashboardData();
       this.verifierCardDetails("ALL")
     }
+    if (this.role === "") {
+      this.bsModalRef?.hide();
+    }
   }
+
+
 
   onGetUploadedFile(event: any) {
     if (this.bsModalRef) {
@@ -91,14 +118,20 @@ export class DashboardComponent implements OnInit {
   // banker card table data
   showCardDetails(data: any) {
     this.bankerData = data;
-    this.apiService.getCardList(this.bankerData).subscribe((res: any) => {
+    this.currentPage = 0;
+    this.inputSearch = this.searchForm.controls.search.value
+    this.apiService.getCardList(this.searchEnum, this.inputSearch, this.bankerData, this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
-        this.cardList = res?.data
-        this.cordListData = res?.data.content
-        this.totalrecords = res?.data.totalRecords
+        this.cardList = res?.data;
+        this.cordListData = res?.data.content;
+        this.totalrecords = res?.data.totalRecords;
+        this.searchEnum = "";
+        this.inputSearch = "";
         if (this.cordListData.length > 0) {
           this.isShow = false
         }
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -189,16 +222,29 @@ export class DashboardComponent implements OnInit {
 
   //  download msi report
   downloadMisReport() {
-    this.apiService.getDownloadMisReport(this.bankerData).subscribe((res: any) => {
-      if (res?.isSuccess && res?.data) {
-        window.location.href = res.data
-      } else {
-        this.notifierService.showError("No data found");
-      }
-    }, (error: any) => {
-      this.notifierService.showError(error?.error?.message || "Something went wrong");
-    });
+    if (this.role === ROLES.banker) {
+      this.apiService.getBankerDownloadMISReport(this.bankerData).subscribe((res: any) => {
+        if (res?.isSuccess && res?.data) {
+          window.location.href = res.data
+        } else {
+          this.notifierService.showError("No data found");
+        }
+      }, (error: any) => {
+        this.notifierService.showError(error?.error?.message || "Something went wrong");
+      });
+    } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
+      this.apiService.getVerifierDownloadMISReport(this.verifierData).subscribe((res: any) => {
+        if (res?.isSuccess && res?.data) {
+          window.location.href = res.data
+        } else {
+          this.notifierService.showError("No data found");
+        }
+      }, (error: any) => {
+        this.notifierService.showError(error?.error?.message || "Something went wrong");
+      });
+    }
   }
+
 
   //verifier dashboard
   getVerifierDashboardData() {
@@ -213,9 +259,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  //  verifier card api
+  //  verifier card table api
   verifierCardDetails(data: any) {
     this.verifierData = data;
+    this.searchForm.reset();
     if (data === 'UNDER_VERIFICATION') {
       this.router.navigate(['/pages/document-verification'])
     } else {
@@ -249,7 +296,8 @@ export class DashboardComponent implements OnInit {
 
   changeBankerPage(event: PageChangedEvent) {
     this.currentPage = event.page - 1;
-    this.apiService.getCardList(this.bankerData, this.currentPage).subscribe((res: any) => {
+    this.pageNo = event.page - 1
+    this.apiService.getCardList("", "", this.bankerData, this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cardList = res?.data
         this.cordListData = res?.data.content
@@ -259,14 +307,25 @@ export class DashboardComponent implements OnInit {
   }
 
   changeVerifierPage(event: PageChangedEvent) {
-    this.currentPage = event.page - 1;
-    this.apiService.getVerifierClaimsData(this.verifierData, this.currentPage).subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.verifierCardList = res?.data
-        this.verifiercordListData = res?.data.content
-        this.totalrecords = res?.data.totalRecords
-      }
-    })
+    if (this.searchEnum, this.inputSearch) {
+      this.currentPage = event.page - 1;
+      this.apiService.getVerifierSearchData(this.searchEnum, this.inputSearch, this.verifierData, this.currentPage).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.verifierCardList = res?.data
+          this.verifiercordListData = res?.data.content
+          this.totalrecords = res?.data.totalRecords
+        }
+      });
+    } else {
+      this.currentPage = event.page - 1;
+      this.apiService.getVerifierClaimsData(this.verifierData, this.currentPage).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.verifierCardList = res?.data
+          this.verifiercordListData = res?.data.content
+          this.totalrecords = res?.data.totalRecords
+        }
+      });
+    }
   }
   // end pagination
 
@@ -299,7 +358,86 @@ export class DashboardComponent implements OnInit {
       keyboard: false
     };
     this.bsModalRef1 = this.modalService.show(template, initialState);
+  }
 
+  OpenBankerDiscrepancyModal(template: any, id: any) {
+    this.bankerDocCliamId = id;
+    const initialState: ModalOptions = {
+      class: 'banker-discrepbancy-custom-modal',
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.bsModalRef2 = this.modalService.show(template, initialState)
+    this.apiService.getClaimBankerDocuments(id).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.bankerDoc = res?.data.claimDocuments;
+        this.selectBankerDoc = res?.data.rejectedDocList;
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
+  }
+
+  //search
+  searchBySelectedData(event: any) {
+    this.searchEnum = event.target.value
+  }
+  searchTableData() {
+    if (this.role === ROLES.banker) {
+      this.showCardDetails(this.bankerData)
+      this.searchForm.reset();
+
+    } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
+      if (this.searchForm.valid) {
+        this.apiService.getVerifierSearchData(this.searchEnum, this.inputSearch, this.verifierData).subscribe((res: any) => {
+          if (res?.isSuccess) {
+            this.verifierCardList = res?.data
+            this.verifiercordListData = res?.data.content
+            this.totalrecords = res?.data.totalRecords
+          }
+        }, (error: any) => {
+          this.notifierService.showError(error?.error?.message || "Something went wrong");
+        })
+      }
+      else {
+        this.notifierService.showError("Something went wrong");
+      }
+    } else { }
+
+  }
+  //end
+
+  //banker discrepnacy
+  filterByAddDoc(event: any) {
+    this.additionalDocType = event.target.value;
+  }
+  fileBrowseHandler(event: any) {
+    this.file = event.target.files[0];
+    this.docName = this.file.name
+  }
+
+  submitBankerData() {
+    if (this.file.type === 'image/png' || this.file.type === 'image/jpeg' || this.file.type === 'image/jpg' || this.file.type === 'application/pdf') {
+      const formData: FormData = new FormData();
+      formData.append('multipartFile', this.file)
+      this.apiService.uploadDiscrepancyDocument(this.bankerDocCliamId, this.additionalDocType, formData).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.notifierService.showSuccess(res?.message);
+          this.bsModalRef2?.hide()
+        }
+      }, (error: any) => {
+        this.notifierService.showError(error?.error?.message || "Something went wrong");
+      });
+    } else {
+      this.notifierService.showError("File type not valid");
+    }
+  }
+
+  viewBankerDoc(item: any) {
+    let bankerView = item.documentUrlDTOS[0].docUrl;
+    window.open(bankerView)
   }
 
   // raise additional document

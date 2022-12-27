@@ -14,6 +14,7 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
 export class ClaimDocumentationUploadComponent implements OnInit {
   totalrecords!: number;
   pageNo: number = 0;
+  currentPage: number = 0;
   pageSize: number = 7;
   totalpage!: number;
   submittedClaimList: any;
@@ -24,14 +25,16 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   uploadForm !: FormGroup
   ClaimListDataById: any = []
   file: any;
-  files: any[] = [];
+  myFiles: any[] = [];
   filterData: any = "ALL";
   viewDocument: any
-  uploadedData: any
+  uploadedFileUrls: any
   isUploadedTable: boolean = false
   isSubmittedTable: boolean = false
   docId: any
   isUploaded: boolean = false
+  fileUploadedLists: any[] = [];
+  fileUplaodedList: any
 
 
 
@@ -121,7 +124,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.notifierService.showSuccess(res.message)
         this.viewClaimList = true;
         this.editCliamList = false;
-        this.pageNo = 0;
+        this.currentPage = 0;
         this.getClaimUploadList();
       }
     }, (error: any) => {
@@ -139,7 +142,18 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
-        this.editClaimList(this.docId);
+        this.editClaimList(this.docId)
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
+  }
+
+  deleteDoc1(id: any) {
+    this.apiService.deleteDocument(id).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.notifierService.showSuccess(res.message)
+        this.fileUplaodedList.pop();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -147,7 +161,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   back() {
-    this.pageNo = 0;
+    this.currentPage = 0;
     this.getClaimUploadList();
     this.viewClaimList = true;
     this.editCliamList = false;
@@ -155,6 +169,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   //pagination
   pageChanged(event: PageChangedEvent) {
+    this.currentPage = event.page - 1;
     if (this.submittedClaimList && this.submittedClaimList.length !== this.totalrecords) {
       this.pageNo = event.page - 1;
       this.getClaimUploadList();
@@ -169,38 +184,48 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   // file uplaod
   async fileBrowseHandler(event: any) {
-    this.file = event.target.files[0];
+    for (var i = 0; i < event.target.files.length; i++) {
+      this.myFiles.push(event.target.files[i]);
+    }
+    console.log(this.myFiles, "Files")
+    // this.file = event.target.files[0];
   }
 
   uploadDocument() {
-    // if (!this.file) {
-    //   this.notifierService.showError("Please Select File")
-    // }
-    if (this.file.type === 'image/png' || this.file.type === 'image/jpeg' || this.file.type === 'image/jpg' || this.file.type === 'application/pdf') {
-      this.isUploaded = true
-      let selectedDoc = this.uploadForm.controls.docType.value
-      const formData: FormData = new FormData();
-      formData.append('multipartFiles', this.file,)
-      this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
-        if (res?.isSuccess) {
-          this.isUploadedTable = true
-          this.isSubmittedTable = false
-          this.isUploaded = false
-          this.uploadedData = res?.data.claimDocuments
-          this.notifierService.showSuccess(res?.message);
-          this.uploadForm.reset();
-        }
-      }, (error: any) => {
-        this.notifierService.showError(error?.error?.message || "Something went wrong");
-        this.isUploaded = false
-      })
-    } else {
-      this.notifierService.showError("File type not valid");
+    const formData: FormData = new FormData();
+    for (var i = 0; i < this.myFiles.length; i++) {
+      formData.append("multipartFiles", this.myFiles[i]);
     }
+    // if (this.myFiles[i].type === 'image/png' || this.myFiles[i].type === 'image/jpeg' || this.myFiles[i].type === 'image/jpg' || this.myFiles[i].type === 'application/pdf') {
+    this.isUploaded = true
+    let selectedDoc = this.uploadForm.controls.docType.value
+    this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.isUploadedTable = true
+        this.isSubmittedTable = false
+        this.isUploaded = false
+        this.uploadedFileUrls = res?.data.claimDocuments
+        this.fileUploadedLists.push(res?.data?.claimDocuments);
+        this.fileUplaodedList = this.fileUploadedLists;
+        this.notifierService.showSuccess(res?.message);
+        this.uploadForm.reset();
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+      this.isUploaded = false
+    })
+
+    // else {
+    //   this.notifierService.showError("File type not valid");
+    // }
+
+
+
+
   }
 
   viewUploadedDoc(item: any) {
-    this.viewDocument = item.documentUrls[0].docUrl
+    this.viewDocument = item.docUrl
     window.open(this.viewDocument)
   }
 
@@ -208,7 +233,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.forwardClaim(this.ClaimListDataById.id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
-        this.pageNo = 0;
+        this.currentPage = 0;
         this.getClaimUploadList();
         this.viewClaimList = true;
         this.editCliamList = false;

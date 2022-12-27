@@ -1,8 +1,8 @@
 <ng-container *ngIf="viewClaimList">
     <div class="cases-claims-box">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
-            <h6>Case/Claim ({{totalrecords}})</h6>
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+            <h6>Case/Claim ({{totalrecords || 0}})</h6>
+            <select class="form-select form-select-md" aria-label=".form-select-sm example"
                 (input)="filterByStatus($event)">
                 <option selected>Filter by Status</option>
                 <option value="ALL">All</option>
@@ -63,10 +63,10 @@
                     <tbody class="align-middle" *ngFor="let item of submittedclaimListContent;let i = index">
                         <tr>
                             <td>
-                                {{ (pageNo) * pageSize + i +1 }}
+                                {{ (currentPage) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
-                            <td>{{item.punchinBankerId}}</td>
+                            <td>{{item.branchName}}</td>
                             <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
@@ -121,11 +121,13 @@
         <div class="pagination-box d-flex justify-content-end align-items-center"
             *ngIf="submittedclaimListContent?.length>0">
             <div class="pages-per-rows d-flex align-items-center">
-                <!-- <p class="per-row-title">Page Per Rows</p>
-                <h6 class="per-row-text">
+                <!-- <p class="per-row-title">Page Per Rows</p> -->
+                <!-- <h6 class="per-row-text">
                     <select (input)="pagePerData($event)">
                         <option value="10">10</option>
-                        <option [value]="totalrecords">{{totalrecords}}</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="500">500</option>
                     </select>
                 </h6> -->
                 <!-- <img src="../../../assets/icons/chevron-down.svg"> -->
@@ -133,7 +135,7 @@
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="pageChanged($event)" [itemsPerPage]="pageSize" firstText="&laquo;" lastText="&raquo;"
-                    [maxSize]="5"></pagination>
+                    [maxSize]="5" [(ngModel)]="pageNo"></pagination>
             </div>
         </div>
     </div>
@@ -316,7 +318,7 @@
                 </div>
             </div>
             <div class="col-8" *ngIf="isUploadedTable">
-                <div class="table-responsive document-upload-table">
+                <div class="table-responsive document-upload-table" *ngIf="fileUplaodedList.length > 0">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -326,15 +328,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container>
+                            <ng-container *ngFor="let item of fileUplaodedList">
                                 <tr>
-                                    <td>{{uploadedData?.docType}}</td>
+                                    <td>{{item.agentDocType}}</td>
                                     <td class="text-center">
-                                        <span (click)="viewUploadedDoc(uploadedData)"><i class="fa fa-eye"
-                                                aria-hidden="true"></i></span>
+                                        <span (click)="viewUploadedDoc(item1)"
+                                            *ngFor="let item1 of item.documentUrls;"><i class="fa fa-eye"
+                                                aria-hidden="true" style="margin-left:5px"></i></span>
                                     </td>
                                     <td class="text-center">
-                                        <span (click)="deleteDoc(uploadedData.id)"><i class="fa fa-trash"
+                                        <span (click)="deleteDoc1(item.id)"><i class="fa fa-trash"
                                                 aria-hidden="true"></i></span>
                                     </td>
                                 </tr>
