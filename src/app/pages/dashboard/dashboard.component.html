@@ -4,7 +4,7 @@
             *ngIf="cordListData.length > 0">
             <h6>Service/Claim Dashboard</h6>
             <form [formGroup]=" searchForm">
-                <div class="row">
+                <div class="row" *ngIf="onStep === 0">
                     <div class="col-4">
                         <select class="form-select form-select-md" aria-label=".form-select-sm example"
                             (input)="searchBySelectedData($event)" formControlName="selectedValue">
@@ -201,7 +201,7 @@
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
                             <td>
-                                <span class="status-button">{{item.claimStatus}}</span>
+                                <span class="status-button">{{item.claimStatus | removeunderscore | titlecase}}</span>
                             </td>
                             <td class="text-center">
                                 <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc)">
@@ -313,7 +313,8 @@
                             <td>{{item.nomineeContactNumber}}</td>
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
-                            <td class="text-center status-button">{{item.claimStatus}}</td>
+                            <td class="text-center status-button">{{item.claimStatus | removeunderscore | titlecase}}
+                            </td>
                             <td class="text-center" *ngIf="onStep === 1 && innerStep === 1">
                                 <span (click)="OpenBankerDiscrepancyModal(bankerDiscrepancy, item.id)">
                                     <i class="fa fa-file-text-o"></i>
@@ -547,7 +548,7 @@
                                 <tbody>
                                     <ng-container *ngFor="let item of bankerDoc">
                                         <tr>
-                                            <td>{{item.agentDocType}} </td>
+                                            <td>{{item.agentDocType | removeunderscore | titlecase}} </td>
                                             <td class="text-center">
                                                 <span *ngIf="item.isVerified == false"><img
                                                         src="../../../../assets/icons/right-tick-blue.svg"></span>
@@ -639,7 +640,7 @@
             *ngIf="verifiercordListData.length > 0">
             <h6>Service/Claim Dashboard</h6>
             <form [formGroup]="searchForm">
-                <div class="row">
+                <div class="row" *ngIf="onStep === 0">
                     <div class="col-4">
                         <select class="form-select form-select-md" aria-label=".form-select-sm example"
                             (input)="searchBySelectedData($event)" formControlName="selectedValue">
@@ -835,7 +836,7 @@
                             </span>
                         </td>
                         <td class="text-center status-button">
-                            {{item.claimStatus}}</td>
+                            {{item.claimStatus | removeunderscore | titlecase}}</td>
                     </tr>
                 </tbody>
             </table>
