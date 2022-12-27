@@ -205,6 +205,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.isSubmittedTable = false
         this.isUploaded = false
         this.uploadedFileUrls = res?.data.claimDocuments
+        this.fileUploadedLists.push(res?.data?.claimDocuments);
+        this.fileUplaodedList = this.fileUploadedLists;
         this.notifierService.showSuccess(res?.message);
         this.uploadForm.reset();
       }
