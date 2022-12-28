@@ -98,10 +98,6 @@
                     src="../../../assets/icons/download.svg" class="me-2">Download MIS
                 report
             </button>
-            <button type="button" class="btn btn-outline-primary" *ngIf="onStep === 0"
-                (click)="getDownloadExcelFormat()"><img src="../../../assets/icons/download.svg" class="me-2">Download
-                Standardized Format
-            </button>
         </div>
         <div *ngIf="cordListData.length > 0 && isShowFileUploaded">
             <div class="table-container table-responsive" *ngIf="onStep === 0">
@@ -109,9 +105,7 @@
                     <thead>
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
-                            <th scope="col"><span style="cursor:pointer;"
-                                    [routerLink]="['/pages/claim-documentation']">Punchin Ref.
-                                    ID</span></th>
+                            <th scope="col">Punchin Ref.ID</th>
                             <th scope="col">Lender Name </th>
                             <th scope="col">Claim Inward Date</th>
                             <th scope="col">Borrower Name</th>
@@ -160,7 +154,11 @@
                             <td>
                                 {{ (pageNo ) * pageSize + i +1 }}
                             </td>
-                            <td>{{item.punchinClaimId}}</td>
+                            <td>
+                                <span style="cursor:pointer" (click)="viewbankerDocRequest(item.submittedBy,item.id)">
+                                    {{item.punchinClaimId}}
+                                </span>
+                            </td>
                             <td>{{item.lenderName}}</td>
                             <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
@@ -406,10 +404,11 @@
                         <th scope="col">Nominee Address</th>
                     </tr>
                 </thead>
+
                 <tbody class="align-middle" *ngFor="let item of claimListContent;let i = index">
                     <tr>
                         <td>
-                            {{ (currentPage) * pageSize + i +1 }}
+                            {{ (pageNo) * pageSize + i +1 }}
                         </td>
                         <td>{{item.punchinClaimId}}</td>
                         <td>{{item.punchinBankerId}}</td>
@@ -734,8 +733,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col"><span style="cursor:pointer;" (click)="viewUnderVerification()">Punchin Ref.
-                                ID</span></th>
+                        <th scope="col">Punchin Ref.ID</th>
                         <th scope="col">Claim Registration Date </th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Nominee Name </th>
@@ -743,10 +741,9 @@
                         <th scope="col">Address</th>
                         <th scope="col">Signed claim form </th>
                         <th scope="col">Death Certificate </th>
-                        <th scope="col">Borrower ID Proof</th>
-                        <th scope="col">Nominee Id Proof </th>
-                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">Borrower KYC Proof</th>
                         <th scope="col"> Nominee KYC Proof</th>
+                        <th scope="col">Bank A/c Proof </th>
                         <th scope="col">Additional Document</th>
                         <th scope="col" class="text-center ">Status</th>
                     </tr>
@@ -756,7 +753,16 @@
                         <td>
                             {{ (currentPage) * pageSize + i +1 }}
                         </td>
-                        <td>{{item.punchinClaimId}}</td>
+                        <td *ngIf="onStep === 0">
+                            <span style="cursor:pointer;" (click)="viewUnderVerification(item.claimStatus, item.id)">
+                                {{item.punchinClaimId}}
+                            </span>
+                        </td>
+                        <td
+                            *ngIf="(onStep === 1 && innerStep === 0) || (onStep === 1 && innerStep === 1) || onStep === 2">
+
+                            {{item.punchinClaimId}}
+                        </td>
                         <td>{{item.claimDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
@@ -785,23 +791,23 @@
                             </span>
                         </td>
                         <td>
-                            <span *ngIf="item.borrowerIdProof === 'UPLOADED'"> <img
+                            <span *ngIf="item.borrowerKycProof === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'NOT_UPLOADED'"> <img
+                            <span *ngIf="item.borrowerKycProof === 'NOT_UPLOADED'"> <img
                                     src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'APPROVED'"><img
+                            <span *ngIf="item.borrowerKycProof === 'APPROVED'"><img
                                     src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
+                            <span *ngIf="item.borrowerKycProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
                         </td>
                         <td>
-                            <span *ngIf="item.nomineeIdProof === 'UPLOADED'"> <img
+                            <span *ngIf="item.nomineeKycProof === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'NOT_UPLOADED'"> <img
+                            <span *ngIf="item.nomineeKycProof === 'NOT_UPLOADED'"> <img
                                     src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'APPROVED'"><img
+                            <span *ngIf="item.nomineeKycProof === 'APPROVED'"><img
                                     src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
+                            <span *ngIf="item.nomineeKycProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
                         </td>
                         <td>
@@ -813,17 +819,6 @@
                                     src="assets/icons/tick-green.svg"></span>
                             <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
-                        </td>
-                        <td>
-                            <span><img src="assets/icons/cross.svg"></span>
-                            <!-- <span *ngIf="item.bankAccountProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span> -->
                         </td>
                         <td>
                             <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img

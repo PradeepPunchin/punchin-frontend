@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ApiService } from 'src/app/services/api/api.service';
 import { EventService } from 'src/app/services/event/event.service';
@@ -35,6 +36,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   isUploaded: boolean = false
   fileUploadedLists: any[] = [];
   fileUplaodedList: any
+  bankerDocId: any;
 
 
 
@@ -42,7 +44,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     private apiService: ApiService,
     private eventService: EventService,
     private formBuilder: FormBuilder,
-    private notifierService: NotifierService
+    private notifierService: NotifierService,
+    private activateRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -66,6 +69,28 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       files: ["", [Validators.required]]
     })
     this.getClaimUploadList();
+    this.bankerDocId = this.activateRoute.snapshot.queryParams.id;
+
+
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.eventService.subscribe('submittedby', (data) => {
+        if (data == true) {
+          this.apiService.getClaimListByClaimid(this.bankerDocId).subscribe((res: any) => {
+            if (res?.isSuccess) {
+              this.patchValue()
+              this.editCliamList = true;
+              this.viewClaimList = false;
+              console.log(this.viewClaimList, "viewClaimList");
+              console.log(this.editCliamList, "editCliamList");
+
+            }
+          })
+        }
+      })
+    }, 2000);
   }
 
   patchValue() {
@@ -153,7 +178,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
-        this.editClaimList(this.docId)
+        this.fileUploadedLists.pop();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -184,19 +209,16 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   // file uplaod
   async fileBrowseHandler(event: any) {
-    for (var i = 0; i < event.target.files.length; i++) {
+    for (let i = 0; i < event.target.files.length; i++) {
       this.myFiles.push(event.target.files[i]);
     }
-    console.log(this.myFiles, "Files")
-    // this.file = event.target.files[0];
   }
 
   uploadDocument() {
-    const formData: FormData = new FormData();
-    for (var i = 0; i < this.myFiles.length; i++) {
+    let formData: FormData = new FormData();
+    for (let i = 0; i < this.myFiles.length; i++) {
       formData.append("multipartFiles", this.myFiles[i]);
     }
-    // if (this.myFiles[i].type === 'image/png' || this.myFiles[i].type === 'image/jpeg' || this.myFiles[i].type === 'image/jpg' || this.myFiles[i].type === 'application/pdf') {
     this.isUploaded = true
     let selectedDoc = this.uploadForm.controls.docType.value
     this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
@@ -205,14 +227,19 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.isSubmittedTable = false
         this.isUploaded = false
         this.uploadedFileUrls = res?.data.claimDocuments
-        this.fileUploadedLists.push(res?.data?.claimDocuments);
-        this.fileUplaodedList = this.fileUploadedLists;
-        this.notifierService.showSuccess(res?.message);
         this.uploadForm.reset();
+        this.myFiles = [];
+        this.fileUploadedLists.push(res?.data?.claimDocuments);
+        this.notifierService.showSuccess(res?.message);
+
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
       this.isUploaded = false
+      this.uploadForm.reset();
+
     })
 
     // else {

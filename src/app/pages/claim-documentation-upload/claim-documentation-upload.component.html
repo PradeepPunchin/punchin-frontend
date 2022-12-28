@@ -1,4 +1,6 @@
 <ng-container *ngIf="viewClaimList">
+    {{viewClaimList}}
+    {{editCliamList}}
     <div class="cases-claims-box">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6>Case/Claim ({{totalrecords || 0}})</h6>
@@ -7,6 +9,7 @@
                 <option selected>Filter by Status</option>
                 <option value="ALL">All</option>
                 <option value="BANKER_ACTION_PENDING">Pending</option>
+                <option value="BANKER_DRAFT">Draft</option>
                 <option value="SUBMITTED">Submitted Document</option>
             </select>
         </div>
@@ -104,9 +107,15 @@
                             <td>{{item.nomineeRelationShip}}</td>
                             <td>{{item.nomineeContactNumber}}</td>
                             <td>{{item.nomineeEmailId}}</td>
-                            <td>{{item.nomineeAddress}}</td>
+                            <td>{{item.submittedBy}}</td>
+                            <!-- <td class="text-center" *ngIf="item.submittedBy === null">
+                                <span (click)="editClaimList(item.id)"><img src="assets/icons/action.svg"></span>
+                            </td>
+                            <td class="text-center" *ngIf="item.submittedBy !== null">
+                                <span><img src="assets/icons/action(fade).svg"></span>
+                            </td> -->
                             <td class="text-center">
-                                <ng-container *ngIf="item.claimStatus === 'CLAIM_INTIMATED'; else OtherStatus">
+                                <ng-container *ngIf="item.submittedBy === null; else OtherStatus">
                                     <span (click)="editClaimList(item.id)"><img src="assets/icons/action.svg"></span>
                                 </ng-container>
                                 <ng-template #OtherStatus>
@@ -153,6 +162,8 @@
 
 <!-- Documentation Upload -->
 <div class="container-fluid documentation-upload-box" *ngIf="editCliamList">
+    {{viewClaimList}}
+    {{editCliamList}}
     <h6 class="documentation-upload-heading">Documentation Upload</h6>
     <form [formGroup]="showClaimForm">
         <div class="borrower-details">
@@ -328,7 +339,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let item of fileUplaodedList">
+                            <ng-container *ngFor="let item of fileUploadedLists">
                                 <tr>
                                     <td>{{item.agentDocType}}</td>
                                     <td class="text-center">

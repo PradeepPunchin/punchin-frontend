@@ -47,6 +47,7 @@ export class DashboardComponent implements OnInit {
   bsModalRef?: BsModalRef;
   bsModalRef1?: BsModalRef;
   bsModalRef2?: BsModalRef;
+  modalRef?: BsModalRef;
   filterStatus: any
   currentPage: any = 0;
   isSubmitted: boolean = false
@@ -188,8 +189,28 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  viewUnderVerification() {
-    this.router.navigate(['/pages/document-verification'])
+  viewUnderVerification(status: any, id: any) {
+    if (status === 'UNDER_VERIFICATION') {
+      const initialState: ModalOptions = {
+        initialState: {
+          documentVerificationRequestId: id,
+        },
+        class: 'modal-custom-width'
+      };
+      this.modalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
+    }
+    else {
+      this.notifierService.showInfo("Not valid")
+    }
+  }
+
+  viewbankerDocRequest(submitBy: any, id: any) {
+    if (submitBy === null) {
+      this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
+      this.eventService.publish('submittedby', true)
+    } else {
+      this.notifierService.showInfo("Already Submitted")
+    }
   }
 
   //submit upload file
@@ -207,18 +228,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  // download standardized excel
-  getDownloadExcelFormat() {
-    this.apiService.getDownloadExcelFormat().subscribe((res: any) => {
-      if (res?.isSuccess && res?.data) {
-        window.location.href = res.data
-      } else {
-        this.notifierService.showError("No data found");
-      }
-    }, (error: any) => {
-      this.notifierService.showError(error?.error?.message || "Something went wrong");
-    });
-  }
+
 
   //  download msi report
   downloadMisReport() {
@@ -285,6 +295,7 @@ export class DashboardComponent implements OnInit {
   //pagination
   pageChanged(event: PageChangedEvent) {
     this.currentPage = event.page - 1;
+    this.pageNo = event.page - 1
     this.apiService.getClaimList(this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.claimList = res?.data
@@ -385,6 +396,7 @@ export class DashboardComponent implements OnInit {
     this.searchEnum = event.target.value
   }
   searchTableData() {
+    this.inputSearch = this.searchForm.controls.search.value
     if (this.role === ROLES.banker) {
       this.showCardDetails(this.bankerData)
       this.searchForm.reset();
