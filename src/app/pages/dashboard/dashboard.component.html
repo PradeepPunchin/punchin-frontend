@@ -90,17 +90,14 @@
                     (click)="showCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
             <button type="button" class="btn btn-primary btn1"
-                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3" (click)="openModal1(fileTemplate)">
+                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"
+                (click)="openUploaFiledModal(fileTemplate)">
                 <img src="../../../assets/icons/action(white).svg" class="me-2">Upload xls File</button>
 
             <button type="button" class="btn btn-outline-primary" (click)="downloadMisReport()"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"><img
                     src="../../../assets/icons/download.svg" class="me-2">Download MIS
                 report
-            </button>
-            <button type="button" class="btn btn-outline-primary" *ngIf="onStep === 0"
-                (click)="getDownloadExcelFormat()"><img src="../../../assets/icons/download.svg" class="me-2">Download
-                Standardized Format
             </button>
         </div>
         <div *ngIf="cordListData.length > 0 && isShowFileUploaded">
@@ -109,9 +106,7 @@
                     <thead>
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
-                            <th scope="col"><span style="cursor:pointer;"
-                                    [routerLink]="['/pages/claim-documentation']">Punchin Ref.
-                                    ID</span></th>
+                            <th scope="col">Punchin Ref.ID</th>
                             <th scope="col">Lender Name </th>
                             <th scope="col">Claim Inward Date</th>
                             <th scope="col">Borrower Name</th>
@@ -160,7 +155,11 @@
                             <td>
                                 {{ (pageNo ) * pageSize + i +1 }}
                             </td>
-                            <td>{{item.punchinClaimId}}</td>
+                            <td>
+                                <span style="cursor:pointer" (click)="viewbankerDocRequest(item.submittedBy,item.id)">
+                                    {{item.punchinClaimId}}
+                                </span>
+                            </td>
                             <td>{{item.lenderName}}</td>
                             <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
@@ -406,10 +405,11 @@
                         <th scope="col">Nominee Address</th>
                     </tr>
                 </thead>
+
                 <tbody class="align-middle" *ngFor="let item of claimListContent;let i = index">
                     <tr>
                         <td>
-                            {{ (currentPage) * pageSize + i +1 }}
+                            {{ (pageNo) * pageSize + i +1 }}
                         </td>
                         <td>{{item.punchinClaimId}}</td>
                         <td>{{item.punchinBankerId}}</td>
@@ -622,14 +622,7 @@
 
         </div>
     </ng-template>
-
-
-
-
 </ng-container>
-
-
-
 
 
 
@@ -734,8 +727,7 @@
                 <thead>
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
-                        <th scope="col"><span style="cursor:pointer;" (click)="viewUnderVerification()">Punchin Ref.
-                                ID</span></th>
+                        <th scope="col">Punchin Ref.ID</th>
                         <th scope="col">Claim Registration Date </th>
                         <th scope="col">Borrower Name</th>
                         <th scope="col">Nominee Name </th>
@@ -743,12 +735,13 @@
                         <th scope="col">Address</th>
                         <th scope="col">Signed claim form </th>
                         <th scope="col">Death Certificate </th>
-                        <th scope="col">Borrower ID Proof</th>
-                        <th scope="col">Nominee Id Proof </th>
-                        <th scope="col">Bank A/c Proof </th>
+                        <th scope="col">Borrower KYC Proof</th>
                         <th scope="col"> Nominee KYC Proof</th>
+                        <th scope="col">Bank A/c Proof </th>
                         <th scope="col">Additional Document</th>
-                        <th scope="col" class="text-center ">Status</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-center ">Action</th>
+
                     </tr>
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
@@ -756,7 +749,23 @@
                         <td>
                             {{ (currentPage) * pageSize + i +1 }}
                         </td>
-                        <td>{{item.punchinClaimId}}</td>
+                        <td *ngIf="onStep === 0">
+                            <!-- <span style="cursor:pointer;" (click)="viewUnderVerification(item.claimStatus, item.id)">
+                            </span> -->
+                            <ng-container *ngIf="item.claimStatus === 'UNDER_VERIFICATION'; else OtherStatus">
+                                <span style="cursor:pointer;"
+                                    (click)="viewUnderVerification(item.claimStatus, item.id)"> {{item.punchinClaimId}}
+                                </span>
+                            </ng-container>
+                            <ng-template #OtherStatus>
+                                {{item.punchinClaimId}}
+                            </ng-template>
+                        </td>
+                        <td
+                            *ngIf="(onStep === 1 && innerStep === 0) || (onStep === 1 && innerStep === 1) || onStep === 2">
+
+                            {{item.punchinClaimId}}
+                        </td>
                         <td>{{item.claimDate | date: 'dd/MM/yyyy' }}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
@@ -785,23 +794,23 @@
                             </span>
                         </td>
                         <td>
-                            <span *ngIf="item.borrowerIdProof === 'UPLOADED'"> <img
+                            <span *ngIf="item.borrowerKycProof === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'NOT_UPLOADED'"> <img
+                            <span *ngIf="item.borrowerKycProof === 'NOT_UPLOADED'"> <img
                                     src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'APPROVED'"><img
+                            <span *ngIf="item.borrowerKycProof === 'APPROVED'"><img
                                     src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.borrowerIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
+                            <span *ngIf="item.borrowerKycProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
                         </td>
                         <td>
-                            <span *ngIf="item.nomineeIdProof === 'UPLOADED'"> <img
+                            <span *ngIf="item.nomineeKycProof === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'NOT_UPLOADED'"> <img
+                            <span *ngIf="item.nomineeKycProof === 'NOT_UPLOADED'"> <img
                                     src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'APPROVED'"><img
+                            <span *ngIf="item.nomineeKycProof === 'APPROVED'"><img
                                     src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.nomineeIdProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
+                            <span *ngIf="item.nomineeKycProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
                         </td>
                         <td>
@@ -815,17 +824,6 @@
                             </span>
                         </td>
                         <td>
-                            <span><img src="assets/icons/cross.svg"></span>
-                            <!-- <span *ngIf="item.bankAccountProof === 'UPLOADED'"> <img
-                                    src="assets/icons/bluetick.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'NOT_UPLOADED'"> <img
-                                    src="assets/icons/cross.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'APPROVED'"><img
-                                    src="assets/icons/tick-green.svg"></span>
-                            <span *ngIf="item.bankAccountProof === 'REJECTED'"><img src="assets/icons/cross-red.svg">
-                            </span> -->
-                        </td>
-                        <td>
                             <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img
                                     src="assets/icons/bluetick.svg"></span>
                             <span *ngIf="item.additionalDoc === 'NOT_UPLOADED'"> <img
@@ -837,6 +835,8 @@
                         </td>
                         <td class="text-center status-button">
                             {{item.claimStatus | removeunderscore | titlecase}}</td>
+                        <td class="text-center"><span class="allocate-button"
+                                (click)="openAllocatedModal(verifierAllocatedTemplate, item.id)">Allocate</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -868,6 +868,38 @@
         </div>
     </ng-container> -->
 </ng-container>
+
+<ng-template #verifierAllocatedTemplate>
+    <div class="modal-header">
+        <h6>Agent - Allocated</h6>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="this.bsModalRef3?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="agent-allocated d-flex justify-content-center align-items-center">
+            <form [formGroup]="agnetAllocatedForm">
+                <div class="row">
+                    <div class="col-8">
+                        <select class="form-select form-select-md" aria-label=".form-select-sm example"
+                            formControlName="agent_name" (input)="selectAgentAllocatedName($event)">
+                            <option selected value="null">Select Agent</option>
+                            <option [value]="item.id" *ngFor="let item of agentAllocatedData">{{item.firstName}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-4">
+                        <button class="btn btn-primary" [disabled]="!agnetAllocatedForm.valid"
+                            (click)="sumbitAgentAllocation()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</ng-template>
+
 
 <ng-template #fileTemplate>
     <div class="modal-header">

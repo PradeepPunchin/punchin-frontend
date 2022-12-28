@@ -74,17 +74,25 @@
     position: absolute;
     background-color: $white;
     border-radius: 7px;
-    width: 142px;
-    height: 90px;
+    width: 175px;
+    height: 107px;
     padding: 18px 0 0 20px;
     right: 0;
     top: 69px;
     z-index: 1;
+    .format-text {
+      text-decoration: none;
+      img {
+        width: 15px;
+      }
+    }
     .profile-text,
     .logout-text {
       text-decoration: none;
     }
+
     .profile-text span,
+    .format-text span,
     .logout-text span {
       font-weight: 600;
       font-size: $fontSize14;
@@ -92,8 +100,10 @@
       margin-bottom: 0;
       margin-left: 16px;
     }
-    .logout-text {
-      margin-top: 16px;
+    .logout-text,
+    .format-text,
+    .profile-text {
+      margin-top: 8px;
       cursor: pointer;
     }
   }

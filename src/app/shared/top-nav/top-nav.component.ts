@@ -101,7 +101,19 @@ export class TopNavComponent implements OnInit {
       this.router.navigate(['/']);
       this.notifierService.showSuccess("logout Successful")
     })
+  }
 
+  // download standardized excel
+  getDownloadExcelFormat() {
+    this.apiService.getDownloadExcelFormat().subscribe((res: any) => {
+      if (res?.isSuccess && res?.data) {
+        window.location.href = res.data
+      } else {
+        this.notifierService.showError("No data found");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
   }
 
 }

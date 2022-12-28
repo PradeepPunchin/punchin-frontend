@@ -7,6 +7,7 @@
                 <option selected>Filter by Status</option>
                 <option value="ALL">All</option>
                 <option value="BANKER_ACTION_PENDING">Pending</option>
+                <option value="BANKER_DRAFT">Draft</option>
                 <option value="SUBMITTED">Submitted Document</option>
             </select>
         </div>
@@ -104,9 +105,9 @@
                             <td>{{item.nomineeRelationShip}}</td>
                             <td>{{item.nomineeContactNumber}}</td>
                             <td>{{item.nomineeEmailId}}</td>
-                            <td>{{item.nomineeAddress}}</td>
+                            <td>{{item.submittedBy}}</td>
                             <td class="text-center">
-                                <ng-container *ngIf="item.claimStatus === 'CLAIM_INTIMATED'; else OtherStatus">
+                                <ng-container *ngIf="item.submittedBy === null; else OtherStatus">
                                     <span (click)="editClaimList(item.id)"><img src="assets/icons/action.svg"></span>
                                 </ng-container>
                                 <ng-template #OtherStatus>
@@ -290,7 +291,7 @@
             </div>
             <div class="col-8" *ngIf="isSubmittedTable">
                 <div class="table-responsive document-upload-table"
-                    *ngIf="ClaimListDataById.claimDocumentsDTOS.length > 0">
+                    *ngIf="ClaimListDataById && ClaimListDataById.claimDocumentsDTOS.length > 0">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -319,7 +320,8 @@
             </div>
             <div class="col-8" *ngIf="isUploadedTable">
                 <div class="table-responsive document-upload-table">
-                    <table class="table table-bordered table-sm">
+                    <table class="table table-bordered table-sm"
+                        *ngIf="fileUploadedLists && fileUploadedLists.length > 0">
                         <thead>
                             <tr class="align-middle">
                                 <th scope="col">Document Type</th>
@@ -328,7 +330,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let item of fileUplaodedList">
+                            <ng-container *ngFor="let item of fileUploadedLists">
                                 <tr>
                                     <td>{{item.agentDocType}}</td>
                                     <td class="text-center">
