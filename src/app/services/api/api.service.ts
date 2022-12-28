@@ -130,5 +130,15 @@ export class ApiService {
   getVerifierDownloadMISReport(data: any) {
     return this.http.get(`${this.baseApiUrl}verifier/claim/download-mis-report?claimDataFilter=${data}`)
   }
+
+  getAllAgentsForVerifier() {
+    return this.http.get(`${this.baseApiUrl}verifier/agents`)
+  }
+
+  claimDataAgentAllocation(agentId: number, cliamId: number) {
+    return this.http.put(`${this.baseApiUrl}verifier/claim/agentAllocation?agentId=${agentId}&id=${cliamId}`, "");
+
+
+  }
 }
 

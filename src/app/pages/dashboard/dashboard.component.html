@@ -90,7 +90,8 @@
                     (click)="showCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
             <button type="button" class="btn btn-primary btn1"
-                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3" (click)="openModal1(fileTemplate)">
+                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"
+                (click)="openUploaFiledModal(fileTemplate)">
                 <img src="../../../assets/icons/action(white).svg" class="me-2">Upload xls File</button>
 
             <button type="button" class="btn btn-outline-primary" (click)="downloadMisReport()"
@@ -621,14 +622,7 @@
 
         </div>
     </ng-template>
-
-
-
-
 </ng-container>
-
-
-
 
 
 
@@ -745,7 +739,9 @@
                         <th scope="col"> Nominee KYC Proof</th>
                         <th scope="col">Bank A/c Proof </th>
                         <th scope="col">Additional Document</th>
-                        <th scope="col" class="text-center ">Status</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-center ">Action</th>
+
                     </tr>
                 </thead>
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
@@ -754,9 +750,16 @@
                             {{ (currentPage) * pageSize + i +1 }}
                         </td>
                         <td *ngIf="onStep === 0">
-                            <span style="cursor:pointer;" (click)="viewUnderVerification(item.claimStatus, item.id)">
+                            <!-- <span style="cursor:pointer;" (click)="viewUnderVerification(item.claimStatus, item.id)">
+                            </span> -->
+                            <ng-container *ngIf="item.claimStatus === 'UNDER_VERIFICATION'; else OtherStatus">
+                                <span style="cursor:pointer;"
+                                    (click)="viewUnderVerification(item.claimStatus, item.id)"> {{item.punchinClaimId}}
+                                </span>
+                            </ng-container>
+                            <ng-template #OtherStatus>
                                 {{item.punchinClaimId}}
-                            </span>
+                            </ng-template>
                         </td>
                         <td
                             *ngIf="(onStep === 1 && innerStep === 0) || (onStep === 1 && innerStep === 1) || onStep === 2">
@@ -832,6 +835,8 @@
                         </td>
                         <td class="text-center status-button">
                             {{item.claimStatus | removeunderscore | titlecase}}</td>
+                        <td class="text-center"><span class="allocate-button"
+                                (click)="openAllocatedModal(verifierAllocatedTemplate, item.id)">Allocate</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -863,6 +868,38 @@
         </div>
     </ng-container> -->
 </ng-container>
+
+<ng-template #verifierAllocatedTemplate>
+    <div class="modal-header">
+        <h6>Agent - Allocated</h6>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="this.bsModalRef3?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="agent-allocated d-flex justify-content-center align-items-center">
+            <form [formGroup]="agnetAllocatedForm">
+                <div class="row">
+                    <div class="col-8">
+                        <select class="form-select form-select-md" aria-label=".form-select-sm example"
+                            formControlName="agent_name" (input)="selectAgentAllocatedName($event)">
+                            <option selected value="null">Select Agent</option>
+                            <option [value]="item.id" *ngFor="let item of agentAllocatedData">{{item.firstName}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-4">
+                        <button class="btn btn-primary" [disabled]="!agnetAllocatedForm.valid"
+                            (click)="sumbitAgentAllocation()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</ng-template>
+
 
 <ng-template #fileTemplate>
     <div class="modal-header">

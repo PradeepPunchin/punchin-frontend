@@ -1,6 +1,4 @@
 <ng-container *ngIf="viewClaimList">
-    {{viewClaimList}}
-    {{editCliamList}}
     <div class="cases-claims-box">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6>Case/Claim ({{totalrecords || 0}})</h6>
@@ -108,12 +106,6 @@
                             <td>{{item.nomineeContactNumber}}</td>
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.submittedBy}}</td>
-                            <!-- <td class="text-center" *ngIf="item.submittedBy === null">
-                                <span (click)="editClaimList(item.id)"><img src="assets/icons/action.svg"></span>
-                            </td>
-                            <td class="text-center" *ngIf="item.submittedBy !== null">
-                                <span><img src="assets/icons/action(fade).svg"></span>
-                            </td> -->
                             <td class="text-center">
                                 <ng-container *ngIf="item.submittedBy === null; else OtherStatus">
                                     <span (click)="editClaimList(item.id)"><img src="assets/icons/action.svg"></span>
@@ -162,8 +154,6 @@
 
 <!-- Documentation Upload -->
 <div class="container-fluid documentation-upload-box" *ngIf="editCliamList">
-    {{viewClaimList}}
-    {{editCliamList}}
     <h6 class="documentation-upload-heading">Documentation Upload</h6>
     <form [formGroup]="showClaimForm">
         <div class="borrower-details">
@@ -301,7 +291,7 @@
             </div>
             <div class="col-8" *ngIf="isSubmittedTable">
                 <div class="table-responsive document-upload-table"
-                    *ngIf="ClaimListDataById.claimDocumentsDTOS.length > 0">
+                    *ngIf="ClaimListDataById && ClaimListDataById.claimDocumentsDTOS.length > 0">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -330,7 +320,8 @@
             </div>
             <div class="col-8" *ngIf="isUploadedTable">
                 <div class="table-responsive document-upload-table">
-                    <table class="table table-bordered table-sm">
+                    <table class="table table-bordered table-sm"
+                        *ngIf="fileUploadedLists && fileUploadedLists.length > 0">
                         <thead>
                             <tr class="align-middle">
                                 <th scope="col">Document Type</th>

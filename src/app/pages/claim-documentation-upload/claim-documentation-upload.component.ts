@@ -72,25 +72,11 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.bankerDocId = this.activateRoute.snapshot.queryParams.id;
 
 
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.eventService.subscribe('submittedby', (data) => {
-        if (data == true) {
-          this.apiService.getClaimListByClaimid(this.bankerDocId).subscribe((res: any) => {
-            if (res?.isSuccess) {
-              this.patchValue()
-              this.editCliamList = true;
-              this.viewClaimList = false;
-              console.log(this.viewClaimList, "viewClaimList");
-              console.log(this.editCliamList, "editCliamList");
-
-            }
-          })
-        }
-      })
-    }, 2000);
+    // this.eventService.subscribe('submittedby', (event) => {
+    //   if (event == true) {
+    //     this.editClaimList(this.bankerDocId)
+    //   }
+    // })
   }
 
   patchValue() {
