@@ -86,6 +86,10 @@
 
         </div>
         <div class="profile-logout-box" [ngClass]="{'d-none': !isProfileOptionVisible}">
+            <a class="format-text d-flex align-items-center">
+                <img src="../../../assets/icons/download.png">
+                <span (click)="getDownloadExcelFormat()">Download Format</span>
+            </a>
             <a class="profile-text d-flex align-items-center">
                 <img src="../../../assets/icons/profile.svg">
                 <span>Profile</span>
