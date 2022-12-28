@@ -291,7 +291,7 @@
             </div>
             <div class="col-8" *ngIf="isSubmittedTable">
                 <div class="table-responsive document-upload-table"
-                    *ngIf="ClaimListDataById && ClaimListDataById.claimDocumentsDTOS.length > 0">
+                    *ngIf="ClaimListDataById && ClaimListDataById.length > 0">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -301,12 +301,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let item of ClaimListDataById.claimDocumentsDTOS">
+                            <ng-container *ngFor="let item of ClaimListDataById">
                                 <tr>
                                     <td>{{item.docType}}</td>
                                     <td class="text-center">
-                                        <span (click)="viewDoc(item)"><i class="fa fa-eye"
-                                                aria-hidden="true"></i></span>
+                                        <span (click)="viewUploadedDoc(item1)"
+                                            *ngFor="let item1 of item.documentUrlDTOS;"><i class="fa fa-eye"
+                                                aria-hidden="true" style="margin-left:5px"></i></span>
                                     </td>
                                     <td class="text-center">
                                         <span (click)="deleteDoc(item.id)"><i class="fa fa-trash"

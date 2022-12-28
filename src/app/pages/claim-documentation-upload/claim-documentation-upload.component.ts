@@ -121,7 +121,9 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       if (res?.isSuccess) {
         this.isUploadedTable = false
         this.isSubmittedTable = true
-        this.ClaimListDataById = res?.data
+        this.ClaimListDataById = res?.data.claimDocumentsDTOS
+        console.log(this.ClaimListDataById, "this.ClaimListDataById");
+
         this.patchValue()
         this.viewClaimList = false;
         this.editCliamList = true;
@@ -141,12 +143,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
     })
-  }
-
-
-  viewDoc(item: any) {
-    this.viewDocument = item.documentUrlDTOS[0].docUrl
-    window.open(this.viewDocument)
   }
 
   deleteDoc(id: any) {
