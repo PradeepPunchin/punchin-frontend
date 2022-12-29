@@ -110,8 +110,6 @@ export class DashboardComponent implements OnInit {
     if (this.role === "") {
       this.bsModalRef?.hide();
     }
-    this.eventService.publish('submittedby', false)
-
   }
 
 
@@ -217,7 +215,6 @@ export class DashboardComponent implements OnInit {
 
   viewbankerDocRequest(submitBy: any, id: any) {
     if (submitBy === null) {
-      this.eventService.publish('submittedby', true)
       this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
     } else {
       this.notifierService.showInfo("Already Submitted")
