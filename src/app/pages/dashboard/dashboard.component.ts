@@ -140,6 +140,9 @@ export class DashboardComponent implements OnInit {
         if (this.cordListData.length > 0) {
           this.isShow = false
         }
+        if (this.cardList.message) {
+          this.notifierService.showError(res?.data.message || "Something went wrong");
+        }
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
       }
