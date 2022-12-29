@@ -70,13 +70,9 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     })
     this.getClaimUploadList();
     this.bankerDocId = this.activateRoute.snapshot.queryParams.id;
-
-
-    // this.eventService.subscribe('submittedby', (event) => {
-    //   if (event == true) {
-    //     this.editClaimList(this.bankerDocId)
-    //   }
-    // })
+    if (this.bankerDocId) {
+      this.editClaimList(this.bankerDocId)
+    }
   }
 
   patchValue() {
@@ -121,9 +117,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       if (res?.isSuccess) {
         this.isUploadedTable = false
         this.isSubmittedTable = true
-        this.ClaimListDataById = res?.data.claimDocumentsDTOS
-        console.log(this.ClaimListDataById, "this.ClaimListDataById");
-
+        this.ClaimListDataById = res?.data
         this.patchValue()
         this.viewClaimList = false;
         this.editCliamList = true;
