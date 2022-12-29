@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ApiService } from 'src/app/services/api/api.service';
 import { EventService } from 'src/app/services/event/event.service';
@@ -35,6 +36,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   isUploaded: boolean = false
   fileUploadedLists: any[] = [];
   fileUplaodedList: any
+  bankerDocId: any;
 
 
 
@@ -42,7 +44,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     private apiService: ApiService,
     private eventService: EventService,
     private formBuilder: FormBuilder,
-    private notifierService: NotifierService
+    private notifierService: NotifierService,
+    private activateRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -66,6 +69,10 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       files: ["", [Validators.required]]
     })
     this.getClaimUploadList();
+    this.bankerDocId = this.activateRoute.snapshot.queryParams.id;
+    if (this.bankerDocId) {
+      this.editClaimList(this.bankerDocId)
+    }
   }
 
   patchValue() {
@@ -132,12 +139,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     })
   }
 
-
-  viewDoc(item: any) {
-    this.viewDocument = item.documentUrlDTOS[0].docUrl
-    window.open(this.viewDocument)
-  }
-
   deleteDoc(id: any) {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
@@ -153,7 +154,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
-        this.fileUplaodedList.pop();
+        this.fileUploadedLists.pop();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -184,19 +185,16 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   // file uplaod
   async fileBrowseHandler(event: any) {
-    for (var i = 0; i < event.target.files.length; i++) {
+    for (let i = 0; i < event.target.files.length; i++) {
       this.myFiles.push(event.target.files[i]);
     }
-    console.log(this.myFiles, "Files")
-    // this.file = event.target.files[0];
   }
 
   uploadDocument() {
-    const formData: FormData = new FormData();
-    for (var i = 0; i < this.myFiles.length; i++) {
+    let formData: FormData = new FormData();
+    for (let i = 0; i < this.myFiles.length; i++) {
       formData.append("multipartFiles", this.myFiles[i]);
     }
-    // if (this.myFiles[i].type === 'image/png' || this.myFiles[i].type === 'image/jpeg' || this.myFiles[i].type === 'image/jpg' || this.myFiles[i].type === 'application/pdf') {
     this.isUploaded = true
     let selectedDoc = this.uploadForm.controls.docType.value
     this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
@@ -205,14 +203,19 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.isSubmittedTable = false
         this.isUploaded = false
         this.uploadedFileUrls = res?.data.claimDocuments
-        this.fileUploadedLists.push(res?.data?.claimDocuments);
-        this.fileUplaodedList = this.fileUploadedLists;
-        this.notifierService.showSuccess(res?.message);
         this.uploadForm.reset();
+        this.myFiles = [];
+        this.fileUploadedLists.push(res?.data?.claimDocuments);
+        this.notifierService.showSuccess(res?.message);
+
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
       this.isUploaded = false
+      this.uploadForm.reset();
+
     })
 
     // else {

@@ -7,6 +7,7 @@
                 <option selected>Filter by Status</option>
                 <option value="ALL">All</option>
                 <option value="BANKER_ACTION_PENDING">Pending</option>
+                <option value="BANKER_DRAFT">Draft</option>
                 <option value="SUBMITTED">Submitted Document</option>
             </select>
         </div>
@@ -66,7 +67,7 @@
                                 {{ (currentPage) * pageSize + i +1 }}
                             </td>
                             <td>{{item.punchinClaimId}}</td>
-                            <td>{{item.branchName}}</td>
+                            <td>{{item.lenderName}}</td>
                             <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
                             <td>{{item.borrowerName}}</td>
                             <td>{{item.borrowerContactNumber}}</td>
@@ -104,9 +105,9 @@
                             <td>{{item.nomineeRelationShip}}</td>
                             <td>{{item.nomineeContactNumber}}</td>
                             <td>{{item.nomineeEmailId}}</td>
-                            <td>{{item.nomineeAddress}}</td>
+                            <td>{{item.submittedBy}}</td>
                             <td class="text-center">
-                                <ng-container *ngIf="item.claimStatus === 'CLAIM_INTIMATED'; else OtherStatus">
+                                <ng-container *ngIf="item.submittedBy === null; else OtherStatus">
                                     <span (click)="editClaimList(item.id)"><img src="assets/icons/action.svg"></span>
                                 </ng-container>
                                 <ng-template #OtherStatus>
@@ -290,7 +291,7 @@
             </div>
             <div class="col-8" *ngIf="isSubmittedTable">
                 <div class="table-responsive document-upload-table"
-                    *ngIf="ClaimListDataById.claimDocumentsDTOS.length > 0">
+                    *ngIf="ClaimListDataById && ClaimListDataById.length > 0">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -300,12 +301,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let item of ClaimListDataById.claimDocumentsDTOS">
+                            <ng-container *ngFor="let item of ClaimListDataById">
                                 <tr>
                                     <td>{{item.docType}}</td>
                                     <td class="text-center">
-                                        <span (click)="viewDoc(item)"><i class="fa fa-eye"
-                                                aria-hidden="true"></i></span>
+                                        <span (click)="viewUploadedDoc(item1)"
+                                            *ngFor="let item1 of item.documentUrlDTOS;"><i class="fa fa-eye"
+                                                aria-hidden="true" style="margin-left:5px"></i></span>
                                     </td>
                                     <td class="text-center">
                                         <span (click)="deleteDoc(item.id)"><i class="fa fa-trash"
@@ -318,8 +320,9 @@
                 </div>
             </div>
             <div class="col-8" *ngIf="isUploadedTable">
-                <div class="table-responsive document-upload-table" *ngIf="fileUplaodedList.length > 0">
-                    <table class="table table-bordered table-sm">
+                <div class="table-responsive document-upload-table">
+                    <table class="table table-bordered table-sm"
+                        *ngIf="fileUploadedLists && fileUploadedLists.length > 0">
                         <thead>
                             <tr class="align-middle">
                                 <th scope="col">Document Type</th>
@@ -328,7 +331,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let item of fileUplaodedList">
+                            <ng-container *ngFor="let item of fileUploadedLists">
                                 <tr>
                                     <td>{{item.agentDocType}}</td>
                                     <td class="text-center">

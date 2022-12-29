@@ -22,10 +22,9 @@
                                         <th scope="col">Address</th>
                                         <th scope="col">Signed claim form </th>
                                         <th scope="col">Death Certificate </th>
-                                        <th scope="col">Borrower ID Proof</th>
-                                        <th scope="col">Nominee Id Proof </th>
+                                        <th scope="col">Borrower KYC Proof</th>
+                                        <th scope="col"> Nominee KYC Proof</th>
                                         <th scope="col">Bank A/c Proof </th>
-                                        <!-- <th scope="col">FIR / Postmortem report</th> -->
                                         <th scope="col">Additional Document</th>
                                         <th scope="col" class="text-center">Action</th>
                                 </tr>
@@ -38,7 +37,7 @@
                                                 <td>{{item.claimDate |date: 'dd/MM/yyyy'}}</td>
                                                 <td>{{item.borrowerName}}</td>
                                                 <td>{{item.nomineeName}}</td>
-                                                <td>{{item.nomineeContactNumber}}</td>
+                                                <td>{{item.borrowerContactNumber}}</td>
                                                 <td>{{item.borrowerAddress}}</td>
                                                 <td>
                                                         <span *ngIf="item.singnedClaimDocument === 'UPLOADED'"> <img
@@ -58,29 +57,29 @@
                                                                         src="assets/icons/cross.svg"></span>
                                                         <span *ngIf="item.deathCertificate === 'APPROVED'"><img
                                                                         src="assets/icons/tick-green.svg"></span>
-                                                        <span *ngIf="item.deathCertificate === 'REJECTED'"><img
+                                                        <span *ngIf="item.deathCertificate === 'REJECTED'">
+                                                                <img src="assets/icons/cross-red.svg">
+                                                        </span>
+                                                </td>
+                                                <td>
+                                                        <span *ngIf="item.borrowerKycProof === 'UPLOADED'"> <img
+                                                                        src="assets/icons/bluetick.svg"></span>
+                                                        <span *ngIf="item.borrowerKycProof === 'NOT_UPLOADED'"> <img
+                                                                        src="assets/icons/cross.svg"></span>
+                                                        <span *ngIf="item.borrowerKycProof === 'APPROVED'"><img
+                                                                        src="assets/icons/tick-green.svg"></span>
+                                                        <span *ngIf="item.borrowerKycProof === 'REJECTED'"><img
                                                                         src="assets/icons/cross-red.svg">
                                                         </span>
                                                 </td>
                                                 <td>
-                                                        <span *ngIf="item.borrowerIdProof === 'UPLOADED'"> <img
+                                                        <span *ngIf="item.nomineeKycProof === 'UPLOADED'"> <img
                                                                         src="assets/icons/bluetick.svg"></span>
-                                                        <span *ngIf="item.borrowerIdProof === 'NOT_UPLOADED'"> <img
+                                                        <span *ngIf="item.nomineeKycProof === 'NOT_UPLOADED'"> <img
                                                                         src="assets/icons/cross.svg"></span>
-                                                        <span *ngIf="item.borrowerIdProof === 'APPROVED'"><img
+                                                        <span *ngIf="item.nomineeKycProof === 'APPROVED'"><img
                                                                         src="assets/icons/tick-green.svg"></span>
-                                                        <span *ngIf="item.borrowerIdProof === 'REJECTED'"><img
-                                                                        src="assets/icons/cross-red.svg">
-                                                        </span>
-                                                </td>
-                                                <td>
-                                                        <span *ngIf="item.nomineeIdProof === 'UPLOADED'"> <img
-                                                                        src="assets/icons/bluetick.svg"></span>
-                                                        <span *ngIf="item.nomineeIdProof === 'NOT_UPLOADED'"> <img
-                                                                        src="assets/icons/cross.svg"></span>
-                                                        <span *ngIf="item.nomineeIdProof === 'APPROVED'"><img
-                                                                        src="assets/icons/tick-green.svg"></span>
-                                                        <span *ngIf="item.nomineeIdProof === 'REJECTED'"><img
+                                                        <span *ngIf="item.nomineeKycProof === 'REJECTED'"><img
                                                                         src="assets/icons/cross-red.svg">
                                                         </span>
                                                 </td>
@@ -95,17 +94,6 @@
                                                                         src="assets/icons/cross-red.svg">
                                                         </span>
                                                 </td>
-                                                <!-- <td>
-                                                        <span *ngIf="item.firPostmortemReport === 'UPLOADED'"> <img
-                                                                        src="assets/icons/bluetick.svg"></span>
-                                                        <span *ngIf="item.firPostmortemReport === 'NOT_UPLOADED'"> <img
-                                                                        src="assets/icons/cross.svg"></span>
-                                                        <span *ngIf="item.firPostmortemReport === 'APPROVED'"><img
-                                                                        src="assets/icons/tick-green.svg"></span>
-                                                        <span *ngIf="item.firPostmortemReport === 'REJECTED'"><img
-                                                                        src="assets/icons/cross-red.svg">
-                                                        </span>
-                                                </td> -->
                                                 <td>
                                                         <span *ngIf="item.additionalDoc === 'UPLOADED'"> <img
                                                                         src="assets/icons/bluetick.svg"></span>

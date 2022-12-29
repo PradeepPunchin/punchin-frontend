@@ -10,7 +10,7 @@ import { SessionService } from 'src/app/services/session/session.service';
 import { UtilityService } from 'src/app/services/utility/utility.service';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals/document-verification-request-modal/document-verification-request-modal.component';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators, Form } from '@angular/forms';
 
 
 
@@ -47,11 +47,14 @@ export class DashboardComponent implements OnInit {
   bsModalRef?: BsModalRef;
   bsModalRef1?: BsModalRef;
   bsModalRef2?: BsModalRef;
+  bsModalRef3?: BsModalRef;
+  modalRef?: BsModalRef;
   filterStatus: any
   currentPage: any = 0;
   isSubmitted: boolean = false
   form!: FormGroup;
   searchForm!: FormGroup
+  agnetAllocatedForm!: FormGroup
   searchEnum: any;
   inputSearch: any;
   file: any;
@@ -61,6 +64,9 @@ export class DashboardComponent implements OnInit {
   bankerDoc: any;
   selectBankerDoc: any;
   docName: any;
+  agentAllocatedData: any[] = [];
+  verifierClaimId: any;
+  agentId: any;
 
 
 
@@ -83,6 +89,10 @@ export class DashboardComponent implements OnInit {
     })
     this.bankerform = this.formBuilder.group({
       addDoc: [null, [Validators.required]],
+    })
+    this.agnetAllocatedForm = this.formBuilder.group({
+      agent_name: [null, [Validators.required]]
+
     })
   }
 
@@ -188,8 +198,27 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  viewUnderVerification() {
-    this.router.navigate(['/pages/document-verification'])
+  viewUnderVerification(status: any, id: any) {
+    if (status === 'UNDER_VERIFICATION') {
+      const initialState: ModalOptions = {
+        initialState: {
+          documentVerificationRequestId: id,
+        },
+        class: 'modal-custom-width'
+      };
+      this.modalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
+    }
+    else {
+      this.notifierService.showInfo("Not valid")
+    }
+  }
+
+  viewbankerDocRequest(submitBy: any, id: any) {
+    if (submitBy === null) {
+      this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
+    } else {
+      this.notifierService.showInfo("Already Submitted")
+    }
   }
 
   //submit upload file
@@ -207,18 +236,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  // download standardized excel
-  getDownloadExcelFormat() {
-    this.apiService.getDownloadExcelFormat().subscribe((res: any) => {
-      if (res?.isSuccess && res?.data) {
-        window.location.href = res.data
-      } else {
-        this.notifierService.showError("No data found");
-      }
-    }, (error: any) => {
-      this.notifierService.showError(error?.error?.message || "Something went wrong");
-    });
-  }
+
 
   //  download msi report
   downloadMisReport() {
@@ -285,6 +303,7 @@ export class DashboardComponent implements OnInit {
   //pagination
   pageChanged(event: PageChangedEvent) {
     this.currentPage = event.page - 1;
+    this.pageNo = event.page - 1
     this.apiService.getClaimList(this.currentPage).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.claimList = res?.data
@@ -337,7 +356,8 @@ export class DashboardComponent implements OnInit {
   //   this.showCardDetails('ALL');
   // }
 
-  openModal1(template: any) {
+  // file uplaod modal
+  openUploaFiledModal(template: any) {
     this.isShowFileUploaded = false;
     const initialState: ModalOptions = {
       class: 'file-modal-custom-width',
@@ -351,15 +371,9 @@ export class DashboardComponent implements OnInit {
     this.bsModalRef?.hide()
     this.isShowFileUploaded = true;
   }
-  OpenAdditionalDocModal(template: any) {
-    const initialState: ModalOptions = {
-      class: 'file-modal-custom-width',
-      backdrop: 'static',
-      keyboard: false
-    };
-    this.bsModalRef1 = this.modalService.show(template, initialState);
-  }
+  // end///
 
+  // Banker Discrepancy modal
   OpenBankerDiscrepancyModal(template: any, id: any) {
     this.bankerDocCliamId = id;
     const initialState: ModalOptions = {
@@ -380,11 +394,59 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
+  // agent Allocated modal data
+  //open allocated Modal
+  openAllocatedModal(template: any, id: any) {
+    this.verifierClaimId = id;
+    const initialState: ModalOptions = {
+      class: 'agent-allocated-custom-width',
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.bsModalRef3 = this.modalService.show(template, initialState);
+    this.getAllAgentsForVerifier();
+
+  }
+
+  getAllAgentsForVerifier() {
+    this.apiService.getAllAgentsForVerifier().subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.agentAllocatedData = res?.data
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
+  }
+
+  selectAgentAllocatedName(event: any) {
+    this.agentId = event.target.value
+  }
+
+  sumbitAgentAllocation() {
+    this.apiService.claimDataAgentAllocation(this.agentId, this.verifierClaimId).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.notifierService.showSuccess(res?.message || "Something went wrong");
+        this.bsModalRef3?.hide()
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
+
+  }
+  //end agent Allocated
+
   //search
   searchBySelectedData(event: any) {
     this.searchEnum = event.target.value
   }
+
   searchTableData() {
+    this.inputSearch = this.searchForm.controls.search.value
     if (this.role === ROLES.banker) {
       this.showCardDetails(this.bankerData)
       this.searchForm.reset();
@@ -407,7 +469,7 @@ export class DashboardComponent implements OnInit {
     } else { }
 
   }
-  //end
+  //end search
 
   //banker discrepnacy
   filterByAddDoc(event: any) {
@@ -441,6 +503,15 @@ export class DashboardComponent implements OnInit {
   }
 
   // raise additional document
+  OpenAdditionalDocModal(template: any) {
+    const initialState: ModalOptions = {
+      class: 'file-modal-custom-width',
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.bsModalRef1 = this.modalService.show(template, initialState);
+  }
+
   Data: Array<any> = [
     { name: 'BANK_ACCOUNT_PROOF', value: 'BANK_ACCOUNT_PROOF' },
     { name: 'BORROWER_ID_PROOF', value: 'BORROWER_ID_PROOF' },
@@ -466,7 +537,7 @@ export class DashboardComponent implements OnInit {
   submitForm() {
     console.log(this.form.value);
   }
-  // end
+  // end additional document
 }
 
 
