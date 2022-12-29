@@ -86,7 +86,7 @@
 
         </div>
         <div class="profile-logout-box" [ngClass]="{'d-none': !isProfileOptionVisible}">
-            <a class="format-text d-flex align-items-center">
+            <a class="format-text d-flex align-items-center" *ngIf="role =='BANKER'">
                 <img src="../../../assets/icons/download.png">
                 <span (click)="getDownloadExcelFormat()">Download Format</span>
             </a>
