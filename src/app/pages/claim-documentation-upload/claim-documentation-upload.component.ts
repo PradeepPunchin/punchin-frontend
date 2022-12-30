@@ -24,7 +24,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   editCliamList: boolean = false;
   showClaimForm!: FormGroup;
   uploadForm !: FormGroup
-  ClaimListDataById: any = []
+  ClaimListUrlById: any = [];
+  ClaimListById: any = []
   file: any;
   myFiles: any[] = [];
   filterData: any = "ALL";
@@ -77,19 +78,19 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   patchValue() {
     this.showClaimForm.patchValue({
-      caseId: this.ClaimListDataById.punchinClaimId,
-      brrower_name: this.ClaimListDataById.borrowerName,
-      borrower_address: this.ClaimListDataById.borrowerAddress,
-      load_type: this.ClaimListDataById.loanType,
-      loan_acc_number: this.ClaimListDataById.loanAccountNumber,
-      insurer_name: this.ClaimListDataById.insurerName,
-      borrower_policy_number: this.ClaimListDataById.borrowerPolicyNumber,
-      master_policy_number: this.ClaimListDataById.masterPolicyNumbet,
-      borrower_sum_assured: this.ClaimListDataById.borrowerPolicyNumber,
-      original_loan_amt: this.ClaimListDataById.loanAmount,
-      Loan_paid_by_borrower: this.ClaimListDataById.loanAmount,
-      outstanding_loan_amt: this.ClaimListDataById.outstandingLoanAmount,
-      balance_claim_amt: this.ClaimListDataById.balanceClaimAmount,
+      caseId: this.ClaimListById.punchinClaimId,
+      brrower_name: this.ClaimListById.borrowerName,
+      borrower_address: this.ClaimListById.borrowerAddress,
+      load_type: this.ClaimListById.loanType,
+      loan_acc_number: this.ClaimListById.loanAccountNumber,
+      insurer_name: this.ClaimListById.insurerName,
+      borrower_policy_number: this.ClaimListById.borrowerPolicyNumber,
+      master_policy_number: this.ClaimListById.masterPolicyNumbet,
+      borrower_sum_assured: this.ClaimListById.borrowerPolicyNumber,
+      original_loan_amt: this.ClaimListById.loanAmount,
+      Loan_paid_by_borrower: this.ClaimListById.loanAmount,
+      outstanding_loan_amt: this.ClaimListById.outstandingLoanAmount,
+      balance_claim_amt: this.ClaimListById.balanceClaimAmount,
     })
 
   }
@@ -117,7 +118,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       if (res?.isSuccess) {
         this.isUploadedTable = false
         this.isSubmittedTable = true
-        this.ClaimListDataById = res?.data
+        this.ClaimListUrlById = res?.data.claimDocumentsDTOS;
+        this.ClaimListById = res?.data;
         this.patchValue()
         this.viewClaimList = false;
         this.editCliamList = true;
@@ -126,7 +128,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   saveToDraft() {
-    this.apiService.DocumnetSaveDraft(this.ClaimListDataById.id).subscribe((res: any) => {
+    this.apiService.DocumnetSaveDraft(this.ClaimListById.id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
         this.viewClaimList = true;
@@ -197,7 +199,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     }
     this.isUploaded = true
     let selectedDoc = this.uploadForm.controls.docType.value
-    this.apiService.uploadDocument(this.ClaimListDataById.id, selectedDoc, formData).subscribe((res: any) => {
+    this.apiService.uploadDocument(this.ClaimListById.id, selectedDoc, formData).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.isUploadedTable = true
         this.isSubmittedTable = false
@@ -233,7 +235,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   submitClaim() {
-    this.apiService.forwardClaim(this.ClaimListDataById.id).subscribe((res: any) => {
+    this.apiService.forwardClaim(this.ClaimListById.id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message)
         this.currentPage = 0;

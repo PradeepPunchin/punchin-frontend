@@ -32,12 +32,6 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   isBankerCollapsed = true;
   isVarifierCollapsed = false
 
-
-
-
-
-
-
   constructor(
     private sessionService: SessionService,
     private apiService: ApiService,
@@ -118,7 +112,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     a.click();
   }
 
-  downloadAllDocumnet() {
+  downloadAllDocument() {
     this.isDownloadDoc = true
     this.apiService.getDownlaodAllDocuments(this.documentVerificationRequestId).subscribe((res: any) => {
       if (res?.isSuccess && res?.data) {

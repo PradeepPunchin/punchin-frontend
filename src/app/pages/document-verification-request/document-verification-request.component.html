@@ -1,6 +1,6 @@
 <div class="cases-claims-box">
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center"
-                *ngIf="verifierRequestList.length > 0">
+                *ngIf="verifierRequestList && verifierRequestList.length > 0">
                 <h6>Case/Claim({{totalrecords || 0}})</h6>
                 <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example">
                         <option selected>Filter by Status</option>
@@ -29,7 +29,7 @@
                                         <th scope="col" class="text-center">Action</th>
                                 </tr>
                         </thead>
-                        <ng-container *ngIf="verifierRequestList.length > 0">
+                        <ng-container *ngIf="verifierRequestList && verifierRequestList.length > 0">
                                 <tbody class="align-middle" *ngFor="let item of verifierRequestList;let i = index">
                                         <tr>
                                                 <td>{{ (pageNo) * pageSize + i +1 }}</td>
@@ -114,7 +114,7 @@
                 </table>
         </div>
         <div class="pagination-box d-flex justify-content-end align-items-center"
-                *ngIf="verifierRequestList.length > 0">
+                *ngIf="verifierRequestList && verifierRequestList.length > 0">
                 <!-- <div class="pages-per-rows d-flex align-items-center">
         <select (input)="pagePerData($event)">
             <option value="10">10</option>
