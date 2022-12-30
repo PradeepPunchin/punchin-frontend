@@ -171,6 +171,12 @@
         color: $buttonColor;
         font-size: $fontSize16;
       }
+      .fa-download {
+        cursor: pointer;
+        color: $buttonColor;
+        font-size: $fontSize16;
+        margin-left: 10px;
+      }
     }
   }
   .pagination-box {
@@ -445,6 +451,10 @@
           }
         }
       }
+    }
+    .addtionalTable {
+      height: 300px;
+      overflow-y: scroll;
     }
   }
   .btn-primary {

@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
   filterStatus: any
   currentPage: any = 0;
   isSubmitted: boolean = false
-  form!: FormGroup;
+  addtionalForm!: FormGroup;
   searchForm!: FormGroup
   agnetAllocatedForm!: FormGroup
   searchEnum: any;
@@ -67,6 +67,8 @@ export class DashboardComponent implements OnInit {
   agentAllocatedData: any[] = [];
   verifierClaimId: any;
   agentId: any;
+  bankerDocId: any;
+  additionalDocument = this.utilitiesService.additionalDoc;
 
 
 
@@ -80,8 +82,9 @@ export class DashboardComponent implements OnInit {
     private modalService: BsModalService,
     private formBuilder: FormBuilder
   ) {
-    this.form = this.formBuilder.group({
-      checkArray: this.formBuilder.array([], [Validators.required]),
+    this.addtionalForm = this.formBuilder.group({
+      selectMultiDoc: this.formBuilder.array([], [Validators.required]),
+      remark: ["", [Validators.required]]
     });
     this.searchForm = this.formBuilder.group({
       selectedValue: [null, [Validators.required]],
@@ -141,7 +144,7 @@ export class DashboardComponent implements OnInit {
           this.isShow = false
         }
         if (this.cardList.message) {
-          this.notifierService.showError(res?.data.message || "Something went wrong");
+          return this.notifierService.showError(res?.data.message || "Something went wrong");
         }
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
@@ -505,8 +508,22 @@ export class DashboardComponent implements OnInit {
     window.open(bankerView)
   }
 
+  downloadBankerDoc(id: any) {
+    this.apiService.getBankerDownlaodAllDocuments(id).subscribe((res: any) => {
+      if (res?.isSuccess && res?.data) {
+        window.location.href = res?.data
+        this.notifierService.showSuccess(res?.message);
+      } else {
+        this.notifierService.showError("No data found");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
+  }
+
   // raise additional document
-  OpenAdditionalDocModal(template: any) {
+  OpenAdditionalDocModal(template: any, id: any) {
+    this.bankerDocId = id
     const initialState: ModalOptions = {
       class: 'file-modal-custom-width',
       backdrop: 'static',
@@ -515,30 +532,39 @@ export class DashboardComponent implements OnInit {
     this.bsModalRef1 = this.modalService.show(template, initialState);
   }
 
-  Data: Array<any> = [
-    { name: 'BANK_ACCOUNT_PROOF', value: 'BANK_ACCOUNT_PROOF' },
-    { name: 'BORROWER_ID_PROOF', value: 'BORROWER_ID_PROOF' },
-    { name: 'DEATH_CERTIFICATE', value: 'DEATH_CERTIFICATE' },
-    { name: 'SIGNED_FORM', value: 'SIGNED_FORM' },
-  ];
-
-  onSelectCheckbox(e: any) {
-    const checkArray: FormArray = this.form.get('checkArray') as FormArray;
+  onSelectDoc(e: any) {
+    const selectMultiDoc: FormArray = this.addtionalForm.get('selectMultiDoc') as FormArray;
     if (e.target.checked) {
-      checkArray.push(new FormControl(e.target.value));
+      selectMultiDoc.push(new FormControl(e.target.value));
     } else {
       let i: number = 0;
-      checkArray.controls.forEach((item: any) => {
+      selectMultiDoc.controls.forEach((item: any) => {
         if (item.value == e.target.value) {
-          checkArray.removeAt(i);
+          selectMultiDoc.removeAt(i);
           return;
         }
         i++;
       });
     }
   }
-  submitForm() {
-    console.log(this.form.value);
+  submitAdditioanlDoc() {
+    // let remark = this.addtionalForm.controls.remark.value
+    let req = {
+      claimId: this.bankerDocId,
+      docTypes: this.addtionalForm.controls.selectMultiDoc.value,
+      remark: this.addtionalForm.controls.remark.value
+    }
+    this.apiService.requestForAdditionalDocument(req).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.notifierService.showSuccess(res?.message || "Something went wrong");
+        this.addtionalForm.reset();
+        this.bsModalRef1?.hide();
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
   }
   // end additional document
 }
