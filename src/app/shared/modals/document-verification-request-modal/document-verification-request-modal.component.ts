@@ -32,12 +32,6 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   isBankerCollapsed = true;
   isVarifierCollapsed = false
 
-
-
-
-
-
-
   constructor(
     private sessionService: SessionService,
     private apiService: ApiService,
