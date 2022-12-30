@@ -147,7 +147,7 @@
                             <th scope="col">Nominee Email Id</th>
                             <th scope="col">Nominee Address</th>
                             <th scope="col" class="text-center">Status</th>
-                            <th scope="col" class="text-center">Raise Additional Doc Request</th>
+                            <th scope="col" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle" *ngFor="let item of cordListData;let i = index">
@@ -203,8 +203,12 @@
                                 <span class="status-button">{{item.claimStatus | removeunderscore | titlecase}}</span>
                             </td>
                             <td class="text-center">
-                                <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc, item.id)">
+                                <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc, item.id)"
+                                    title="Raise Additional Doc Request">
                                     <i class="fa fa-file-text-o"></i>
+                                </span>
+                                <span (click)="downloadBankerDoc(item.id)" title="Download All Document">
+                                    <i class="fa fa-download" aria-hidden="true"></i>
                                 </span>
                             </td>
                         </tr>
@@ -486,26 +490,27 @@
             <div class="container-fluid raise-additional-container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="table-responsive new-requirements-table">
+                        <div class="new-requirements-table">
                             <form [formGroup]="addtionalForm" (ngSubmit)="submitAdditioanlDoc()">
-
-                                <table class="table table-bordered table-sm">
-                                    <thead>
-                                        <tr class="align-middle">
-                                            <th scope="col">Document Name</th>
-                                            <th scope="col" class="text-center">Select</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let item of Data; let i=index">
-                                            <td>{{item.name}}</td>
-                                            <td class="text-center">
-                                                <input type="checkbox" [value]="item.value"
-                                                    (change)="onSelectDoc($event)" />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="addtionalTable">
+                                    <table class="table table-responsive" style="height:100px;">
+                                        <thead>
+                                            <tr class="align-middle">
+                                                <th scope="col">Document Name</th>
+                                                <th scope="col" class="text-center">Select</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of additionalDocument; let i=index">
+                                                <td>{{item.name}}</td>
+                                                <td class="text-center">
+                                                    <input type="checkbox" [value]="item.value"
+                                                        (change)="onSelectDoc($event)" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div class="mt-2">
                                     <label>Remark</label>
                                     <input class="form-control" placeholder=" Enter Remark" formControlName="remark">

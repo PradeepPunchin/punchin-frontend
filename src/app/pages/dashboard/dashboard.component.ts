@@ -68,6 +68,7 @@ export class DashboardComponent implements OnInit {
   verifierClaimId: any;
   agentId: any;
   bankerDocId: any;
+  additionalDocument = this.utilitiesService.additionalDoc;
 
 
 
@@ -507,6 +508,19 @@ export class DashboardComponent implements OnInit {
     window.open(bankerView)
   }
 
+  downloadBankerDoc(id: any) {
+    this.apiService.getBankerDownlaodAllDocuments(id).subscribe((res: any) => {
+      if (res?.isSuccess && res?.data) {
+        window.location.href = res?.data
+        this.notifierService.showSuccess(res?.message);
+      } else {
+        this.notifierService.showError("No data found");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
+  }
+
   // raise additional document
   OpenAdditionalDocModal(template: any, id: any) {
     this.bankerDocId = id
@@ -517,19 +531,6 @@ export class DashboardComponent implements OnInit {
     };
     this.bsModalRef1 = this.modalService.show(template, initialState);
   }
-
-  Data: Array<any> = [
-    { name: 'Signed Form', value: 'SIGNED_FORM' },
-    { name: 'Additional Document', value: 'ADDITIONAL' },
-    { name: 'Relationship Proof', value: 'RELATIONSHIP_PROOF' },
-    { name: 'Guardian Id Proof', value: 'GUARDIAN_ID_PROOF' },
-    { name: 'Guardian Address Proof', value: 'GUARDIAN_ADD_PROOF' },
-    { name: 'Borrower Kyc Proof', value: 'BORROWER_KYC_PROOF' },
-    { name: 'Nominee Kyc Proof', value: 'NOMINEE_KYC_PROOF' },
-
-  ];
-
-
 
   onSelectDoc(e: any) {
     const selectMultiDoc: FormArray = this.addtionalForm.get('selectMultiDoc') as FormArray;
@@ -547,15 +548,19 @@ export class DashboardComponent implements OnInit {
     }
   }
   submitAdditioanlDoc() {
-    let docType = this.addtionalForm.controls.selectMultiDoc.value
-    let remark = this.addtionalForm.controls.remark.value
-    this.apiService.requestForAdditionalDocument(this.bankerDocId, docType, remark).subscribe((res: any) => {
+    // let remark = this.addtionalForm.controls.remark.value
+    let req = {
+      claimId: this.bankerDocId,
+      docTypes: this.addtionalForm.controls.selectMultiDoc.value,
+      remark: this.addtionalForm.controls.remark.value
+    }
+    this.apiService.requestForAdditionalDocument(req).subscribe((res: any) => {
       if (res?.isSuccess) {
-        console.log(res, "ress");
+        this.notifierService.showSuccess(res?.message || "Something went wrong");
         this.addtionalForm.reset();
         this.bsModalRef1?.hide();
-
-
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");

@@ -24,7 +24,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   editCliamList: boolean = false;
   showClaimForm!: FormGroup;
   uploadForm !: FormGroup
-  ClaimListDataById: any = []
+  ClaimListDataById: any = [];
   file: any;
   myFiles: any[] = [];
   filterData: any = "ALL";

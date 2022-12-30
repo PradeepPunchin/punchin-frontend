@@ -94,11 +94,16 @@ export class ApiService {
     return this.http.get(`${this.baseApiUrl}banker/claim/${id}/documents`)
   }
 
+  getBankerDownlaodAllDocuments(id: any) {
+    return this.http.get(`${this.baseApiUrl}banker/claim/${id}/download-all-documents`);
+  }
+
   uploadDiscrepancyDocument(id: number, docType: any, data: any) {
     return this.http.put(`${this.baseApiUrl}banker/claim/${id}/discrepancy-document-upload/${docType}`, data);
   }
-  requestForAdditionalDocument(id: number, docType: any, remark: number) {
-    return this.http.post(`${this.baseApiUrl}banker/claim/5/document/additional-request?docTypes=${docType}&remark=${remark}`, "")
+  requestForAdditionalDocument(body: any) {
+    console.log(body, "body");
+    return this.http.post(`${this.baseApiUrl}banker/claim/document/additional-request`, body);
   }
 
   //varifier api
