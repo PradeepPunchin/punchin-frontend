@@ -203,7 +203,7 @@
                                 <span class="status-button">{{item.claimStatus | removeunderscore | titlecase}}</span>
                             </td>
                             <td class="text-center">
-                                <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc)">
+                                <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc, item.id)">
                                     <i class="fa fa-file-text-o"></i>
                                 </span>
                             </td>
@@ -487,7 +487,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive new-requirements-table">
-                            <form [formGroup]="form" (ngSubmit)="submitForm()">
+                            <form [formGroup]="addtionalForm" (ngSubmit)="submitAdditioanlDoc()">
 
                                 <table class="table table-bordered table-sm">
                                     <thead>
@@ -497,21 +497,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let data of Data; let i=index">
-                                            <td>{{data.name}}</td>
+                                        <tr *ngFor="let item of Data; let i=index">
+                                            <td>{{item.name}}</td>
                                             <td class="text-center">
-                                                <input type="checkbox" [value]="data.value"
-                                                    (change)="onSelectCheckbox($event)" />
+                                                <input type="checkbox" [value]="item.value"
+                                                    (change)="onSelectDoc($event)" />
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <div class="mt-2">
                                     <label>Remark</label>
-                                    <input class="form-control" placeholder=" Enter Remark">
+                                    <input class="form-control" placeholder=" Enter Remark" formControlName="remark">
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <button class="btn btn-primary">Submit</button>
+                                    <button class="btn btn-primary" [disabled]="!addtionalForm.valid">Submit</button>
                                 </div>
                             </form>
                         </div>

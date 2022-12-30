@@ -26,6 +26,9 @@ import { RemoveunderscorePipe } from '../services/helper/removeunderscore.pipe';
     PaginationModule.forRoot(),
     SharedModule,
 
+  ],
+  exports: [
+    RemoveunderscorePipe,
   ]
 })
 export class PagesModule { }

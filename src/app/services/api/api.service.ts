@@ -97,6 +97,9 @@ export class ApiService {
   uploadDiscrepancyDocument(id: number, docType: any, data: any) {
     return this.http.put(`${this.baseApiUrl}banker/claim/${id}/discrepancy-document-upload/${docType}`, data);
   }
+  requestForAdditionalDocument(id: number, docType: any, remark: number) {
+    return this.http.post(`${this.baseApiUrl}banker/claim/5/document/additional-request?docTypes=${docType}&remark=${remark}`, "")
+  }
 
   //varifier api
   getVerifierDashboardData() {
@@ -137,8 +140,7 @@ export class ApiService {
 
   claimDataAgentAllocation(agentId: number, cliamId: number) {
     return this.http.put(`${this.baseApiUrl}verifier/claim/agentAllocation?agentId=${agentId}&id=${cliamId}`, "");
-
-
   }
+
 }
 
