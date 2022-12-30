@@ -833,7 +833,7 @@
                             <span *ngIf="item.additionalDoc === 'REJECTED'"><img src="assets/icons/cross-red.svg">
                             </span>
                         </td>
-                        <td class="text-center status-button">
+                        <td class=" status-button">
                             {{item.claimStatus | removeunderscore | titlecase}}</td>
                         <td class="text-center"><span class="allocate-button"
                                 (click)="openAllocatedModal(verifierAllocatedTemplate, item.id)">Allocate</span></td>
