@@ -102,7 +102,6 @@ export class ApiService {
     return this.http.put(`${this.baseApiUrl}banker/claim/${id}/discrepancy-document-upload/${docType}`, data);
   }
   requestForAdditionalDocument(body: any) {
-    console.log(body, "body");
     return this.http.post(`${this.baseApiUrl}banker/claim/document/additional-request`, body);
   }
 
@@ -144,7 +143,7 @@ export class ApiService {
   }
 
   claimDataAgentAllocation(agentId: number, cliamId: number) {
-    return this.http.put(`${this.baseApiUrl}verifier/claim/agentAllocation?agentId=${agentId}&id=${cliamId}`, "");
+    return this.http.put(`${this.baseApiUrl}verifier/claim/${cliamId}/allocate/${agentId}`, "");
   }
 
 }
