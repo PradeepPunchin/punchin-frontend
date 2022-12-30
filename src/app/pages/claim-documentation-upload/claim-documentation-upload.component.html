@@ -291,7 +291,7 @@
             </div>
             <div class="col-8" *ngIf="isSubmittedTable">
                 <div class="table-responsive document-upload-table"
-                    *ngIf="ClaimListDataById && ClaimListDataById.length > 0">
+                    *ngIf="ClaimListUrlById && ClaimListUrlById.length > 0">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -301,7 +301,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let item of ClaimListDataById">
+                            <ng-container *ngFor="let item of ClaimListUrlById">
                                 <tr>
                                     <td>{{item.docType}}</td>
                                     <td class="text-center">
