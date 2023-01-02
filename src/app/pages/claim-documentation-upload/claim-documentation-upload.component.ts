@@ -88,7 +88,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       master_policy_number: this.ClaimListById.masterPolicyNumbet,
       borrower_sum_assured: this.ClaimListById.policySumAssured,
       original_loan_amt: this.ClaimListById.loanAmount,
-      Loan_paid_by_borrower: this.ClaimListById.loanAmount,
+      Loan_paid_by_borrower: this.ClaimListById.loanAmountPaidByBorrower,
       outstanding_loan_amt: this.ClaimListById.outstandingLoanAmount,
       balance_claim_amt: this.ClaimListById.balanceClaimAmount,
     })
