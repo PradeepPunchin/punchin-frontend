@@ -535,7 +535,7 @@ export class DashboardComponent implements OnInit {
   onSelectDoc(e: any) {
     const selectMultiDoc: FormArray = this.addtionalForm.get('selectMultiDoc') as FormArray;
     if (e.target.checked) {
-      selectMultiDoc.push(new FormControl(e.target.value));
+      selectMultiDoc.push(new FormControl(e.target.value.replace(/\s/g, "")));
     } else {
       let i: number = 0;
       selectMultiDoc.controls.forEach((item: any) => {
