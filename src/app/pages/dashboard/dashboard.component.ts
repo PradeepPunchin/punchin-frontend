@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   claimListContent: any = []
   totalrecords!: number;
   pageNo: number = 0;
-  pageSize: number = 7;
+  pageSize: number = 10;
   onStep: number = 0;
   cordListData: any = []
   cardList: any
@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
   bsModalRef1?: BsModalRef;
   bsModalRef2?: BsModalRef;
   bsModalRef3?: BsModalRef;
+  bsModalRef4?: BsModalRef;
   modalRef?: BsModalRef;
   filterStatus: any
   currentPage: any = 0;
@@ -69,6 +70,9 @@ export class DashboardComponent implements OnInit {
   agentId: any;
   bankerDocId: any;
   additionalDocument = this.utilitiesService.additionalDoc;
+  cliam_Status: any
+  cliamHistoryData: any
+  p_id: any
 
 
 
@@ -564,4 +568,28 @@ export class DashboardComponent implements OnInit {
     })
   }
   // end additional document
+
+  //tracking modal
+  openTrackingModal(template: any, id: any, punchinId: any) {
+    let cliamId = id;
+    this.p_id = punchinId;
+    const initialState: ModalOptions = {
+      class: 'file-modal-custom-width',
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.bsModalRef4 = this.modalService.show(template, initialState);
+    this.apiService.getVerifierClaimhistory(cliamId).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.cliam_Status = res?.data.claimStatus
+        this.cliamHistoryData = res?.data.claimHistoryDTOS;
+        this.notifierService.showSuccess(res?.message || "Something went wrong");
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
+
+  }
 }

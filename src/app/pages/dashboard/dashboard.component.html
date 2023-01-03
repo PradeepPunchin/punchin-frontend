@@ -201,7 +201,8 @@
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
                             <td>
-                                <span class="status-button">{{item.claimStatus | removeunderscore | titlecase}}</span>
+                                <span class="status-button">{{item.claimStatus | removeunderscore |
+                                    titlecase}}</span>
                             </td>
                             <td class="text-center">
                                 <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc, item.id)"
@@ -226,7 +227,8 @@
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
                         <th scope="col"><span style="cursor:pointer;"
-                                [routerLink]="['/pages/claim-documentation']">Punchin Ref.
+                                [routerLink]="['/pages/claim-documentation']">Punchin
+                                Ref.
                                 ID</span></th>
                         <th scope="col">Lender Name</th>
                         <th scope="col">Claim Inward Date</th>
@@ -767,7 +769,9 @@
 
                             {{item.punchinClaimId}}
                         </td>
-                        <td>{{item.claimDate | date: 'dd/MM/yyyy' }}</td>
+                        <td (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)">{{item.claimDate |
+                            date: 'dd/MM/yyyy'
+                            }}</td>
                         <td>{{item.borrowerName}}</td>
                         <td>{{item.nomineeName}}</td>
                         <td>{{item.borrowerContactNumber}}</td>
@@ -876,6 +880,47 @@
         </div>
     </ng-container> -->
 </ng-container>
+
+<ng-template #trackingTemplate>
+    <div class="modal-header">
+        <h6 class="modal-title"> Claim Tracking</h6>
+
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="this.bsModalRef4?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid tracking-container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="new-requirements">
+                        <p>
+                            Case/Claim ID : {{this.p_id}}
+                        </p>
+                    </div>
+                    <div class="inner-Wrapper">
+                        <p>
+                            Days so far <br><span>3 Days</span>
+                        </p>
+                        <p>
+                            Status <br>
+                            <span>{{cliam_Status | removeunderscore | titlecase}}</span>
+                        </p>
+                    </div>
+                    <div class="down-Wrapper" *ngFor="let item of cliamHistoryData">
+                        <div class="text">
+                            <p>{{item.createdAt | date}} <br><span>{{item.description}}</span></p>
+                            <p>
+                                <img src="../../../../assets/icons/right-tick-blue.svg">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</ng-template>
 
 <ng-template #verifierAllocatedTemplate>
     <div class="modal-header">
