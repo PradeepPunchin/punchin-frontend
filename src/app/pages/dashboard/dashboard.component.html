@@ -201,7 +201,8 @@
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.nomineeAddress}}</td>
                             <td>
-                                <span class="status-button">{{item.claimStatus | removeunderscore | titlecase}}</span>
+                                <span class="status-button">{{item.claimStatus | removeunderscore |
+                                    titlecase}}</span>
                             </td>
                             <td class="text-center">
                                 <span (click)="OpenAdditionalDocModal(raiseAdditionalDoc, item.id)"
@@ -226,7 +227,8 @@
                     <tr class="align-middle">
                         <th scope="col">S.No</th>
                         <th scope="col"><span style="cursor:pointer;"
-                                [routerLink]="['/pages/claim-documentation']">Punchin Ref.
+                                [routerLink]="['/pages/claim-documentation']">Punchin
+                                Ref.
                                 ID</span></th>
                         <th scope="col">Lender Name</th>
                         <th scope="col">Claim Inward Date</th>

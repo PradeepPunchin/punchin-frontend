@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   claimListContent: any = []
   totalrecords!: number;
   pageNo: number = 0;
-  pageSize: number = 7;
+  pageSize: number = 10;
   onStep: number = 0;
   cordListData: any = []
   cardList: any
