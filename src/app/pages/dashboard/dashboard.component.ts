@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   claimListContent: any = []
   totalrecords!: number;
   pageNo: number = 0;
-  pageSize: number = 7;
+  pageSize: number = 10;
   onStep: number = 0;
   cordListData: any = []
   cardList: any
@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
   bsModalRef1?: BsModalRef;
   bsModalRef2?: BsModalRef;
   bsModalRef3?: BsModalRef;
+  bsModalRef4?: BsModalRef;
   modalRef?: BsModalRef;
   filterStatus: any
   currentPage: any = 0;
@@ -69,6 +70,9 @@ export class DashboardComponent implements OnInit {
   agentId: any;
   bankerDocId: any;
   additionalDocument = this.utilitiesService.additionalDoc;
+  cliam_Status: any
+  cliamHistoryData: any
+  p_id: any
 
 
 
@@ -205,18 +209,14 @@ export class DashboardComponent implements OnInit {
   }
 
   viewUnderVerification(status: any, id: any) {
-    if (status === 'UNDER_VERIFICATION') {
-      const initialState: ModalOptions = {
-        initialState: {
-          documentVerificationRequestId: id,
-        },
-        class: 'modal-custom-width'
-      };
-      this.modalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
-    }
-    else {
-      this.notifierService.showInfo("Not valid")
-    }
+    const initialState: ModalOptions = {
+      initialState: {
+        documentVerificationRequestId: id,
+      },
+      class: 'modal-custom-width'
+    };
+    this.modalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
+
   }
 
   viewbankerDocRequest(submitBy: any, id: any) {
@@ -286,11 +286,12 @@ export class DashboardComponent implements OnInit {
   //  verifier card table api
   verifierCardDetails(data: any) {
     this.verifierData = data;
+    this.currentPage = 0;
     this.searchForm.reset();
     if (data === 'UNDER_VERIFICATION') {
       this.router.navigate(['/pages/document-verification'])
     } else {
-      this.apiService.getVerifierClaimsData(this.verifierData).subscribe((res: any) => {
+      this.apiService.getVerifierClaimsData(this.verifierData, this.currentPage).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.verifierCardList = res?.data
           this.verifiercordListData = res?.data.content
@@ -412,7 +413,6 @@ export class DashboardComponent implements OnInit {
     };
     this.bsModalRef3 = this.modalService.show(template, initialState);
     this.getAllAgentsForVerifier();
-
   }
 
   getAllAgentsForVerifier() {
@@ -436,6 +436,7 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message || "Something went wrong");
         this.bsModalRef3?.hide()
+        this.verifierCardDetails(this.verifierData);
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
       }
@@ -535,7 +536,7 @@ export class DashboardComponent implements OnInit {
   onSelectDoc(e: any) {
     const selectMultiDoc: FormArray = this.addtionalForm.get('selectMultiDoc') as FormArray;
     if (e.target.checked) {
-      selectMultiDoc.push(new FormControl(e.target.value));
+      selectMultiDoc.push(new FormControl(e.target.value.replace(/\s/g, "")));
     } else {
       let i: number = 0;
       selectMultiDoc.controls.forEach((item: any) => {
@@ -567,6 +568,43 @@ export class DashboardComponent implements OnInit {
     })
   }
   // end additional document
-}
 
+  //tracking modal
+  openTrackingModal(template: any, id: any, punchinId: any) {
+    let cliamId = id;
+    this.p_id = punchinId;
+    const initialState: ModalOptions = {
+      class: 'file-modal-custom-width',
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.bsModalRef4 = this.modalService.show(template, initialState);
+    if (this.role === ROLES.verifier) {
+      this.apiService.getVerifierClaimhistory(cliamId).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.cliam_Status = res?.data
+          this.cliamHistoryData = res?.data.claimHistoryDTOS;
+        } else {
+          this.notifierService.showError(res?.message || "Something went wrong");
+        }
+      }, (error: any) => {
+        this.notifierService.showError(error?.error?.message || "Something went wrong");
+      })
+    }
+    else {
+      this.apiService.getBankerClaimhistory(cliamId).subscribe((res: any) => {
+        if (res?.isSuccess) {
+          this.cliam_Status = res?.data;
+          this.cliamHistoryData = res?.data.claimHistoryDTOS;
+        } else {
+          this.notifierService.showError(res?.message || "Something went wrong");
+        }
+      }, (error: any) => {
+        this.notifierService.showError(error?.error?.message || "Something went wrong");
+      })
+    }
+
+  }
+
+}
 

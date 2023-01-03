@@ -59,8 +59,7 @@
                 </div>
             </div>
             <!-- // verifier doc table -->
-            <div (click)="isVarifierCollapsed = !isVarifierCollapsed;isBankerCollapsed = !isBankerCollapsed "
-                class="collapse-title" [attr.aria-expanded]="!isVarifierCollapsed"> Customer
+            <div (click)="verifier()" class="collapse-title" [attr.aria-expanded]="!isVarifierCollapsed"> Customer
                 Document
                 <span class="collapse-title-expand-indicator">
                     <span *ngIf="isVarifierCollapsed"><i class="fa fa-arrow-down"></i></span>
@@ -107,8 +106,9 @@
                                         </p>
                                     </td>
                                     <td class="text-center">
-                                        <span (click)="viewDoc(item)" style="margin-right:15px"><img
-                                                src="../../../assets/icons/eye.svg"></span>
+                                        <span style="margin-right:15px" *ngFor="let item1 of item.documentUrlDTOS"
+                                            (click)="viewDoc(item)"><img src="../../../assets/icons/eye.svg"></span>
+
                                         <span (click)="Downlaod(item)"><img
                                                 src="../../../assets/icons/download.svg"></span>
                                     </td>
@@ -120,8 +120,7 @@
             </div>
 
             <!-- banker doc table -->
-            <div (click)="isBankerCollapsed = !isBankerCollapsed;isVarifierCollapsed = !isVarifierCollapsed"
-                class="collapse-title" [attr.aria-expanded]="!isBankerCollapsed"> Banker
+            <div (click)="banker()" class="collapse-title" [attr.aria-expanded]="!isBankerCollapsed"> Banker
                 Document
                 <span class="collapse-title-expand-indicator">
                     <span *ngIf="isBankerCollapsed"><i class="fa fa-arrow-down"></i></span>
@@ -169,6 +168,68 @@
                                     </td>
                                     <td class="text-center">
                                         <span (click)="viewDoc(item)" style="margin-right:15px"><img
+                                                src="../../../assets/icons/eye.svg"
+                                                *ngFor="let item1 of item.documentUrlDTOS"></span>
+                                        <span (click)="Downlaod(item)"><img
+                                                src="../../../assets/icons/download.svg"></span>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Additonal doc table -->
+            <div (click)="addtional()" class="collapse-title" [attr.aria-expanded]="!isAdditionalCollapsed"> Additional
+                Document
+                <span class="collapse-title-expand-indicator">
+                    <span *ngIf="isAdditionalCollapsed"><i class="fa fa-arrow-down"></i></span>
+                    <span *ngIf="!isAdditionalCollapsed"><i class="fa fa-arrow-up"></i></span>
+                </span>
+            </div>
+            <div id="collapseBasic" [collapse]="isAdditionalCollapsed">
+                <div class="table-responsive document-verification-table">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr class="align-middle">
+                                <th scope="col">Document Name</th>
+                                <th scope="col" class="text-center">Uploaded Doc</th>
+                                <th scope="col" class="text-center">Doc Status</th>
+                                <th scope="col" class="text-center">View Doc</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let item of additionalDocmentDetailsDTOList">
+                                <tr>
+                                    <td>
+                                        {{item.agentDocType}}
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="item.isVerified == false"><img
+                                                src="../../../../assets/icons/right-tick-blue.svg"></span>
+                                        <span *ngIf="item.isVerified == true && item.isApproved == false">
+                                            <img src="assets/icons/cross-red.svg">
+                                        </span>
+                                        <span *ngIf="item.isVerified == true && item.isApproved == true">
+                                            <img src="assets/icons/tick-green.svg"> </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="doc-status-yellow-text" *ngIf="item.isVerified == false">
+                                            Uploaded
+                                        </p>
+                                        <p class="doc-status-red-text"
+                                            *ngIf="item.isVerified == true && item.isApproved == false">
+                                            Rejected
+                                        </p>
+                                        <p class="doc-status-blue-text"
+                                            *ngIf="item.isVerified == true && item.isApproved == true">
+                                            Approved
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <span (click)="viewDoc(item)" style="margin-right:15px"
+                                            *ngFor="let item1 of item.documentUrlDTOS"><img
                                                 src="../../../assets/icons/eye.svg"></span>
                                         <span (click)="Downlaod(item)"><img
                                                 src="../../../assets/icons/download.svg"></span>
@@ -188,7 +249,7 @@
                 </div>
                 <!-- <app-pdf-viewer [docUrl]="docUrl" [docType]="docType"></app-pdf-viewer> -->
                 <app-document-viewer [docUrl]="docUrl" [docType]="docType"></app-document-viewer>
-                <div class="document-preview-btns text-center mt-auto">
+                <div class="document-preview-btns text-center mt-auto" *ngIf="claimStatus === 'UNDER_VERIFICATION'">
                     <button type="button" class="btn btn-outline-primary"
                         (click)="openRejectModal(reject)">Reject</button>
                     <button type="button" class="btn btn-primary" (click)="openApprovedModal(approved)">Approve</button>
@@ -226,7 +287,8 @@
                 <option value="Image not clear and not readable">Image not clear and not readable</option>
                 <option value="Required Stamp Missing">Required Stamp Missing</option>
                 <option value="Document Mismatched">Document Mismatched</option>
-                <option value="Document Uploaded in wrong / another field">Document Uploaded in wrong / another field
+                <option value="Document Uploaded in wrong / another field">Document Uploaded in wrong / another
+                    field
                 </option>
                 <option value="Mutilated document not accepted, Pls upload new">Mutilated document not accepted, Pls
                     upload new</option>

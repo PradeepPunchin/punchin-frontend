@@ -126,6 +126,11 @@
     }
   }
   .table-container {
+    height: 520px;
+    thead {
+      position: sticky;
+      top: 0;
+    }
     .table {
       margin-bottom: 19px;
       width: 6000px;
@@ -146,11 +151,15 @@
     td:first-child {
       padding-left: 16px;
     }
+    th:last-child {
+      position: sticky;
+    }
+
     th:last-child,
     td:last-child {
-      position: sticky;
       right: 0px;
-      width: 107px;
+      width: 140px;
+      position: sticky;
     }
     td:last-child {
       background-color: $white;
@@ -161,6 +170,14 @@
       background-color: $blueButtonColor;
       border-radius: 8px;
       cursor: pointer;
+    }
+    span.tracking-button {
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 5px 20px;
+      margin-top: 5px;
+      color: $buttonColor;
+      background-color: $tableBlueTextColor;
     }
     .status-button {
       color: $blueColor;
@@ -176,6 +193,13 @@
         color: $buttonColor;
         font-size: $fontSize16;
         margin-left: 10px;
+      }
+      .fa-map-o {
+        cursor: pointer;
+        color: $buttonColor;
+        font-size: $fontSize16;
+        margin-left: 10px;
+        margin-top: 5px;
       }
     }
   }
@@ -284,6 +308,11 @@
     }
   }
   .table-container {
+    height: 520px;
+    thead {
+      position: sticky;
+      top: 0;
+    }
     .table {
       margin-bottom: 19px;
       width: 5000px;
@@ -304,9 +333,11 @@
     td:first-child {
       padding-left: 16px;
     }
+    th:last-child {
+      position: sticky;
+    }
     th:last-child,
     td:last-child {
-      // position: sticky;
       right: 0px;
       width: 107px;
     }
@@ -483,6 +514,7 @@
   .new-requirements-table {
     .table {
       margin-bottom: 0;
+      margin-top: 10px;
       thead {
         border-color: $tableBorderColor;
         position: sticky;
@@ -634,6 +666,45 @@
       color: $white;
       padding: 6px 15px;
       border-color: $buttonColor;
+    }
+  }
+}
+
+//tracking
+.tracking-container {
+  margin: 14px 0 20px;
+  height: 400px;
+  max-height: 400;
+  overflow-y: scroll;
+  .new-requirements {
+    background-color: $icon-color;
+    padding: 5px 10px;
+    p {
+      color: $black;
+      text-align: left;
+      padding-top: 10px;
+    }
+  }
+  .inner-Wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0px;
+    border: 1px solid $borderColor;
+    padding: 10px;
+    margin-bottom: 20px;
+    p {
+      padding-top: 10px;
+    }
+  }
+  .down-Wrapper {
+    margin-top: 0px;
+    border: 1px solid $borderColor;
+    .content {
+      justify-content: space-between;
+      display: flex;
+      p {
+        padding: 5px;
+      }
     }
   }
 }

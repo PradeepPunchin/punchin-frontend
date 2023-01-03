@@ -39,7 +39,7 @@ export class ApiService {
   }
 
   getClaimList(page = 0) {
-    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=DRAFT&limit=${7}&page=${page}`);
+    return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=DRAFT&limit=${10}&page=${page}`);
   }
 
   getClaimUploadList(data: any, pageNo: number, pageSize: number) {
@@ -48,9 +48,9 @@ export class ApiService {
 
   getCardList(searchEnum: any, inputData: any, tabType: any, page: any) {
     if (searchEnum && inputData) {
-      return this.http.get(`${this.baseApiUrl}banker/claim?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&limit=7&page=${page}`);
+      return this.http.get(`${this.baseApiUrl}banker/claim?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&limit=10&page=${page}`);
     } else {
-      return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${tabType}&limit=7&page=${page}`);
+      return this.http.get(`${this.baseApiUrl}banker/claim?claimDataFilter=${tabType}&limit=10&page=${page}`);
     }
   }
 
@@ -101,8 +101,13 @@ export class ApiService {
   uploadDiscrepancyDocument(id: number, docType: any, data: any) {
     return this.http.put(`${this.baseApiUrl}banker/claim/${id}/discrepancy-document-upload/${docType}`, data);
   }
+
   requestForAdditionalDocument(body: any) {
     return this.http.post(`${this.baseApiUrl}banker/claim/document/additional-request`, body);
+  }
+
+  getBankerClaimhistory(id: any) {
+    return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`)
   }
 
   //varifier api
@@ -115,7 +120,7 @@ export class ApiService {
   }
 
   getVerifierClaimsData(data: any, page = 0) {
-    return this.http.get(`${this.baseApiUrl}verifier/claim?claimDataFilter=${data}&page=${page}&limit=7`);
+    return this.http.get(`${this.baseApiUrl}verifier/claim?claimDataFilter=${data}&page=${page}&limit=10`);
   }
 
   getDocumentDetails(id: number) {
@@ -131,7 +136,7 @@ export class ApiService {
   }
 
   getVerifierSearchData(searchEnum: any, inputData: any, tabType: any, page = 0) {
-    return this.http.get(`${this.baseApiUrl}verifier/claim/searchVerifier?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&page=${page}&limit=7`);
+    return this.http.get(`${this.baseApiUrl}verifier/claim/searchVerifier?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&page=${page}&limit=10`);
   }
 
   getVerifierDownloadMISReport(data: any) {
@@ -146,5 +151,8 @@ export class ApiService {
     return this.http.put(`${this.baseApiUrl}verifier/claim/${cliamId}/allocate/${agentId}`, "");
   }
 
+  getVerifierClaimhistory(id: any) {
+    return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/history`)
+  }
 }
 
