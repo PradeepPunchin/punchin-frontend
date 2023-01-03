@@ -104,6 +104,7 @@
             <div class="table-container table-responsive" *ngIf="onStep === 0">
                 <table class="table  table-sm">
                     <thead>
+
                         <tr class="align-middle">
                             <th scope="col">S.No</th>
                             <th scope="col">Punchin Ref.ID</th>
@@ -162,9 +163,12 @@
                                 </span>
                             </td>
                             <td>{{item.lenderName}}</td>
-                            <td>{{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
-                            <td>{{item.borrowerName}}</td>
-                            <td>{{item.borrowerContactNumber}}</td>
+                            <td (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)">
+                                {{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
+                            <td (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)">
+                                {{item.borrowerName}}</td>
+                            <td (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)">
+                                {{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
                             <td>{{item.borrowerState}}</td>
                             <td>{{item.borrowerPinCode}}</td>
@@ -900,11 +904,11 @@
                     </div>
                     <div class="inner-Wrapper">
                         <p>
-                            Days so far <br><span>3 Days</span>
+                            Days so far <br><span>{{cliam_Status?.startedAt | date}}</span>
                         </p>
                         <p>
                             Status <br>
-                            <span>{{cliam_Status | removeunderscore | titlecase}}</span>
+                            <span>{{cliam_Status?.claimStatus | removeunderscore | titlecase}}</span>
                         </p>
                     </div>
                     <div class="down-Wrapper" *ngFor="let item of cliamHistoryData">
