@@ -156,7 +156,8 @@
                                 {{ (pageNo ) * pageSize + i +1 }}
                             </td>
                             <td>
-                                <span style="cursor:pointer" (click)="viewbankerDocRequest(item.submittedBy,item.id)">
+                                <span style="cursor:pointer;color: #3489c9;;"
+                                    (click)="viewbankerDocRequest(item.submittedBy,item.id)">
                                     {{item.punchinClaimId}}
                                 </span>
                             </td>
@@ -755,7 +756,8 @@
                             {{ (currentPage) * pageSize + i +1 }}
                         </td>
                         <td *ngIf="onStep === 0">
-                            <span style="cursor:pointer;" (click)="viewUnderVerification(item.claimStatus, item.id)">
+                            <span style="cursor:pointer; color: #3489c9;"
+                                (click)="viewUnderVerification(item.claimStatus, item.id)">
                                 {{item.punchinClaimId}}
                             </span>
                         </td>
