@@ -158,7 +158,8 @@
     th:last-child,
     td:last-child {
       right: 0px;
-      width: 107px;
+      width: 140px;
+      position: sticky;
     }
     td:last-child {
       background-color: $white;
@@ -169,6 +170,14 @@
       background-color: $blueButtonColor;
       border-radius: 8px;
       cursor: pointer;
+    }
+    span.tracking-button {
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 5px 20px;
+      margin-top: 5px;
+      color: $buttonColor;
+      background-color: $tableBlueTextColor;
     }
     .status-button {
       color: $blueColor;
@@ -184,6 +193,13 @@
         color: $buttonColor;
         font-size: $fontSize16;
         margin-left: 10px;
+      }
+      .fa-map-o {
+        cursor: pointer;
+        color: $buttonColor;
+        font-size: $fontSize16;
+        margin-left: 10px;
+        margin-top: 5px;
       }
     }
   }
@@ -322,7 +338,6 @@
     }
     th:last-child,
     td:last-child {
-      // position: sticky;
       right: 0px;
       width: 107px;
     }
@@ -658,10 +673,12 @@
 //tracking
 .tracking-container {
   margin: 14px 0 20px;
+  height: 400px;
+  max-height: 400;
+  overflow-y: scroll;
   .new-requirements {
     background-color: $icon-color;
     padding: 5px 10px;
-    border-radius: 8px;
     p {
       color: $black;
       text-align: left;
@@ -672,19 +689,22 @@
     display: flex;
     justify-content: space-between;
     margin-top: 0px;
-    // border: 1px solid $borderColor;
+    border: 1px solid $borderColor;
+    padding: 10px;
+    margin-bottom: 20px;
     p {
       padding-top: 10px;
     }
   }
   .down-Wrapper {
     margin-top: 0px;
-    // border: 1px solid $offWhite;
-    // border-radius: 7px;
-    .text {
-      display: flex;
+    border: 1px solid $borderColor;
+    .content {
       justify-content: space-between;
       display: flex;
+      p {
+        padding: 5px;
+      }
     }
   }
 }
