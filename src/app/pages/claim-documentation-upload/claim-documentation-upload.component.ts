@@ -16,7 +16,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   totalrecords!: number;
   pageNo: number = 0;
   currentPage: number = 0;
-  pageSize: number = 7;
+  pageSize: number = 10;
   totalpage!: number;
   submittedClaimList: any;
   submittedclaimListContent: any = []
