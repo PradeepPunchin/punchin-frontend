@@ -582,9 +582,8 @@ export class DashboardComponent implements OnInit {
     if (this.role === ROLES.verifier) {
       this.apiService.getVerifierClaimhistory(cliamId).subscribe((res: any) => {
         if (res?.isSuccess) {
-          this.cliam_Status = res?.data.claimStatus
+          this.cliam_Status = res?.data
           this.cliamHistoryData = res?.data.claimHistoryDTOS;
-          this.notifierService.showSuccess(res?.message || "Something went wrong");
         } else {
           this.notifierService.showError(res?.message || "Something went wrong");
         }
@@ -597,7 +596,6 @@ export class DashboardComponent implements OnInit {
         if (res?.isSuccess) {
           this.cliam_Status = res?.data;
           this.cliamHistoryData = res?.data.claimHistoryDTOS;
-          this.notifierService.showSuccess(res?.message || "Something went wrong");
         } else {
           this.notifierService.showError(res?.message || "Something went wrong");
         }

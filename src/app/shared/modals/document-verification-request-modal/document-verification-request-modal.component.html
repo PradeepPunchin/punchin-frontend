@@ -106,8 +106,9 @@
                                         </p>
                                     </td>
                                     <td class="text-center">
-                                        <span (click)="viewDoc(item)" style="margin-right:15px"><img
-                                                src="../../../assets/icons/eye.svg"></span>
+                                        <span style="margin-right:15px" *ngFor="let item1 of item.documentUrlDTOS"
+                                            (click)="viewDoc(item)"><img src="../../../assets/icons/eye.svg"></span>
+
                                         <span (click)="Downlaod(item)"><img
                                                 src="../../../assets/icons/download.svg"></span>
                                     </td>
@@ -167,7 +168,8 @@
                                     </td>
                                     <td class="text-center">
                                         <span (click)="viewDoc(item)" style="margin-right:15px"><img
-                                                src="../../../assets/icons/eye.svg"></span>
+                                                src="../../../assets/icons/eye.svg"
+                                                *ngFor="let item1 of item.documentUrlDTOS"></span>
                                         <span (click)="Downlaod(item)"><img
                                                 src="../../../assets/icons/download.svg"></span>
                                     </td>
@@ -198,7 +200,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let item of bankerDocumentDetailsDTOList">
+                            <ng-container *ngFor="let item of additionalDocmentDetailsDTOList">
                                 <tr>
                                     <td>
                                         {{item.agentDocType}}
@@ -226,7 +228,8 @@
                                         </p>
                                     </td>
                                     <td class="text-center">
-                                        <span (click)="viewDoc(item)" style="margin-right:15px"><img
+                                        <span (click)="viewDoc(item)" style="margin-right:15px"
+                                            *ngFor="let item1 of item.documentUrlDTOS"><img
                                                 src="../../../assets/icons/eye.svg"></span>
                                         <span (click)="Downlaod(item)"><img
                                                 src="../../../assets/icons/download.svg"></span>

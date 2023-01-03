@@ -163,11 +163,11 @@
                                 </span>
                             </td>
                             <td>{{item.lenderName}}</td>
-                            <td (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)">
+                            <td>
                                 {{item.claimInwardDate | date: 'dd/MM/yyyy' }}</td>
-                            <td (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)">
+                            <td>
                                 {{item.borrowerName}}</td>
-                            <td (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)">
+                            <td>
                                 {{item.borrowerContactNumber}}</td>
                             <td>{{item.borrowerCity}}</td>
                             <td>{{item.borrowerState}}</td>
@@ -215,6 +215,10 @@
                                 </span>
                                 <span (click)="downloadBankerDoc(item.id)" title="Download All Document">
                                     <i class="fa fa-download" aria-hidden="true"></i>
+                                </span>
+                                <span (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)"
+                                    title="Cliam Tracking">
+                                    <i class="fa fa-map-o" aria-hidden="true"></i>
                                 </span>
                             </td>
 
@@ -773,7 +777,7 @@
 
                             {{item.punchinClaimId}}
                         </td>
-                        <td (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)">{{item.claimDate |
+                        <td>{{item.claimDate |
                             date: 'dd/MM/yyyy'
                             }}</td>
                         <td>{{item.borrowerName}}</td>
@@ -852,6 +856,11 @@
                             <span class="allocate-button" *ngIf="item.agentAllocated == false"
                                 (click)="openAllocatedModal(verifierAllocatedTemplate, item.id)">Allocate
                             </span>
+                            <span (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)"
+                                title="Tracking">
+                                <i class="fa fa-map-o"></i>
+
+                            </span>
                         </td>
                     </tr>
                 </tbody>
@@ -896,7 +905,7 @@
     <div class="modal-body">
         <div class="container-fluid tracking-container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 ">
                     <div class="new-requirements">
                         <p>
                             Case/Claim ID : {{this.p_id}}
@@ -911,8 +920,8 @@
                             <span>{{cliam_Status?.claimStatus | removeunderscore | titlecase}}</span>
                         </p>
                     </div>
-                    <div class="down-Wrapper" *ngFor="let item of cliamHistoryData">
-                        <div class="text">
+                    <div class="down-Wrapper">
+                        <div class="content" *ngFor="let item of cliamHistoryData">
                             <p>{{item.createdAt | date}} <br><span>{{item.description}}</span></p>
                             <p>
                                 <img src="../../../../assets/icons/right-tick-blue.svg">
