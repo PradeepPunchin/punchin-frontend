@@ -146,5 +146,8 @@ export class ApiService {
     return this.http.put(`${this.baseApiUrl}verifier/claim/${cliamId}/allocate/${agentId}`, "");
   }
 
+  getVerifierClaimhistory(id: any) {
+    return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/history`)
+  }
 }
 
