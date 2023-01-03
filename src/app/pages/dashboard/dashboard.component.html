@@ -212,6 +212,7 @@
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                 </span>
                             </td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -837,8 +838,8 @@
                             {{item.claimStatus | removeunderscore | titlecase}}</td>
                         <td class="text-center" *ngIf="onStep === 0">
 
-                            <span class="allocate-button" *ngIf="item.agentAllocated == true">
-                                Allocated
+                            <span class="allocate-button" *ngIf="item.agentAllocated == true"
+                                (click)="openAllocatedModal(verifierAllocatedTemplate, item.id)">Allocated
                             </span>
                             <span class="allocate-button" *ngIf="item.agentAllocated == false"
                                 (click)="openAllocatedModal(verifierAllocatedTemplate, item.id)">Allocate

@@ -55,19 +55,19 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   }
 
   addtional() {
-    this.isBankerCollapsed = !this.isBankerCollapsed;
+    this.isBankerCollapsed = false;
     this.isVarifierCollapsed = false;
-    this.isAdditionalCollapsed = true;
+    this.isAdditionalCollapsed = !this.isAdditionalCollapsed;
   }
   banker() {
-    this.isBankerCollapsed = true;
+    this.isBankerCollapsed = !this.isBankerCollapsed;
     this.isVarifierCollapsed = false;
     this.isAdditionalCollapsed = false;
   }
 
   verifier() {
     this.isBankerCollapsed = false;
-    this.isVarifierCollapsed = true;
+    this.isVarifierCollapsed = !this.isVarifierCollapsed;
     this.isAdditionalCollapsed = false;
 
   }
