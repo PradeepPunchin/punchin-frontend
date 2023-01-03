@@ -122,8 +122,6 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
 
   viewDoc(documentDTO: IDocumentDetailDTO) {
     this.docUrl = documentDTO.documentUrlDTOS[0].docUrl;
-    console.log(this.docUrl, "this.docUrl");
-
     this.docType = documentDTO.documentUrlDTOS[0].docFormat;
     this.isShoeDoc = true;
     this.sessionService.setSessions({ docId: documentDTO.id })
