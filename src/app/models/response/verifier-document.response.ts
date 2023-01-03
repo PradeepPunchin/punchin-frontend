@@ -8,7 +8,8 @@ export interface VerifierDocumentDetail {
     loanAccountNumber: string,
     nomineeAddress: string,
     nomineeName: string,
-    nomineeRelationShip: string
+    nomineeRelationShip: string,
+    claimStatus: string
 }
 
 export interface IDocumentDetailDTO {

@@ -205,18 +205,14 @@ export class DashboardComponent implements OnInit {
   }
 
   viewUnderVerification(status: any, id: any) {
-    if (status === 'UNDER_VERIFICATION') {
-      const initialState: ModalOptions = {
-        initialState: {
-          documentVerificationRequestId: id,
-        },
-        class: 'modal-custom-width'
-      };
-      this.modalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
-    }
-    else {
-      this.notifierService.showInfo("Not valid")
-    }
+    const initialState: ModalOptions = {
+      initialState: {
+        documentVerificationRequestId: id,
+      },
+      class: 'modal-custom-width'
+    };
+    this.modalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
+
   }
 
   viewbankerDocRequest(submitBy: any, id: any) {
@@ -286,11 +282,12 @@ export class DashboardComponent implements OnInit {
   //  verifier card table api
   verifierCardDetails(data: any) {
     this.verifierData = data;
+    this.currentPage = 0;
     this.searchForm.reset();
     if (data === 'UNDER_VERIFICATION') {
       this.router.navigate(['/pages/document-verification'])
     } else {
-      this.apiService.getVerifierClaimsData(this.verifierData).subscribe((res: any) => {
+      this.apiService.getVerifierClaimsData(this.verifierData, this.currentPage).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.verifierCardList = res?.data
           this.verifiercordListData = res?.data.content
@@ -412,7 +409,6 @@ export class DashboardComponent implements OnInit {
     };
     this.bsModalRef3 = this.modalService.show(template, initialState);
     this.getAllAgentsForVerifier();
-
   }
 
   getAllAgentsForVerifier() {
@@ -436,6 +432,7 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res?.message || "Something went wrong");
         this.bsModalRef3?.hide()
+        this.verifierCardDetails(this.verifierData);
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
       }

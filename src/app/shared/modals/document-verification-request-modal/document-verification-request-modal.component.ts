@@ -30,7 +30,9 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   // modalRef?: BsModalRef;
   isDownloadDoc: boolean = false
   isBankerCollapsed = true;
-  isVarifierCollapsed = false
+  isVarifierCollapsed = false;
+  isAdditionalCollapsed = false;
+  claimStatus: any;
 
   constructor(
     private sessionService: SessionService,
@@ -90,6 +92,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.apiService.getDocumentDetails(this.documentVerificationRequestId).subscribe((res: ApiResponse<VerifierDocumentDetail> | any) => {
       if (res?.isSuccess) {
         this.documentVerificationDetails = res?.data;
+        this.claimStatus = this.documentVerificationDetails.claimStatus
         this.documentDetailsDTOList = res?.data.agentClaimDocumentsDTOs;
         this.bankerDocumentDetailsDTOList = res?.data?.bankerClaimDocumentsDTOs
       }

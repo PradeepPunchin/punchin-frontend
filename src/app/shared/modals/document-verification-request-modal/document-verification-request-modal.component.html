@@ -59,7 +59,7 @@
                 </div>
             </div>
             <!-- // verifier doc table -->
-            <div (click)="isVarifierCollapsed = !isVarifierCollapsed;isBankerCollapsed = !isBankerCollapsed "
+            <div (click)="isVarifierCollapsed = !isVarifierCollapsed;isBankerCollapsed = !isBankerCollapsed;isAdditionalCollapsed=!isAdditionalCollapsed "
                 class="collapse-title" [attr.aria-expanded]="!isVarifierCollapsed"> Customer
                 Document
                 <span class="collapse-title-expand-indicator">
@@ -120,7 +120,7 @@
             </div>
 
             <!-- banker doc table -->
-            <div (click)="isBankerCollapsed = !isBankerCollapsed;isVarifierCollapsed = !isVarifierCollapsed"
+            <div (click)="isBankerCollapsed = !isBankerCollapsed;isVarifierCollapsed = !isVarifierCollapsed;isAdditionalCollapsed =!isAdditionalCollapsed"
                 class="collapse-title" [attr.aria-expanded]="!isBankerCollapsed"> Banker
                 Document
                 <span class="collapse-title-expand-indicator">
@@ -179,69 +179,132 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <div class="col-5" *ngIf="isShoeDoc === true">
-            <div class="document-preview-container d-flex flex-column">
-                <div class="d-flex justify-content-between mb-4">
-                    <h6 class="document-preview-heading mb-0">Document Preview</h6>
-                    <!-- <img src="../../../../assets/icons/preview.svg"> -->
+
+            <!-- Additonal doc table -->
+            <!-- <div (click)="isBankerCollapsed = !isBankerCollapsed;isVarifierCollapsed = !isVarifierCollapsed;isAdditionalCollapsed=!isAdditionalCollapsed"
+                class="collapse-title" [attr.aria-expanded]="!isAdditionalCollapsed"> Additonal
+                Document
+                <span class="collapse-title-expand-indicator">
+                    <span *ngIf="isAdditionalCollapsed"><i class="fa fa-arrow-down"></i></span>
+                    <span *ngIf="!isAdditionalCollapsed"><i class="fa fa-arrow-up"></i></span>
+                </span>
+            </div> -->
+            <!-- <div id="collapseBasic" [collapse]="isAdditionalCollapsed">
+                <div class="table-responsive document-verification-table">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr class="align-middle">
+                                <th scope="col">Document Name</th>
+                                <th scope="col" class="text-center">Uploaded Doc</th>
+                                <th scope="col" class="text-center">Doc Status</th>
+                                <th scope="col" class="text-center">View Doc</th>
+                            </tr>
+                        </thead> -->
+            <!-- <tbody>
+                           <ng-container *ngFor="let item of bankerDocumentDetailsDTOList">
+                               <tr>
+                                   <td>
+                                       {{item.agentDocType}}
+                                   </td>
+                                   <td class="text-center">
+                                       <span *ngIf="item.isVerified == false"><img
+                                               src="../../../../assets/icons/right-tick-blue.svg"></span>
+                                       <span *ngIf="item.isVerified == true && item.isApproved == false">
+                                           <img src="assets/icons/cross-red.svg">
+                                       </span>
+                                       <span *ngIf="item.isVerified == true && item.isApproved == true">
+                                           <img src="assets/icons/tick-green.svg"> </span>
+                                   </td>
+                                   <td class="text-center">
+                                       <p class="doc-status-yellow-text" *ngIf="item.isVerified == false">
+                                           Uploaded
+                                       </p>
+                                       <p class="doc-status-red-text"
+                                           *ngIf="item.isVerified == true && item.isApproved == false">
+                                           Rejected
+                                       </p>
+                                       <p class="doc-status-blue-text"
+                                           *ngIf="item.isVerified == true && item.isApproved == true">
+                                           Approved
+                                       </p>
+                                   </td>
+                                   <td class="text-center">
+                                       <span (click)="viewDoc(item)" style="margin-right:15px"><img
+                                               src="../../../assets/icons/eye.svg"></span>
+                                       <span (click)="Downlaod(item)"><img
+                                               src="../../../assets/icons/download.svg"></span>
+                                   </td>
+                               </tr>
+                           </ng-container>
+                       </tbody> -->
+            <!-- </table>
                 </div>
-                <!-- <app-pdf-viewer [docUrl]="docUrl" [docType]="docType"></app-pdf-viewer> -->
-                <app-document-viewer [docUrl]="docUrl" [docType]="docType"></app-document-viewer>
-                <div class="document-preview-btns text-center mt-auto">
-                    <button type="button" class="btn btn-outline-primary"
-                        (click)="openRejectModal(reject)">Reject</button>
-                    <button type="button" class="btn btn-primary" (click)="openApprovedModal(approved)">Approve</button>
+            </div>
+        </div> -->
+            <div class="col-5" *ngIf="isShoeDoc === true">
+                <div class="document-preview-container d-flex flex-column">
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6 class="document-preview-heading mb-0">Document Preview</h6>
+                        <!-- <img src="../../../../assets/icons/preview.svg"> -->
+                    </div>
+                    <!-- <app-pdf-viewer [docUrl]="docUrl" [docType]="docType"></app-pdf-viewer> -->
+                    <app-document-viewer [docUrl]="docUrl" [docType]="docType"></app-document-viewer>
+                    <div class="document-preview-btns text-center mt-auto" *ngIf="claimStatus === 'UNDER_VERIFICATION'">
+                        <button type="button" class="btn btn-outline-primary"
+                            (click)="openRejectModal(reject)">Reject</button>
+                        <button type="button" class="btn btn-primary"
+                            (click)="openApprovedModal(approved)">Approve</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<ng-template #approved>
-    <div class="modal-header">
-        <h4 class="modal-title">Please confirm..</h4>
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef1?.hide()">
-            <span aria-hidden="true" class="visually-hidden">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        Do you really want to ... ? </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="bsModalRef1?.hide()">No</button>
-        <button type="button" class="btn btn-primary" (click)="approveAndReject('true')">Yes</button>
-    </div>
-</ng-template>
-
-<ng-template #reject>
-    <div class="modal-header">
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="close()">
-            <span aria-hidden="true" class="visually-hidden">&times;</span>
-        </button>
-    </div>
-    <form [formGroup]="remarkForm">
+    <ng-template #approved>
+        <div class="modal-header">
+            <h4 class="modal-title">Please confirm..</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef1?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
         <div class="modal-body">
-            <select id="reason" class="form-select" formControlName="reason">
-                <option selected [ngValue]="null">Select Reason</option>
-                <option value="Wrong Document Uploaded">Wrong Document Uploaded</option>
-                <option value="Image not clear and not readable">Image not clear and not readable</option>
-                <option value="Required Stamp Missing">Required Stamp Missing</option>
-                <option value="Document Mismatched">Document Mismatched</option>
-                <option value="Document Uploaded in wrong / another field">Document Uploaded in wrong / another field
-                </option>
-                <option value="Mutilated document not accepted, Pls upload new">Mutilated document not accepted, Pls
-                    upload new</option>
-                <option value="Any other reason">Any other reason</option>
-            </select>
-
-            <input class="form-control" placeholder=" Enter Remark" formControlName="remark">
-            <small class="text-danger"
-                *ngIf="remarkForm.controls.remark.invalid &&(remarkFormSubmitted ||remarkForm.controls.remark.touched)">
-                <span *ngIf="remarkForm.controls.remark?.errors?.required">Remark is required</span>
-            </small>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" [disabled]="!remarkForm.valid"
-                    (click)="approveAndReject('false')">Submit</button>
-            </div>
+            Do you really want to ... ? </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary" (click)="bsModalRef1?.hide()">No</button>
+            <button type="button" class="btn btn-primary" (click)="approveAndReject('true')">Yes</button>
         </div>
-    </form>
-</ng-template>
+    </ng-template>
+
+    <ng-template #reject>
+        <div class="modal-header">
+            <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="close()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <form [formGroup]="remarkForm">
+            <div class="modal-body">
+                <select id="reason" class="form-select" formControlName="reason">
+                    <option selected [ngValue]="null">Select Reason</option>
+                    <option value="Wrong Document Uploaded">Wrong Document Uploaded</option>
+                    <option value="Image not clear and not readable">Image not clear and not readable</option>
+                    <option value="Required Stamp Missing">Required Stamp Missing</option>
+                    <option value="Document Mismatched">Document Mismatched</option>
+                    <option value="Document Uploaded in wrong / another field">Document Uploaded in wrong / another
+                        field
+                    </option>
+                    <option value="Mutilated document not accepted, Pls upload new">Mutilated document not accepted, Pls
+                        upload new</option>
+                    <option value="Any other reason">Any other reason</option>
+                </select>
+
+                <input class="form-control" placeholder=" Enter Remark" formControlName="remark">
+                <small class="text-danger"
+                    *ngIf="remarkForm.controls.remark.invalid &&(remarkFormSubmitted ||remarkForm.controls.remark.touched)">
+                    <span *ngIf="remarkForm.controls.remark?.errors?.required">Remark is required</span>
+                </small>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" [disabled]="!remarkForm.valid"
+                        (click)="approveAndReject('false')">Submit</button>
+                </div>
+            </div>
+        </form>
+    </ng-template>
