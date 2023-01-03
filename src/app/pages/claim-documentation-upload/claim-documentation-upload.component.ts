@@ -134,6 +134,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.viewClaimList = true;
         this.editCliamList = false;
         this.currentPage = 0;
+        this.fileUploadedLists = [];
         this.getClaimUploadList();
       }
     }, (error: any) => {
@@ -168,6 +169,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.getClaimUploadList();
     this.viewClaimList = true;
     this.editCliamList = false;
+    this.fileUploadedLists = [];
   }
 
   //pagination
@@ -209,7 +211,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.myFiles = [];
         this.fileUploadedLists.push(res?.data?.claimDocuments);
         this.notifierService.showSuccess(res?.message);
-
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
       }
@@ -242,6 +243,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.getClaimUploadList();
         this.viewClaimList = true;
         this.editCliamList = false;
+        this.fileUploadedLists = [];
+
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
