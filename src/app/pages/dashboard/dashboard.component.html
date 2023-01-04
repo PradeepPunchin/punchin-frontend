@@ -908,7 +908,7 @@
                 <div class="col-12 ">
                     <div class="new-requirements">
                         <p>
-                            Case/Claim ID : {{this.p_id}}
+                            Case/Claim ID : <span>{{this.p_id}}</span>
                         </p>
                     </div>
                     <div class="inner-Wrapper">
@@ -923,7 +923,7 @@
                     <div class="down-Wrapper">
                         <div class="content" *ngFor="let item of cliamHistoryData">
                             <p>{{item.createdAt | date}} <br><span>{{item.description}}</span></p>
-                            <p>
+                            <p class="img-icon">
                                 <img src="../../../../assets/icons/right-tick-blue.svg">
                             </p>
                         </div>
