@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { ApiResponse } from 'src/app/models/common';
@@ -7,12 +7,24 @@ import { ApiService } from 'src/app/services/api/api.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
 import { SessionService } from 'src/app/services/session/session.service';
 
+
+@Pipe({
+  name: 'removeunderscore'
+})
+export class RemoveunderscorePipe implements PipeTransform {
+  transform(value: any): string {
+    return value?.replace(/[^a-zA-Z ]/g, " ");
+  }
+
+}
 @Component({
   selector: 'app-document-verification-request-modal',
   templateUrl: './document-verification-request-modal.component.html',
   styleUrls: ['./document-verification-request-modal.component.scss']
 })
 export class DocumentVerificationRequestModalComponent implements OnInit {
+
+
 
   documentVerificationRequestId: any
   documentVerificationDetails!: VerifierDocumentDetail;
