@@ -764,7 +764,7 @@
                 <tbody class="align-middle" *ngFor="let item of verifiercordListData;let i = index">
                     <tr>
                         <td>
-                            {{ (currentPage) * pageSize + i +1 }}
+                            {{ (pageNo) * pageSize + i +1 }}
                         </td>
                         <td *ngIf="onStep === 0">
                             <span style="cursor:pointer; color: #3489c9;"
@@ -880,7 +880,7 @@
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="changeVerifierPage($event)" [itemsPerPage]="pageSize" firstText="&laquo;"
-                    lastText="&raquo;" [maxSize]="5"></pagination>
+                    lastText="&raquo;" [maxSize]="5" [(ngModel)]="currentPage"></pagination>
             </div>
         </div>
     </div>
