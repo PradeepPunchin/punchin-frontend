@@ -37,10 +37,12 @@ export class DocumentVerificationRequestComponent implements OnInit {
     })
   }
 
-  openModal(id: any) {
+  openModal(id: any, agentName: any, agentCity: any) {
     const initialState: ModalOptions = {
       initialState: {
         documentVerificationRequestId: id,
+        agentName: agentName,
+        agentCity: agentCity
       },
       class: 'modal-custom-width'
     };
