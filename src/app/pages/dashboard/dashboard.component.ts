@@ -208,10 +208,12 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  viewUnderVerification(status: any, id: any) {
+  viewUnderVerification(status: any, id: any, agentName: any, agnetCity: any) {
     const initialState: ModalOptions = {
       initialState: {
         documentVerificationRequestId: id,
+        agentName: agentName,
+        agnetCity: agnetCity
       },
       class: 'modal-custom-width'
     };
