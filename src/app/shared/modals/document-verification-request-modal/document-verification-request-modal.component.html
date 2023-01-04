@@ -107,7 +107,8 @@
                                     </td>
                                     <td class="text-center">
                                         <span style="margin-right:15px" *ngFor="let item1 of item.documentUrlDTOS"
-                                            (click)="viewDoc(item)"><img src="../../../assets/icons/eye.svg"></span>
+                                            (click)="viewDoc1(item1,item.id)"><img
+                                                src="../../../assets/icons/eye.svg"></span>
 
                                         <span (click)="Downlaod(item)"><img
                                                 src="../../../assets/icons/download.svg"></span>
@@ -167,9 +168,9 @@
                                         </p>
                                     </td>
                                     <td class="text-center">
-                                        <span (click)="viewDoc(item)" style="margin-right:15px"><img
-                                                src="../../../assets/icons/eye.svg"
-                                                *ngFor="let item1 of item.documentUrlDTOS"></span>
+                                        <span style="margin-right:15px"><img src="../../../assets/icons/eye.svg"
+                                                *ngFor="let item1 of item.documentUrlDTOS"
+                                                (click)="viewDoc1(item1,item.id)"></span>
                                         <span (click)="Downlaod(item)"><img
                                                 src="../../../assets/icons/download.svg"></span>
                                     </td>
@@ -228,8 +229,8 @@
                                         </p>
                                     </td>
                                     <td class="text-center">
-                                        <span (click)="viewDoc(item)" style="margin-right:15px"
-                                            *ngFor="let item1 of item.documentUrlDTOS"><img
+                                        <span style="margin-right:15px" *ngFor="let item1 of item.documentUrlDTOS"
+                                            (click)="viewDoc1(item1,item.id)"><img
                                                 src="../../../assets/icons/eye.svg"></span>
                                         <span (click)="Downlaod(item)"><img
                                                 src="../../../assets/icons/download.svg"></span>
@@ -249,7 +250,7 @@
                 </div>
                 <!-- <app-pdf-viewer [docUrl]="docUrl" [docType]="docType"></app-pdf-viewer> -->
                 <app-document-viewer [docUrl]="docUrl" [docType]="docType"></app-document-viewer>
-                <div class="document-preview-btns text-center mt-auto" *ngIf="claimStatus === 'UNDER_VERIFICATION'">
+                <div class="document-preview-btns text-center mt-auto">
                     <button type="button" class="btn btn-outline-primary"
                         (click)="openRejectModal(reject)">Reject</button>
                     <button type="button" class="btn btn-primary" (click)="openApprovedModal(approved)">Approve</button>
