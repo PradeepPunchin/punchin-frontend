@@ -28,3 +28,22 @@ body {
   margin-top: 10%;
   max-width: 500px;
 }
+
+// scroll bar
+::-webkit-scrollbar {
+  width: 4px !important;
+  height: 4px !important;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: #888 !important;
+  -webkit-box-shadow: #888 !important;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: #888 !important;
+  -webkit-box-shadow: #888 !important;
+  background-color: #888 !important;
+}

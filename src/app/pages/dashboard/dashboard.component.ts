@@ -208,10 +208,12 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  viewUnderVerification(status: any, id: any) {
+  viewUnderVerification(status: any, id: any, agentName: any, agnetCity: any) {
     const initialState: ModalOptions = {
       initialState: {
         documentVerificationRequestId: id,
+        agentName: agentName,
+        agnetCity: agnetCity
       },
       class: 'modal-custom-width'
     };
@@ -335,6 +337,7 @@ export class DashboardComponent implements OnInit {
   changeVerifierPage(event: PageChangedEvent) {
     if (this.searchEnum, this.inputSearch) {
       this.currentPage = event.page - 1;
+      this.pageNo = event.page - 1;
       this.apiService.getVerifierSearchData(this.searchEnum, this.inputSearch, this.verifierData, this.currentPage).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.verifierCardList = res?.data
@@ -344,6 +347,7 @@ export class DashboardComponent implements OnInit {
       });
     } else {
       this.currentPage = event.page - 1;
+      this.pageNo = event.page - 1;
       this.apiService.getVerifierClaimsData(this.verifierData, this.currentPage).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.verifierCardList = res?.data
