@@ -8,7 +8,7 @@ import { NoDataFoundComponent } from './no-data-found/no-data-found.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
-import { DocumentVerificationRequestModalComponent } from './modals/document-verification-request-modal/document-verification-request-modal.component';
+import { DocumentVerificationRequestModalComponent, RemoveunderscorePipe } from './modals/document-verification-request-modal/document-verification-request-modal.component';
 import { DocumentRejectModalComponent } from './modals/document-reject-modal/document-reject-modal.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +29,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     PdfViewerComponent,
     DocumentRejectModalComponent,
     DocumentViewerComponent,
+    RemoveunderscorePipe
   ],
   imports: [
     CommonModule,
