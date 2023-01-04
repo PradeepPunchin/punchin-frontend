@@ -18,7 +18,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   documentVerificationDetails!: VerifierDocumentDetail;
   documentDetailsDTOList: IDocumentDetailDTO[] = [];
   bankerDocumentDetailsDTOList: IDocumentDetailDTO[] = [];
-  additionalDocmentDetailsDTOList: IDocumentDetailDTO[] = [];
+  additionalDocmentDetailsDTOList: any[] = [];
   docUrl: string = '';
   docType: string = "";
   isShoeDoc: boolean = false
@@ -120,11 +120,18 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     })
   }
 
-  viewDoc(documentDTO: IDocumentDetailDTO) {
-    this.docUrl = documentDTO.documentUrlDTOS[0].docUrl;
-    this.docType = documentDTO.documentUrlDTOS[0].docFormat;
+  viewDoc1(item: any, id: any) {
+    this.docUrl = item.docUrl;
+    this.docType = item.docFormat;
     this.isShoeDoc = true;
-    this.sessionService.setSessions({ docId: documentDTO.id })
+    this.sessionService.setSessions({ docId: id })
+  }
+
+  viewDoc(documentDTO: IDocumentDetailDTO) {
+    // this.docUrl = documentDTO.documentUrlDTOS[0].docUrl;
+    // this.docType = documentDTO.documentUrlDTOS[0].docFormat;
+    // this.isShoeDoc = true;
+    // this.sessionService.setSessions({ docId: documentDTO.id })
   }
 
   Downlaod(documentDTO: IDocumentDetailDTO) {

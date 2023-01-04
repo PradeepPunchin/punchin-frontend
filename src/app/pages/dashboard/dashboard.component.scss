@@ -130,6 +130,7 @@
     thead {
       position: sticky;
       top: 0;
+      z-index: 2;
     }
     .table {
       margin-bottom: 19px;
@@ -312,6 +313,7 @@
     thead {
       position: sticky;
       top: 0;
+      z-index: 2;
     }
     .table {
       margin-bottom: 19px;
@@ -679,10 +681,17 @@
   .new-requirements {
     background-color: $icon-color;
     padding: 5px 10px;
+    border-radius: 7px 7px 0px 0px;
     p {
-      color: $black;
+      color: $white;
+      font-size: $fontSize16;
       text-align: left;
       padding-top: 10px;
+      font-weight: 500;
+      span {
+        font-size: $fontSize18;
+        font-weight: 700;
+      }
     }
   }
   .inner-Wrapper {
@@ -694,16 +703,35 @@
     margin-bottom: 20px;
     p {
       padding-top: 10px;
+      color: $navbarTextColor;
+      font-size: $fontSize14;
+      font-weight: 500;
+      span {
+        font-size: $fontSize16;
+        color: $black;
+      }
     }
   }
   .down-Wrapper {
     margin-top: 0px;
     border: 1px solid $borderColor;
+    border-radius: 7px;
     .content {
       justify-content: space-between;
       display: flex;
       p {
+        font-size: $fontSize14;
         padding: 5px;
+        color: $navbarTextColor;
+        margin-left: 5px;
+        span {
+          color: $black;
+          font-size: $fontSize16;
+        }
+      }
+      .img-icon {
+        margin-right: 40px;
+        margin-top: 15px;
       }
     }
   }
