@@ -222,11 +222,11 @@ export class DashboardComponent implements OnInit {
   }
 
   viewbankerDocRequest(submitBy: any, id: any) {
-    if (submitBy === null) {
-      this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
-    } else {
-      this.notifierService.showInfo("Already Submitted")
-    }
+    // if (submitBy === null) {
+    this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
+    // } else {
+    //   this.notifierService.showInfo("Already Submitted")
+    // }
   }
 
   //submit upload file
