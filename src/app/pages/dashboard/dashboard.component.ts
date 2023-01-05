@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit {
   bsModalRef2?: BsModalRef;
   bsModalRef3?: BsModalRef;
   bsModalRef4?: BsModalRef;
+  bsModalRef5?: BsModalRef
   modalRef?: BsModalRef;
   filterStatus: any
   currentPage: any = 0;
@@ -609,5 +610,28 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  // remark modal
+
+  openRemarkModal(template: any, id: any, punchinId: any) {
+    let cliamId = id;
+    this.p_id = punchinId;
+    const initialState: ModalOptions = {
+      class: 'file-modal-custom-width',
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.bsModalRef5 = this.modalService.show(template, initialState);
+    // this.apiService.getClaimhistory(cliamId, this.role).subscribe((res: any) => {
+    //   if (res?.isSuccess) {
+    //     this.cliam_Status = res?.data
+    //     this.cliamHistoryData = res?.data.claimHistoryDTOS;
+    //   } else {
+    //     this.notifierService.showError(res?.message || "Something went wrong");
+    //   }
+    // }, (error: any) => {
+    //   this.notifierService.showError(error?.error?.message || "Something went wrong");
+    // })
+
+  }
 }
 

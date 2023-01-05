@@ -206,6 +206,15 @@
         margin-left: 10px;
         margin-top: 5px;
       }
+      .fa-comment {
+        cursor: pointer;
+        color: $buttonColor;
+        font-size: $fontSize16;
+        margin-top: 5px;
+        display: flex;
+        justify-content: end;
+        margin-right: 5px;
+      }
     }
   }
   .pagination-box {

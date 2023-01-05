@@ -870,6 +870,9 @@
                                 (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId, item.agentName)"
                                 title="Tracking">
                                 <i class="fa fa-map-o"></i>
+                            </span>
+                            <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId)" title="Remark">
+                                <i class="fa fa-comment" aria-hidden="true"></i>
 
                             </span>
                         </td>
@@ -905,6 +908,46 @@
     </ng-container> -->
 </ng-container>
 
+<ng-template #remarkTemplate>
+    <div class="modal-header">
+        <h6 class="modal-title"> Remark</h6>
+
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="this.bsModalRef5?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid tracking-container">
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="new-requirements">
+                        <p>
+                            Case/Claim ID : <span>{{this.p_id}}</span>
+                        </p>
+                    </div>
+                    <!-- <div class="inner-Wrapper">
+                        <p>
+                            Days so far <br><span>{{cliam_Status?.startedAt | date}}</span>
+                        </p>
+                        <p>
+                            Status <br>
+                            <span>{{cliam_Status?.claimStatus | removeunderscore | titlecase}}</span>
+                        </p>
+                    </div> -->
+                    <!-- <div class="down-Wrapper">
+                        <div class="content" *ngFor="let item of cliamHistoryData">
+                            <p>{{item.createdAt | date}} <br><span>{{item.description}}</span></p>
+                            <p class="img-icon">
+                                <img src="../../../../assets/icons/right-tick-blue.svg">
+                            </p>
+                        </div>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</ng-template>
 <ng-template #trackingTemplate>
     <div class="modal-header">
         <h6 class="modal-title"> Claim Tracking</h6>
@@ -936,7 +979,8 @@
                     </div>
                     <div class="down-Wrapper">
                         <div class="content" *ngFor="let item of cliamHistoryData">
-                            <p>{{item.createdAt | date}} <br><span>{{item.description}}</span></p>
+                            <p>{{item.createdAt | date}} | {{cliam_Status?.startedAt | date : 'HH:mm'}}
+                                <br><span>{{item.description}}</span></p>
                             <p class="img-icon">
                                 <img src="../../../../assets/icons/right-tick-blue.svg">
                             </p>
@@ -948,6 +992,7 @@
         </div>
     </div>
 </ng-template>
+
 
 <ng-template #verifierAllocatedTemplate>
     <div class="modal-header">

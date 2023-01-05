@@ -103,10 +103,6 @@ export class ApiService {
     return this.http.post(`${this.baseApiUrl}banker/claim/document/additional-request`, body);
   }
 
-  // getBankerClaimhistory(id: any) {
-  //   return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`)
-  // }
-
   //varifier api
   getVerifierDashboardData() {
     return this.http.get(`${this.baseApiUrl}verifier/getDashboardData`);

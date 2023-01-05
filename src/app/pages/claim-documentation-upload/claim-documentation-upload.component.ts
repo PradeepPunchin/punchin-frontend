@@ -54,6 +54,10 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       caseId: ['', [Validators.required]],
       brrower_name: ['', [Validators.required]],
       borrower_address: ['', [Validators.required]],
+      // borrower_contact: ['', [Validators.required]],
+      // nominee_name: ['', [Validators.required]],
+      // nominee_address: ['', [Validators.required]],
+      // nominee_contact: ['', [Validators.required]],
       load_type: ['', [Validators.required]],
       loan_acc_number: ['', [Validators.required]],
       insurer_name: ['', [Validators.required]],
@@ -75,6 +79,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       this.editClaimList(this.bankerDocId)
     }
   }
+
 
   patchValue() {
     this.showClaimForm.patchValue({
