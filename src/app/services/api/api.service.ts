@@ -11,13 +11,10 @@ import { SessionService } from '../session/session.service';
 export class ApiService {
 
   private baseApiUrl: string = environment.api.baseApiRoot;
-  role: any
   constructor(
     private http: HttpClient,
     private sessionService: SessionService
   ) {
-    this.role = this.sessionService.getSession(STORAGETOKENENUM.role)
-
   }
 
   login(body: ILoginRequest) {
@@ -106,9 +103,9 @@ export class ApiService {
     return this.http.post(`${this.baseApiUrl}banker/claim/document/additional-request`, body);
   }
 
-  getBankerClaimhistory(id: any) {
-    return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`)
-  }
+  // getBankerClaimhistory(id: any) {
+  //   return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`)
+  // }
 
   //varifier api
   getVerifierDashboardData() {
@@ -151,8 +148,13 @@ export class ApiService {
     return this.http.put(`${this.baseApiUrl}verifier/claim/${cliamId}/allocate/${agentId}`, "");
   }
 
-  getVerifierClaimhistory(id: any) {
-    return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/history`)
+  getClaimhistory(id: any, role: any) {
+    if (role === 'BANKER') {
+      return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`)
+    }
+    else {
+      return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/history`)
+    }
   }
 }
 
