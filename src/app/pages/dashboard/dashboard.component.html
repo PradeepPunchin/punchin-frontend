@@ -157,8 +157,7 @@
                                 {{ (pageNo ) * pageSize + i +1 }}
                             </td>
                             <td>
-                                <span style="cursor:pointer;color: #3489c9;;"
-                                    (click)="viewbankerDocRequest(item.submittedBy,item.id)">
+                                <span class="text-color" (click)="viewbankerDocRequest(item.submittedBy,item.id)">
                                     {{item.punchinClaimId}}
                                 </span>
                             </td>
@@ -423,7 +422,7 @@
                 </thead>
 
                 <tbody class="align-middle" *ngFor="let item of claimListContent;let i = index">
-                    <tr>
+                    <tr class="changebgColor">
                         <td>
                             {{ (pageNo) * pageSize + i +1 }}
                         </td>
@@ -767,7 +766,7 @@
                             {{ (pageNo) * pageSize + i +1 }}
                         </td>
                         <td *ngIf="onStep === 0">
-                            <span style="cursor:pointer; color: #3489c9;"
+                            <span class="text-color"
                                 (click)="viewUnderVerification(item.claimStatus, item.id, item.agentName, item.agentCity)">
                                 {{item.punchinClaimId}}
                             </span>
