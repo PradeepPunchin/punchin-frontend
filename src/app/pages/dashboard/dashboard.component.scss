@@ -322,8 +322,11 @@
     .table {
       margin-bottom: 19px;
       width: 5000px;
-      .changebgColor {
-        background-color: $deleteColor;
+      tr.changeBgColor {
+        background: $brightRedColor;
+        td {
+          color: $white;
+        }
       }
     }
     th {
@@ -456,43 +459,44 @@
 }
 
 .raise-additional-container {
-  margin: 14px 0 20px;
   .new-requirements-table {
-    .table {
-      margin-bottom: 0;
-      thead {
-        border-color: $tableBorderColor;
-        position: sticky;
-        top: 0;
-        tr {
-          border-width: 0.5px;
-          th {
-            background-color: $buttonColor;
-            color: $white;
-            font-weight: 600;
-            font-size: $fontSize12;
-            padding: 11px 16px;
-            border: none;
-          }
-        }
-      }
-      tbody {
-        border: 0.5px solid $tableBorderColor;
-        tr {
-          border-width: 0.5px;
-          td {
-            padding: 8px 16px;
-            font-weight: 500;
-            font-size: $fontSize12;
-            color: $black;
-            border-width: 0.5px;
-          }
-        }
-      }
-    }
     .addtionalTable {
       height: 300px;
       overflow-y: scroll;
+      .table {
+        margin-bottom: 0;
+        thead {
+          border-color: $tableBorderColor;
+          position: sticky;
+          top: 0;
+          tr {
+            border-width: 0.5px;
+            th {
+              background-color: $buttonColor;
+              height: 40px;
+              color: $white;
+              font-weight: 600;
+              font-size: $fontSize12;
+              padding: 12px 16px;
+              border: none;
+            }
+          }
+        }
+        tbody {
+          border: 0.5px solid $tableBorderColor;
+          tr {
+            border-width: 0.5px;
+            td {
+              height: 36px;
+              padding: 10px 16px;
+              font-weight: 500;
+              font-size: $fontSize12;
+              color: $black;
+              border-width: 0.5px;
+            }
+          }
+        }
+      }
     }
   }
   .btn-primary {
@@ -687,6 +691,8 @@
     background-color: $icon-color;
     padding: 5px 10px;
     border-radius: 7px 7px 0px 0px;
+    display: flex;
+    justify-content: space-between;
     p {
       color: $white;
       font-size: $fontSize16;
