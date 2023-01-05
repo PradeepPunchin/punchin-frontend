@@ -147,6 +147,10 @@
       font-size: $fontSize12;
       color: $navbarTextColor;
       height: 64px;
+      .text-color {
+        color: $icon-color;
+        cursor: pointer;
+      }
     }
     th:first-child,
     td:first-child {
@@ -318,6 +322,9 @@
     .table {
       margin-bottom: 19px;
       width: 5000px;
+      .changebgColor {
+        background-color: $deleteColor;
+      }
     }
     th {
       background-color: $tableHeaderColor;

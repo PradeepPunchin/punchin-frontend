@@ -208,12 +208,12 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  viewUnderVerification(status: any, id: any, agentName: any, agentCity: any) {
+  viewUnderVerification(status: any, id: any, agentName: any, agnetCity: any) {
     const initialState: ModalOptions = {
       initialState: {
         documentVerificationRequestId: id,
         agentName: agentName,
-        agentCity: agentCity
+        agnetCity: agnetCity
       },
       class: 'modal-custom-width'
     };
@@ -222,11 +222,11 @@ export class DashboardComponent implements OnInit {
   }
 
   viewbankerDocRequest(submitBy: any, id: any) {
-    if (submitBy === null) {
-      this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
-    } else {
-      this.notifierService.showInfo("Already Submitted")
-    }
+    // if (submitBy === null) {
+    this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
+    // } else {
+    //   this.notifierService.showInfo("Already Submitted")
+    // }
   }
 
   //submit upload file
