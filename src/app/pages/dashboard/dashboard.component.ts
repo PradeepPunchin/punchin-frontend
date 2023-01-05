@@ -497,6 +497,7 @@ export class DashboardComponent implements OnInit {
   filterByAddDoc(event: any) {
     this.additionalDocType = event.target.value;
   }
+
   fileBrowseHandler(event: any) {
     this.file = event.target.files[0];
     this.docName = this.file.name
@@ -563,6 +564,7 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
+
   submitAdditioanlDoc() {
     // let remark = this.addtionalForm.controls.remark.value
     let req = {
@@ -595,31 +597,16 @@ export class DashboardComponent implements OnInit {
       keyboard: false
     };
     this.bsModalRef4 = this.modalService.show(template, initialState);
-    if (this.role === ROLES.verifier) {
-      this.apiService.getVerifierClaimhistory(cliamId).subscribe((res: any) => {
-        if (res?.isSuccess) {
-          this.cliam_Status = res?.data
-          this.cliamHistoryData = res?.data.claimHistoryDTOS;
-        } else {
-          this.notifierService.showError(res?.message || "Something went wrong");
-        }
-      }, (error: any) => {
-        this.notifierService.showError(error?.error?.message || "Something went wrong");
-      })
-    }
-    else {
-      this.apiService.getBankerClaimhistory(cliamId).subscribe((res: any) => {
-        if (res?.isSuccess) {
-          this.cliam_Status = res?.data;
-          this.cliamHistoryData = res?.data.claimHistoryDTOS;
-        } else {
-          this.notifierService.showError(res?.message || "Something went wrong");
-        }
-      }, (error: any) => {
-        this.notifierService.showError(error?.error?.message || "Something went wrong");
-      })
-    }
-
+    this.apiService.getClaimhistory(cliamId, this.role).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.cliam_Status = res?.data
+        this.cliamHistoryData = res?.data.claimHistoryDTOS;
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
   }
 
 }
