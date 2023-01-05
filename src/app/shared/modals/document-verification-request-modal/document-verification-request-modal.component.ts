@@ -27,7 +27,6 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
 
 
   documentVerificationRequestId: any
-  agnetCity: any;
   agentName: any;
   documentVerificationDetails!: VerifierDocumentDetail;
   documentDetailsDTOList: IDocumentDetailDTO[] = [];

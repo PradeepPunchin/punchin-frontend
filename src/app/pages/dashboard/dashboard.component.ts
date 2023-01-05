@@ -73,6 +73,10 @@ export class DashboardComponent implements OnInit {
   cliam_Status: any
   cliamHistoryData: any
   p_id: any
+  AllocatedAgentName: any = String;
+  isdownloadMisReport: boolean = false
+
+
 
 
 
@@ -208,12 +212,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  viewUnderVerification(status: any, id: any, agentName: any, agnetCity: any) {
+  viewUnderVerification(status: any, id: any, agentName: any) {
     const initialState: ModalOptions = {
       initialState: {
         documentVerificationRequestId: id,
-        agentName: agentName,
-        agnetCity: agnetCity
+        agentName: agentName
       },
       class: 'modal-custom-width'
     };
@@ -248,25 +251,33 @@ export class DashboardComponent implements OnInit {
 
   //  download msi report
   downloadMisReport() {
+    this.isdownloadMisReport = true;
     if (this.role === ROLES.banker) {
       this.apiService.getBankerDownloadMISReport(this.bankerData).subscribe((res: any) => {
         if (res?.isSuccess && res?.data) {
           window.location.href = res.data
+          this.isdownloadMisReport = false;
         } else {
           this.notifierService.showError("No data found");
+          this.isdownloadMisReport = false;
         }
       }, (error: any) => {
         this.notifierService.showError(error?.error?.message || "Something went wrong");
+        this.isdownloadMisReport = false;
       });
     } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
       this.apiService.getVerifierDownloadMISReport(this.verifierData).subscribe((res: any) => {
         if (res?.isSuccess && res?.data) {
           window.location.href = res.data
+          this.isdownloadMisReport = false;
         } else {
           this.notifierService.showError("No data found");
+          this.isdownloadMisReport = false;
         }
       }, (error: any) => {
         this.notifierService.showError(error?.error?.message || "Something went wrong");
+        this.isdownloadMisReport = false;
+
       });
     }
   }
@@ -574,9 +585,10 @@ export class DashboardComponent implements OnInit {
   // end additional document
 
   //tracking modal
-  openTrackingModal(template: any, id: any, punchinId: any) {
+  openTrackingModal(template: any, id: any, punchinId: any, agentName: any) {
     let cliamId = id;
     this.p_id = punchinId;
+    this.AllocatedAgentName = agentName;
     const initialState: ModalOptions = {
       class: 'file-modal-custom-width',
       backdrop: 'static',
