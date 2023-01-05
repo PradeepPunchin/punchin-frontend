@@ -73,6 +73,10 @@ export class DashboardComponent implements OnInit {
   cliam_Status: any
   cliamHistoryData: any
   p_id: any
+  AllocatedAgentName: any = String;
+  isdownloadMisReport: boolean = false
+
+
 
 
 
@@ -208,10 +212,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  viewUnderVerification(status: any, id: any) {
+  viewUnderVerification(status: any, id: any, agentName: any) {
     const initialState: ModalOptions = {
       initialState: {
         documentVerificationRequestId: id,
+        agentName: agentName
       },
       class: 'modal-custom-width'
     };
@@ -220,11 +225,11 @@ export class DashboardComponent implements OnInit {
   }
 
   viewbankerDocRequest(submitBy: any, id: any) {
-    if (submitBy === null) {
-      this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
-    } else {
-      this.notifierService.showInfo("Already Submitted")
-    }
+    // if (submitBy === null) {
+    this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
+    // } else {
+    //   this.notifierService.showInfo("Already Submitted")
+    // }
   }
 
   //submit upload file
@@ -246,25 +251,33 @@ export class DashboardComponent implements OnInit {
 
   //  download msi report
   downloadMisReport() {
+    this.isdownloadMisReport = true;
     if (this.role === ROLES.banker) {
       this.apiService.getBankerDownloadMISReport(this.bankerData).subscribe((res: any) => {
         if (res?.isSuccess && res?.data) {
           window.location.href = res.data
+          this.isdownloadMisReport = false;
         } else {
           this.notifierService.showError("No data found");
+          this.isdownloadMisReport = false;
         }
       }, (error: any) => {
         this.notifierService.showError(error?.error?.message || "Something went wrong");
+        this.isdownloadMisReport = false;
       });
     } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
       this.apiService.getVerifierDownloadMISReport(this.verifierData).subscribe((res: any) => {
         if (res?.isSuccess && res?.data) {
           window.location.href = res.data
+          this.isdownloadMisReport = false;
         } else {
           this.notifierService.showError("No data found");
+          this.isdownloadMisReport = false;
         }
       }, (error: any) => {
         this.notifierService.showError(error?.error?.message || "Something went wrong");
+        this.isdownloadMisReport = false;
+
       });
     }
   }
@@ -335,6 +348,7 @@ export class DashboardComponent implements OnInit {
   changeVerifierPage(event: PageChangedEvent) {
     if (this.searchEnum, this.inputSearch) {
       this.currentPage = event.page - 1;
+      this.pageNo = event.page - 1;
       this.apiService.getVerifierSearchData(this.searchEnum, this.inputSearch, this.verifierData, this.currentPage).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.verifierCardList = res?.data
@@ -344,6 +358,7 @@ export class DashboardComponent implements OnInit {
       });
     } else {
       this.currentPage = event.page - 1;
+      this.pageNo = event.page - 1;
       this.apiService.getVerifierClaimsData(this.verifierData, this.currentPage).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.verifierCardList = res?.data
@@ -482,6 +497,7 @@ export class DashboardComponent implements OnInit {
   filterByAddDoc(event: any) {
     this.additionalDocType = event.target.value;
   }
+
   fileBrowseHandler(event: any) {
     this.file = event.target.files[0];
     this.docName = this.file.name
@@ -548,6 +564,7 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
+
   submitAdditioanlDoc() {
     // let remark = this.addtionalForm.controls.remark.value
     let req = {
@@ -570,40 +587,26 @@ export class DashboardComponent implements OnInit {
   // end additional document
 
   //tracking modal
-  openTrackingModal(template: any, id: any, punchinId: any) {
+  openTrackingModal(template: any, id: any, punchinId: any, agentName: any) {
     let cliamId = id;
     this.p_id = punchinId;
+    this.AllocatedAgentName = agentName;
     const initialState: ModalOptions = {
       class: 'file-modal-custom-width',
       backdrop: 'static',
       keyboard: false
     };
     this.bsModalRef4 = this.modalService.show(template, initialState);
-    if (this.role === ROLES.verifier) {
-      this.apiService.getVerifierClaimhistory(cliamId).subscribe((res: any) => {
-        if (res?.isSuccess) {
-          this.cliam_Status = res?.data
-          this.cliamHistoryData = res?.data.claimHistoryDTOS;
-        } else {
-          this.notifierService.showError(res?.message || "Something went wrong");
-        }
-      }, (error: any) => {
-        this.notifierService.showError(error?.error?.message || "Something went wrong");
-      })
-    }
-    else {
-      this.apiService.getBankerClaimhistory(cliamId).subscribe((res: any) => {
-        if (res?.isSuccess) {
-          this.cliam_Status = res?.data;
-          this.cliamHistoryData = res?.data.claimHistoryDTOS;
-        } else {
-          this.notifierService.showError(res?.message || "Something went wrong");
-        }
-      }, (error: any) => {
-        this.notifierService.showError(error?.error?.message || "Something went wrong");
-      })
-    }
-
+    this.apiService.getClaimhistory(cliamId, this.role).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.cliam_Status = res?.data
+        this.cliamHistoryData = res?.data.claimHistoryDTOS;
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
   }
 
 }

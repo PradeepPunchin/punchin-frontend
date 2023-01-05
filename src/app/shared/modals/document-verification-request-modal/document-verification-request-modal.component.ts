@@ -27,10 +27,11 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
 
 
   documentVerificationRequestId: any
+  agentName: any;
   documentVerificationDetails!: VerifierDocumentDetail;
   documentDetailsDTOList: IDocumentDetailDTO[] = [];
   bankerDocumentDetailsDTOList: IDocumentDetailDTO[] = [];
-  additionalDocmentDetailsDTOList: any[] = [];
+  additionalDocmentDetailsDTOList: IDocumentDetailDTO[] = [];
   docUrl: string = '';
   docType: string = "";
   isShoeDoc: boolean = false
@@ -43,8 +44,8 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   // modalRef?: BsModalRef;
   isDownloadDoc: boolean = false
   isBankerCollapsed = true;
-  isVarifierCollapsed = false;
-  isAdditionalCollapsed = false;
+  isVarifierCollapsed = true;
+  isAdditionalCollapsed = true;
   claimStatus: any;
 
   constructor(
@@ -65,26 +66,6 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
 
     })
   }
-
-  addtional() {
-    this.isBankerCollapsed = false;
-    this.isVarifierCollapsed = false;
-    this.isAdditionalCollapsed = !this.isAdditionalCollapsed;
-  }
-  banker() {
-    this.isBankerCollapsed = !this.isBankerCollapsed;
-    this.isVarifierCollapsed = false;
-    this.isAdditionalCollapsed = false;
-  }
-
-  verifier() {
-    this.isBankerCollapsed = false;
-    this.isVarifierCollapsed = !this.isVarifierCollapsed;
-    this.isAdditionalCollapsed = false;
-
-  }
-
-
 
   openApprovedModal(approved: any) {
     this.bsModalRef1 = this.modalService.show(approved);

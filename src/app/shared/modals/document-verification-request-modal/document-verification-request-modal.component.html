@@ -1,9 +1,11 @@
 <div class="modal-header">
     <h4 class="modal-title pull-left">Document Verification
+        <span class="agent-details"> {{agentName || 'no agent allocated'}}
+        </span>
         <span *ngIf="documentDetailsDTOList && documentDetailsDTOList.length> 0">
             <button type="button" class="btn btn-primary" (click)="downloadAllDocument()">
                 <ng-container *ngIf="isDownloadDoc ;else isDownloadDocDone">
-                    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Downloading..
+                    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Downloading...
                 </ng-container>
                 <ng-template #isDownloadDocDone>
                     Download All
@@ -59,7 +61,8 @@
                 </div>
             </div>
             <!-- // verifier doc table -->
-            <div (click)="verifier()" class="collapse-title" [attr.aria-expanded]="!isVarifierCollapsed"> Customer
+            <div (click)="this.isVarifierCollapsed = !this.isVarifierCollapsed" class="collapse-title"
+                [attr.aria-expanded]="!isVarifierCollapsed"> Customer
                 Document
                 <span class="collapse-title-expand-indicator">
                     <span *ngIf="isVarifierCollapsed"><i class="fa fa-arrow-down"></i></span>
@@ -121,7 +124,8 @@
             </div>
 
             <!-- banker doc table -->
-            <div (click)="banker()" class="collapse-title" [attr.aria-expanded]="!isBankerCollapsed"> Banker
+            <div (click)="this.isBankerCollapsed = !this.isBankerCollapsed" class="collapse-title"
+                [attr.aria-expanded]="!isBankerCollapsed"> Banker
                 Document
                 <span class="collapse-title-expand-indicator">
                     <span *ngIf="isBankerCollapsed"><i class="fa fa-arrow-down"></i></span>
@@ -182,7 +186,8 @@
             </div>
 
             <!-- Additonal doc table -->
-            <div (click)="addtional()" class="collapse-title" [attr.aria-expanded]="!isAdditionalCollapsed"> Additional
+            <div (click)="this.isAdditionalCollapsed = !this.isAdditionalCollapsed" class="collapse-title"
+                [attr.aria-expanded]="!isAdditionalCollapsed"> Additional
                 Document
                 <span class="collapse-title-expand-indicator">
                     <span *ngIf="isAdditionalCollapsed"><i class="fa fa-arrow-down"></i></span>

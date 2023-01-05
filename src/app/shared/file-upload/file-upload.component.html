@@ -1,6 +1,6 @@
 <div class="container-fluid bulk-upload-box" appDnd (fileDropped)="onFileDropped($event, progressTemplate)">
 	<input type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event, progressTemplate, 'select')"
-		accept=".xlsx" class="d-none" />
+		accept=".xlsx,.csv" class="d-none" />
 
 	<div class="d-flex align-items-center justify-content-between upload-box-head">
 		<h6 class="bulk-txt">Bulk Upload</h6>

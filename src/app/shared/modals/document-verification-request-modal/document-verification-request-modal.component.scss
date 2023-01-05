@@ -7,6 +7,12 @@
     font-weight: 600;
     font-size: $fontSize14;
     color: $textColor;
+    .agent-details {
+      font-size: $fontSize14;
+      font-weight: 600;
+      color: $textColor;
+      margin-left: 5px;
+    }
   }
   .btn-close {
     font-size: $fontSize12;
