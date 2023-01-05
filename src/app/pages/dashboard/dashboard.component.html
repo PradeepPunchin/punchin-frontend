@@ -422,7 +422,7 @@
                 </thead>
 
                 <tbody class="align-middle" *ngFor="let item of claimListContent;let i = index">
-                    <tr class="changebgColor">
+                    <tr [ngClass]="item.validClaimData === false ? 'changeBgColor':''">
                         <td>
                             {{ (pageNo) * pageSize + i +1 }}
                         </td>

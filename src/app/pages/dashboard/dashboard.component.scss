@@ -322,8 +322,11 @@
     .table {
       margin-bottom: 19px;
       width: 5000px;
-      .changebgColor {
-        background-color: $deleteColor;
+      tr.changeBgColor {
+        background: $brightRedColor;
+        td {
+          color: $white;
+        }
       }
     }
     th {
