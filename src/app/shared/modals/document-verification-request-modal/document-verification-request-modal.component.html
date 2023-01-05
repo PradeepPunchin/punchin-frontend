@@ -1,5 +1,7 @@
 <div class="modal-header">
     <h4 class="modal-title pull-left">Document Verification
+        <span class="agent-details"> {{agentName || 'no agent allocated'}}
+        </span>
         <span *ngIf="documentDetailsDTOList && documentDetailsDTOList.length> 0">
             <button type="button" class="btn btn-primary" (click)="downloadAllDocument()">
                 <ng-container *ngIf="isDownloadDoc ;else isDownloadDocDone">
@@ -11,9 +13,6 @@
             </button>
 
             <!-- <button type="button" class="btn btn-primary" (click)="downlaodAllDocumnet()">Download All</button> -->
-        </span>
-        <span class="agent-details">
-            {{agentName | titlecase}} {{agnetCity | titlecase}}
         </span>
     </h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">

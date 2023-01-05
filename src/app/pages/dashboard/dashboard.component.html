@@ -95,9 +95,14 @@
                 <img src="../../../assets/icons/action(white).svg" class="me-2">Upload xls File</button>
 
             <button type="button" class="btn btn-outline-primary" (click)="downloadMisReport()"
-                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"><img
-                    src="../../../assets/icons/download.svg" class="me-2">Download MIS
-                report
+                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3">
+                <ng-container *ngIf="isdownloadMisReport ;else isdownloadMisReportDone">
+                    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Downloading...
+                </ng-container>
+                <ng-template #isdownloadMisReportDone>
+                    <img src="../../../assets/icons/download.svg" class="me-2">Download MIS
+                    report
+                </ng-template>
             </button>
         </div>
         <div *ngIf="cordListData.length > 0 && isShowFileUploaded">
@@ -215,7 +220,8 @@
                                 <span (click)="downloadBankerDoc(item.id)" title="Download All Document">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                 </span>
-                                <span (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)"
+                                <span
+                                    (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId, item.agentName)"
                                     title="Cliam Tracking">
                                     <i class="fa fa-map-o" aria-hidden="true"></i>
                                 </span>
@@ -723,9 +729,14 @@
                     [ngClass]="{active: innerStep === 1}" (click)="innerStep = 1"
                     (click)="verifierCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
-            <button type="button" class="btn btn-outline-primary v-bnt1" (click)="downloadMisReport()"><img
-                    src="../../../assets/icons/download.svg" class="me-2">Download MIS
-                report
+            <button type="button" class="btn btn-outline-primary v-bnt1" (click)="downloadMisReport()">
+                <ng-container *ngIf="isdownloadMisReport ;else isdownloadMisReportDone">
+                    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Downloading...
+                </ng-container>
+                <ng-template #isdownloadMisReportDone>
+                    <img src="../../../assets/icons/download.svg" class="me-2">Download MIS
+                    report
+                </ng-template>
             </button>
             <select class="form-select form-select-md" aria-label=".form-select-sm example" *ngIf="onStep === 0"
                 (input)="filterByStatus($event)">
@@ -767,7 +778,7 @@
                         </td>
                         <td *ngIf="onStep === 0">
                             <span class="text-color"
-                                (click)="viewUnderVerification(item.claimStatus, item.id, item.agentName, item.agentCity)">
+                                (click)="viewUnderVerification(item.claimStatus, item.id, item.agentName)">
                                 {{item.punchinClaimId}}
                             </span>
                         </td>
@@ -855,7 +866,8 @@
                             <span class="allocate-button" *ngIf="item.agentAllocated == false"
                                 (click)="openAllocatedModal(verifierAllocatedTemplate, item.id)">Allocate
                             </span>
-                            <span (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId)"
+                            <span
+                                (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId, item.agentName)"
                                 title="Tracking">
                                 <i class="fa fa-map-o"></i>
 
@@ -908,6 +920,9 @@
                     <div class="new-requirements">
                         <p>
                             Case/Claim ID : <span>{{this.p_id}}</span>
+                        </p>
+                        <p *ngIf="role =='ADMIN' || role =='VERIFIER'">
+                            {{AllocatedAgentName || 'no agent allocated'}}
                         </p>
                     </div>
                     <div class="inner-Wrapper">
