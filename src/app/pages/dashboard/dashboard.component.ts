@@ -79,6 +79,7 @@ export class DashboardComponent implements OnInit {
   CurrentDate = new Date();
   time_diff: any
   diffDays: any;
+  remarkStep: number = 0;
 
 
 
@@ -122,9 +123,6 @@ export class DashboardComponent implements OnInit {
     if (this.role === ROLES.verifier || this.role === ROLES.admin) {
       this.getVerifierDashboardData();
       this.verifierCardDetails("ALL")
-    }
-    if (this.role === "") {
-      this.bsModalRef?.hide();
     }
   }
 
@@ -181,6 +179,19 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  //verifier dashboard
+  getVerifierDashboardData() {
+    this.apiService.getVerifierDashboardData().subscribe((res: ApiResponse<any> | any) => {
+      if (res?.isSuccess) {
+        this.verifierDashboardData = res?.data;
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
+  }
+
   //After uplaod file(Draft)
   getClaimList() {
     this.currentPage = 0
@@ -230,11 +241,7 @@ export class DashboardComponent implements OnInit {
   }
 
   viewbankerDocRequest(submitBy: any, id: any) {
-    // if (submitBy === null) {
     this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
-    // } else {
-    //   this.notifierService.showInfo("Already Submitted")
-    // }
   }
 
   //submit upload file
@@ -253,53 +260,24 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
   //  download msi report
   downloadMisReport() {
     this.isdownloadMisReport = true;
-    if (this.role === ROLES.banker) {
-      this.apiService.getBankerDownloadMISReport(this.bankerData).subscribe((res: any) => {
-        if (res?.isSuccess && res?.data) {
-          window.location.href = res.data
-          this.isdownloadMisReport = false;
-        } else {
-          this.notifierService.showError("No data found");
-          this.isdownloadMisReport = false;
-        }
-      }, (error: any) => {
-        this.notifierService.showError(error?.error?.message || "Something went wrong");
+    this.apiService.getDownloadMISReport(this.bankerData, this.verifierData, this.role).subscribe((res: any) => {
+      if (res?.isSuccess && res?.data) {
+        window.location.href = res.data
         this.isdownloadMisReport = false;
-      });
-    } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
-      this.apiService.getVerifierDownloadMISReport(this.verifierData).subscribe((res: any) => {
-        if (res?.isSuccess && res?.data) {
-          window.location.href = res.data
-          this.isdownloadMisReport = false;
-        } else {
-          this.notifierService.showError("No data found");
-          this.isdownloadMisReport = false;
-        }
-      }, (error: any) => {
-        this.notifierService.showError(error?.error?.message || "Something went wrong");
-        this.isdownloadMisReport = false;
-
-      });
-    }
-  }
-
-
-  //verifier dashboard
-  getVerifierDashboardData() {
-    this.apiService.getVerifierDashboardData().subscribe((res: ApiResponse<any> | any) => {
-      if (res?.isSuccess) {
-        this.verifierDashboardData = res?.data;
       } else {
-        this.notifierService.showError(res?.message || "Something went wrong");
+        this.notifierService.showError("No data found");
+        this.isdownloadMisReport = false;
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
+      this.isdownloadMisReport = false;
     });
   }
+
+
 
   //  verifier card table api
   verifierCardDetails(data: any) {

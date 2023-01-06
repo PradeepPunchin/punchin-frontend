@@ -314,7 +314,8 @@
 
             </div>
             <div class="col-8">
-                <div class="table-responsive document-upload-table">
+                <div class="table-responsive document-upload-table"
+                    *ngIf="(ClaimListUrlById && ClaimListUrlById.length > 0) || (fileUploadedLists && fileUploadedLists.length > 0) ">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -333,7 +334,7 @@
                                                 aria-hidden="true" style="margin-left:5px"></i></span>
                                     </td>
                                     <td class="text-center">
-                                        <span (click)="deleteDoc(item.id)"><i class="fa fa-trash"
+                                        <span (click)="deleteSubmittedDoc(item.id)"><i class="fa fa-trash"
                                                 aria-hidden="true"></i></span>
                                     </td>
                                 </tr>
@@ -347,7 +348,7 @@
                                                 aria-hidden="true" style="margin-left:5px"></i></span>
                                     </td>
                                     <td class="text-center">
-                                        <span (click)="deleteDoc1(item.id,i)"><i class="fa fa-trash"
+                                        <span (click)="deleteUploadedDoc(item.id,i)"><i class="fa fa-trash"
                                                 aria-hidden="true"></i></span>
                                     </td>
                                 </tr>
@@ -356,36 +357,6 @@
                     </table>
                 </div>
             </div>
-            <!-- <div class="col-8" *ngIf="isUploadedTable">
-                <div class="table-responsive document-upload-table">
-                    <table class="table table-bordered table-sm"
-                        *ngIf="fileUploadedLists && fileUploadedLists.length > 0">
-                        <thead>
-                            <tr class="align-middle">
-                                <th scope="col">Document Type</th>
-                                <th scope="col" class="text-center">Document View</th>
-                                <th scope="col" class="text-center">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <ng-container *ngFor="let item of fileUploadedLists">
-                                <tr>
-                                    <td>{{item.agentDocType}}</td>
-                                    <td class="text-center">
-                                        <span (click)="viewUploadedDoc(item1)"
-                                            *ngFor="let item1 of item.documentUrls;"><i class="fa fa-eye"
-                                                aria-hidden="true" style="margin-left:5px"></i></span>
-                                    </td>
-                                    <td class="text-center">
-                                        <span (click)="deleteDoc1(item.id)"><i class="fa fa-trash"
-                                                aria-hidden="true"></i></span>
-                                    </td>
-                                </tr>
-                            </ng-container>
-                        </tbody>
-                    </table>
-                </div>
-            </div> -->
         </form>
     </div>
 

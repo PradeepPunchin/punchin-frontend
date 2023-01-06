@@ -34,7 +34,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   docId: any
   isUploaded: boolean = false
   fileUploadedLists: any[] = [];
-  fileUplaodedList: any
   bankerDocId: any;
 
 
@@ -143,7 +142,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     })
   }
 
-  deleteDoc(id: any) {
+  deleteSubmittedDoc(id: any) {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
@@ -154,7 +153,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     })
   }
 
-  deleteDoc1(id: any, i: any) {
+  deleteUploadedDoc(id: any, i: any) {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
@@ -183,10 +182,10 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   }
 
-  pagePerData(event: any) {
-    this.pageSize = event.target.value
-    this.getClaimUploadList();
-  }
+  // pagePerData(event: any) {
+  //   this.pageSize = event.target.value
+  //   this.getClaimUploadList();
+  // }
 
   // file uplaod
   async fileBrowseHandler(event: any) {
@@ -209,8 +208,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.uploadForm.reset();
         this.myFiles = [];
         this.fileUploadedLists.push(res?.data?.claimDocuments);
-        console.log(this.fileUploadedLists, " this.fileUploadedLists");
-
         this.notifierService.showSuccess(res?.message);
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
@@ -221,17 +218,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       this.isUploaded = false
       this.uploadForm.reset();
       this.fileUploadedLists = [];
-
-
     })
-
-    // else {
-    //   this.notifierService.showError("File type not valid");
-    // }
-
-
-
-
   }
 
   viewUploadedDoc(item: any) {

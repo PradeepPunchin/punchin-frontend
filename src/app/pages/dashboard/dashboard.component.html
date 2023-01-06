@@ -225,6 +225,11 @@
                                     title="Cliam Tracking">
                                     <i class="fa fa-map-o" aria-hidden="true"></i>
                                 </span>
+                                <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId)"
+                                    title="Remark">
+                                    <i class="fa fa-comment" aria-hidden="true"></i>
+
+                                </span>
                             </td>
 
                         </tr>
@@ -917,37 +922,43 @@
         </button>
     </div>
     <div class="modal-body">
-        <div class="container-fluid tracking-container">
+        <div class="container-fluid remark-container">
             <div class="row">
-                <div class="col-12 ">
-                    <div class="new-requirements">
-                        <p>
-                            Case/Claim ID : <span>{{this.p_id}}</span>
-                        </p>
-                    </div>
-                    <!-- <div class="inner-Wrapper">
-                        <p>
-                            Days so far <br><span>{{cliam_Status?.startedAt | date}}</span>
-                        </p>
-                        <p>
-                            Status <br>
-                            <span>{{cliam_Status?.claimStatus | removeunderscore | titlecase}}</span>
-                        </p>
-                    </div> -->
-                    <!-- <div class="down-Wrapper">
-                        <div class="content" *ngFor="let item of cliamHistoryData">
-                            <p>{{item.createdAt | date}} <br><span>{{item.description}}</span></p>
-                            <p class="img-icon">
-                                <img src="../../../../assets/icons/right-tick-blue.svg">
-                            </p>
-                        </div>
-                    </div> -->
+                <div class="new-requirements">
+                    <p> Punchin Ref.ID : <span>{{this.p_id}}</span></p>
                 </div>
-
+                <div class="remark d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-light m-2" [ngClass]="{active: remarkStep === 0}"
+                        [routerLinkActive]="['active']" (click)="remarkStep =0">Verifier
+                        Remark</button>
+                    <button type="button" class="btn btn-light m-2" [ngClass]="{active: remarkStep === 1}"
+                        [routerLinkActive]="['active']" (click)="remarkStep =1">Banker
+                        Remark</button>
+                </div>
+                <div class="">
+                    <p *ngIf="remarkStep === 0">
+                        verifier Step
+                    </p>
+                    <p *ngIf="remarkStep === 1">
+                        Bnaker Step
+                    </p>
+                </div>
             </div>
         </div>
+        <form>
+            <div class="row">
+                <label> Enter Remark</label>
+                <div class="col-8">
+                    <input type="text" class="form-control" placeholder="Enter Remark">
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
     </div>
 </ng-template>
+
 <ng-template #trackingTemplate>
     <div class="modal-header">
         <h6 class="modal-title"> Claim Tracking</h6>
@@ -962,7 +973,7 @@
                 <div class="col-12 ">
                     <div class="new-requirements">
                         <p>
-                            Case/Claim ID : <span>{{this.p_id}}</span>
+                            Punchin Ref.ID : <span>{{this.p_id}}</span>
                         </p>
                         <p>
                             {{AllocatedAgentName || 'no agent allocated'}}
