@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit {
   bsModalRef2?: BsModalRef;
   bsModalRef3?: BsModalRef;
   bsModalRef4?: BsModalRef;
+  bsModalRef5?: BsModalRef
   modalRef?: BsModalRef;
   filterStatus: any
   currentPage: any = 0;
@@ -75,6 +76,11 @@ export class DashboardComponent implements OnInit {
   p_id: any
   AllocatedAgentName: any = String;
   isdownloadMisReport: boolean = false
+  CurrentDate = new Date();
+  time_diff: any
+  diffDays: any;
+  remarkStep: number = 0;
+
 
 
 
@@ -111,15 +117,12 @@ export class DashboardComponent implements OnInit {
     this.role = this.sessionServive.getSession(STORAGETOKENENUM.role)
     if (this.role === ROLES.banker) {
       this.getBankerDashboardData();
-      this.showCardDetails('ALL')
+      this.bankerCardDetails('ALL')
     }
 
     if (this.role === ROLES.verifier || this.role === ROLES.admin) {
       this.getVerifierDashboardData();
       this.verifierCardDetails("ALL")
-    }
-    if (this.role === "") {
-      this.bsModalRef?.hide();
     }
   }
 
@@ -137,7 +140,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // banker card table data
-  showCardDetails(data: any) {
+  bankerCardDetails(data: any) {
     this.bankerData = data;
     this.currentPage = 0;
     this.inputSearch = this.searchForm.controls.search.value
@@ -176,6 +179,19 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  //verifier dashboard
+  getVerifierDashboardData() {
+    this.apiService.getVerifierDashboardData().subscribe((res: ApiResponse<any> | any) => {
+      if (res?.isSuccess) {
+        this.verifierDashboardData = res?.data;
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
+  }
+
   //After uplaod file(Draft)
   getClaimList() {
     this.currentPage = 0
@@ -198,7 +214,7 @@ export class DashboardComponent implements OnInit {
         this.getClaimList();
         setTimeout(() => {
           this.currentPage = 0
-          this.showCardDetails("ALL");
+          this.bankerCardDetails("ALL");
         }, 100);
         this.isShowFileUploaded = true;
         if (this.cordListData.length > 0) {
@@ -221,15 +237,10 @@ export class DashboardComponent implements OnInit {
       class: 'modal-custom-width'
     };
     this.modalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
-
   }
 
   viewbankerDocRequest(submitBy: any, id: any) {
-    // if (submitBy === null) {
     this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
-    // } else {
-    //   this.notifierService.showInfo("Already Submitted")
-    // }
   }
 
   //submit upload file
@@ -248,53 +259,24 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
   //  download msi report
   downloadMisReport() {
     this.isdownloadMisReport = true;
-    if (this.role === ROLES.banker) {
-      this.apiService.getBankerDownloadMISReport(this.bankerData).subscribe((res: any) => {
-        if (res?.isSuccess && res?.data) {
-          window.location.href = res.data
-          this.isdownloadMisReport = false;
-        } else {
-          this.notifierService.showError("No data found");
-          this.isdownloadMisReport = false;
-        }
-      }, (error: any) => {
-        this.notifierService.showError(error?.error?.message || "Something went wrong");
+    this.apiService.getDownloadMISReport(this.bankerData, this.verifierData, this.role).subscribe((res: any) => {
+      if (res?.isSuccess && res?.data) {
+        window.location.href = res.data
         this.isdownloadMisReport = false;
-      });
-    } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
-      this.apiService.getVerifierDownloadMISReport(this.verifierData).subscribe((res: any) => {
-        if (res?.isSuccess && res?.data) {
-          window.location.href = res.data
-          this.isdownloadMisReport = false;
-        } else {
-          this.notifierService.showError("No data found");
-          this.isdownloadMisReport = false;
-        }
-      }, (error: any) => {
-        this.notifierService.showError(error?.error?.message || "Something went wrong");
-        this.isdownloadMisReport = false;
-
-      });
-    }
-  }
-
-
-  //verifier dashboard
-  getVerifierDashboardData() {
-    this.apiService.getVerifierDashboardData().subscribe((res: ApiResponse<any> | any) => {
-      if (res?.isSuccess) {
-        this.verifierDashboardData = res?.data;
       } else {
-        this.notifierService.showError(res?.message || "Something went wrong");
+        this.notifierService.showError("No data found");
+        this.isdownloadMisReport = false;
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
+      this.isdownloadMisReport = false;
     });
   }
+
+
 
   //  verifier card table api
   verifierCardDetails(data: any) {
@@ -375,7 +357,7 @@ export class DashboardComponent implements OnInit {
   // pagePerData(event: any) {
   //   console.log(event, "event");
   //   this.pageSize = event.target.value
-  //   this.showCardDetails('ALL');
+  //   this.bankerCardDetails('ALL');
   // }
 
   // file uplaod modal
@@ -470,7 +452,7 @@ export class DashboardComponent implements OnInit {
   searchTableData() {
     this.inputSearch = this.searchForm.controls.search.value
     if (this.role === ROLES.banker) {
-      this.showCardDetails(this.bankerData)
+      this.bankerCardDetails(this.bankerData)
       this.searchForm.reset();
 
     } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {
@@ -597,9 +579,12 @@ export class DashboardComponent implements OnInit {
       keyboard: false
     };
     this.bsModalRef4 = this.modalService.show(template, initialState);
+    var milliseconds = this.CurrentDate.getTime();
     this.apiService.getClaimhistory(cliamId, this.role).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cliam_Status = res?.data
+        this.time_diff = milliseconds - this.cliam_Status.startedAt;
+        this.diffDays = Math.ceil(this.time_diff / (1000 * 60 * 60 * 24));
         this.cliamHistoryData = res?.data.claimHistoryDTOS;
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
@@ -609,5 +594,27 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  // remark modal
+  openRemarkModal(template: any, id: any, punchinId: any) {
+    let cliamId = id;
+    this.p_id = punchinId;
+    const initialState: ModalOptions = {
+      class: 'file-modal-custom-width',
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.bsModalRef5 = this.modalService.show(template, initialState);
+    // this.apiService.getClaimhistory(cliamId, this.role).subscribe((res: any) => {
+    //   if (res?.isSuccess) {
+    //     this.cliam_Status = res?.data
+    //     this.cliamHistoryData = res?.data.claimHistoryDTOS;
+    //   } else {
+    //     this.notifierService.showError(res?.message || "Something went wrong");
+    //   }
+    // }, (error: any) => {
+    //   this.notifierService.showError(error?.error?.message || "Something went wrong");
+    // })
+
+  }
 }
 
