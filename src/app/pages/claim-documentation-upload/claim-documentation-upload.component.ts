@@ -35,7 +35,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   isUploaded: boolean = false
   fileUploadedLists: any[] = [];
   bankerDocId: any;
-
+  checkStatus: any;
 
 
   constructor(
@@ -120,6 +120,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       if (res?.isSuccess) {
         this.ClaimListUrlById = res?.data.claimDocumentsDTOS;
         this.ClaimListById = res?.data;
+        this.checkStatus = this.ClaimListById.submitted;
         this.patchValue()
         this.viewClaimList = false;
         this.editCliamList = true;
@@ -166,6 +167,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   back() {
     this.currentPage = 0;
+    this.filterData = "ALL"
     this.getClaimUploadList();
     this.viewClaimList = true;
     this.editCliamList = false;
