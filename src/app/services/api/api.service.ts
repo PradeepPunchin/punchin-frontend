@@ -91,8 +91,6 @@ export class ApiService {
     }
   }
 
-
-
   getClaimBankerDocuments(id: any) {
     return this.http.get(`${this.baseApiUrl}banker/claim/${id}/documents`)
   }
@@ -107,6 +105,14 @@ export class ApiService {
 
   requestForAdditionalDocument(body: any) {
     return this.http.post(`${this.baseApiUrl}banker/claim/document/additional-request`, body);
+  }
+
+  getRemark(id: number, remarkType: any, role: any) {
+    if (role === 'BANKER') {
+      return this.http.get(`${this.baseApiUrl}banker/claim/${id}/remarks`)
+    } else {
+      return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/remarks?remarkBy=${remarkType}`)
+    }
   }
 
   //varifier api
@@ -138,9 +144,6 @@ export class ApiService {
     return this.http.get(`${this.baseApiUrl}verifier/claim/searchVerifier?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&page=${page}&limit=10`);
   }
 
-  // getVerifierDownloadMISReport(data: any) {
-  //   return this.http.get(`${this.baseApiUrl}verifier/claim/download-mis-report?claimDataFilter=${data}`)
-  // }
 
   getAllAgentsForVerifier() {
     return this.http.get(`${this.baseApiUrl}verifier/agents`)
@@ -150,11 +153,19 @@ export class ApiService {
     return this.http.put(`${this.baseApiUrl}verifier/claim/${cliamId}/allocate/${agentId}`, "");
   }
 
-  getClaimhistory(id: any, role: any) {
+  getClaimhistory(id: number, role: any) {
     if (role === 'BANKER') {
       return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`)
     } else {
       return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/history`)
+    }
+  }
+
+  addRemark(id: number, body: any, role: any) {
+    if (role === 'BANKER') {
+      return this.http.post(`${this.baseApiUrl}banker/claim/${id}/remarks`, body)
+    } else {
+      return this.http.post(`${this.baseApiUrl}verifier/claim/${id}/remarks`, body)
     }
   }
 }

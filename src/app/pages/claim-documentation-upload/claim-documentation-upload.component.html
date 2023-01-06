@@ -107,12 +107,13 @@
                             <td>{{item.nomineeEmailId}}</td>
                             <td>{{item.submittedBy}}</td>
                             <td class="text-center">
-                                <ng-container *ngIf="item.submittedBy === null; else OtherStatus">
+                                <span (click)="editClaimList(item.id)"><img src="assets/icons/action.svg"></span>
+                                <!-- <ng-container *ngIf="item.submittedBy === null; else OtherStatus">
                                     <span (click)="editClaimList(item.id)"><img src="assets/icons/action.svg"></span>
                                 </ng-container>
                                 <ng-template #OtherStatus>
                                     <span><img src="assets/icons/action(fade).svg"></span>
-                                </ng-template>
+                                </ng-template> -->
                             </td>
                         </tr>
                     </tbody>
@@ -275,14 +276,14 @@
         </div>
     </form>
 
-    <div class="document-upload">Saharanpur, UP
+    <div class="document-upload">
         <div class="heading-color-box">
             <h6>Document Upload</h6>
         </div>
         <!-- <div class="alert alert-success" *ngIf="isSucessUpload">
             <strong>Success!</strong> file Upload Successfully.
         </div> -->
-        <form [formGroup]="uploadForm" class="row g-3 documentation-upload-forms">
+        <form [formGroup]="uploadForm" class="row g-3 documentation-upload-forms" *ngIf="checkStatus == false">
             <div class="col-4">
                 <select class="form-select" aria-label="Default select example" formControlName="docType">
                     <option selected [ngValue]="null">Document Type</option>
@@ -313,56 +314,58 @@
                 </button>
 
             </div>
-            <div class="col-8">
-                <div class="table-responsive document-upload-table"
-                    *ngIf="(ClaimListUrlById && ClaimListUrlById.length > 0) || (fileUploadedLists && fileUploadedLists.length > 0) ">
-                    <table class="table table-bordered table-sm">
-                        <thead>
-                            <tr class="align-middle">
-                                <th scope="col">Document Type</th>
-                                <th scope="col" class="text-center">Document View</th>
-                                <th scope="col" class="text-center">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <ng-container *ngFor="let item of ClaimListUrlById">
-                                <tr>
-                                    <td>{{item.docType}}</td>
-                                    <td class="text-center">
-                                        <span (click)="viewUploadedDoc(item1)"
-                                            *ngFor="let item1 of item.documentUrlDTOS;"><i class="fa fa-eye"
-                                                aria-hidden="true" style="margin-left:5px"></i></span>
-                                    </td>
-                                    <td class="text-center">
-                                        <span (click)="deleteSubmittedDoc(item.id)"><i class="fa fa-trash"
-                                                aria-hidden="true"></i></span>
-                                    </td>
-                                </tr>
-                            </ng-container>
-                            <ng-container *ngFor="let item of fileUploadedLists;let i = index">
-                                <tr>
-                                    <td>{{item.agentDocType}}</td>
-                                    <td class="text-center">
-                                        <span (click)="viewUploadedDoc(item1)"
-                                            *ngFor="let item1 of item.documentUrls;"><i class="fa fa-eye"
-                                                aria-hidden="true" style="margin-left:5px"></i></span>
-                                    </td>
-                                    <td class="text-center">
-                                        <span (click)="deleteUploadedDoc(item.id,i)"><i class="fa fa-trash"
-                                                aria-hidden="true"></i></span>
-                                    </td>
-                                </tr>
-                            </ng-container>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </form>
+        <div class="col-8">
+            <div class="table-responsive document-upload-table"
+                *ngIf="(ClaimListUrlById && ClaimListUrlById.length > 0) || (fileUploadedLists && fileUploadedLists.length > 0) ">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr class="align-middle">
+                            <th scope="col">Document Type</th>
+                            <th scope="col" class="text-center">Document View</th>
+                            <th scope="col" class="text-center">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let item of ClaimListUrlById">
+                            <tr>
+                                <td>{{item.docType}}</td>
+                                <td class="text-center">
+                                    <span (click)="viewUploadedDoc(item1)"
+                                        *ngFor="let item1 of item.documentUrlDTOS;"><i class="fa fa-eye"
+                                            aria-hidden="true" style="margin-left:5px"></i></span>
+                                </td>
+                                <td class="text-center">
+                                    <span (click)="deleteSubmittedDoc(item.id)"><i class="fa fa-trash"
+                                            aria-hidden="true"></i></span>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngFor="let item of fileUploadedLists;let i = index">
+                            <tr>
+                                <td>{{item.agentDocType}}</td>
+                                <td class="text-center">
+                                    <span (click)="viewUploadedDoc(item1)" *ngFor="let item1 of item.documentUrls;"><i
+                                            class="fa fa-eye" aria-hidden="true" style="margin-left:5px"></i></span>
+                                </td>
+                                <td class="text-center">
+                                    <span (click)="deleteUploadedDoc(item.id,i)"><i class="fa fa-trash"
+                                            aria-hidden="true"></i></span>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <div class="text-center submit-save-btn">
         <button type="button" class="btn btn-primary" (click)="back()">Back</button>
-        <button type="button" class="btn btn-outline-primary" (click)="saveToDraft()">Save as Draft</button>
-        <button type="button" class="btn btn-primary" (click)="submitClaim()">Submit</button>
+        <button type="button" class="btn btn-outline-primary" (click)="saveToDraft()" *ngIf="checkStatus == false">Save
+            as
+            Draft</button>
+        <button type="button" class="btn btn-primary" (click)="submitClaim()"
+            *ngIf="checkStatus == false">Submit</button>
     </div>
 </div>

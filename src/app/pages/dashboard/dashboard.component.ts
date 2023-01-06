@@ -63,6 +63,7 @@ export class DashboardComponent implements OnInit {
   additionalDocType: any;
   bankerform!: FormGroup;
   bankerDocCliamId: any
+  cliamId: any
   bankerDoc: any;
   selectBankerDoc: any;
   docName: any;
@@ -80,6 +81,9 @@ export class DashboardComponent implements OnInit {
   time_diff: any
   diffDays: any;
   remarkStep: number = 0;
+  remarkDetails: any[] = [];
+  remarkform!: FormGroup
+  remarkType: any = 'AGENT'
 
 
 
@@ -110,6 +114,9 @@ export class DashboardComponent implements OnInit {
     this.agnetAllocatedForm = this.formBuilder.group({
       agent_name: [null, [Validators.required]]
 
+    })
+    this.remarkform = this.formBuilder.group({
+      remark: ["", [Validators.required]]
     })
   }
 
@@ -570,7 +577,6 @@ export class DashboardComponent implements OnInit {
 
   //tracking modal
   openTrackingModal(template: any, id: any, punchinId: any, agentName: any) {
-    let cliamId = id;
     this.p_id = punchinId;
     this.AllocatedAgentName = agentName;
     const initialState: ModalOptions = {
@@ -580,7 +586,7 @@ export class DashboardComponent implements OnInit {
     };
     this.bsModalRef4 = this.modalService.show(template, initialState);
     var milliseconds = this.CurrentDate.getTime();
-    this.apiService.getClaimhistory(cliamId, this.role).subscribe((res: any) => {
+    this.apiService.getClaimhistory(id, this.role).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cliam_Status = res?.data
         this.time_diff = milliseconds - this.cliam_Status.startedAt;
@@ -596,7 +602,7 @@ export class DashboardComponent implements OnInit {
 
   // remark modal
   openRemarkModal(template: any, id: any, punchinId: any) {
-    let cliamId = id;
+    this.cliamId = id;
     this.p_id = punchinId;
     const initialState: ModalOptions = {
       class: 'file-modal-custom-width',
@@ -604,17 +610,44 @@ export class DashboardComponent implements OnInit {
       keyboard: false
     };
     this.bsModalRef5 = this.modalService.show(template, initialState);
-    // this.apiService.getClaimhistory(cliamId, this.role).subscribe((res: any) => {
-    //   if (res?.isSuccess) {
-    //     this.cliam_Status = res?.data
-    //     this.cliamHistoryData = res?.data.claimHistoryDTOS;
-    //   } else {
-    //     this.notifierService.showError(res?.message || "Something went wrong");
-    //   }
-    // }, (error: any) => {
-    //   this.notifierService.showError(error?.error?.message || "Something went wrong");
-    // })
+    this.getRemark(this.remarkType)
+  }
 
+
+  getRemark(data: any) {
+    // if (this.role === 'BANKER') {
+    this.remarkType = data || " ";
+    this.apiService.getRemark(this.cliamId, this.remarkType, this.role).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.remarkDetails = res?.data.claimRemarkDTOS;
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
+  }
+
+  closeRemark() {
+    this.bsModalRef5?.hide();
+    this.remarkStep = 0;
+    this.remarkType = "AGENT"
+  }
+
+  remarkAdd() {
+    let req = {
+      "remark": this.remarkform.controls.remark.value,
+      "remarkFor": this.remarkType
+    }
+    this.apiService.addRemark(this.cliamId, req, this.role).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.notifierService.showSuccess(res?.message || "Something went wrong");
+        this.remarkform.reset();
+        this.closeRemark();
+      } else {
+        this.notifierService.showError(res?.message || "Something went wrong");
+      }
+    });
   }
 }
 

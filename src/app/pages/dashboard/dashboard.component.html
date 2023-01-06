@@ -917,7 +917,7 @@
     <div class="modal-header">
         <h6 class="modal-title"> Remark</h6>
 
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="this.bsModalRef5?.hide()">
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeRemark()">
             <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
     </div>
@@ -927,44 +927,37 @@
                 <div class="new-requirements">
                     <p> Punchin Ref.ID : <span>{{this.p_id}}</span></p>
                 </div>
-                <div class="remark d-flex justify-content-center align-items-center">
+                <div class="remark d-flex justify-content-center align-items-center"
+                    *ngIf="role =='ADMIN' || role =='VERIFIER'">
                     <button type="button" class="btn btn-light m-2" [ngClass]="{active: remarkStep === 0}"
-                        [routerLinkActive]="['active']" (click)="remarkStep =0">Verifier
+                        [routerLinkActive]="['active']" (click)="remarkStep =0;getRemark('AGENT')">Agent
                         Remark</button>
                     <button type="button" class="btn btn-light m-2" [ngClass]="{active: remarkStep === 1}"
-                        [routerLinkActive]="['active']" (click)="remarkStep =1">Banker
+                        [routerLinkActive]="['active']" (click)="remarkStep =1;getRemark('BANKER')">Banker
                         Remark</button>
                 </div>
-                <div class="remark-wrapper" *ngIf="remarkStep === 0 || remarkStep === 1 ">
-                    <p>
-                        Remark
-                    </p>
-                    <p>
-                        Remark
-                    </p>
-                    <p>
-                        Remark
-                    </p>
-                    <p>
-                        Remark
-                    </p>
-                    <p>
-                        Remark
-                    </p>
-                    <!-- <p *ngIf="remarkStep === 1">
-                        Banker Step
-                    </p> -->
+                <div class="remark-wrapper">
+                    <div class="content" *ngFor="let item of remarkDetails">
+                        <p>{{item.createdAt | date}} | {{item.createdAt | date:'hh:mm a'}} <span>({{item.role}})</span>
+                            <br><span>{{item.remark | titlecase}}</span>
+                        </p>
+                        <p class="img-icon">
+                            <img src="../../../../assets/icons/right-tick-blue.svg">
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-        <form>
+        <form [formGroup]="remarkform">
             <div class="row">
                 <label> <b>Enter Remark</b></label>
                 <div class="col-8">
-                    <input type="text" class="form-control" placeholder="Enter Remark">
+                    <input type="text" class="form-control" placeholder="Enter Remark" formControlName="remark">
                 </div>
                 <div class="col-4">
-                    <button class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary" [disabled]="!remarkform.valid"
+                        (click)="remarkAdd();remarkStep =0">Add
+                        Remark</button>
                 </div>
             </div>
         </form>
