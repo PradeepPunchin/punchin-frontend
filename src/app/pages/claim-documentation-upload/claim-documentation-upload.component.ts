@@ -31,8 +31,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   filterData: any = "ALL";
   viewDocument: any
   uploadedFileUrls: any
-  isUploadedTable: boolean = false
-  isSubmittedTable: boolean = false
   docId: any
   isUploaded: boolean = false
   fileUploadedLists: any[] = [];
@@ -121,8 +119,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.docId = id
     this.apiService.getClaimListByClaimid(id).subscribe((res: any) => {
       if (res?.isSuccess) {
-        this.isUploadedTable = false
-        this.isSubmittedTable = true
         this.ClaimListUrlById = res?.data.claimDocumentsDTOS;
         this.ClaimListById = res?.data;
         this.patchValue()
@@ -158,11 +154,11 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     })
   }
 
-  deleteDoc1(id: any) {
+  deleteDoc1(id: any, i: any) {
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
-        this.fileUploadedLists.pop();
+        this.fileUploadedLists.splice(i, 1);
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -208,21 +204,24 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     let selectedDoc = this.uploadForm.controls.docType.value
     this.apiService.uploadDocument(this.ClaimListById.id, selectedDoc, formData).subscribe((res: any) => {
       if (res?.isSuccess) {
-        this.isUploadedTable = true
-        this.isSubmittedTable = false
         this.isUploaded = false
         this.uploadedFileUrls = res?.data.claimDocuments
         this.uploadForm.reset();
         this.myFiles = [];
         this.fileUploadedLists.push(res?.data?.claimDocuments);
+        console.log(this.fileUploadedLists, " this.fileUploadedLists");
+
         this.notifierService.showSuccess(res?.message);
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
+        this.fileUploadedLists = [];
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
       this.isUploaded = false
       this.uploadForm.reset();
+      this.fileUploadedLists = [];
+
 
     })
 
@@ -249,7 +248,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.viewClaimList = true;
         this.editCliamList = false;
         this.fileUploadedLists = [];
-
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");

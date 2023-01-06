@@ -76,6 +76,10 @@ export class DashboardComponent implements OnInit {
   p_id: any
   AllocatedAgentName: any = String;
   isdownloadMisReport: boolean = false
+  CurrentDate = new Date();
+  time_diff: any
+  diffDays: any;
+
 
 
 
@@ -598,9 +602,12 @@ export class DashboardComponent implements OnInit {
       keyboard: false
     };
     this.bsModalRef4 = this.modalService.show(template, initialState);
+    var milliseconds = this.CurrentDate.getTime();
     this.apiService.getClaimhistory(cliamId, this.role).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.cliam_Status = res?.data
+        this.time_diff = milliseconds - this.cliam_Status.startedAt;
+        this.diffDays = Math.ceil(this.time_diff / (1000 * 60 * 60 * 24));
         this.cliamHistoryData = res?.data.claimHistoryDTOS;
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
@@ -611,7 +618,6 @@ export class DashboardComponent implements OnInit {
   }
 
   // remark modal
-
   openRemarkModal(template: any, id: any, punchinId: any) {
     let cliamId = id;
     this.p_id = punchinId;

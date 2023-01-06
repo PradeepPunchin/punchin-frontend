@@ -313,9 +313,8 @@
                 </button>
 
             </div>
-            <div class="col-8" *ngIf="isSubmittedTable">
-                <div class="table-responsive document-upload-table"
-                    *ngIf="ClaimListUrlById && ClaimListUrlById.length > 0">
+            <div class="col-8">
+                <div class="table-responsive document-upload-table">
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr class="align-middle">
@@ -339,11 +338,25 @@
                                     </td>
                                 </tr>
                             </ng-container>
+                            <ng-container *ngFor="let item of fileUploadedLists;let i = index">
+                                <tr>
+                                    <td>{{item.agentDocType}}</td>
+                                    <td class="text-center">
+                                        <span (click)="viewUploadedDoc(item1)"
+                                            *ngFor="let item1 of item.documentUrls;"><i class="fa fa-eye"
+                                                aria-hidden="true" style="margin-left:5px"></i></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span (click)="deleteDoc1(item.id,i)"><i class="fa fa-trash"
+                                                aria-hidden="true"></i></span>
+                                    </td>
+                                </tr>
+                            </ng-container>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-8" *ngIf="isUploadedTable">
+            <!-- <div class="col-8" *ngIf="isUploadedTable">
                 <div class="table-responsive document-upload-table">
                     <table class="table table-bordered table-sm"
                         *ngIf="fileUploadedLists && fileUploadedLists.length > 0">
@@ -372,7 +385,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
         </form>
     </div>
 

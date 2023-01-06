@@ -11,6 +11,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './services/interceptors';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 
 
@@ -33,6 +34,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
       newestOnTop: false,
 
     }),
+    NgHttpLoaderModule.forRoot(),
     ModalModule.forRoot()
   ],
   // httpInterceptorProviders

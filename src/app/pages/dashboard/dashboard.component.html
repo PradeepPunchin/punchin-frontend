@@ -970,7 +970,7 @@
                     </div>
                     <div class="inner-Wrapper">
                         <p>
-                            Days so far <br><span>{{cliam_Status?.startedAt | date}}</span>
+                            Days so far <br><span>{{diffDays}} Days</span>
                         </p>
                         <p>
                             Status <br>
@@ -979,8 +979,9 @@
                     </div>
                     <div class="down-Wrapper">
                         <div class="content" *ngFor="let item of cliamHistoryData">
-                            <p>{{item.createdAt | date}} | {{cliam_Status?.startedAt | date : 'HH:mm'}}
-                                <br><span>{{item.description}}</span></p>
+                            <p>{{item.createdAt | date}} | {{item.createdAt | date:'hh:mm a'}}
+                                <br><span>{{item.description}}</span>
+                            </p>
                             <p class="img-icon">
                                 <img src="../../../../assets/icons/right-tick-blue.svg">
                             </p>
