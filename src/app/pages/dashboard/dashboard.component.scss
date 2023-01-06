@@ -790,4 +790,10 @@
     border-radius: 7px;
     margin-bottom: 10px;
   }
+  form {
+    .btn-primary {
+      background-color: $buttonColor;
+      border-color: $buttonColor;
+    }
+  }
 }
