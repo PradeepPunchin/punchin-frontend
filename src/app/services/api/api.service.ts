@@ -83,9 +83,15 @@ export class ApiService {
     return this.http.post(`${this.baseApiUrl}banker/claim/${claimId}/documents/save-draft`, "");
   }
 
-  getBankerDownloadMISReport(data: any) {
-    return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${data}`)
+  getDownloadMISReport(bankerType: any, verifierType: any, role: any) {
+    if (role === 'BANKER') {
+      return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${bankerType}`)
+    } else {
+      return this.http.get(`${this.baseApiUrl}verifier/claim/download-mis-report?claimDataFilter=${verifierType}`)
+    }
   }
+
+
 
   getClaimBankerDocuments(id: any) {
     return this.http.get(`${this.baseApiUrl}banker/claim/${id}/documents`)
@@ -102,10 +108,6 @@ export class ApiService {
   requestForAdditionalDocument(body: any) {
     return this.http.post(`${this.baseApiUrl}banker/claim/document/additional-request`, body);
   }
-
-  // getBankerClaimhistory(id: any) {
-  //   return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`)
-  // }
 
   //varifier api
   getVerifierDashboardData() {
@@ -136,9 +138,9 @@ export class ApiService {
     return this.http.get(`${this.baseApiUrl}verifier/claim/searchVerifier?searchCaseEnum=${searchEnum}&searchedKeyword=${inputData}&claimDataFilter=${tabType}&page=${page}&limit=10`);
   }
 
-  getVerifierDownloadMISReport(data: any) {
-    return this.http.get(`${this.baseApiUrl}verifier/claim/download-mis-report?claimDataFilter=${data}`)
-  }
+  // getVerifierDownloadMISReport(data: any) {
+  //   return this.http.get(`${this.baseApiUrl}verifier/claim/download-mis-report?claimDataFilter=${data}`)
+  // }
 
   getAllAgentsForVerifier() {
     return this.http.get(`${this.baseApiUrl}verifier/agents`)
@@ -151,8 +153,7 @@ export class ApiService {
   getClaimhistory(id: any, role: any) {
     if (role === 'BANKER') {
       return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`)
-    }
-    else {
+    } else {
       return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/history`)
     }
   }

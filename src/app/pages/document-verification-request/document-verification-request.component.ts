@@ -56,9 +56,10 @@ export class DocumentVerificationRequestComponent implements OnInit {
       this.getVerifierDocumentRequestData();
     }
   }
-  pagePerData(event: any) {
-    this.pageSize = event.target.value
-    this.getVerifierDocumentRequestData();
-  }
+
+  // pagePerData(event: any) {
+  //   this.pageSize = event.target.value
+  //   this.getVerifierDocumentRequestData();
+  // }
 
 }

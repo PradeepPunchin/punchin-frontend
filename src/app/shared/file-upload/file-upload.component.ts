@@ -72,7 +72,7 @@ export class FileUploadComponent implements OnInit {
           if (events && events.type === HttpEventType.UploadProgress) {
             this.percentage = Math.round(events.loaded / events.total * 100)
           } else if (events.type === HttpEventType.Response) {
-            console.log('events', events);
+            // console.log('events', events);
             this.fileUpload = true;
             this.notifierService.showSuccess(events.body.message);
             this.isShowLoader = false

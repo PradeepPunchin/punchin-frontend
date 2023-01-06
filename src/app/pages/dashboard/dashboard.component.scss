@@ -193,18 +193,13 @@
         color: $buttonColor;
         font-size: $fontSize16;
       }
-      .fa-download {
+      .fa-download,
+      .fa-map-o,
+      .fa-comment {
         cursor: pointer;
         color: $buttonColor;
         font-size: $fontSize16;
         margin-left: 10px;
-      }
-      .fa-map-o {
-        cursor: pointer;
-        color: $buttonColor;
-        font-size: $fontSize16;
-        margin-left: 10px;
-        margin-top: 5px;
       }
     }
   }
@@ -438,6 +433,12 @@
     .table {
       margin-bottom: 19px;
       width: 3000px !important;
+    }
+    .fa-comment {
+      margin-top: 5px;
+      justify-content: end;
+      margin-right: 5px;
+      display: flex;
     }
   }
 }
@@ -745,5 +746,48 @@
         margin-top: 15px;
       }
     }
+  }
+}
+
+//remark
+.remark-container {
+  .new-requirements {
+    background-color: $icon-color;
+    height: 50px;
+    padding: 14px;
+    border-radius: 7px;
+    p {
+      color: $white;
+      font-size: $fontSize16;
+      text-align: left;
+      font-weight: 500;
+      span {
+        font-size: $fontSize18;
+        font-weight: 700;
+      }
+    }
+  }
+  .remark {
+    .btn-light {
+      background-color: $tableTextColor;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $white;
+      padding: 6px 15px;
+      margin-left: 10px;
+      border-color: $tableTextColor;
+    }
+    .active {
+      background-color: $buttonColor;
+      border-color: $buttonColor;
+    }
+  }
+  .remark-wrapper {
+    height: 280px;
+    overflow-y: scroll;
+    border: 1px solid $borderColor;
+    border-radius: 7px;
+    margin-bottom: 10px;
   }
 }
