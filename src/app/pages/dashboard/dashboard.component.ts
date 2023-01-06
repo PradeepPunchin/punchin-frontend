@@ -117,7 +117,7 @@ export class DashboardComponent implements OnInit {
     this.role = this.sessionServive.getSession(STORAGETOKENENUM.role)
     if (this.role === ROLES.banker) {
       this.getBankerDashboardData();
-      this.showCardDetails('ALL')
+      this.bankerCardDetails('ALL')
     }
 
     if (this.role === ROLES.verifier || this.role === ROLES.admin) {
@@ -140,7 +140,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // banker card table data
-  showCardDetails(data: any) {
+  bankerCardDetails(data: any) {
     this.bankerData = data;
     this.currentPage = 0;
     this.inputSearch = this.searchForm.controls.search.value
@@ -214,7 +214,7 @@ export class DashboardComponent implements OnInit {
         this.getClaimList();
         setTimeout(() => {
           this.currentPage = 0
-          this.showCardDetails("ALL");
+          this.bankerCardDetails("ALL");
         }, 100);
         this.isShowFileUploaded = true;
         if (this.cordListData.length > 0) {
@@ -237,7 +237,6 @@ export class DashboardComponent implements OnInit {
       class: 'modal-custom-width'
     };
     this.modalRef = this.modalService.show(DocumentVerificationRequestModalComponent, initialState);
-
   }
 
   viewbankerDocRequest(submitBy: any, id: any) {
@@ -358,7 +357,7 @@ export class DashboardComponent implements OnInit {
   // pagePerData(event: any) {
   //   console.log(event, "event");
   //   this.pageSize = event.target.value
-  //   this.showCardDetails('ALL');
+  //   this.bankerCardDetails('ALL');
   // }
 
   // file uplaod modal
@@ -453,7 +452,7 @@ export class DashboardComponent implements OnInit {
   searchTableData() {
     this.inputSearch = this.searchForm.controls.search.value
     if (this.role === ROLES.banker) {
-      this.showCardDetails(this.bankerData)
+      this.bankerCardDetails(this.bankerData)
       this.searchForm.reset();
 
     } else if (this.role === ROLES.verifier || this.role === ROLES.admin) {

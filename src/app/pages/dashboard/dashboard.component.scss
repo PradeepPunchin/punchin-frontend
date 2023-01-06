@@ -751,10 +751,6 @@
 
 //remark
 .remark-container {
-  // margin: 14px 0 20px;
-  height: 350px;
-  max-height: 400;
-  overflow-y: scroll;
   .new-requirements {
     background-color: $icon-color;
     height: 50px;
@@ -786,5 +782,12 @@
       background-color: $buttonColor;
       border-color: $buttonColor;
     }
+  }
+  .remark-wrapper {
+    height: 280px;
+    overflow-y: scroll;
+    border: 1px solid $borderColor;
+    border-radius: 7px;
+    margin-bottom: 10px;
   }
 }

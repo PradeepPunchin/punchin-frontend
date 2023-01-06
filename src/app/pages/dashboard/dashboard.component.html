@@ -29,7 +29,7 @@
         </div>
         <div class="row">
             <div class="col-3" [ngClass]="{ active: onStep === 0 }" (click)="onStep = 0">
-                <div class="claims-allocated-box" (click)="showCardDetails('ALL')">
+                <div class="claims-allocated-box" (click)="bankerCardDetails('ALL')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="col-3" [ngClass]="{ active: onStep === 1 }" (click)="onStep = 1;innerStep = 0">
-                <div class="claims-in-progress-box" (click)="showCardDetails('WIP')">
+                <div class="claims-in-progress-box" (click)="bankerCardDetails('WIP')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="col-3" [ngClass]="{ active: onStep === 2 }" (click)="onStep = 2">
-                <div class="claims-verify-box" (click)="showCardDetails('UNDER_VERIFICATION')">
+                <div class="claims-verify-box" (click)="bankerCardDetails('UNDER_VERIFICATION')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>{{bankerDashboardData[bankerStatusEnum.underVerification] || 0}}</h5>
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="col-3" [ngClass]="{ active: onStep === 3 }" (click)="onStep = 3">
-                <div class="claims-action-pending-box " (click)="showCardDetails('SETTLED')">
+                <div class="claims-action-pending-box " (click)="bankerCardDetails('SETTLED')">
                     <img src="../../../assets/icons/claim.svg">
                     <div>
                         <h5>
@@ -83,11 +83,11 @@
             <div *ngIf="onStep === 1">
                 <button type="button" class="btn btn-light m-2" [routerLinkActive]="['active']"
                     [ngClass]="{active: innerStep === 0}" (click)="innerStep = 0"
-                    (click)="showCardDetails('WIP')">In-Progress</button>
+                    (click)="bankerCardDetails('WIP')">In-Progress</button>
 
                 <button type="button" [routerLinkActive]="['active']" class="btn btn-light"
                     [ngClass]="{active: innerStep === 1}" (click)="innerStep = 1"
-                    (click)="showCardDetails('DISCREPENCY')">Discrepancy</button>
+                    (click)="bankerCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
             <button type="button" class="btn btn-primary btn1"
                 *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"
@@ -935,19 +935,31 @@
                         [routerLinkActive]="['active']" (click)="remarkStep =1">Banker
                         Remark</button>
                 </div>
-                <div class="">
-                    <p *ngIf="remarkStep === 0">
-                        verifier Step
+                <div class="remark-wrapper" *ngIf="remarkStep === 0 || remarkStep === 1 ">
+                    <p>
+                        Remark
                     </p>
-                    <p *ngIf="remarkStep === 1">
-                        Bnaker Step
+                    <p>
+                        Remark
                     </p>
+                    <p>
+                        Remark
+                    </p>
+                    <p>
+                        Remark
+                    </p>
+                    <p>
+                        Remark
+                    </p>
+                    <!-- <p *ngIf="remarkStep === 1">
+                        Banker Step
+                    </p> -->
                 </div>
             </div>
         </div>
         <form>
             <div class="row">
-                <label> Enter Remark</label>
+                <label> <b>Enter Remark</b></label>
                 <div class="col-8">
                     <input type="text" class="form-control" placeholder="Enter Remark">
                 </div>
