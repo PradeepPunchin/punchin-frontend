@@ -76,7 +76,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
   }
 
   approveAndReject(data: any) {
-    this.docId = this.sessionService.getSession("docId")
+    // this.docId = this.sessionService.getSession("docId")
     let req = {
       "approved": data,
       "reason": this.remarkForm.controls.reason.value || "",
@@ -116,7 +116,8 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     this.docUrl = item.docUrl;
     this.docType = item.docFormat;
     this.isShoeDoc = true;
-    this.sessionService.setSessions({ docId: id })
+    this.docId = id;
+    // this.sessionService.setSessions({ docId: id })
   }
 
   Downlaod(documentDTO: IDocumentDetailDTO) {
