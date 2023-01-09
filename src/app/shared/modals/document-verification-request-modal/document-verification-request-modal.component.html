@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h4 class="modal-title pull-left">Document Verification
-        <span class="agent-details"> {{agentName || 'no agent allocated'}}
+        <span class="agent-details">Agent Allocated : {{agentName || 'no agent allocated'}}
         </span>
         <span *ngIf="documentDetailsDTOList && documentDetailsDTOList.length> 0">
             <button type="button" class="btn btn-primary" (click)="downloadAllDocument()">
