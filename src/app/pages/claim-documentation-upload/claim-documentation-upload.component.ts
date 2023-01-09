@@ -54,6 +54,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       brrower_name: ['', [Validators.required]],
       borrower_address: ['', [Validators.required]],
       borrower_contact: ['', [Validators.required]],
+      borrower_pin_code: ['', [Validators.required]],
       nominee_name: ['', [Validators.required]],
       nominee_address: ['', [Validators.required]],
       nominee_contact: ['', [Validators.required]],
@@ -79,6 +80,12 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     }
   }
 
+  spaceRemoveFirst(e: any) {
+    if (e.target.selectionStart == 0 && e.code === "Space") {
+      e.preventDefault();
+    }
+  }
+
 
   patchValue() {
     this.showClaimForm.patchValue({
@@ -86,6 +93,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       brrower_name: this.ClaimListById.borrowerName,
       borrower_address: this.ClaimListById.borrowerAddress,
       borrower_contact: this.ClaimListById.borrowerContactNumber,
+      borrower_pin_code: this.ClaimListById.borrowerPinCode,
       nominee_name: this.ClaimListById.nomineeName,
       nominee_address: this.ClaimListById.nomineeAddress,
       nominee_contact: this.ClaimListById.nomineeContactNumber,
@@ -121,6 +129,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.isCliamUpdated = false
         this.viewClaimList = true;
         this.editCliamList = false;
+        this.getClaimUploadList();
+
       } else {
         this.notifierService.showError(res.message || "Something went wrong")
         this.isCliamUpdated = false

@@ -170,46 +170,60 @@
                     <label for="borrower-name" class="form-label">Borrower name <span class="requird"><i
                                 class="fa fa-pencil" aria-hidden="true"></i>
                         </span></label>
-                    <input type="text" class="form-control" id="borrower-name" formControlName="brrower_name">
+                    <input type="text" class="form-control" id="borrower-name" formControlName="brrower_name"
+                        (keydown)="spaceRemoveFirst($event)">
                 </div>
                 <div class="col-3">
                     <label for="borrower-address" class="form-label">Borrower Address<span class="requird"><i
                                 class="fa fa-pencil" aria-hidden="true"></i>
                         </span></label>
-                    <input type="text" class="form-control" id="borrower-address" formControlName="borrower_address">
+                    <input type="text" class="form-control" id="borrower-address" formControlName="borrower_address"
+                        (keydown)="spaceRemoveFirst($event)">
                 </div>
                 <div class="col-3">
                     <label for="borrower-contact" class="form-label">Borrower Contact<span class="requird"><i
                                 class="fa fa-pencil" aria-hidden="true"></i>
                         </span></label>
-                    <input type="text" class="form-control" id="borrower-contact" formControlName="borrower_contact">
+                    <input type="text" class="form-control" id="borrower-contact" formControlName="borrower_contact"
+                        (keydown)="spaceRemoveFirst($event)">
                 </div>
-                <div class="col-4">
+                <div class="col-3">
+                    <label for="borrower_pin_code" class="form-label">Borrower Pin Code<span class="requird"><i
+                                class="fa fa-pencil" aria-hidden="true"></i>
+                        </span></label>
+                    <input type="text" class="form-control" id="borrower_pin_code" formControlName="borrower_pin_code"
+                        (keydown)="spaceRemoveFirst($event)">
+                </div>
+                <div class="col-3">
                     <label for="nominee-name" class="form-label">Nominee Name<span class="requird"><i
                                 class="fa fa-pencil" aria-hidden="true"></i>
                         </span></label>
-                    <input type="text" class="form-control" id="nominee-name" formControlName="nominee_name">
+                    <input type="text" class="form-control" id="nominee-name" formControlName="nominee_name"
+                        (keydown)="spaceRemoveFirst($event)">
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <label for="nominee-address" class="form-label">Nominee Address<span class="requird"><i
                                 class="fa fa-pencil" aria-hidden="true"></i>
                         </span></label>
-                    <input type="text" class="form-control" id="nominee-address" formControlName="nominee_address">
+                    <input type="text" class="form-control" id="nominee-address" formControlName="nominee_address"
+                        (keydown)="spaceRemoveFirst($event)">
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <label for="nominee-contact" class="form-label">Nominee Contact<span class="requird"><i
                                 class="fa fa-pencil" aria-hidden="true"></i>
                         </span></label>
-                    <input type="text" class="form-control" id="nominee-contact" formControlName="nominee_contact">
+                    <input type="text" class="form-control" id="nominee-contact" formControlName="nominee_contact"
+                        (keydown)="spaceRemoveFirst($event)">
                 </div>
 
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" (click)="cliamDataUpated()">
+                <div class=" d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" (click)="cliamDataUpated()"
+                        [disabled]="!showClaimForm.valid">
                         <ng-container *ngIf="isCliamUpdated;else isCliamUpdatedDone">
-                            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Updateding...
+                            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Updating...
                         </ng-container>
                         <ng-template #isCliamUpdatedDone>
-                            Updated
+                            Update
                         </ng-template>
                     </button>
 
@@ -341,7 +355,7 @@
                         <tr class="align-middle">
                             <th scope="col">Document Type</th>
                             <th scope="col" class="text-center">Document View</th>
-                            <th scope="col" class="text-center">Delete</th>
+                            <th scope="col" class="text-center" *ngIf="checkStatus == false">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -353,7 +367,7 @@
                                         *ngFor="let item1 of item.documentUrlDTOS;"><i class="fa fa-eye"
                                             aria-hidden="true" style="margin-left:5px"></i></span>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center" *ngIf="checkStatus == false">
                                     <span (click)="deleteSubmittedDoc(item.id)"><i class="fa fa-trash"
                                             aria-hidden="true"></i></span>
                                 </td>
