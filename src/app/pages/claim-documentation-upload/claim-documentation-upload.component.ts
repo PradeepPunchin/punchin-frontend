@@ -123,7 +123,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       "nomineeContactNumber": this.showClaimForm.controls.nominee_contact.value,
       "nomineeName": this.showClaimForm.controls.nominee_name.value
     }
-    console.log(this.cliamId, req, "req");
     this.apiService.cliamDataUpdated(this.cliamId, req).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
@@ -178,9 +177,11 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.notifierService.showSuccess(res.message)
         this.viewClaimList = true;
         this.editCliamList = false;
+        this.pageNo = 0;
         this.currentPage = 0;
         this.uploadForm.reset();
         this.fileUploadedLists = [];
+        this.filterData = "ALL"
         this.getClaimUploadList();
       }
     }, (error: any) => {
