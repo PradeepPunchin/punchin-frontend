@@ -80,6 +80,12 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     }
   }
 
+  spaceRemoveFirst(e: any) {
+    if (e.target.selectionStart == 0 && e.code === "Space") {
+      e.preventDefault();
+    }
+  }
+
 
   patchValue() {
     this.showClaimForm.patchValue({
@@ -123,6 +129,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.isCliamUpdated = false
         this.viewClaimList = true;
         this.editCliamList = false;
+        this.getClaimUploadList();
+
       } else {
         this.notifierService.showError(res.message || "Something went wrong")
         this.isCliamUpdated = false
