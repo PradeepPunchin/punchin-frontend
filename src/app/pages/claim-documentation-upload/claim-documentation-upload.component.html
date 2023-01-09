@@ -361,7 +361,7 @@
                     <tbody>
                         <ng-container *ngFor="let item of ClaimListUrlById">
                             <tr>
-                                <td>{{item.docType}}</td>
+                                <td>{{item.docType | removeunderscore | titlecase}}</td>
                                 <td class="text-center">
                                     <span (click)="viewUploadedDoc(item1)"
                                         *ngFor="let item1 of item.documentUrlDTOS;"><i class="fa fa-eye"
@@ -375,7 +375,7 @@
                         </ng-container>
                         <ng-container *ngFor="let item of fileUploadedLists;let i = index">
                             <tr>
-                                <td>{{item.agentDocType}}</td>
+                                <td>{{item.agentDocType | removeunderscore | titlecase}}</td>
                                 <td class="text-center">
                                     <span (click)="viewUploadedDoc(item1)" *ngFor="let item1 of item.documentUrls;"><i
                                             class="fa fa-eye" aria-hidden="true" style="margin-left:5px"></i></span>
