@@ -115,6 +115,12 @@ export class ApiService {
     }
   }
 
+  cliamDataUpdated(id: number, body: any) {
+    return this.http.put(`${this.baseApiUrl}banker/claim/${id}`, body);
+  }
+
+
+
   //varifier api
   getVerifierDashboardData() {
     return this.http.get(`${this.baseApiUrl}verifier/getDashboardData`);

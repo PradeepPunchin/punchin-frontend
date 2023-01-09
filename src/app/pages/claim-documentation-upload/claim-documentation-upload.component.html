@@ -162,42 +162,60 @@
                 <h6>Borrower / Nominee Details</h6>
             </div>
             <div class="row g-3 documentation-upload-forms">
-                <div class="col-4">
+                <div class="col-3">
                     <label for="case-claim-id" class="form-label">Case/Claim Id</label>
                     <input type="text" class="form-control" id="case-claim-id" formControlName="caseId" readonly>
                 </div>
-                <div class="col-4">
-                    <label for="borrower-name" class="form-label">Borrower name</label>
-                    <input type="text" class="form-control" id="borrower-name" formControlName="brrower_name" readonly>
+                <div class="col-3">
+                    <label for="borrower-name" class="form-label">Borrower name <span class="requird"><i
+                                class="fa fa-pencil" aria-hidden="true"></i>
+                        </span></label>
+                    <input type="text" class="form-control" id="borrower-name" formControlName="brrower_name">
+                </div>
+                <div class="col-3">
+                    <label for="borrower-address" class="form-label">Borrower Address<span class="requird"><i
+                                class="fa fa-pencil" aria-hidden="true"></i>
+                        </span></label>
+                    <input type="text" class="form-control" id="borrower-address" formControlName="borrower_address">
+                </div>
+                <div class="col-3">
+                    <label for="borrower-contact" class="form-label">Borrower Contact<span class="requird"><i
+                                class="fa fa-pencil" aria-hidden="true"></i>
+                        </span></label>
+                    <input type="text" class="form-control" id="borrower-contact" formControlName="borrower_contact">
                 </div>
                 <div class="col-4">
-                    <label for="borrower-address" class="form-label">Borrower Address</label>
-                    <input type="text" class="form-control" id="borrower-address" readonly
-                        formControlName="borrower_address">
-                </div>
-                <!-- <div class="col-3">
-                    <label for="borrower-contact" class="form-label">Borrower Contact</label>
-                    <input type="text" class="form-control" id="borrower-contact" readonly
-                        formControlName="borrower_contact">
+                    <label for="nominee-name" class="form-label">Nominee Name<span class="requird"><i
+                                class="fa fa-pencil" aria-hidden="true"></i>
+                        </span></label>
+                    <input type="text" class="form-control" id="nominee-name" formControlName="nominee_name">
                 </div>
                 <div class="col-4">
-                    <label for="nominee-name" class="form-label">Nominee Name</label>
-                    <input type="text" class="form-control" id="nominee-name" readonly formControlName="nominee_name">
+                    <label for="nominee-address" class="form-label">Nominee Address<span class="requird"><i
+                                class="fa fa-pencil" aria-hidden="true"></i>
+                        </span></label>
+                    <input type="text" class="form-control" id="nominee-address" formControlName="nominee_address">
                 </div>
                 <div class="col-4">
-                    <label for="nominee-address" class="form-label">Nominee Address</label>
-                    <input type="text" class="form-control" id="nominee-address" readonly
-                        formControlName="nominee_address">
-                </div>
-                <div class="col-4">
-                    <label for="nominee-contact" class="form-label">Nominee Contact</label>
-                    <input type="text" class="form-control" id="nominee-contact" readonly
-                        formControlName="nominee_contact">
+                    <label for="nominee-contact" class="form-label">Nominee Contact<span class="requird"><i
+                                class="fa fa-pencil" aria-hidden="true"></i>
+                        </span></label>
+                    <input type="text" class="form-control" id="nominee-contact" formControlName="nominee_contact">
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary"> Updated</button>
-                </div> -->
+                    <button type="button" class="btn btn-primary" (click)="cliamDataUpated()">
+                        <ng-container *ngIf="isCliamUpdated;else isCliamUpdatedDone">
+                            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Updateding...
+                        </ng-container>
+                        <ng-template #isCliamUpdatedDone>
+                            Updated
+                        </ng-template>
+                    </button>
+
+
+
+                </div>
             </div>
         </div>
 
