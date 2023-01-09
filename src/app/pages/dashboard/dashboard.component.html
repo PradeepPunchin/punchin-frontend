@@ -938,7 +938,8 @@
                 </div>
                 <div class="remark-wrapper">
                     <div class="content" *ngFor="let item of remarkDetails">
-                        <p>{{item.createdAt | date}} | {{item.createdAt | date:'hh:mm a'}} <span>({{item.role}})</span>
+                        <p>{{item.createdAt | date}} | {{item.createdAt | date:'hh:mm a'}} <span>({{item.role |
+                                titlecase}})</span>
                             <br><span>{{item.remark | titlecase}}</span>
                         </p>
                         <p class="img-icon">

@@ -36,6 +36,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   fileUploadedLists: any[] = [];
   bankerDocId: any;
   checkStatus: any;
+  cliamId: any;
+  isCliamUpdated: boolean = false
 
 
   constructor(
@@ -51,10 +53,10 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       caseId: ['', [Validators.required]],
       brrower_name: ['', [Validators.required]],
       borrower_address: ['', [Validators.required]],
-      // borrower_contact: ['', [Validators.required]],
-      // nominee_name: ['', [Validators.required]],
-      // nominee_address: ['', [Validators.required]],
-      // nominee_contact: ['', [Validators.required]],
+      borrower_contact: ['', [Validators.required]],
+      nominee_name: ['', [Validators.required]],
+      nominee_address: ['', [Validators.required]],
+      nominee_contact: ['', [Validators.required]],
       load_type: ['', [Validators.required]],
       loan_acc_number: ['', [Validators.required]],
       insurer_name: ['', [Validators.required]],
@@ -83,6 +85,10 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       caseId: this.ClaimListById.punchinClaimId,
       brrower_name: this.ClaimListById.borrowerName,
       borrower_address: this.ClaimListById.borrowerAddress,
+      borrower_contact: this.ClaimListById.borrowerContactNumber,
+      nominee_name: this.ClaimListById.nomineeName,
+      nominee_address: this.ClaimListById.nomineeAddress,
+      nominee_contact: this.ClaimListById.nomineeContactNumber,
       load_type: this.ClaimListById.loanType,
       loan_acc_number: this.ClaimListById.loanAccountNumber,
       insurer_name: this.ClaimListById.insurerName,
@@ -95,6 +101,33 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       balance_claim_amt: this.ClaimListById.balanceClaimAmount,
     })
 
+  }
+
+  cliamDataUpated() {
+    this.isCliamUpdated = true
+    this.cliamId = this.docId || this.bankerDocId
+    let req = {
+      "borrowerAddress": this.showClaimForm.controls.borrower_address.value,
+      "borrowerContactNumber": this.showClaimForm.controls.borrower_contact.value,
+      "borrowerName": this.showClaimForm.controls.brrower_name.value,
+      "nomineeAddress": this.showClaimForm.controls.nominee_address.value,
+      "nomineeContactNumber": this.showClaimForm.controls.nominee_contact.value,
+      "nomineeName": this.showClaimForm.controls.nominee_name.value
+    }
+    console.log(this.cliamId, req, "req");
+    this.apiService.cliamDataUpdated(this.cliamId, req).subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.notifierService.showSuccess(res.message)
+        this.isCliamUpdated = false
+        this.viewClaimList = true;
+        this.editCliamList = false;
+      } else {
+        this.notifierService.showError(res.message || "Something went wrong")
+        this.isCliamUpdated = false
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    })
   }
 
   filterByStatus(event: any) {
@@ -111,7 +144,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.totalrecords = res?.data?.totalRecords
         this.totalpage = res?.data?.totalPages
       }
-    })
+    });
   }
 
   editClaimList(id: any) {
