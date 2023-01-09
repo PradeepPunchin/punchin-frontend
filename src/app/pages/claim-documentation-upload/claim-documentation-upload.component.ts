@@ -179,6 +179,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.viewClaimList = true;
         this.editCliamList = false;
         this.currentPage = 0;
+        this.uploadForm.reset();
         this.fileUploadedLists = [];
         this.getClaimUploadList();
       }
@@ -215,6 +216,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.getClaimUploadList();
     this.viewClaimList = true;
     this.editCliamList = false;
+    this.uploadForm.reset();
     this.fileUploadedLists = [];
   }
 
