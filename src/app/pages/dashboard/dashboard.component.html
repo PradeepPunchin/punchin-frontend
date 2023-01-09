@@ -341,9 +341,19 @@
                             <td class="text-center status-button">{{item.claimStatus | removeunderscore | titlecase}}
                             </td>
                             <td class="text-center" *ngIf="onStep === 1 && innerStep === 1">
-                                <span (click)="OpenBankerDiscrepancyModal(bankerDiscrepancy, item.id)">
+                                <!-- <span (click)="OpenBankerDiscrepancyModal(bankerDiscrepancy, item.id)">
                                     <i class="fa fa-file-text-o"></i>
-                                </span>
+                                </span> -->
+
+                                <ng-container *ngIf="item.claimStatus === 'BANKER_DISCREPANCY'; else OtherStatus">
+                                    <span (click)="OpenBankerDiscrepancyModal(bankerDiscrepancy, item.id)">
+                                        <i class="fa fa-file-text-o"></i>
+                                    </span>
+                                </ng-container>
+                                <ng-template #OtherStatus>
+                                    <span> <i class="fa fa-file-text-o" style="color: #8b8b8b;"></i>
+                                    </span>
+                                </ng-template>
                             </td>
                         </tr>
                     </tbody>
