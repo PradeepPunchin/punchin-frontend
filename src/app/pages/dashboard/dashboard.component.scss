@@ -324,6 +324,9 @@
         }
       }
     }
+    td:last-child {
+      background-color: $brightRedColor !important;
+    }
     th {
       background-color: $tableHeaderColor;
       font-weight: 600;

@@ -118,6 +118,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       "borrowerAddress": this.showClaimForm.controls.borrower_address.value,
       "borrowerContactNumber": this.showClaimForm.controls.borrower_contact.value,
       "borrowerName": this.showClaimForm.controls.brrower_name.value,
+      "borrowerPinCode": this.showClaimForm.controls.borrower_pin_code.value,
       "nomineeAddress": this.showClaimForm.controls.nominee_address.value,
       "nomineeContactNumber": this.showClaimForm.controls.nominee_contact.value,
       "nomineeName": this.showClaimForm.controls.nominee_name.value
