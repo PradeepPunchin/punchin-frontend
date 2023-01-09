@@ -191,6 +191,10 @@
     .form-label {
       font-size: $fontSize13;
       color: $black;
+      .requird {
+        color: $inputColor;
+        margin-left: 2px;
+      }
     }
     .form-control {
       background-color: $inputBackground;
