@@ -324,9 +324,9 @@
         }
       }
     }
-    td:last-child {
-      background-color: $brightRedColor !important;
-    }
+    // td:last-child {
+    //   background-color: $brightRedColor !important;
+    // }
     th {
       background-color: $tableHeaderColor;
       font-weight: 600;
@@ -349,9 +349,9 @@
       right: 0px;
       width: 107px;
     }
-    td:last-child {
-      background-color: $white;
-    }
+    // td:last-child {
+    //   background-color: $white;
+    // }
   }
   .pagination-box {
     padding: 10px 26px 20px 20px;
