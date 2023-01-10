@@ -70,7 +70,8 @@
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
   border-radius: 6px;
   margin-top: 14px;
-  padding-right: 25px;
+  // padding-right: 25px;
+  padding: 0 5px;
   .claim-dashboard-btns {
     h6 {
       font-weight: 600;
@@ -324,9 +325,6 @@
         }
       }
     }
-    // td:last-child {
-    //   background-color: $brightRedColor !important;
-    // }
     th {
       background-color: $tableHeaderColor;
       font-weight: 600;
