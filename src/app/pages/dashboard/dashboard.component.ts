@@ -133,6 +133,12 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  spaceRemoveFirst(e: any) {
+    if (e.target.selectionStart == 0 && e.code === "Space") {
+      e.preventDefault();
+    }
+  }
+
 
 
   onGetUploadedFile(event: any) {

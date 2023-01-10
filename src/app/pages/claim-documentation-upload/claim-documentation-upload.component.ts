@@ -175,14 +175,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
     this.apiService.DocumnetSaveDraft(this.ClaimListById.id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
-        this.viewClaimList = true;
-        this.editCliamList = false;
         this.pageNo = 0;
-        this.currentPage = 0;
-        this.uploadForm.reset();
-        this.fileUploadedLists = [];
-        this.filterData = "ALL"
-        this.getClaimUploadList();
+        this.back();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -190,6 +184,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   deleteSubmittedDoc(id: any) {
+    console.log(id, "Submitted data");
+
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
@@ -201,6 +197,8 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   deleteUploadedDoc(id: any, i: any) {
+    console.log(id, "updated data", i,);
+
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
@@ -212,6 +210,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   back() {
+    this.myFiles = [];
     this.currentPage = 0;
     this.filterData = "ALL"
     this.getClaimUploadList();
@@ -260,13 +259,13 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.notifierService.showSuccess(res?.message);
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
-        this.fileUploadedLists = [];
+        this.myFiles = [];
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
       this.isUploaded = false
       this.uploadForm.reset();
-      this.fileUploadedLists = [];
+      this.myFiles = [];
     })
   }
 
@@ -283,7 +282,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
         this.getClaimUploadList();
         this.viewClaimList = true;
         this.editCliamList = false;
-        this.fileUploadedLists = [];
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");

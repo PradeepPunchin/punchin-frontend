@@ -9,14 +9,14 @@
                         <select class="form-select form-select-md" aria-label=".form-select-sm example"
                             (input)="searchBySelectedData($event)" formControlName="selectedValue">
                             <option selected [ngValue]="null">Select</option>
-                            <option value="CLAIM_DATA_ID">PunchIn Ref. ID</option>
+                            <option value="CLAIM_DATA_ID">Punchin Ref. ID</option>
                             <option value="NAME">Name</option>
                             <option value="LOAN_ACCOUNT_NUMBER">Loan Account Number</option>
                         </select>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <input type="search" class="form-control" placeholder="Search..."
+                            <input type="search" class="form-control" placeholder="B_Name, LAN & P_Ref.id"
                                 formControlName="search" />
                         </div>
                     </div>
@@ -682,7 +682,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <input type="search" class="form-control" placeholder="Search..."
+                            <input type="search" class="form-control" placeholder="B_Name, LAN & P_Ref.id"
                                 formControlName="search" />
                         </div>
                     </div>
@@ -963,7 +963,8 @@
             <div class="row">
                 <label> <b>Enter Remark</b></label>
                 <div class="col-8">
-                    <input type="text" class="form-control" placeholder="Enter Remark" formControlName="remark">
+                    <input type="text" class="form-control" placeholder="Enter Remark" formControlName="remark"
+                        (keydown)="spaceRemoveFirst($event)">
                 </div>
                 <div class="col-4">
                     <button class="btn btn-primary" [disabled]="!remarkform.valid"
@@ -992,7 +993,7 @@
                             Punchin Ref.ID : <span>{{this.p_id}}</span>
                         </p>
                         <p>
-                            Agent Allocated : {{AllocatedAgentName || 'no agent allocated'}}
+                            <strong>Agent Allocated :</strong> {{AllocatedAgentName || 'no agent allocated'}}
                         </p>
                     </div>
                     <div class="inner-Wrapper">
