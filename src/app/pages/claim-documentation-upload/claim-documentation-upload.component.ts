@@ -184,8 +184,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   deleteSubmittedDoc(id: any) {
-    console.log(id, "Submitted data");
-
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)
@@ -197,8 +195,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
   }
 
   deleteUploadedDoc(id: any, i: any) {
-    console.log(id, "updated data", i,);
-
     this.apiService.deleteDocument(id).subscribe((res: any) => {
       if (res?.isSuccess) {
         this.notifierService.showSuccess(res.message)

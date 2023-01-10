@@ -359,7 +359,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let item of ClaimListUrlById">
+                        <ng-container *ngFor="let item of ClaimListUrlById;;let i = index">
                             <tr>
                                 <td
                                     *ngIf="item.docType =='COVID_Q' || item.docType =='PROPOSAL_FORM' || item.docType =='SANCTION_LETTER' || item.docType == 'OTHER'">

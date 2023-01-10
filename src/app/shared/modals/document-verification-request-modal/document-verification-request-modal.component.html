@@ -302,7 +302,8 @@
                 <option value="Any other reason">Any other reason</option>
             </select>
 
-            <input class="form-control" placeholder=" Enter Remark" formControlName="remark">
+            <input class="form-control" placeholder=" Enter Remark" formControlName="remark"
+                (keydown)="spaceRemoveFirst($event)">
             <small class="text-danger"
                 *ngIf="remarkForm.controls.remark.invalid &&(remarkFormSubmitted ||remarkForm.controls.remark.touched)">
                 <span *ngIf="remarkForm.controls.remark?.errors?.required">Remark is required</span>
