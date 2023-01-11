@@ -655,5 +655,19 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  //rejected MIS 
+  downloadRejectedMIS() {
+    this.apiService.getDownloadRejectMISReport().subscribe((res: any) => {
+      if (res?.isSuccess && res?.data) {
+        window.location.href = res?.data
+        this.notifierService.showSuccess(res?.message);
+      } else {
+        this.notifierService.showError("No data found");
+      }
+    }, (error: any) => {
+      this.notifierService.showError(error?.error?.message || "Something went wrong");
+    });
+  }
 }
 

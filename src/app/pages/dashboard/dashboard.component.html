@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <input type="search" class="form-control" placeholder="B_Name, LAN & P_Ref.id"
+                            <input type="search" class="form-control" placeholder="Search by B_Name or LAN or P_Ref.id"
                                 formControlName="search" />
                         </div>
                     </div>
@@ -383,6 +383,8 @@
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6>Service/Claim Dashboard ({{totalrecords || 0}})</h6>
             <div>
+                <button type="button" class="btn btn-outline-primary" (click)="downloadRejectedMIS()">Download Unmapped
+                    MIS Report</button>
                 <button type="button" class="btn btn-outline-primary" (click)="deleteClaim()">Discard</button>
                 <button type="button" class="btn btn-primary" (click)="submitClaim()">
                     <ng-container *ngIf="isSubmitted ;else isSubmittedDone">

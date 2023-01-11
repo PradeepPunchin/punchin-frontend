@@ -54,6 +54,9 @@
       padding: 6px 15px;
       border-color: $buttonColor;
     }
+    ::placeholder {
+      font-size: $fontSize14;
+    }
   }
 }
 
