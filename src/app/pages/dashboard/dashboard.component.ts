@@ -246,7 +246,8 @@ export class DashboardComponent implements OnInit {
     const initialState: ModalOptions = {
       initialState: {
         documentVerificationRequestId: id,
-        agentName: agentName
+        agentName: agentName,
+        under_verification: 'false'
       },
       class: 'modal-custom-width'
     };

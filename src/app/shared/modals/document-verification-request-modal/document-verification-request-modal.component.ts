@@ -4,6 +4,7 @@ import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { ApiResponse } from 'src/app/models/common';
 import { IDocumentDetailDTO, VerifierDocumentDetail } from 'src/app/models/response/verifier-document.response';
 import { ApiService } from 'src/app/services/api/api.service';
+import { EventService } from 'src/app/services/event/event.service';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
 import { SessionService } from 'src/app/services/session/session.service';
 
@@ -28,6 +29,7 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
 
   documentVerificationRequestId: any
   agentName: any;
+  under_verification: boolean = true
   documentVerificationDetails!: VerifierDocumentDetail;
   documentDetailsDTOList: IDocumentDetailDTO[] = [];
   bankerDocumentDetailsDTOList: IDocumentDetailDTO[] = [];
@@ -55,11 +57,11 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
     public modalRef: BsModalRef,
+    private eventService: EventService
 
   ) { }
   ngOnInit(): void {
     this.getDocumentDetails()
-
     this.remarkForm = this.formBuilder.group({
       remark: ['', [Validators.required]],
       reason: [null, [Validators.required]]
