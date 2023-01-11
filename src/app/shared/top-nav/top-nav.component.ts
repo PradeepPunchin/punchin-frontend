@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { INavItem } from 'src/app/models/common';
 import { ROLES, STORAGETOKENENUM } from 'src/app/models/enums';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -37,6 +38,7 @@ export class TopNavComponent implements OnInit {
     private notifierService: NotifierService,
     private router: Router,
     private apiService: ApiService,
+    private modalService: BsModalService
   ) {
     this.role = this.sessionServive.getSession(STORAGETOKENENUM.role)
     this.userId = this.sessionServive.getSession(STORAGETOKENENUM.userId)
@@ -100,6 +102,7 @@ export class TopNavComponent implements OnInit {
     this.apiService.logout().subscribe((res: any) => {
       this.router.navigate(['/']);
       this.notifierService.showSuccess("logout Successful")
+      this.modalService.hide();
     })
   }
 
