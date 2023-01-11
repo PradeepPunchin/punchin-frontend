@@ -54,6 +54,9 @@
       padding: 6px 15px;
       border-color: $buttonColor;
     }
+    ::placeholder {
+      font-size: $fontSize14;
+    }
   }
 }
 
@@ -70,7 +73,8 @@
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.07);
   border-radius: 6px;
   margin-top: 14px;
-  padding-right: 25px;
+  // padding-right: 25px;
+  padding: 0 5px;
   .claim-dashboard-btns {
     h6 {
       font-weight: 600;
@@ -299,6 +303,7 @@
       font-size: $fontSize14;
       color: $icon-color;
       padding: 6px 15px;
+      margin-right: 10px;
     }
     .btn-outline-primary:hover {
       background: $white;
@@ -324,9 +329,6 @@
         }
       }
     }
-    td:last-child {
-      background-color: $brightRedColor !important;
-    }
     th {
       background-color: $tableHeaderColor;
       font-weight: 600;
@@ -349,9 +351,9 @@
       right: 0px;
       width: 107px;
     }
-    td:last-child {
-      background-color: $white;
-    }
+    // td:last-child {
+    //   background-color: $white;
+    // }
   }
   .pagination-box {
     padding: 10px 26px 20px 20px;
@@ -753,7 +755,78 @@
 }
 
 //remark
-.remark-container {
+.modal-body {
+  .remark-container {
+    .btn-primary {
+      background-color: $buttonColor;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: $fontSize14;
+      color: $white;
+      padding: 6px 15px;
+      border-color: $buttonColor;
+    }
+    .new-requirements {
+      background-color: $icon-color;
+      height: 50px;
+      padding: 14px;
+      border-radius: 7px;
+      p {
+        color: $white;
+        font-size: $fontSize16;
+        text-align: left;
+        font-weight: 500;
+        span {
+          font-size: $fontSize18;
+          font-weight: 700;
+        }
+      }
+    }
+    .remark {
+      .btn-light {
+        background-color: $tableTextColor;
+        border-radius: 5px;
+        font-weight: 600;
+        font-size: $fontSize14;
+        color: $white;
+        padding: 6px 15px;
+        margin-left: 10px;
+        border-color: $tableTextColor;
+      }
+      .active {
+        background-color: $buttonColor;
+        border-color: $buttonColor;
+      }
+    }
+    .remark-wrapper {
+      height: 280px;
+      overflow-y: scroll;
+      border: 1px solid $borderColor;
+      border-radius: 7px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      border: 1px solid $borderColor;
+      border-radius: 7px;
+      .content {
+        justify-content: space-between;
+        display: flex;
+        p {
+          font-size: $fontSize14;
+          padding: 5px;
+          color: $navbarTextColor;
+          margin-left: 5px;
+          span {
+            color: $black;
+            font-size: $fontSize16;
+          }
+        }
+        .img-icon {
+          margin-right: 40px;
+          margin-top: 15px;
+        }
+      }
+    }
+  }
   .btn-primary {
     background-color: $buttonColor;
     border-radius: 5px;
@@ -761,66 +834,7 @@
     font-size: $fontSize14;
     color: $white;
     padding: 6px 15px;
+    margin-left: 10px;
     border-color: $buttonColor;
-  }
-  .new-requirements {
-    background-color: $icon-color;
-    height: 50px;
-    padding: 14px;
-    border-radius: 7px;
-    p {
-      color: $white;
-      font-size: $fontSize16;
-      text-align: left;
-      font-weight: 500;
-      span {
-        font-size: $fontSize18;
-        font-weight: 700;
-      }
-    }
-  }
-  .remark {
-    .btn-light {
-      background-color: $tableTextColor;
-      border-radius: 5px;
-      font-weight: 600;
-      font-size: $fontSize14;
-      color: $white;
-      padding: 6px 15px;
-      margin-left: 10px;
-      border-color: $tableTextColor;
-    }
-    .active {
-      background-color: $buttonColor;
-      border-color: $buttonColor;
-    }
-  }
-  .remark-wrapper {
-    height: 280px;
-    overflow-y: scroll;
-    border: 1px solid $borderColor;
-    border-radius: 7px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    border: 1px solid $borderColor;
-    border-radius: 7px;
-    .content {
-      justify-content: space-between;
-      display: flex;
-      p {
-        font-size: $fontSize14;
-        padding: 5px;
-        color: $navbarTextColor;
-        margin-left: 5px;
-        span {
-          color: $black;
-          font-size: $fontSize16;
-        }
-      }
-      .img-icon {
-        margin-right: 40px;
-        margin-top: 15px;
-      }
-    }
   }
 }

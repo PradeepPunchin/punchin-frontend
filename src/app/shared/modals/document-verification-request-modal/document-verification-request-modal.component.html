@@ -1,7 +1,6 @@
 <div class="modal-header">
     <h4 class="modal-title pull-left">Document Verification
-        <span class="agent-details"> {{agentName || 'no agent allocated'}}
-        </span>
+
         <span *ngIf="documentDetailsDTOList && documentDetailsDTOList.length> 0">
             <button type="button" class="btn btn-primary" (click)="downloadAllDocument()">
                 <ng-container *ngIf="isDownloadDoc ;else isDownloadDocDone">
@@ -13,6 +12,8 @@
             </button>
 
             <!-- <button type="button" class="btn btn-primary" (click)="downlaodAllDocumnet()">Download All</button> -->
+        </span>
+        <span class="agent-details"><strong>Agent Allocated :</strong> {{agentName || 'no agent allocated'}}
         </span>
     </h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
@@ -301,7 +302,8 @@
                 <option value="Any other reason">Any other reason</option>
             </select>
 
-            <input class="form-control" placeholder=" Enter Remark" formControlName="remark">
+            <input class="form-control" placeholder=" Enter Remark" formControlName="remark"
+                (keydown)="spaceRemoveFirst($event)">
             <small class="text-danger"
                 *ngIf="remarkForm.controls.remark.invalid &&(remarkFormSubmitted ||remarkForm.controls.remark.touched)">
                 <span *ngIf="remarkForm.controls.remark?.errors?.required">Remark is required</span>

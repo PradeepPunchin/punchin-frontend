@@ -67,6 +67,12 @@ export class DocumentVerificationRequestModalComponent implements OnInit {
     })
   }
 
+  spaceRemoveFirst(e: any) {
+    if (e.target.selectionStart == 0 && e.code === "Space") {
+      e.preventDefault();
+    }
+  }
+
   openApprovedModal(approved: any) {
     this.bsModalRef1 = this.modalService.show(approved);
   }
