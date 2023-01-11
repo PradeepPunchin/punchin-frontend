@@ -191,7 +191,7 @@
                     <label for="borrower_pin_code" class="form-label">Borrower Pin Code<span class="requird"><i
                                 class="fa fa-pencil" aria-hidden="true"></i>
                         </span></label>
-                    <input type="text" class="form-control" id="borrower_pin_code" formControlName="borrower_pin_code"
+                    <input type="number" class="form-control" id="borrower_pin_code" formControlName="borrower_pin_code"
                         (keydown)="spaceRemoveFirst($event)">
                 </div>
                 <div class="col-3">
@@ -359,9 +359,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let item of ClaimListUrlById">
+                        <ng-container *ngFor="let item of ClaimListUrlById;;let i = index">
                             <tr>
-                                <td>{{item.docType | removeunderscore | titlecase}}</td>
+                                <td
+                                    *ngIf="item.docType =='COVID_Q' || item.docType =='PROPOSAL_FORM' || item.docType =='SANCTION_LETTER' || item.docType == 'OTHER'">
+                                    {{item.docType | removeunderscore | titlecase}}</td>
+                                <td
+                                    *ngIf="item.docType =='SMQ' || item.docType =='DOGH' || item.docType =='POS_LETTER'  || item.docType =='MEF' || item.docType =='FUF' || item.docType =='CAS'">
+                                    {{item.docType | removeunderscore}}</td>
                                 <td class="text-center">
                                     <span (click)="viewUploadedDoc(item1)"
                                         *ngFor="let item1 of item.documentUrlDTOS;"><i class="fa fa-eye"
@@ -375,7 +380,12 @@
                         </ng-container>
                         <ng-container *ngFor="let item of fileUploadedLists;let i = index">
                             <tr>
-                                <td>{{item.agentDocType | removeunderscore | titlecase}}</td>
+                                <td
+                                    *ngIf="item.docType =='COVID_Q' || item.docType =='PROPOSAL_FORM' || item.docType =='SANCTION_LETTER' || item.docType == 'OTHER'">
+                                    {{item.docType | removeunderscore | titlecase}}</td>
+                                <td
+                                    *ngIf="item.docType =='SMQ' || item.docType =='DOGH' || item.docType =='POS_LETTER' || item.docType =='MEF' || item.docType =='FUF' || item.docType =='CAS'">
+                                    {{item.docType | removeunderscore}}</td>
                                 <td class="text-center">
                                     <span (click)="viewUploadedDoc(item1)" *ngFor="let item1 of item.documentUrls;"><i
                                             class="fa fa-eye" aria-hidden="true" style="margin-left:5px"></i></span>

@@ -85,14 +85,14 @@ export class ApiService {
 
   getDownloadMISReport(bankerType: any, verifierType: any, role: any) {
     if (role === 'BANKER') {
-      return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${bankerType}`)
+      return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${bankerType}`);
     } else {
-      return this.http.get(`${this.baseApiUrl}verifier/claim/download-mis-report?claimDataFilter=${verifierType}`)
+      return this.http.get(`${this.baseApiUrl}verifier/claim/download-mis-report?claimDataFilter=${verifierType}`);
     }
   }
 
   getClaimBankerDocuments(id: any) {
-    return this.http.get(`${this.baseApiUrl}banker/claim/${id}/documents`)
+    return this.http.get(`${this.baseApiUrl}banker/claim/${id}/documents`);
   }
 
   getBankerDownlaodAllDocuments(id: any) {
@@ -109,9 +109,9 @@ export class ApiService {
 
   getRemark(id: number, remarkType: any, role: any) {
     if (role === 'BANKER') {
-      return this.http.get(`${this.baseApiUrl}banker/claim/${id}/remarks`)
+      return this.http.get(`${this.baseApiUrl}banker/claim/${id}/remarks`);
     } else {
-      return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/remarks?remarkBy=${remarkType}`)
+      return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/remarks?remarkBy=${remarkType}`);
     }
   }
 
@@ -152,7 +152,7 @@ export class ApiService {
 
 
   getAllAgentsForVerifier() {
-    return this.http.get(`${this.baseApiUrl}verifier/agents`)
+    return this.http.get(`${this.baseApiUrl}verifier/agents`);
   }
 
   claimDataAgentAllocation(agentId: number, cliamId: number) {
@@ -161,18 +161,22 @@ export class ApiService {
 
   getClaimhistory(id: number, role: any) {
     if (role === 'BANKER') {
-      return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`)
+      return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`);
     } else {
-      return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/history`)
+      return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/history`);
     }
   }
 
   addRemark(id: number, body: any, role: any) {
     if (role === 'BANKER') {
-      return this.http.post(`${this.baseApiUrl}banker/claim/${id}/remarks`, body)
+      return this.http.post(`${this.baseApiUrl}banker/claim/${id}/remarks`, body);
     } else {
-      return this.http.post(`${this.baseApiUrl}verifier/claim/${id}/remarks`, body)
+      return this.http.post(`${this.baseApiUrl}verifier/claim/${id}/remarks`, body);
     }
+  }
+
+  getDownloadRejectMISReport() {
+    return this.http.get(`${this.baseApiUrl}banker/claim/download-rejected-mis-report`);
   }
 }
 

@@ -9,15 +9,15 @@
                         <select class="form-select form-select-md" aria-label=".form-select-sm example"
                             (input)="searchBySelectedData($event)" formControlName="selectedValue">
                             <option selected [ngValue]="null">Select</option>
-                            <option value="CLAIM_DATA_ID">PunchIn Ref. ID</option>
+                            <option value="CLAIM_DATA_ID">Punchin Ref. ID</option>
                             <option value="NAME">Name</option>
                             <option value="LOAN_ACCOUNT_NUMBER">Loan Account Number</option>
                         </select>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <input type="search" class="form-control" placeholder="Search..."
-                                formControlName="search" />
+                            <input type="search" class="form-control"
+                                placeholder="Search by Bor_Name or LAN or P_Ref.id" formControlName="search" />
                         </div>
                     </div>
                     <div class="col-2">
@@ -217,9 +217,9 @@
                                     title="Raise Additional Doc Request">
                                     <i class="fa fa-file-text-o"></i>
                                 </span>
-                                <span (click)="downloadBankerDoc(item.id)" title="Download All Document">
+                                <!-- <span (click)="downloadBankerDoc(item.id)" title="Download All Document">
                                     <i class="fa fa-download" aria-hidden="true"></i>
-                                </span>
+                                </span> -->
                                 <span
                                     (click)="openTrackingModal(trackingTemplate,item.id,item.punchinClaimId, item.agentName)"
                                     title="Claim Tracking">
@@ -288,7 +288,8 @@
                         <th scope="col">Nominee Email Id</th>
                         <th scope="col">Nominee Address</th>
                         <th scope="col" class="text-center">Status</th>
-                        <th scope="col" class="text-center" *ngIf="onStep === 1 && innerStep === 1">Action</th>
+                        <th scope="col" class="text-center" *ngIf="(onStep === 1 && innerStep === 1) || onStep === 3 ">
+                            Action</th>
 
                     </tr>
                 </thead>
@@ -345,7 +346,7 @@
                                     <i class="fa fa-file-text-o"></i>
                                 </span> -->
 
-                                <ng-container *ngIf="item.claimStatus === 'BANKER_DISCREPANCY'; else OtherStatus">
+                                <ng-container *ngIf="item.claimBankerStatus === 'BANKER_DISCREPANCY'; else OtherStatus">
                                     <span (click)="OpenBankerDiscrepancyModal(bankerDiscrepancy, item.id)">
                                         <i class="fa fa-file-text-o"></i>
                                     </span>
@@ -354,6 +355,11 @@
                                     <span> <i class="fa fa-file-text-o" style="color: #8b8b8b;"></i>
                                     </span>
                                 </ng-template>
+                            </td>
+                            <td class="text-center" *ngIf="onStep === 3">
+                                <span (click)="downloadBankerDoc(item.id)" title="Download All Document">
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                </span>
                             </td>
                         </tr>
                     </tbody>
@@ -383,6 +389,14 @@
         <div class="claim-dashboard-btns d-flex justify-content-between align-items-center">
             <h6>Service/Claim Dashboard ({{totalrecords || 0}})</h6>
             <div>
+                <button type="button" class="btn btn-outline-primary" (click)="downloadRejectedMIS()">
+                    <ng-container *ngIf="isUnmappedData ;else isUnmappedDataDone">
+                        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Downloading...
+                    </ng-container>
+                    <ng-template #isUnmappedDataDone>
+                        Download Invalid Cliam Report
+                    </ng-template>
+                </button>
                 <button type="button" class="btn btn-outline-primary" (click)="deleteClaim()">Discard</button>
                 <button type="button" class="btn btn-primary" (click)="submitClaim()">
                     <ng-container *ngIf="isSubmitted ;else isSubmittedDone">
@@ -545,7 +559,8 @@
                                 </div>
                                 <div class="mt-2">
                                     <label>Remark</label>
-                                    <input class="form-control" placeholder=" Enter Remark" formControlName="remark">
+                                    <input class="form-control" placeholder=" Enter Remark" formControlName="remark"
+                                        (keydown)="spaceRemoveFirst($event)">
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     <button class="btn btn-primary" [disabled]="!addtionalForm.valid">Submit</button>
@@ -682,7 +697,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <input type="search" class="form-control" placeholder="Search..."
+                            <input type="search" class="form-control" placeholder="Bor_Name, LAN & P_Ref.id"
                                 formControlName="search" />
                         </div>
                     </div>
@@ -963,7 +978,8 @@
             <div class="row">
                 <label> <b>Enter Remark</b></label>
                 <div class="col-8">
-                    <input type="text" class="form-control" placeholder="Enter Remark" formControlName="remark">
+                    <input type="text" class="form-control" placeholder="Enter Remark" formControlName="remark"
+                        (keydown)="spaceRemoveFirst($event)">
                 </div>
                 <div class="col-4">
                     <button class="btn btn-primary" [disabled]="!remarkform.valid"
@@ -992,7 +1008,7 @@
                             Punchin Ref.ID : <span>{{this.p_id}}</span>
                         </p>
                         <p>
-                            Agent Allocated : {{AllocatedAgentName || 'no agent allocated'}}
+                            <strong>Agent Allocated :</strong> {{AllocatedAgentName || 'no agent allocated'}}
                         </p>
                     </div>
                     <div class="inner-Wrapper">
