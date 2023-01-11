@@ -84,6 +84,7 @@ export class DashboardComponent implements OnInit {
   remarkDetails: any[] = [];
   remarkform!: FormGroup
   remarkType: any = 'AGENT'
+  isUnmappedData: boolean = false;
 
 
 
@@ -658,15 +659,20 @@ export class DashboardComponent implements OnInit {
 
   //rejected MIS 
   downloadRejectedMIS() {
+    this.isUnmappedData = true
     this.apiService.getDownloadRejectMISReport().subscribe((res: any) => {
       if (res?.isSuccess && res?.data) {
         window.location.href = res?.data
+        this.isUnmappedData = false
         this.notifierService.showSuccess(res?.message);
       } else {
         this.notifierService.showError("No data found");
+        this.isUnmappedData = false
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
+      this.isUnmappedData = false
+
     });
   }
 }
