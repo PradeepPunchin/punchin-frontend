@@ -276,7 +276,7 @@
                 </div>
                 <!-- <app-pdf-viewer [docUrl]="docUrl" [docType]="docType"></app-pdf-viewer> -->
                 <app-document-viewer [docUrl]="docUrl" [docType]="docType"></app-document-viewer>
-                <div class="document-preview-btns text-center mt-auto">
+                <div class="document-preview-btns text-center mt-auto" *ngIf="under_verification === true">
                     <button type="button" class="btn btn-outline-primary"
                         (click)="openRejectModal(reject)">Reject</button>
                     <button type="button" class="btn btn-primary" (click)="openApprovedModal(approved)">Approve</button>

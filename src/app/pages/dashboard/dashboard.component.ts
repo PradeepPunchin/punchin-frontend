@@ -245,7 +245,8 @@ export class DashboardComponent implements OnInit {
     const initialState: ModalOptions = {
       initialState: {
         documentVerificationRequestId: id,
-        agentName: agentName
+        agentName: agentName,
+        under_verification: 'false'
       },
       class: 'modal-custom-width'
     };
@@ -255,23 +256,6 @@ export class DashboardComponent implements OnInit {
   viewbankerDocRequest(submitBy: any, id: any) {
     this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
   }
-
-  //submit upload file
-  submitClaim() {
-    this.isSubmitted = true
-    this.apiService.submitClaims().subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.isSubmitted = false
-        this.notifierService.showSuccess(res?.message)
-        this.downloadRejectedMIS();
-        this.router.navigate(['/pages/claim-documentation'])
-      }
-    }, (error: any) => {
-      this.isSubmitted = false
-      this.notifierService.showError(error?.error?.message || "Something went wrong")
-    })
-  }
-
 
   //  download msi report
   downloadMisReport() {
@@ -659,13 +643,26 @@ export class DashboardComponent implements OnInit {
   }
 
   //rejected MIS 
-  downloadRejectedMIS() {
+  submitBankerClaim() {
+    this.apiService.submitClaims().subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.isSubmitted = false
+        this.notifierService.showSuccess(res?.message)
+        this.router.navigate(['/pages/claim-documentation'])
+      }
+    }, (error: any) => {
+      this.isSubmitted = false
+      this.notifierService.showError(error?.error?.message || "Something went wrong")
+    });
+  }
+
+  //submit upload file
+  submitClaim() {
+    this.isSubmitted = true
     this.apiService.getDownloadRejectMISReport().subscribe((res: any) => {
       if (res?.isSuccess && res?.data) {
         window.location.href = res?.data
-        this.notifierService.showSuccess(res?.message);
-      } else {
-        this.notifierService.showError("No data found");
+        this.submitBankerClaim();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
