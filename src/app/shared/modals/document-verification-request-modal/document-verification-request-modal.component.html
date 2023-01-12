@@ -84,16 +84,16 @@
                         <tbody>
                             <ng-container *ngFor="let item of documentDetailsDTOList">
                                 <tr>
-                                    <!-- <td>
-                                        {{item.agentDocType | removeunderscore | titlecase}}
-                                    </td> -->
+                                    <td>
+                                        {{item.agentDocType | removeunderscore}}
+                                    </td>
 
-                                    <td
-                                        *ngIf="item.agentDocType =='COVID_Q' || item.agentDocType =='PROPOSAL_FORM' || item.agentDocType =='SANCTION_LETTER' || item.agentDocType == 'OTHER'">
+                                    <!-- <td
+                                        *ngIf="item.agentDocType === 'COVID_Q' || item.agentDocType === 'PROPOSAL_FORM' || item.agentDocType === 'SANCTION_LETTER' || item.agentDocType == 'OTHER'">
                                         {{item.agentDocType | removeunderscore | titlecase}}</td>
                                     <td
-                                        *ngIf="item.agentDocType =='SMQ' || item.agentDocType =='DOGH' || item.agentDocType =='POS_LETTER'  || item.agentDocType =='MEF' || item.agentDocType =='FUF' || item.agentDocType =='CAS'">
-                                        {{item.agentDocType | removeunderscore}}</td>
+                                        *ngIf="item.agentDocType === 'SMQ' || item.agentDocType === 'DOGH' || item.agentDocType === 'POS_LETTER'  || item.agentDocType === 'MEF' || item.agentDocType === 'FUF' || item.agentDocType === 'CAS'">
+                                        {{item.agentDocType | removeunderscore}}</td> -->
 
                                     <td class="text-center">
                                         <span *ngIf="item.isVerified == false"><img
@@ -155,15 +155,15 @@
                         <tbody>
                             <ng-container *ngFor="let item of bankerDocumentDetailsDTOList">
                                 <tr>
-                                    <!-- <td>
-                                        {{item.agentDocType | removeunderscore | titlecase}}
-                                    </td> -->
-                                    <td
+                                    <td>
+                                        {{item.agentDocType | removeunderscore}}
+                                    </td>
+                                    <!-- <td
                                         *ngIf="item.agentDocType =='COVID_Q' || item.agentDocType =='PROPOSAL_FORM' || item.agentDocType =='SANCTION_LETTER' || item.agentDocType == 'OTHER'">
                                         {{item.agentDocType | removeunderscore | titlecase}}</td>
                                     <td
                                         *ngIf="item.agentDocType =='SMQ' || item.agentDocType =='DOGH' || item.agentDocType =='POS_LETTER'  || item.agentDocType =='MEF' || item.agentDocType =='FUF' || item.agentDocType =='CAS'">
-                                        {{item.agentDocType | removeunderscore}}</td>
+                                        {{item.agentDocType | removeunderscore}}</td> -->
                                     <td class="text-center">
                                         <span *ngIf="item.isVerified == false"><img
                                                 src="../../../../assets/icons/right-tick-blue.svg"></span>
@@ -223,15 +223,15 @@
                         <tbody>
                             <ng-container *ngFor="let item of additionalDocmentDetailsDTOList">
                                 <tr>
-                                    <!-- <td>
-                                        {{item.agentDocType | removeunderscore | titlecase}}
-                                    </td> -->
-                                    <td
+                                    <td>
+                                        {{item.agentDocType | removeunderscore}}
+                                    </td>
+                                    <!-- <td
                                         *ngIf="item.agentDocType =='COVID_Q' || item.agentDocType =='PROPOSAL_FORM' || item.agentDocType =='SANCTION_LETTER' || item.agentDocType == 'OTHER'">
                                         {{item.agentDocType | removeunderscore | titlecase}}</td>
                                     <td
                                         *ngIf="item.agentDocType =='SMQ' || item.agentDocType =='DOGH' || item.agentDocType =='POS_LETTER'  || item.agentDocType =='MEF' || item.agentDocType =='FUF' || item.agentDocType =='CAS'">
-                                        {{item.agentDocType | removeunderscore}}</td>
+                                        {{item.agentDocType | removeunderscore}}</td> -->
                                     <td class="text-center">
                                         <span *ngIf="item.isVerified == false"><img
                                                 src="../../../../assets/icons/right-tick-blue.svg"></span>
