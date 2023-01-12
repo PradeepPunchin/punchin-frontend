@@ -84,7 +84,6 @@ export class DashboardComponent implements OnInit {
   remarkDetails: any[] = [];
   remarkform!: FormGroup
   remarkType: any = 'AGENT'
-  isUnmappedData: boolean = false;
 
 
 
@@ -257,22 +256,6 @@ export class DashboardComponent implements OnInit {
   viewbankerDocRequest(submitBy: any, id: any) {
     this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
   }
-
-  //submit upload file
-  submitClaim() {
-    this.isSubmitted = true
-    this.apiService.submitClaims().subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.isSubmitted = false
-        this.notifierService.showSuccess(res?.message)
-        this.router.navigate(['/pages/claim-documentation'])
-      }
-    }, (error: any) => {
-      this.isSubmitted = false
-      this.notifierService.showError(error?.error?.message || "Something went wrong")
-    })
-  }
-
 
   //  download msi report
   downloadMisReport() {
@@ -507,7 +490,8 @@ export class DashboardComponent implements OnInit {
       this.apiService.uploadDiscrepancyDocument(this.bankerDocCliamId, this.additionalDocType, formData).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.notifierService.showSuccess(res?.message);
-          this.bsModalRef2?.hide()
+          this.bsModalRef2?.hide();
+          this.docName = "";
         }
       }, (error: any) => {
         this.notifierService.showError(error?.error?.message || "Something went wrong");
@@ -659,21 +643,29 @@ export class DashboardComponent implements OnInit {
   }
 
   //rejected MIS 
-  downloadRejectedMIS() {
-    this.isUnmappedData = true
+  submitBankerClaim() {
+    this.apiService.submitClaims().subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.isSubmitted = false
+        this.notifierService.showSuccess(res?.message)
+        this.router.navigate(['/pages/claim-documentation'])
+      }
+    }, (error: any) => {
+      this.isSubmitted = false
+      this.notifierService.showError(error?.error?.message || "Something went wrong")
+    });
+  }
+
+  //submit upload file
+  submitClaim() {
+    this.isSubmitted = true
     this.apiService.getDownloadRejectMISReport().subscribe((res: any) => {
       if (res?.isSuccess && res?.data) {
         window.location.href = res?.data
-        this.isUnmappedData = false
-        this.notifierService.showSuccess(res?.message);
-      } else {
-        this.notifierService.showError("No data found");
-        this.isUnmappedData = false
+        this.submitBankerClaim();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
-      this.isUnmappedData = false
-
     });
   }
 }
