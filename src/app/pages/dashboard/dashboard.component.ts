@@ -506,7 +506,8 @@ export class DashboardComponent implements OnInit {
       this.apiService.uploadDiscrepancyDocument(this.bankerDocCliamId, this.additionalDocType, formData).subscribe((res: any) => {
         if (res?.isSuccess) {
           this.notifierService.showSuccess(res?.message);
-          this.bsModalRef2?.hide()
+          this.bsModalRef2?.hide();
+          this.docName = "";
         }
       }, (error: any) => {
         this.notifierService.showError(error?.error?.message || "Something went wrong");
