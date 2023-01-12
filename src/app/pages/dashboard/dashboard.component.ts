@@ -643,7 +643,7 @@ export class DashboardComponent implements OnInit {
   }
 
   //rejected MIS 
-  downloadRejectedMIS() {
+  submitBankerClaim() {
     this.apiService.submitClaims().subscribe((res: any) => {
       if (res?.isSuccess) {
         this.isSubmitted = false
@@ -653,17 +653,7 @@ export class DashboardComponent implements OnInit {
     }, (error: any) => {
       this.isSubmitted = false
       this.notifierService.showError(error?.error?.message || "Something went wrong")
-    })
-    // this.apiService.getDownloadRejectMISReport().subscribe((res: any) => {
-    //   if (res?.isSuccess && res?.data) {
-    //     window.location.href = res?.data
-    //     this.notifierService.showSuccess(res?.message);
-    //   } else {
-    //     this.notifierService.showError("No data found");
-    //   }
-    // }, (error: any) => {
-    //   this.notifierService.showError(error?.error?.message || "Something went wrong");
-    // });
+    });
   }
 
   //submit upload file
@@ -672,7 +662,7 @@ export class DashboardComponent implements OnInit {
     this.apiService.getDownloadRejectMISReport().subscribe((res: any) => {
       if (res?.isSuccess && res?.data) {
         window.location.href = res?.data
-        this.downloadRejectedMIS();
+        this.submitBankerClaim();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
