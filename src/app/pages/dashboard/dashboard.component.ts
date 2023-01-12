@@ -257,23 +257,6 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(["/pages/claim-documentation"], { queryParams: { 'id': id } })
   }
 
-  //submit upload file
-  submitClaim() {
-    this.isSubmitted = true
-    this.apiService.submitClaims().subscribe((res: any) => {
-      if (res?.isSuccess) {
-        this.isSubmitted = false
-        this.notifierService.showSuccess(res?.message)
-        this.downloadRejectedMIS();
-        this.router.navigate(['/pages/claim-documentation'])
-      }
-    }, (error: any) => {
-      this.isSubmitted = false
-      this.notifierService.showError(error?.error?.message || "Something went wrong")
-    })
-  }
-
-
   //  download msi report
   downloadMisReport() {
     this.isdownloadMisReport = true;
@@ -661,12 +644,35 @@ export class DashboardComponent implements OnInit {
 
   //rejected MIS 
   downloadRejectedMIS() {
+    this.apiService.submitClaims().subscribe((res: any) => {
+      if (res?.isSuccess) {
+        this.isSubmitted = false
+        this.notifierService.showSuccess(res?.message)
+        this.router.navigate(['/pages/claim-documentation'])
+      }
+    }, (error: any) => {
+      this.isSubmitted = false
+      this.notifierService.showError(error?.error?.message || "Something went wrong")
+    })
+    // this.apiService.getDownloadRejectMISReport().subscribe((res: any) => {
+    //   if (res?.isSuccess && res?.data) {
+    //     window.location.href = res?.data
+    //     this.notifierService.showSuccess(res?.message);
+    //   } else {
+    //     this.notifierService.showError("No data found");
+    //   }
+    // }, (error: any) => {
+    //   this.notifierService.showError(error?.error?.message || "Something went wrong");
+    // });
+  }
+
+  //submit upload file
+  submitClaim() {
+    this.isSubmitted = true
     this.apiService.getDownloadRejectMISReport().subscribe((res: any) => {
       if (res?.isSuccess && res?.data) {
         window.location.href = res?.data
-        this.notifierService.showSuccess(res?.message);
-      } else {
-        this.notifierService.showError("No data found");
+        this.downloadRejectedMIS();
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
