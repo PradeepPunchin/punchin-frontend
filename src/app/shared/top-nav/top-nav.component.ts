@@ -42,7 +42,7 @@ export class TopNavComponent implements OnInit {
   ) {
     this.role = this.sessionServive.getSession(STORAGETOKENENUM.role)
     this.userId = this.sessionServive.getSession(STORAGETOKENENUM.userId)
-    if (this.role === ROLES.banker) {
+    if (this.role === ROLES.banker || this.role === ROLES.superBanker) {
       this.navLinks.push({
         id: 2,
         icon: `<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +68,7 @@ export class TopNavComponent implements OnInit {
       })
     }
 
-    if (this.role === ROLES.verifier) {
+    if (this.role === ROLES.verifier || this.role === ROLES.admin) {
       this.navLinks.push({
         id: 2,
         icon: `<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">

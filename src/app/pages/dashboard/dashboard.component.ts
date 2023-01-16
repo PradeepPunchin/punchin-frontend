@@ -14,6 +14,8 @@ import { FormBuilder, FormGroup, FormArray, FormControl, Validators, Form } from
 
 
 
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -85,6 +87,8 @@ export class DashboardComponent implements OnInit {
   remarkDetails: any[] = [];
   remarkform!: FormGroup
   remarkType: any = 'AGENT'
+  banker_Verifier_Remark_Read: any;
+  agent_Verifier_Remark_Read: any;
 
 
 
@@ -123,7 +127,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.role = this.sessionServive.getSession(STORAGETOKENENUM.role)
-    if (this.role === ROLES.banker) {
+    if (this.role === ROLES.banker || this.role === ROLES.superBanker) {
       this.getBankerDashboardData();
       this.bankerCardDetails('ALL')
     }
@@ -450,7 +454,7 @@ export class DashboardComponent implements OnInit {
 
   searchTableData() {
     this.inputSearch = this.searchForm.controls.search.value
-    if (this.role === ROLES.banker) {
+    if (this.role === ROLES.banker || this.role === ROLES.superBanker) {
       this.bankerCardDetails(this.bankerData)
       this.searchForm.reset();
 
@@ -594,9 +598,15 @@ export class DashboardComponent implements OnInit {
   }
 
   // remark modal
-  openRemarkModal(template: any, id: any, punchinId: any) {
+  openRemarkModal(template: any, id: any, punchinId: any, bankerVerifierRemarkRead: any, agentVerifierRemarkRead: any) {
     this.cliamId = id;
     this.p_id = punchinId;
+    this.banker_Verifier_Remark_Read = bankerVerifierRemarkRead;
+    this.agent_Verifier_Remark_Read = agentVerifierRemarkRead;
+    console.log(this.banker_Verifier_Remark_Read, "this.banker_Verifier_Remark_Read");
+    console.log(this.agent_Verifier_Remark_Read, "this.agent_Verifier_Remark_Read");
+
+
     const initialState: ModalOptions = {
       class: 'file-modal-custom-width',
       backdrop: 'static',
@@ -637,7 +647,7 @@ export class DashboardComponent implements OnInit {
         this.notifierService.showSuccess(res?.message || "Something went wrong");
         this.remarkform.reset();
         this.closeRemark();
-        if (this.role === ROLES.banker) {
+        if (this.role === ROLES.banker || this.role === ROLES.superBanker) {
           return this.bankerCardDetails('ALL')
         }
         if (this.role === ROLES.verifier || this.role === ROLES.admin) {
@@ -655,7 +665,8 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.isSubmitted = false
         this.notifierService.showSuccess(res?.message)
-        this.router.navigate(['/pages/claim-documentation'])
+        this.router.navigate(['/pages/claim-documentation']);
+
       }
     }, (error: any) => {
       this.isSubmitted = false
@@ -675,5 +686,16 @@ export class DashboardComponent implements OnInit {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
     });
   }
+
+  // openModal(template: any) {
+  //   const initialState: ModalOptions = {
+  //     class: 'file-modal-custom-width',
+  //     backdrop: 'static',
+  //     keyboard: false
+  //   };
+  //   this.bsModalRef6 = this.modalService.show(template, initialState);
+  // }
 }
+
+
 
