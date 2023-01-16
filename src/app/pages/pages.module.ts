@@ -8,6 +8,8 @@ import { DocumentVerificationRequestComponent } from './document-verification-re
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SharedModule } from '../shared/shared.module';
 import { RemoveunderscorePipe } from '../services/helper/removeunderscore.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -25,6 +27,7 @@ import { RemoveunderscorePipe } from '../services/helper/removeunderscore.pipe';
     FormsModule,
     PaginationModule.forRoot(),
     SharedModule,
+    NgbModule
 
   ],
   exports: [
