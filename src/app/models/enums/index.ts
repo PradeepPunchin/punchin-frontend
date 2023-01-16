@@ -8,7 +8,8 @@ export enum STORAGETOKENENUM {
 export enum ROLES {
     admin = "ADMIN",
     banker = "BANKER",
-    verifier = "VERIFIER"
+    verifier = "VERIFIER",
+    superBanker = "SUPER_BANKER"
 }
 
 export enum USERSTATUS {

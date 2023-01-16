@@ -1,4 +1,4 @@
-<ng-container *ngIf="role =='BANKER'">
+<ng-container *ngIf="role =='BANKER' || role =='SUPER_BANKER'">
     <div class="container-fluid claim-dashboard-box">
         <div class="claim-dashboard-search d-flex justify-content-between align-items-center"
             *ngIf="cordListData.length > 0">
@@ -225,9 +225,15 @@
                                     title="Claim Tracking">
                                     <i class="fa fa-map-o" aria-hidden="true"></i>
                                 </span>
-                                <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId)"
-                                    title="Remark">
+                                <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId,'','')"
+                                    title="Remark"
+                                    *ngIf="item.bankerRemarkRead == null || item.bankerRemarkRead == true ">
                                     <i class="fa fa-comment" aria-hidden="true"></i>
+
+                                </span>
+                                <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId, '','')"
+                                    title="Remark" *ngIf="item.bankerRemarkRead == false ">
+                                    <i class="fa fa-comment" id="commentColor" aria-hidden="true"></i>
 
                                 </span>
                             </td>
@@ -399,7 +405,7 @@
                 </button> -->
                 <button type="button" class="btn btn-outline-primary" (click)="deleteClaim()">Discard</button>
                 <button type="button" class="btn btn-primary" (click)="submitClaim()">
-                    <ng-container *ngIf="isSubmitted ;else isSubmittedDone">
+                    <ng-container *ngIf=" isSubmitted ;else isSubmittedDone">
                         <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Submitting...
                     </ng-container>
                     <ng-template #isSubmittedDone>
@@ -573,6 +579,29 @@
             </div>
         </div>
     </ng-template>
+
+    <!-- <ng-template>
+        <div class="modal-header">
+            <h6 class="modal-title">checking</h6>
+
+            <button type="button" class="btn-close close pull-right" aria-label="Close"
+                (click)="this.bsModalRef6?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid raise-additional-container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="new-requirements-table">
+                            <h1>Check rejected claims report</h1>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </ng-template> -->
 
     <ng-template #bankerDiscrepancy>
         <div class="modal-header">
@@ -900,8 +929,18 @@
                                 title="Tracking">
                                 <i class="fa fa-map-o"></i>
                             </span>
-                            <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId)" title="Remark">
+                            <span
+                                (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId, item.bankerVerifierRemarkRead, item.agentVerifierRemarkRead)"
+                                title="Remark"
+                                *ngIf="(item.bankerVerifierRemarkRead == null || item.bankerVerifierRemarkRead == true) && (item.agentVerifierRemarkRead == null || item.agentVerifierRemarkRead == true)">
                                 <i class="fa fa-comment" aria-hidden="true"></i>
+
+                            </span>
+                            <span
+                                (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId, item.bankerVerifierRemarkRead, item.agentVerifierRemarkRead)"
+                                title="Remark"
+                                *ngIf="item.bankerVerifierRemarkRead == false || item.agentVerifierRemarkRead == false">
+                                <i class="fa fa-comment" id="commentColor" aria-hidden="true"></i>
 
                             </span>
                         </td>
@@ -955,10 +994,16 @@
                     *ngIf="role =='ADMIN' || role =='VERIFIER'">
                     <button type="button" class="btn btn-light m-2" [ngClass]="{active: remarkStep === 0}"
                         [routerLinkActive]="['active']" (click)="remarkStep =0;getRemark('AGENT')">Agent
-                        Remark</button>
+                        Remark
+                        <span style="color: #7fd06e;" *ngIf="this.agent_Verifier_Remark_Read == false"><i
+                                class="fa fa-check"></i></span>
+                    </button>
                     <button type="button" class="btn btn-light m-2" [ngClass]="{active: remarkStep === 1}"
                         [routerLinkActive]="['active']" (click)="remarkStep =1;getRemark('BANKER')">Banker
-                        Remark</button>
+                        Remark
+                        <span style="color: #7fd06e;" *ngIf="this.banker_Verifier_Remark_Read == false"><i
+                                class="fa fa-check"></i></span>
+                    </button>
                 </div>
                 <div class="remark-wrapper">
                     <div class="content" *ngFor="let item of remarkDetails">
