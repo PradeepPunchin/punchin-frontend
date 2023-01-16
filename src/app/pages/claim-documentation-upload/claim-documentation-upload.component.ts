@@ -137,6 +137,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       }
     }, (error: any) => {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
+      this.isCliamUpdated = false
     })
   }
 
