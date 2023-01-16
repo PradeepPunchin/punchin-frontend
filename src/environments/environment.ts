@@ -4,7 +4,14 @@
 
 export const environment = {
   api: {
-    baseApiRoot: `http://3.110.250.144:7002/api/v1/`
+    // baseApiRoot: `https://bf13-2409-4061-700-a81b-a055-dcd8-e88a-b73e.in.ngrok.io/`,
+    baseApiRoot: `http://13.235.28.49:7002/api/v1/`
+    // baseApiRoot: `http://3.110.250.144:7002/api/v1/`
+
+
+
+
+    // baseApiRoot: `https://81ac-223-190-86-159.in.ngrok.io/api/v1/`
 
   },
   production: false

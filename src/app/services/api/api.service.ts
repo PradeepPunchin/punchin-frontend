@@ -84,7 +84,7 @@ export class ApiService {
   }
 
   getDownloadMISReport(bankerType: any, verifierType: any, role: any) {
-    if (role === 'BANKER') {
+    if (role === 'BANKER' || role === 'SUPER_BANKER') {
       return this.http.get(`${this.baseApiUrl}banker/claim/download-mis-report?claimDataFilter=${bankerType}`);
     } else {
       return this.http.get(`${this.baseApiUrl}verifier/claim/download-mis-report?claimDataFilter=${verifierType}`);
@@ -108,7 +108,7 @@ export class ApiService {
   }
 
   getRemark(id: number, remarkType: any, role: any) {
-    if (role === 'BANKER') {
+    if (role === 'BANKER' || role === 'SUPER_BANKER') {
       return this.http.get(`${this.baseApiUrl}banker/claim/${id}/remarks`);
     } else {
       return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/remarks?remarkBy=${remarkType}`);
@@ -160,7 +160,7 @@ export class ApiService {
   }
 
   getClaimhistory(id: number, role: any) {
-    if (role === 'BANKER') {
+    if (role === 'BANKER' || role === 'SUPER_BANKER') {
       return this.http.get(`${this.baseApiUrl}banker/claim/${id}/history`);
     } else {
       return this.http.get(`${this.baseApiUrl}verifier/claim/${id}/history`);
@@ -168,7 +168,7 @@ export class ApiService {
   }
 
   addRemark(id: number, body: any, role: any) {
-    if (role === 'BANKER') {
+    if (role === 'BANKER' || role === 'SUPER_BANKER') {
       return this.http.post(`${this.baseApiUrl}banker/claim/${id}/remarks`, body);
     } else {
       return this.http.post(`${this.baseApiUrl}verifier/claim/${id}/remarks`, body);
