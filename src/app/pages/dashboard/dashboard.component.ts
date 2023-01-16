@@ -14,6 +14,8 @@ import { FormBuilder, FormGroup, FormArray, FormControl, Validators, Form } from
 
 
 
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -663,7 +665,8 @@ export class DashboardComponent implements OnInit {
       if (res?.isSuccess) {
         this.isSubmitted = false
         this.notifierService.showSuccess(res?.message)
-        this.router.navigate(['/pages/claim-documentation'])
+        this.router.navigate(['/pages/claim-documentation']);
+
       }
     }, (error: any) => {
       this.isSubmitted = false
@@ -693,4 +696,6 @@ export class DashboardComponent implements OnInit {
   //   this.bsModalRef6 = this.modalService.show(template, initialState);
   // }
 }
+
+
 
