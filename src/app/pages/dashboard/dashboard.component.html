@@ -226,8 +226,14 @@
                                     <i class="fa fa-map-o" aria-hidden="true"></i>
                                 </span>
                                 <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId)"
-                                    title="Remark">
+                                    title="Remark"
+                                    *ngIf="item.bankerRemarkRead == null || item.bankerRemarkRead == true ">
                                     <i class="fa fa-comment" aria-hidden="true"></i>
+
+                                </span>
+                                <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId)"
+                                    title="Remark" *ngIf="item.bankerRemarkRead == false ">
+                                    <i class="fa fa-comment" id="commentColor" aria-hidden="true"></i>
 
                                 </span>
                             </td>
@@ -900,8 +906,14 @@
                                 title="Tracking">
                                 <i class="fa fa-map-o"></i>
                             </span>
-                            <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId)" title="Remark">
+                            <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId)" title="Remark"
+                                *ngIf="(item.bankerVerifierRemarkRead == null || item.bankerVerifierRemarkRead == true) && (item.agentVerifierRemarkRead == null || item.agentVerifierRemarkRead == true)">
                                 <i class="fa fa-comment" aria-hidden="true"></i>
+
+                            </span>
+                            <span (click)="openRemarkModal(remarkTemplate,item.id,item.punchinClaimId)" title="Remark"
+                                *ngIf="item.bankerVerifierRemarkRead == false || item.agentVerifierRemarkRead == false">
+                                <i class="fa fa-comment" id="commentColor" aria-hidden="true"></i>
 
                             </span>
                         </td>
