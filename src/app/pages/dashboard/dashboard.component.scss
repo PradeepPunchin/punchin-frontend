@@ -205,6 +205,9 @@
         font-size: $fontSize16;
         margin-left: 10px;
       }
+      #commentColor {
+        color: $statusSubmittedColor !important;
+      }
     }
   }
   .pagination-box {
@@ -444,6 +447,9 @@
       justify-content: end;
       margin-right: 5px;
       display: flex;
+    }
+    #commentColor {
+      color: $statusSubmittedColor !important;
     }
   }
 }

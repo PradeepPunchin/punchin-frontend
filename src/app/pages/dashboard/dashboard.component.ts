@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit {
   bsModalRef3?: BsModalRef;
   bsModalRef4?: BsModalRef;
   bsModalRef5?: BsModalRef
+  bsModalRef6?: BsModalRef
   modalRef?: BsModalRef;
   filterStatus: any
   currentPage: any = 0;
@@ -636,6 +637,12 @@ export class DashboardComponent implements OnInit {
         this.notifierService.showSuccess(res?.message || "Something went wrong");
         this.remarkform.reset();
         this.closeRemark();
+        if (this.role === ROLES.banker) {
+          return this.bankerCardDetails('ALL')
+        }
+        if (this.role === ROLES.verifier || this.role === ROLES.admin) {
+          return this.verifierCardDetails("ALL")
+        }
       } else {
         this.notifierService.showError(res?.message || "Something went wrong");
       }
