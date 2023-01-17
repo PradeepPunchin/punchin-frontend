@@ -18,6 +18,7 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "@ng-bootstrap/ng-bootstrap": "^12.1.2",
     "bootstrap": "^5.2.2",
     "font-awesome": "^4.7.0",
     "ng-http-loader": "^10.1.0",
