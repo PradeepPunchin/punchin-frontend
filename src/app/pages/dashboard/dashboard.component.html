@@ -90,7 +90,7 @@
                     (click)="bankerCardDetails('DISCREPENCY')">Discrepancy</button>
             </div>
             <button type="button" class="btn btn-primary btn1"
-                *ngIf="onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3"
+                *ngIf="(onStep === 0 || onStep === 1 || onStep === 2 || onStep === 3) && role =='BANKER'"
                 (click)="openUploaFiledModal(fileTemplate)">
                 <img src="../../../assets/icons/action(white).svg" class="me-2">Upload xls File</button>
 
