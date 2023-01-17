@@ -372,9 +372,12 @@
                                         *ngFor="let item1 of item.documentUrlDTOS;"><i class="fa fa-eye"
                                             aria-hidden="true" style="margin-left:5px"></i></span>
                                 </td>
-                                <td class="text-center" *ngIf="checkStatus == false">
-                                    <span (click)="deleteSubmittedDoc(item.id)"><i class="fa fa-trash"
-                                            aria-hidden="true"></i></span>
+                                <td class="text-center">
+                                    <span (click)="deleteSubmittedDoc(item.id)" *ngIf="checkStatus == false"><i
+                                            class="fa fa-trash" aria-hidden="true"></i></span>
+
+                                    <span *ngIf="checkStatus == true"><i class="fa fa-trash" aria-hidden="true"
+                                            id="delete"></i></span>
                                 </td>
                             </tr>
                         </ng-container>

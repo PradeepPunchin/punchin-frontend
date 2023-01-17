@@ -1,7 +1,9 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { STORAGETOKENENUM } from 'src/app/models/enums';
 import { NotifierService } from 'src/app/services/notifier/notifier.service';
+import { SessionService } from 'src/app/services/session/session.service';
 import { environment } from 'src/environments/environment';
 
 
@@ -18,6 +20,7 @@ export class FileUploadComponent implements OnInit {
   pageSize: number = 10;
   isShowLoader: boolean = false
   isShowFile: boolean = true
+  role: any;
 
 
   @Output() AwsFileList: EventEmitter<any> = new EventEmitter();
@@ -27,10 +30,13 @@ export class FileUploadComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     private notifierService: NotifierService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private sessionServive: SessionService
   ) { }
 
   ngOnInit(): void {
+    this.role = this.sessionServive.getSession(STORAGETOKENENUM.role)
+
 
   }
 

@@ -1,5 +1,6 @@
-<div class="container-fluid bulk-upload-box" appDnd (fileDropped)="onFileDropped($event, progressTemplate)">
-	<input type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event, progressTemplate, 'select')"
+<div class="container-fluid bulk-upload-box" appDnd (fileDropped)="onFileDropped($event, progressTemplate)"
+	*ngIf=" role =='BANKER'">
+	<input type=" file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event, progressTemplate, 'select')"
 		accept=".xlsx,.csv" class="d-none" />
 
 	<div class="d-flex align-items-center justify-content-between upload-box-head">
