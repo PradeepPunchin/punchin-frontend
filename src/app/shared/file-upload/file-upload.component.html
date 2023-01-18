@@ -1,19 +1,20 @@
-<div class="container-fluid bulk-upload-box" appDnd (fileDropped)="onFileDropped($event, progressTemplate)"
-	*ngIf=" role =='BANKER'">
-	<input type=" file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event, progressTemplate, 'select')"
-		accept=".xlsx,.csv" class="d-none" />
+<ng-container *ngIf="role =='BANKER'">
+	<div class="container-fluid bulk-upload-box" appDnd (fileDropped)="onFileDropped($event, progressTemplate)">
+		<input type="file" #fileDropRef id="fileDropRef"
+			(change)="fileBrowseHandler($event, progressTemplate, 'select')" accept=".xlsx,.csv" class="d-none" />
 
-	<div class="d-flex align-items-center justify-content-between upload-box-head">
-		<h6 class="bulk-txt">Bulk Upload</h6>
-	</div>
-	<a class="upload-box" (click)="fileDropRef.click()">
-		<div class="text-center">
-			<img src="../../../assets/icons/upload-icon.svg">
-			<h6>Click to upload <span>or drag and drop</span></h6>
-			<h6><span>XLSX, CSV</span></h6>
+		<div class="d-flex align-items-center justify-content-between upload-box-head">
+			<h6 class="bulk-txt">Bulk Upload</h6>
 		</div>
-	</a>
-</div>
+		<a class="upload-box" (click)="fileDropRef.click()">
+			<div class="text-center">
+				<img src="../../../assets/icons/upload-icon.svg">
+				<h6>Click to upload <span>or drag and drop</span></h6>
+				<h6><span>XLSX, CSV</span></h6>
+			</div>
+		</a>
+	</div>
+</ng-container>
 
 <ng-template #progressTemplate>
 	<div class="modal-body">
