@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ApiResponse } from 'src/app/models/common';
@@ -11,6 +11,8 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { DocumentVerificationRequestModalComponent } from 'src/app/shared/modals/document-verification-request-modal/document-verification-request-modal.component';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, Form } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -89,6 +91,8 @@ export class DashboardComponent implements OnInit {
   remarkType: any = 'AGENT'
   banker_Verifier_Remark_Read: any;
   agent_Verifier_Remark_Read: any;
+  closeResult: any;
+  @ViewChild("content", { static: true }) content: ElementRef | undefined;
 
 
 
@@ -103,7 +107,8 @@ export class DashboardComponent implements OnInit {
     private eventService: EventService,
     private utilitiesService: UtilityService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modal1Service: NgbModal
   ) {
     this.addtionalForm = this.formBuilder.group({
       selectMultiDoc: this.formBuilder.array([], [Validators.required]),
@@ -143,8 +148,6 @@ export class DashboardComponent implements OnInit {
       e.preventDefault();
     }
   }
-
-
 
   onGetUploadedFile(event: any) {
     if (this.bsModalRef) {
@@ -660,12 +663,23 @@ export class DashboardComponent implements OnInit {
   }
 
   //rejected MIS 
+
+  openDialogModal(content: any) {
+    this.modal1Service.open(content, {
+      size: 'md', backdrop: 'static',
+      keyboard: false
+    });
+  }
+
+
   submitBankerClaim() {
     this.apiService.submitClaims().subscribe((res: any) => {
       if (res?.isSuccess) {
         this.isSubmitted = false
         this.notifierService.showSuccess(res?.message)
         this.router.navigate(['/pages/claim-documentation']);
+        this.openDialogModal(this.content);
+
 
       }
     }, (error: any) => {
@@ -686,15 +700,6 @@ export class DashboardComponent implements OnInit {
       this.notifierService.showError(error?.error?.message || "Something went wrong");
     });
   }
-
-  // openModal(template: any) {
-  //   const initialState: ModalOptions = {
-  //     class: 'file-modal-custom-width',
-  //     backdrop: 'static',
-  //     keyboard: false
-  //   };
-  //   this.bsModalRef6 = this.modalService.show(template, initialState);
-  // }
 }
 
 

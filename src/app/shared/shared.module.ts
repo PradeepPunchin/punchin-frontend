@@ -29,7 +29,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     PdfViewerComponent,
     DocumentRejectModalComponent,
     DocumentViewerComponent,
-    RemoveunderscorePipe
+    RemoveunderscorePipe,
   ],
   imports: [
     CommonModule,

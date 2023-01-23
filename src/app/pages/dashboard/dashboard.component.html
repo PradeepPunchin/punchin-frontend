@@ -580,29 +580,6 @@
         </div>
     </ng-template>
 
-    <!-- <ng-template>
-        <div class="modal-header">
-            <h6 class="modal-title">checking</h6>
-
-            <button type="button" class="btn-close close pull-right" aria-label="Close"
-                (click)="this.bsModalRef6?.hide()">
-                <span aria-hidden="true" class="visually-hidden">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="container-fluid raise-additional-container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="new-requirements-table">
-                            <h1>Check rejected claims report</h1>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </ng-template> -->
-
     <ng-template #bankerDiscrepancy>
         <div class="modal-header">
             <button type="button" class="btn-close close pull-right" aria-label="Close"
@@ -686,19 +663,6 @@
                         </form>
                     </div>
                 </div>
-
-                <!-- <div class="row discrepancy-remark-container">
-                    <div class="col-8">
-                        <h6 class="discrepancy-remark-text">Discrepancy Remark</h6>
-                        <div class="discrepancy-remark">
-                            <p class="document-mismatch-text">Document mismatch please upload again <br> the
-                                following documents.
-                            </p>
-                            <p class="bank-account-cheque-leaf"> 1. Bank Account Cheque Leaf</p>
-                        </div>
-                    </div>
-                    <div class="col-4"></div>
-                </div> -->
             </div>
 
         </div>
@@ -950,15 +914,6 @@
         </div>
         <div class="pagination-box d-flex justify-content-end align-items-center"
             *ngIf="verifiercordListData.length > 0">
-            <!-- <div class="pages-per-rows d-flex align-items-center">
-                <p class="per-row-title">Page Per Rows</p>
-                <h6 class="per-row-text">
-                    <select (input)="pagePerData($event)">
-                        <option value="10">10</option>
-                        <option [value]="totalrecords">{{totalrecords}}</option>
-                    </select>
-                </h6>
-            </div> -->
             <div class="pagination-content">
                 <pagination [totalItems]="totalrecords" previousText="&lsaquo;" nextText="&rsaquo;"
                     (pageChanged)="changeVerifierPage($event)" [itemsPerPage]="pageSize" firstText="&laquo;"
@@ -966,14 +921,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <ng-container *ngIf="!verifiercordListData || (verifiercordListData && verifiercordListData.length === 0)">
-        <div class="error-wrapper">
-            <p>
-                No Data Found
-            </p>
-        </div>
-    </ng-container> -->
 </ng-container>
 
 <ng-template #remarkTemplate>
@@ -1124,3 +1071,16 @@
         <app-file-upload (AwsFileList)="onGetUploadedFile($event)"></app-file-upload>
     </div>
 </ng-template>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <p class="modal-title">Claims Report</p>
+    </div>
+    <div class="modal-body">
+        <p>Please Check Rejected Claims Report</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+<button class="btn btn-outline-primary dialogbuttom" (click)="openDialogModal(content)">Small modal</button>
