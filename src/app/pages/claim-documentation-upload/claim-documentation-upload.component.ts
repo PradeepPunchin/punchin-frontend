@@ -234,6 +234,7 @@ export class ClaimDocumentationUploadComponent implements OnInit {
 
   // file uplaod
   async fileBrowseHandler(event: any) {
+    this.myFiles = [];
     for (let i = 0; i < event.target.files.length; i++) {
       this.myFiles.push(event.target.files[i]);
     }
