@@ -167,58 +167,50 @@
                     <input type="text" class="form-control" id="case-claim-id" formControlName="caseId" readonly>
                 </div>
                 <div class="col-3">
-                    <label for="borrower-name" class="form-label">Borrower name <span class="requird"><i
-                                class="fa fa-pencil" aria-hidden="true"></i>
+                    <label for="borrower-name" class="form-label">Borrower name <span class="requird">
                         </span></label>
                     <input type="text" class="form-control" id="borrower-name" formControlName="brrower_name"
-                        (keydown)="spaceRemoveFirst($event)">
+                        (keydown)="spaceRemoveFirst($event)" readonly>
                 </div>
                 <div class="col-3">
-                    <label for="borrower-address" class="form-label">Borrower Address<span class="requird"><i
-                                class="fa fa-pencil" aria-hidden="true"></i>
+                    <label for="borrower-address" class="form-label">Borrower Address<span class="requird">
                         </span></label>
                     <input type="text" class="form-control" id="borrower-address" formControlName="borrower_address"
-                        (keydown)="spaceRemoveFirst($event)">
+                        (keydown)="spaceRemoveFirst($event)" readonly>
                 </div>
                 <div class="col-3">
-                    <label for="borrower-contact" class="form-label">Borrower Contact<span class="requird"><i
-                                class="fa fa-pencil" aria-hidden="true"></i>
+                    <label for="borrower-contact" class="form-label">Borrower Contact<span class="requird">
                         </span></label>
                     <input type="number" class="form-control" id="borrower-contact" formControlName="borrower_contact"
-                        (keydown)="spaceRemoveFirst($event)">
+                        (keydown)="spaceRemoveFirst($event)" readonly>
                 </div>
                 <div class="col-3">
-                    <label for="borrower_pin_code" class="form-label">Borrower Pin Code<span class="requird"><i
-                                class="fa fa-pencil" aria-hidden="true"></i>
+                    <label for="borrower_pin_code" class="form-label">Borrower Pin Code<span class="requird">
                         </span></label>
                     <input type="number" class="form-control" id="borrower_pin_code" formControlName="borrower_pin_code"
-                        (keydown)="spaceRemoveFirst($event)">
+                        (keydown)="spaceRemoveFirst($event)" readonly>
                 </div>
                 <div class="col-3">
-                    <label for="nominee-name" class="form-label">Nominee Name<span class="requird"><i
-                                class="fa fa-pencil" aria-hidden="true"></i>
+                    <label for="nominee-name" class="form-label">Nominee Name<span class="requird">
                         </span></label>
                     <input type="text" class="form-control" id="nominee-name" formControlName="nominee_name"
-                        (keydown)="spaceRemoveFirst($event)">
+                        (keydown)="spaceRemoveFirst($event)" readonly>
                 </div>
                 <div class="col-3">
-                    <label for="nominee-address" class="form-label">Nominee Address<span class="requird"><i
-                                class="fa fa-pencil" aria-hidden="true"></i>
+                    <label for="nominee-address" class="form-label">Nominee Address<span class="requird">
                         </span></label>
                     <input type="text" class="form-control" id="nominee-address" formControlName="nominee_address"
-                        (keydown)="spaceRemoveFirst($event)">
+                        (keydown)="spaceRemoveFirst($event)" readonly>
                 </div>
                 <div class="col-3">
-                    <label for="nominee-contact" class="form-label">Nominee Contact<span class="requird"><i
-                                class="fa fa-pencil" aria-hidden="true"></i>
+                    <label for="nominee-contact" class="form-label">Nominee Contact<span class="requird">
                         </span></label>
                     <input type="number" class="form-control" id="nominee-contact" formControlName="nominee_contact"
-                        (keydown)="spaceRemoveFirst($event)">
+                        (keydown)="spaceRemoveFirst($event)" readonly>
                 </div>
 
-                <div class=" d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" (click)="cliamDataUpated()"
-                        [disabled]="!showClaimForm.valid">
+                <!-- <div class=" d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" [disabled]="!showClaimForm.valid">
                         <ng-container *ngIf="isCliamUpdated;else isCliamUpdatedDone">
                             <i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Updating...
                         </ng-container>
@@ -229,7 +221,7 @@
 
 
 
-                </div>
+                </div> -->
             </div>
         </div>
 
