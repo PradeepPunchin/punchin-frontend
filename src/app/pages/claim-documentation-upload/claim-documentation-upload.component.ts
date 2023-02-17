@@ -108,7 +108,6 @@ export class ClaimDocumentationUploadComponent implements OnInit {
       outstanding_loan_amt: this.ClaimListById.outstandingLoanAmount,
       balance_claim_amt: this.ClaimListById.balanceClaimAmount,
     })
-
   }
 
   cliamDataUpated() {
